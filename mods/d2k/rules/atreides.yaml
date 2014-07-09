@@ -1,143 +1,7 @@
-CONYARDA:
-	Inherits: ^CONYARD
-
-PWRA:
-	Inherits: ^POWER
+combata:
+	Inherits: ^combat
 	Buildable:
-		Prerequisites: ~conyarda
-
-WALLA:
-	Inherits: ^WALL
-	Buildable:
-		Prerequisites: ~conyarda, barracks
-
-GUNTOWERA:
-	Inherits: ^GUNTOWER
-	Buildable:
-		Prerequisites: ~conyarda, barracks
-
-ROCKETTOWERA:
-	Inherits: ^ROCKETTOWER
-	Buildable:
-		Prerequisites: ~conyarda, radar
-
-REFA:
-	Inherits: ^REFINERY
-	Buildable:
-		Prerequisites: ~conyarda, power
-
-BARRA:
-	Inherits: ^BARRACKS
-	Buildable:
-		Prerequisites: ~conyarda, power
-	ProvidesCustomPrerequisite@MEDICS:
-		Prerequisite: medics
-	ProvidesCustomPrerequisite@BARRACKS:
-		Prerequisite: barracks
-
-REPAIRA:
-	Inherits: ^REPAIR
-	Buildable:
-		Prerequisites: ~conyarda, heavy
-
-RESEARCHA:
-	Inherits: ^RESEARCH
-	Buildable:
-		Prerequisites: ~conyarda, hightech
-
-HIGHTECHA:
-	Inherits: ^HIGHTECH
-	Buildable:
-		Prerequisites: ~conyarda, radar
-
-PALACEA:
-	Inherits: ^PALACE
-	Buildable:
-		Prerequisites: ~conyarda, research
-	AirstrikePower:
-		Icon: ornistrike
-		Prerequisites: ~techlevel.superweapons
-		Description: Air Strike
-		SquadSize: 3
-		ChargeTime: 180
-		LongDesc: Ornithopter drops a load of parachuted\nbombs on your target
-		UnitType: orni.bomber
-		SelectTargetSound:
-		DisplayBeacon: True
-		CameraActor: camera
-	CanPowerDown:
-	DisabledOverlay:
-	RequiresPower:
-	SupportPowerChargeBar:
-
-SILOA:
-	Inherits: ^SILO
-	Buildable:
-		Prerequisites: ~conyarda, refinery
-
-LIGHTA:
-	Inherits: ^LIGHT
-	Buildable:
-		Prerequisites: ~conyarda, refinery
-	ProvidesCustomPrerequisite@TRIKES:
-		Prerequisite: trikes
-	ProvidesCustomPrerequisite@LIGHT:
-		Prerequisite: light
-
-HEAVYA:
-	Inherits: ^HEAVY
-	Buildable:
-		Prerequisites: ~conyarda, refinery
-
-RADARA:
-	Inherits: ^RADAR
-	Buildable:
-		Prerequisites: ~conyarda, barracks
-
-STARPORTA:
-	Inherits: ^STARPORT
-	Buildable:
-		Prerequisites: ~conyarda, radar
-
-MCVA:
-	Inherits: ^MCV
-	Buildable:
-		Prerequisites: ~heavya, repair
-	Transforms:
-		Facing: 16
-		IntoActor: conyarda
-		Offset: -1,-1
-		NoTransformSounds: AI_DPLOY.AUD
-	RenderUnit:
-		Image: DMCV
-
-MCVA.starport:
-	Inherits: MCVA
-	Buildable:
-		Prerequisites: ~starporta, repair
-		Queue: Starport
-	Valued:
-		Cost: 2500
-
-CARRYALLA:
-	Inherits: ^CARRYALL
-	RenderUnit:
-		Image: CARRYALL
-	Buildable:
-		Prerequisites: refinery, ~hightecha
-
-CARRYALLA.starport:
-	Inherits: CARRYALLA
-	Valued:
-		Cost: 1500
-	Buildable:
-		Prerequisites: ~starporta
-		Queue: Starport
-
-COMBATA:
-	Inherits: ^COMBAT
-	Buildable:
-		Prerequisites: ~heavya
+		Prerequisites: ~heavy.atreides
 	RevealsShroud:
 		Range: 8c0
 	Turreted:
@@ -148,33 +12,31 @@ COMBATA:
 		RecoilRecovery: 32
 		LocalOffset: 256,0,0
 	AttackTurreted:
-	RenderUnit:
-		Image: COMBATA
 	WithTurret:
 	LeavesHusk:
-		HuskActor: Combata.Husk
+		HuskActor: combata.husk
 
-COMBATA.Husk:
-	Inherits: ^COMBAT.Husk
-	RenderUnit:
-		Image: combata.destroyed
+combata.husk:
+	Inherits: ^combat.husk
 	TransformOnCapture:
 		IntoActor: combata
 
-COMBATA.starport:
-	Inherits: COMBATA
+combata.starport:
+	Inherits: combata
 	Buildable:
-		Prerequisites: ~starporta
+		Prerequisites: ~starport.atreides
 		Queue: Starport
 	Valued:
 		Cost: 875
+	RenderUnit:
+		Image: combata
 
-SONICTANK:
+sonictank:
 	Inherits: ^Vehicle
 	Buildable:
 		Queue: Armor
 		BuildPaletteOrder: 100
-		Prerequisites: ~heavya, research, ~techlevel.high
+		Prerequisites: ~heavy.atreides, research, ~techlevel.high
 	Valued:
 		Cost: 1250
 	Tooltip:
@@ -191,8 +53,6 @@ SONICTANK:
 		Speed: 74
 	RevealsShroud:
 		Range: 6c0
-	RenderUnit:
-		Image: SONICTANK
 	Armament:
 		Weapon: Sound
 		LocalOffset: 640,0,427
@@ -202,18 +62,16 @@ SONICTANK:
 		Weapon: UnitExplodeSmall
 		EmptyWeapon: UnitExplodeSmall
 	LeavesHusk:
-		HuskActor: Sonictank.Husk
+		HuskActor: sonictank.husk
 	AttractsWorms:
 		Intensity: 600
 
-SONICTANK.Husk:
+sonictank.husk:
 	Inherits: ^Husk
-	RenderUnit:
-		Image: sonictank.destroyed
 	TransformOnCapture:
 		IntoActor: sonictank
 
-FREMEN:
+fremen:
 	Inherits: ^Infantry
 	Valued:
 		Cost: 800
@@ -223,7 +81,7 @@ FREMEN:
 	Buildable:
 		Queue: Infantry
 		BuildPaletteOrder: 85
-		Prerequisites: ~barra, palace, ~techlevel.high
+		Prerequisites: ~barr.atreides, palace, ~techlevel.high
 	Selectable:
 		Bounds: 12,17,0,0
 		Voice: FremenVoice
@@ -249,12 +107,12 @@ FREMEN:
 		UncloakSound: STEALTH2.WAV
 	-MustBeDestroyed:
 
-GRENADIER:
+grenadier:
 	Inherits: ^Infantry
 	Buildable:
 		Queue: Infantry
 		BuildPaletteOrder: 10
-		Prerequisites: ~barra, ~techlevel.medium
+		Prerequisites: ~barr.atreides, ~techlevel.medium
 	Valued:
 		Cost: 160
 	Tooltip:
@@ -280,3 +138,13 @@ GRENADIER:
 	AttractsWorms:
 		Intensity: 180
 
+conyard.atreides:
+	Inherits: conyard
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 1000
+		Prerequisites: ~disabled
+		ForceRace: atreides
+	RenderBuilding:
+		Image: conyard.atreides
+		-RaceImages:

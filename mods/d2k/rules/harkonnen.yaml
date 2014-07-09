@@ -1,146 +1,7 @@
-CONYARDH:
-	Inherits: ^CONYARD
-
-PWRH:
-	Inherits: ^POWER
+combath:
+	Inherits: ^combat
 	Buildable:
-		Prerequisites: ~conyardh
-
-WALLH:
-	Inherits: ^WALL
-	Buildable:
-		Prerequisites: ~conyardh, barracks
-
-GUNTOWERH:
-	Inherits: ^GUNTOWER
-	Buildable:
-		Prerequisites: ~conyardh, barracks
-
-ROCKETTOWERH:
-	Inherits: ^ROCKETTOWER
-	Buildable:
-		Prerequisites: ~conyardh, radar
-
-REFH:
-	Inherits: ^REFINERY
-	Buildable:
-		Prerequisites: ~conyardh, power
-
-BARRH:
-	Inherits: ^BARRACKS
-	Buildable:
-		Prerequisites: ~conyardh, power
-
-REPAIRH:
-	Inherits: ^REPAIR
-	Buildable:
-		Prerequisites: ~conyardh, heavy
-
-RESEARCHH:
-	Inherits: ^RESEARCH
-	Buildable:
-		Prerequisites: ~conyardh, hightech
-
-SILOH:
-	Inherits: ^SILO
-	Buildable:
-		Prerequisites: ~conyardh, refinery
-
-LIGHTH:
-	Inherits: ^LIGHT
-	Buildable:
-		Prerequisites: ~conyardh, refinery
-	ProvidesCustomPrerequisite@TRIKES:
-		Prerequisite: trikes
-	ProvidesCustomPrerequisite@LIGHT:
-		Prerequisite: light
-
-HEAVYH:
-	Inherits: ^HEAVY
-	Buildable:
-		Prerequisites: ~conyardh, refinery
-
-RADARH:
-	Inherits: ^RADAR
-	Buildable:
-		Prerequisites: ~conyardh, barracks
-
-STARPORTH:
-	Inherits: ^STARPORT
-	Buildable:
-		Prerequisites: ~conyardh, radar
-
-HIGHTECHH:
-	Inherits: ^HIGHTECH
-	Buildable:
-		Prerequisites: ~conyardh, radar
-
-PALACEH:
-	Inherits: ^PALACE
-	Buildable:
-		Prerequisites: ~conyardh, research
-	Tooltip:
-		Description: Provides elite infantry\n  Special Ability: Death Hand Missile
-	NukePower:
-		Icon: deathhand
-		ChargeTime: 300
-		Description: Death Hand
-		Prerequisites: ~techlevel.superweapons
-		LongDesc: Launches a nuclear missile at a target location
-		BeginChargeSound: HI_PREP.AUD
-		EndChargeSound: HI_DHRDY.AUD
-		SelectTargetSound:
-		LaunchSound:
-		IncomingSound:
-		MissileWeapon: atomic
-		SpawnOffset: -512,1c171,0
-		DisplayBeacon: True
-		DisplayRadarPing: True
-		CameraActor: camera
-	CanPowerDown:
-	DisabledOverlay:
-	RequiresPower:
-	SupportPowerChargeBar:
-
-MCVH:
-	Inherits: ^MCV
-	Buildable:
-		Prerequisites: ~heavyh, repair
-	Transforms:
-		Facing: 16
-		IntoActor: conyardh
-		Offset: -1,-1
-		NoTransformSounds: HI_DPLOY.AUD
-	RenderUnit:
-		Image: DMCV
-
-MCVH.starport:
-	Inherits: MCVH
-	Buildable:
-		Prerequisites: ~starporth, repair
-		Queue: Starport
-	Valued:
-		Cost: 2500
-
-CARRYALLH:
-	Inherits: ^CARRYALL
-	RenderUnit:
-		Image: CARRYALL
-	Buildable:
-		Prerequisites: refinery, ~hightechh
-
-CARRYALLH.starport:
-	Inherits: CARRYALLH
-	Valued:
-		Cost: 1500
-	Buildable:
-		Prerequisites: ~starporth
-		Queue: Starport
-
-COMBATH:
-	Inherits: ^COMBAT
-	Buildable:
-		Prerequisites: ~heavyh
+		Prerequisites: ~heavy.harkonnen
 	Mobile:
 		Speed: 53
 		ROT: 4
@@ -148,33 +9,31 @@ COMBATH:
 		ROT: 5
 	Health:
 		HP: 440
-	RenderUnit:
-		Image: COMBATH
 	WithTurret:
 	LeavesHusk:
-		HuskActor: Combath.Husk
+		HuskActor: combath.husk
 
-COMBATH.Husk:
-	Inherits: ^COMBAT.Husk
-	RenderUnit:
-		Image: combath.destroyed
+combath.husk:
+	Inherits: ^combat.husk
 	TransformOnCapture:
 		IntoActor: combath
 
-COMBATH.starport:
-	Inherits: COMBATH
+combath.starport:
+	Inherits: combath
 	Buildable:
-		Prerequisites: ~starporth
+		Prerequisites: ~starport.harkonnen
 		Queue: Starport
 	Valued:
 		Cost: 875
+	RenderUnit:
+		Image: combath
 
-DEVAST:
+devast:
 	Inherits: ^Tank
 	Buildable:
 		Queue: Armor
 		BuildPaletteOrder: 100
-		Prerequisites: ~heavyh, research, ~techlevel.high
+		Prerequisites: ~heavy.harkonnen, research, ~techlevel.high
 	Valued:
 		Cost: 1200
 	Tooltip:
@@ -204,25 +63,23 @@ DEVAST:
 	Selectable:
 		Bounds: 44,38,0,0
 	LeavesHusk:
-		HuskActor: Devast.Husk
+		HuskActor: devast.husk
 	AttractsWorms:
 		Intensity: 700
 
-DEVAST.Husk:
+devast.husk:
 	Inherits: ^Husk
 	Health:
 		HP: 125
-	RenderUnit:
-		Image: devast.destroyed
 	TransformOnCapture:
 		IntoActor: devast
 
-SARDAUKAR:
+sardaukar:
 	Inherits: ^Infantry
 	Buildable:
 		Queue: Infantry
 		BuildPaletteOrder: 80
-		Prerequisites: ~barrh, palace, ~techlevel.high
+		Prerequisites: ~barr.harkonnen, palace, ~techlevel.high
 	Valued:
 		Cost: 400
 	Tooltip:
@@ -246,3 +103,13 @@ SARDAUKAR:
 	AttractsWorms:
 		Intensity: 180
 
+conyard.harkonnen:
+	Inherits: conyard
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 1000
+		Prerequisites: ~disabled
+		ForceRace: harkonnen
+	RenderBuilding:
+		Image: conyard.harkonnen
+		-RaceImages:

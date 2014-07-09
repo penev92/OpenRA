@@ -1,9 +1,8 @@
-RIFLE:
+rifle:
 	Inherits: ^Infantry
 	Buildable:
 		Queue: Infantry
 		BuildPaletteOrder: 10
-		Prerequisites: ~barracks
 	Valued:
 		Cost: 100
 	Tooltip:
@@ -22,12 +21,12 @@ RIFLE:
 	AttractsWorms:
 		Intensity: 120
 
-ENGINEER:
+engineer:
 	Inherits: ^Infantry
 	Buildable:
 		Queue: Infantry
 		BuildPaletteOrder: 50
-		Prerequisites: ~barracks, radar, ~techlevel.medium
+		Prerequisites: radar, ~techlevel.medium
 	Valued:
 		Cost: 500
 	Tooltip:
@@ -51,12 +50,12 @@ ENGINEER:
 	AttractsWorms:
 		Intensity: 180
 
-BAZOOKA:
+bazooka:
 	Inherits: ^Infantry
 	Buildable:
 		Queue: Infantry
 		BuildPaletteOrder: 20
-		Prerequisites: ~barracks, radar, ~techlevel.medium
+		Prerequisites: radar, ~techlevel.medium
 	Valued:
 		Cost: 250
 	Tooltip:
@@ -76,12 +75,12 @@ BAZOOKA:
 	AttractsWorms:
 		Intensity: 180
 
-MEDIC:
+medic:
 	Inherits: ^Infantry
 	Buildable:
 		Queue: Infantry
 		BuildPaletteOrder: 60
-		Prerequisites: ~medics, ~techlevel.high
+		Prerequisites: ~barr.medics, ~techlevel.high
 	Valued:
 		Cost: 500
 	Tooltip:
@@ -107,4 +106,3 @@ MEDIC:
 	-AutoTarget:
 	AttractsWorms:
 		Intensity: 180
-

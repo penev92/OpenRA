@@ -1,4 +1,4 @@
-^MCV:
+mcv:
 	Inherits: ^Vehicle
 	Buildable:
 		Prerequisites: ~heavy, repair, ~techlevel.medium
@@ -28,22 +28,34 @@
 		Weapon: UnitExplodeScale
 		EmptyWeapon: UnitExplodeScale
 	Transforms:
+		Facing: 16
+		IntoActor: conyard
+		Offset: -1,-1
 		TransformSounds: BUILD1.WAV
+		NoTransformSounds: AI_DPLOY.AUD
 	LeavesHusk:
-		HuskActor: MCV.Husk
+		HuskActor: mcv.husk
 	AttractsWorms:
 		Intensity: 700
 
-MCV.Husk:
+mcv.husk:
 	Inherits: ^Husk
 	Health:
 		HP: 175
 	Tooltip:
 		Name: Destroyed Mobile Construction Vehicle
-	RenderUnit:
-		Image: dmcv.destroyed
 
-HARVESTER:
+mcv.starport:
+	Inherits: mcv
+	Buildable:
+		Prerequisites: ~starport, repair
+		Queue: Starport
+	Valued:
+		Cost: 2500
+	RenderUnit:
+		Image: mcv
+
+harvester:
 	Inherits: ^Vehicle
 	Buildable:
 		Queue: Armor
@@ -74,8 +86,6 @@ HARVESTER:
 	Mobile:
 		Speed: 64
 		Crushes: crate, infantry
-	RenderUnit:
-		Image: HARVESTER
 	RevealsShroud:
 		Range: 4c0
 	Explodes:
@@ -87,31 +97,31 @@ HARVESTER:
 	AttractsWorms:
 		Intensity: 700
 
-HARVESTER.Husk:
+harvester.husk:
 	Inherits: ^Husk
 	Health:
 		HP: 150
 	Tooltip:
 		Name: Destroyed Spice Harvester
-	RenderUnit:
-		Image: harvester.destroyed
 	TransformOnCapture:
 		IntoActor: harvester
 
-HARVESTER.starport:
-	Inherits: HARVESTER
+harvester.starport:
+	Inherits: harvester
 	Buildable:
 		Prerequisites: ~starport
 		Queue: Starport
 	Valued:
 		Cost: 1500
+	RenderUnit:
+		Image: harvester
 
-TRIKE:
+trike:
 	Inherits: ^Vehicle
 	Buildable:
 		Queue: Vehicle
 		BuildPaletteOrder: 10
-		Prerequisites: ~trikes
+		Prerequisites: ~light.regulartrikes
 	Valued:
 		Cost: 250
 	Tooltip:
@@ -142,17 +152,17 @@ TRIKE:
 	AttractsWorms:
 		Intensity: 420
 
-TRIKE.starport:
-	Inherits: TRIKE
+trike.starport:
+	Inherits: trike
 	Buildable:
 		Queue: Starport
 		Prerequisites: starport
 	Valued:
 		Cost: 315
 	RenderUnit:
-		Image: TRIKE
+		Image: trike
 
-QUAD:
+quad:
 	Inherits: ^Vehicle
 	Buildable:
 		Queue: Vehicle
@@ -185,17 +195,17 @@ QUAD:
 	AttractsWorms:
 		Intensity: 470
 
-QUAD.starport:
-	Inherits: QUAD
+quad.starport:
+	Inherits: quad
 	Buildable:
 		Prerequisites: starport
 		Queue: Starport
 	Valued:
 		Cost: 500
 	RenderUnit:
-		Image: QUAD
+		Image: quad
 
-^COMBAT:
+^combat:
 	Inherits: ^Tank
 	Buildable:
 		Queue: Armor
@@ -237,14 +247,14 @@ QUAD.starport:
 	AttractsWorms:
 		Intensity: 520
 
-^COMBAT.Husk:
+^combat.husk:
 	Inherits: ^Husk
 	Health:
 		HP: 100
 	ThrowsParticle@turret:
 		Anim: turret
 
-SIEGETANK:
+siegetank:
 	Inherits: ^Tank
 	Buildable:
 		Queue: Armor
@@ -287,29 +297,29 @@ SIEGETANK:
 	Selectable:
 		Bounds: 30,30
 	LeavesHusk:
-		HuskActor: Siegetank.Husk
+		HuskActor: siegetank.husk
 	AttractsWorms:
 		Intensity: 600
 
-SIEGETANK.Husk:
+siegetank.husk:
 	Inherits: ^Husk
 	Tooltip:
 	ThrowsParticle@turret:
 		Anim: turret
-	RenderUnit:
-		Image: siegetank.destroyed
 	TransformOnCapture:
 		IntoActor: siegetank
 
-SIEGETANK.starport:
-	Inherits: SIEGETANK
+siegetank.starport:
+	Inherits: siegetank
 	Buildable:
 		Prerequisites: starport
 		Queue: Starport
 	Valued:
 		Cost: 1075
+	RenderUnit:
+		Image: siegetank
 
-MISSILETANK:
+missiletank:
 	Inherits: ^Tank
 	Valued:
 		Cost: 1000
@@ -329,8 +339,6 @@ MISSILETANK:
 		Type: Light
 	RevealsShroud:
 		Range: 9c0
-	RenderUnit:
-		Image: MISSILETANK
 	Armament:
 		Weapon: 227mm
 		LocalOffset: -213,128,171, -213,-256,171
@@ -344,22 +352,22 @@ MISSILETANK:
 	Selectable:
 		Bounds: 30,30
 	LeavesHusk:
-		HuskActor: Missiletank.Husk
+		HuskActor: missiletank.husk
 	AttractsWorms:
 		Intensity: 600
 
-MISSILETANK.Husk:
+missiletank.husk:
 	Inherits: ^Husk
 	RenderUnit:
-		Image: missiletank.destroyed
 	TransformOnCapture:
 		IntoActor: missiletank
 
-MISSILETANK.starport:
-	Inherits: MISSILETANK
+missiletank.starport:
+	Inherits: missiletank
 	Buildable:
 		Prerequisites: starport
 		Queue: Starport
 	Valued:
 		Cost: 1250
-
+	RenderUnit:
+		Image: missiletank

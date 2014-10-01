@@ -1,0 +1,84 @@
+Minigun:
+	ReloadDelay: 21
+	Range: 4c0
+	Report: INFGUN3.AUD
+	Projectile: Bullet
+		Speed: 1c682
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 12
+		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+		Versus:
+			Wood: 60
+			Light: 40
+			Heavy: 25
+			Concrete: 10
+	Warhead@2Eff: CreateEffect
+		Explosion: piffs
+		InvalidImpactTypes: Water
+	Warhead@3EffWater: CreateEffect
+		Explosion: water_piffs
+		ValidImpactTypes: Water
+
+MachineGun:
+	ReloadDelay: 40
+	Range: 5c0
+	Report: CYGUN1.AUD
+	Projectile: Bullet
+		Speed: 1c682
+	ValidTargets: Ground, Air
+	Warhead@1Dam: SpreadDamage
+		Spread: 64
+		Damage: 20
+		DamageTypes: Prone50Percent, TriggerProne, BulletDeath
+		ValidTargets: Ground, Air
+		Versus:
+			None: 200
+			Wood: 60
+			Light: 40
+			Heavy: 25
+			Steel: 20
+			Concrete: 10
+			Reactive: 50
+			Reflective: 200
+	Warhead@2Eff: CreateEffect
+		Explosion: piffs
+		InvalidImpactTypes: Water
+	Warhead@3EffWater: CreateEffect
+		Explosion: water_piffs
+		ValidImpactTypes: Water
+
+AC10:
+	ReloadDelay: 80
+	Range: 10c0
+	Report: 120MMF.AUD
+	Projectile: Bullet
+		Speed: 256
+		Image: 120mm
+		Angle: 10
+		Shadow: true
+		Blockable: true
+		Inaccuracy: 128
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 200
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+		Versus:
+			None: 25
+			Wood: 100
+			Steel: 100
+			Concrete: 100
+			Reactive: 50
+			Reflective: 200
+	Warhead@2EffGround: CreateEffect
+		Explosion: small_clsn
+		ImpactSound: expnew14.aud
+		InvalidImpactTypes: Water
+	Warhead@2EffHit: CreateEffect
+		Explosion: small_bang
+		ImpactSound: expnew17.aud
+		InvalidImpactTypes: Water
+	Warhead@3EffWater: CreateEffect
+		Explosion: small_watersplash
+		ImpactSound: ssplash3.aud
+		ValidImpactTypes: Water

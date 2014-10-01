@@ -1,0 +1,37 @@
+MediumERLaser:
+	ReloadDelay: 60
+	Range: 7c0
+	Report: LASTUR1.AUD
+	Projectile: LaserZap
+		BeamWidth: 2
+		BeamDuration: 10
+		Color: 00FF00
+	Warhead@1Dam: SpreadDamage
+		Spread: 42
+		Damage: 75
+		DamageTypes: Prone50Percent, TriggerProne, EnergyDeath
+		Versus:
+			None: 100
+			Wood: 100
+			Concrete: 10
+			Reflective: 50
+			Reactive: 200
+
+LargeERLaser:
+	ReloadDelay: 90
+	Range: 12c0
+	Report: LASTUR1.AUD
+	Projectile: LaserZap
+		BeamWidth: 3
+		BeamDuration: 15
+		Color: FF2020
+	Warhead@1Dam: SpreadDamage
+		Spread: 42
+		Damage: 250
+		DamageTypes: Prone50Percent, TriggerProne, EnergyDeath
+		Versus:
+			None: 100
+			Wood: 100
+			Concrete: 10
+			Reflective: 50
+			Reactive: 200

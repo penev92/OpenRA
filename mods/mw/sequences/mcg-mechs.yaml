@@ -1,0 +1,366 @@
+madcat:
+	stand: madvult-legs1
+		Start: 0
+		Facings: 16
+	run: mclegs-s
+		Start: 0
+		Length: *
+		Offset: 50,45
+	torso: madcat-torso2
+		Start: 0
+		Facings: 32
+	arm: madcat-larm2
+		Start: 0
+		Facings: 32
+	muzzle: gunfire
+		Start: 0
+		Length: *
+	icon: xxicon
+		Start: 0
+
+vulture:
+	idle:
+		Combine:
+			madvultlegs0026:
+			madvultlegs0025:
+				FlipX: true
+			madvultlegs0024:
+				FlipX: true
+			madvultlegs0023:
+				FlipX: true
+			madvultlegs0022:
+				FlipX: true
+			madvultlegs0021:
+				FlipX: true
+			madvultlegs0020:
+				FlipX: true
+			madvultlegs0019:
+				FlipX: true
+			madvultlegs0018:
+			madvultlegs0019:
+			madvultlegs0020:
+			madvultlegs0021:
+			madvultlegs0022:
+			madvultlegs0023:
+			madvultlegs0024:
+			madvultlegs0025:
+		Facings: 16
+	walk:
+		Combine:
+			madvultlegs0044:
+				Length: 27
+			madvultlegs0043:
+				FlipX: true
+				Length: 27
+			madvultlegs0042:
+				FlipX: true
+				Length: 27
+			madvultlegs0041:
+				FlipX: true
+				Length: 27
+			madvultlegs0040:
+				FlipX: true
+				Length: 27
+			madvultlegs0039:
+				FlipX: true
+				Length: 27
+			madvultlegs0038:
+				FlipX: true
+				Length: 27
+			madvultlegs0037:
+				FlipX: true
+				Length: 27
+			madvultlegs0036:
+				Length: 27
+			madvultlegs0037:
+				Length: 27
+			madvultlegs0038:
+				Length: 27
+			madvultlegs0039:
+				Length: 27
+			madvultlegs0040:
+				Length: 27
+			madvultlegs0041:
+				Length: 27
+			madvultlegs0042:
+				Length: 27
+			madvultlegs0043:
+				Length: 27
+		Facings: 16
+		Length: 27
+	torso:
+		Combine:
+			vulttur0050:
+			vulttur0049:
+				FlipX: true
+			vulttur0048:
+				FlipX: true
+			vulttur0047:
+				FlipX: true
+			vulttur0046:
+				FlipX: true
+			vulttur0045:
+				FlipX: true
+			vulttur0044:
+				FlipX: true
+			vulttur0043:
+				FlipX: true
+			vulttur0042:
+				FlipX: true
+			vulttur0041:
+				FlipX: true
+			vulttur0040:
+				FlipX: true
+			vulttur0039:
+				FlipX: true
+			vulttur0038:
+				FlipX: true
+			vulttur0037:
+				FlipX: true
+			vulttur0036:
+				FlipX: true
+			vulttur0035:
+				FlipX: true
+			vulttur0034:
+			vulttur0035:
+			vulttur0036:
+			vulttur0037:
+			vulttur0038:
+			vulttur0039:
+			vulttur0040:
+			vulttur0041:
+			vulttur0042:
+			vulttur0043:
+			vulttur0044:
+			vulttur0045:
+			vulttur0046:
+			vulttur0047:
+			vulttur0048:
+			vulttur0049:
+		Facings: 32
+	torso-moving:
+		Combine:
+			vulttur0067:
+#				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
+				Length: 9
+			vulttur0066:
+				FlipX: true
+				Length: 9
+#				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
+			vulttur0065:
+				FlipX: true
+				Length: 9
+#				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
+			vulttur0064:
+				FlipX: true
+				Length: 9
+#				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
+			vulttur0063:
+				FlipX: true
+				Length: 9
+#				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
+			vulttur0062:
+				FlipX: true
+				Length: 9
+#				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
+			vulttur0061:
+				FlipX: true
+				Length: 9
+#				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
+			vulttur0060:
+				FlipX: true
+				Length: 9
+#				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
+			vulttur0059:
+				FlipX: true
+				Length: 9
+#				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
+			vulttur0058:
+				FlipX: true
+				Length: 9
+#				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
+			vulttur0057:
+				FlipX: true
+				Length: 9
+#				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
+			vulttur0056:
+				FlipX: true
+				Length: 9
+#				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
+			vulttur0055:
+				FlipX: true
+				Length: 9
+#				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
+			vulttur0054:
+				FlipX: true
+				Length: 9
+#				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
+			vulttur0053:
+				FlipX: true
+				Length: 9
+#				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
+			vulttur0052:
+				FlipX: true
+				Length: 9
+#				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
+			vulttur0051:
+				Length: 9
+#				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
+			vulttur0052:
+				Length: 9
+#				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
+			vulttur0053:
+				Length: 9
+#				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
+			vulttur0054:
+				Length: 9
+#				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
+			vulttur0055:
+				Length: 9
+#				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
+			vulttur0056:
+				Length: 9
+#				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
+			vulttur0057:
+				Length: 9
+#				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
+			vulttur0058:
+				Length: 9
+#				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
+			vulttur0059:
+				Length: 9
+#				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
+			vulttur0060:
+				Length: 9
+#				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
+			vulttur0061:
+				Length: 9
+#				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
+			vulttur0062:
+				Length: 9
+#				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
+			vulttur0063:
+				Length: 9
+#				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
+			vulttur0064:
+				Length: 9
+#				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
+			vulttur0065:
+				Length: 9
+#				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
+			vulttur0066:
+				Length: 9
+#				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
+		Facings: 32
+		Length: 4
+		Reverses: true
+	larm:
+		Combine:
+			vultlarm50:
+			vultlarm49:
+				FlipX: true
+			vultlarm48:
+				FlipX: true
+			vultlarm47:
+				FlipX: true
+			vultlarm46:
+				FlipX: true
+			vultlarm45:
+				FlipX: true
+			vultlarm44:
+				FlipX: true
+			vultlarm43:
+				FlipX: true
+			vultlarm42:
+				FlipX: true
+			vultlarm41:
+				FlipX: true
+			vultlarm40:
+				FlipX: true
+			vultlarm39:
+				FlipX: true
+			vultlarm38:
+				FlipX: true
+			vultlarm37:
+				FlipX: true
+			vultlarm36:
+				FlipX: true
+			vultlarm35:
+				FlipX: true
+			vultlarm34:
+			vultlarm35:
+			vultlarm36:
+			vultlarm37:
+			vultlarm38:
+			vultlarm39:
+			vultlarm40:
+			vultlarm41:
+			vultlarm42:
+			vultlarm43:
+			vultlarm44:
+			vultlarm45:
+			vultlarm46:
+			vultlarm47:
+			vultlarm48:
+			vultlarm49:
+		Facings: 32
+	rarm:
+		Combine:
+			vultrarm50:
+			vultrarm49:
+				FlipX: true
+			vultrarm48:
+				FlipX: true
+			vultrarm47:
+				FlipX: true
+			vultrarm46:
+				FlipX: true
+			vultrarm45:
+				FlipX: true
+			vultrarm44:
+				FlipX: true
+			vultrarm43:
+				FlipX: true
+			vultrarm42:
+				FlipX: true
+			vultrarm41:
+				FlipX: true
+			vultrarm40:
+				FlipX: true
+			vultrarm39:
+				FlipX: true
+			vultrarm38:
+				FlipX: true
+			vultrarm37:
+				FlipX: true
+			vultrarm36:
+				FlipX: true
+			vultrarm35:
+				FlipX: true
+			vultrarm34:
+			vultrarm35:
+			vultrarm36:
+			vultrarm37:
+			vultrarm38:
+			vultrarm39:
+			vultrarm40:
+			vultrarm41:
+			vultrarm42:
+			vultrarm43:
+			vultrarm44:
+			vultrarm45:
+			vultrarm46:
+			vultrarm47:
+			vultrarm48:
+			vultrarm49:
+		Facings: 32
+#	run: mclegs-s
+#		Length: *
+#		Offset: 50,45
+#	torso: madcat-torso2
+#		Facings: 32
+#	larm: vultlarm00
+#		Facings: 32
+#	muzzle: gunfire
+#		Length: *
+	icon: xxicon

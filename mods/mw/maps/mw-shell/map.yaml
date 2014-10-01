@@ -1,0 +1,54 @@
+MapFormat: 8
+
+RequiresMod: ts
+
+Title: mw-shell
+
+Description: mw-shell
+
+Author: reaperrr
+
+Tileset: TEMPERATE
+
+MapSize: 82,98
+
+Bounds: 1,1,80,96
+
+Visibility: Shellmap
+
+Type: Conquest
+
+Videos:
+
+Options:
+
+Players:
+	PlayerReference@Neutral:
+		Name: Neutral
+		OwnsWorld: True
+		NonCombatant: True
+		Faction: Random
+	PlayerReference@Creeps:
+		Name: Creeps
+		NonCombatant: True
+		Faction: Random
+
+Actors:
+
+Smudges:
+
+Rules:
+
+Sequences:
+
+VoxelSequences:
+
+Weapons:
+
+Voices:
+
+Music:
+
+Notifications:
+
+Translations:

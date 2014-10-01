@@ -1,0 +1,32 @@
+Player:
+	HackyAI@TestAI:
+		Name: Test AI
+		MinimumExcessPower: 60
+		BuildingCommonNames:
+			ConstructionYard: gacnst
+			Refinery: proc
+			Power: napowr
+			Barracks: gapile
+			VehiclesFactory: gaweap
+			Production: gapile, gaweap
+			Silo: gasilo
+		UnitsCommonNames:
+			Mcv: mcv
+		BuildingLimits:
+			proc: 4
+			napowr: 8
+			gapile: 1
+			gaweap: 1
+		BuildingFractions:
+			proc: 30%
+			gapowr: 35%
+			napowr: 35%
+			gapile: 1%
+			gaweap: 1%
+		UnitsToBuild:
+			e1: 80%
+			e3: 30%
+			mmch: 15%
+		UnitLimits:
+			harv: 8
+		SquadSize: 20

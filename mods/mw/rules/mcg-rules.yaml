@@ -1,0 +1,399 @@
+SARACEN:
+	Inherits@1: ^Tank
+	Inherits@2: ^SpriteActor
+	WithFacingSpriteBody:
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Saracen
+		Description: Heavily armored IS Tank.\n  Strong vs Light Mechs
+		Hotkey: m
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 57
+		Owner: gdi, nod
+	Mobile:
+		Speed: 56
+		ROT: 3
+	Health:
+		HP: 200
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		Range: 6c0
+	Turreted:
+		ROT: 3
+		Offset: 0,0,32
+	Armament@AC20:
+		Weapon: AC10
+		LocalOffset: 192,-64,144
+		MuzzleSequence: muzzle
+	Armament@AC10:
+		Weapon: AC10
+		LocalOffset: 192,64,144
+		MuzzleSequence: muzzle
+	AttackTurreted:
+		Voice: Attack
+	AutoTarget:
+	RenderSprites:
+		PlayerPalette: mcgplayer
+	WithSpriteTurret:
+	WithMuzzleOverlay:
+	Selectable:
+		Bounds: 48,48
+
+BULLDOG:
+	Inherits@1: ^Tank
+	Inherits@2: ^SpriteActor
+	WithFacingSpriteBody:
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Bulldog
+		Description: Heavily armored IS Tank.\n  Strong vs Light Mechs
+		Hotkey: m
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 60
+		Owner: gdi, nod
+	Mobile:
+		Speed: 56
+		ROT: 3
+	Health:
+		HP: 600
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		Range: 6c0
+	Turreted:
+		ROT: 3
+		Offset: -92,0,128
+	Armament@PRIMARY:
+		Weapon: MediumERLaser
+		LocalOffset: 192,0,144
+	Armament@SECONDARY:
+		Weapon: SRM2
+		LocalOffset: 0,96,160, 0,-96,160
+	AttackTurreted:
+		Voice: Attack
+	AutoTarget:
+	RenderSprites:
+		PlayerPalette: mcgplayer
+	WithSpriteTurret:
+	Selectable:
+		Bounds: 72,72
+
+ALACORN:
+	Inherits@1: ^Tank
+	Inherits@2: ^SpriteActor
+	WithFacingSpriteBody:
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Alacorn
+		Description: Heavily armored IS Tank.\n  Strong vs Light Mechs
+		Hotkey: m
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 63
+		Owner: gdi, nod
+	Mobile:
+		Speed: 56
+		ROT: 3
+	Health:
+		HP: 1000
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		Range: 6c0
+	Turreted:
+		ROT: 3
+		Offset: -92,0,128
+	Armament@PRIMARY:
+		Weapon: LargeERLaser
+		LocalOffset: 192,0,144
+	Armament@SECONDARY:
+		Weapon: LargeERLaser
+		LocalOffset: 192,-128,144
+	Armament@TERTIARY:
+		Weapon: MediumERLaser
+		LocalOffset: 192,128,144
+	AttackTurreted:
+		Voice: Attack
+	AutoTarget:
+	RenderSprites:
+		PlayerPalette: mcgplayer
+	WithSpriteTurret:
+	Selectable:
+		Bounds: 80,80
+
+SHREK:
+	Inherits@1: ^Tank
+	Inherits@2: ^SpriteActor
+	WithFacingSpriteBody:
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Shrek
+		Description: Heavily armored IS Tank.\n  Strong vs Light Mechs
+		Hotkey: m
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 59
+		Owner: gdi, nod
+	Mobile:
+		Speed: 56
+		ROT: 3
+	Health:
+		HP: 700
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		Range: 6c0
+	Turreted:
+		ROT: 3
+		Offset: -136,0,0
+	Armament@1:
+		Weapon: MediumERLaser
+		LocalOffset: 192,0,144
+	Armament@2:
+		Weapon: MediumERLaser
+		LocalOffset: 192,-130,144
+	Armament@3:
+		Weapon: MediumERLaser
+		LocalOffset: 192,130,144
+	AttackTurreted:
+		Voice: Attack
+	AutoTarget:
+	RenderSprites:
+		PlayerPalette: mcgplayer
+	WithSpriteTurret:
+	Selectable:
+		Bounds: 72,72
+
+MCGARTY3:
+	Inherits@1: ^Tank
+	Inherits@2: ^SpriteActor
+	WithFacingSpriteBody:
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Artillery
+		Description: Heavy Artillery.\n  Strong vs buildings and light units.
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 61
+		Owner: gdi, nod
+	Mobile:
+		Speed: 56
+		ROT: 3
+	Health:
+		HP: 500
+	Armor:
+		Type: Light
+	RevealsShroud:
+		Range: 10c0
+	Armament:
+		Weapon: AC10
+		LocalOffset: 192,0,160
+		MuzzleSequence: muzzle
+	AttackFrontal:
+		Voice: Attack
+	AutoTarget:
+	RenderSprites:
+		PlayerPalette: mcgplayer
+	WithMuzzleOverlay:
+	Selectable:
+		Bounds: 80,80
+
+LRM-CARR:
+	Inherits@1: ^Tank
+	Inherits@2: ^SpriteActor
+	WithFacingSpriteBody:
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: LRM Carrier
+		Description: Heavy Missile Artillery.\n  Strong vs buildings and mechs.
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 62
+		Owner: gdi, nod
+	Mobile:
+		Speed: 56
+		ROT: 3
+	Health:
+		HP: 200
+	Armor:
+		Type: Light
+	RevealsShroud:
+		Range: 10c0
+	Armament@LRM1:
+		Weapon: LRM10
+		LocalOffset: 192,-128,160
+	Armament@LRM2:
+		Weapon: LRM10
+		LocalOffset: 192,128,160
+	AttackFrontal:
+		Voice: Attack
+	AutoTarget:
+	RenderSprites:
+		PlayerPalette: mcgplayer
+	Selectable:
+		Bounds: 72,72
+
+MADCAT:
+	Inherits@1: ^Tank
+	Inherits@2: ^SpriteActor
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Mad Cat
+		Description: Mad Cat
+		Hotkey: m
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 69
+	Mobile:
+		Speed: 56
+		ROT: 4
+	BodyOrientation:
+		QuantizedFacings: 32
+	Turreted@TORSO:
+		ROT: 4
+		Offset: 0,0,512
+	WithSpriteBarrel@LEFTARM:
+		Barrel: leftarm
+		Sequence: arm
+		LocalOffset: -96,-256,0
+	WithSpriteBarrel@RIGHTARM:
+		Barrel: rightarm
+		Sequence: arm
+		LocalOffset: -96,256,0
+	WithSpriteTurret@TORSO:
+		Sequence: torso
+	Health:
+		HP: 2500
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		Range: 10c0
+	Armament@RIGHTLASER:
+		Weapon: LargeERLaser
+		LocalOffset: 224,384,-160
+	Armament@LEFTLASER:
+		Weapon: LargeERLaser
+		LocalOffset: 224,-384,-160
+#		Name: secondary
+	AttackTurreted:
+		Voice: Attack
+	AutoTarget:
+	RenderSprites:
+		PlayerPalette: mcgplayer
+	WithInfantryBody:
+		AttackSequence: stand
+#	WithMuzzleOverlay:
+
+VULTURE:
+	Inherits@1: ^Tank
+	Inherits@2: ^SpriteActor
+	Valued:
+		Cost: 900
+	Tooltip:
+		Name: Vulture
+		Description: Vulture
+		Hotkey: m
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 68
+	Mobile:
+		Speed: 56
+		ROT: 4
+	BodyOrientation:
+		QuantizedFacings: 32
+	Turreted@TORSO:
+		ROT: 4
+#		Offset: 0,0,512
+	WithSpriteBarrel@LEFTARM:
+		Barrel: leftarm
+		Sequence: larm
+#		LocalOffset: -96,-256,0
+	WithSpriteBarrel@RIGHTARM:
+		Barrel: rightarm
+		Sequence: rarm
+#		LocalOffset: -96,256,0
+	WithMovingSpriteTurret@TORSO:
+		Sequence: torso
+		MoveSequence: torso-moving
+	Health:
+		HP: 2500
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		Range: 10c0
+	Armament@RIGHTLASER:
+		Weapon: LargeERLaser
+		LocalOffset: 224,384,-160
+	Armament@LEFTLASER:
+		Weapon: LargeERLaser
+		LocalOffset: 224,-384,-160
+#		Name: secondary
+	AttackTurreted:
+		Voice: Attack
+	AutoTarget:
+	RenderSprites:
+		PlayerPalette: mcgremap
+	WithFacingSpriteBody:
+	WithMoveAnimation:
+		MoveSequence: walk
+#	WithMuzzleOverlay:
+
+HQ2:
+	Inherits: ^Building
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 0
+		Hotkey: p
+	Valued:
+		Cost: 300
+	Tooltip:
+		Name: Headquarters
+		Description: Base of operations
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+	RenderSprites:
+		PlayerPalette: mcgplayer
+	Health:
+		HP: 750
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+
+POWRGEN:
+	Inherits: ^Building
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 0
+		Hotkey: p
+	Valued:
+		Cost: 300
+	Tooltip:
+		Name: Power Generator
+		Description: Powers base
+#	ProvidesCustomPrerequisite:
+#		Prerequisite: anypower
+	Building:
+		Footprint: xx xx
+		Dimensions: 2,2
+	RenderSprites:
+		PlayerPalette: mcgplayer
+	Health:
+		HP: 750
+	Armor:
+		Type: Wood
+	RevealsShroud:
+		Range: 4c0
+	Power:
+		Amount: 400

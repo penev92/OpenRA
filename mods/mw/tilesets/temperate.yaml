@@ -1,0 +1,43 @@
+General:
+	Name: Temperate
+	Id: TEMPERATE
+	Palette: isotem.pal
+	EditorTemplateOrder: Placeholder
+
+Terrain:
+	TerrainType@Clear:
+		Type: Clear
+		AcceptsSmudgeType: Crater, Scorch
+		Color: 745537
+		TargetTypes: Ground
+	TerrainType@Tiberium:
+		Type: Tiberium
+		AcceptsSmudgeType: Crater, Scorch
+		Color: 009000
+		TargetTypes: Ground
+	TerrainType@BlueTiberium:
+		Type: BlueTiberium
+		AcceptsSmudgeType: Crater, Scorch
+		Color: 202080
+		TargetTypes: Ground
+
+Templates:
+	Template@0:
+		Id: 0
+		Images: mcgtile-test2.shp
+		Size: 1,1
+		Category: Placeholder
+		Tiles:
+			0: Clear
+				LeftColor: 6D573D
+				RightColor: 6F593E
+	Template@255:
+		Id: 255
+		Images: mcgtile-test2.shp
+		Size: 1,1
+		Category: Placeholder
+		Tiles:
+			0: Clear
+				LeftColor: 6D573D
+				RightColor: 6F593E
+

@@ -1,0 +1,104 @@
+bulldog:
+	idle:
+		Start: 0
+		Facings: 32
+	turret:
+		Start: 32
+		Facings: 32
+	muzzle: gunfire
+		Start: 0
+		Length: *
+	icon: xxicon
+		Start: 0
+
+alacorn:
+	idle:
+		Start: 0
+		Facings: 32
+	turret:
+		Start: 32
+		Facings: 32
+	muzzle: gunfire
+		Start: 0
+		Length: *
+	icon: xxicon
+		Start: 0
+
+shrek:
+	idle:
+		Start: 0
+		Facings: 32
+	turret:
+		Start: 32
+		Facings: 32
+	muzzle: gunfire
+		Start: 0
+		Length: *
+	icon: xxicon
+		Start: 0
+
+saracen:
+	idle:
+		Start: 0
+		Facings: 32
+	turret:
+		Start: 32
+		Facings: 32
+	muzzle: gunfire
+		Start: 0
+		Length: *
+	icon: xxicon
+		Start: 0
+
+mcgarty3:
+	idle:
+		Start: 0
+		Facings: 32
+	muzzle: gunfire
+		Start: 0
+		Length: *
+	icon: xxicon
+		Start: 0
+
+lrm-carr:
+	idle:
+		Start: 0
+		Facings: 32
+	icon: xxicon
+		Start: 0
+
+lrmtur:
+	idle:
+		Start: 0
+		Facings: 32
+	make: 
+		Start: 0
+		Length: 1
+		Tick: 600
+	icon: xxicon
+		Start: 0
+
+powrgen:
+	idle:
+		Start: 1
+		Length: 8
+		Tick: 60
+	dead:
+		Start: 9
+		Tick: 1000
+	make: 
+		Start: 0
+		Length: 1
+		Tick: 600
+	icon: xxicon
+		Start: 0
+
+hq2:
+	idle:
+		Start: 0
+	make: 
+		Start: 0
+		Length: 1
+		Tick: 600
+	icon: xxicon
+		Start: 0

@@ -1,0 +1,134 @@
+Bazooka:
+	ReloadDelay: 60
+	Range: 6c0
+	Report: RKETINF1.AUD
+	ValidTargets: Ground, Air
+	Projectile: Missile
+		Arm: 3
+		Shadow: true
+		Inaccuracy: 128
+		Image: DRAGON
+		RangeLimit: 50
+		CloseEnough: 256
+		LockOnProbability: 80
+		Palette: ra
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 35
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+		ValidTargets: Ground, Air
+		Versus:
+			None: 25
+			Wood: 65
+			Light: 75
+			Heavy: 100
+			Concrete: 60
+	Warhead@2Eff: CreateEffect
+		Explosion: small_clsn
+		ImpactSound: expnew12.aud
+		InvalidImpactTypes: Water, Air, AirHit
+	Warhead@3EffWater: CreateEffect
+		Explosion: small_watersplash
+		ImpactSound: ssplash3.aud
+		ValidImpactTypes: Water
+	Warhead@4EffAir: CreateEffect
+		Explosion: small_twlt
+		ImpactSound: expnew12.aud
+		ValidImpactTypes: Air, AirHit
+
+HoverMissile:
+	ReloadDelay: 68
+	Burst: 2
+	Range: 8c0
+	Report: HOVRMIS1.AUD
+	ValidTargets: Ground, Air
+	Projectile: Missile
+		Arm: 2
+		Shadow: true
+		Inaccuracy: 128
+		Image: DRAGON
+		RangeLimit: 50
+		Palette: ra
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 30
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+		ValidTargets: Ground, Air
+		Versus:
+			None: 25
+			Wood: 65
+			Light: 75
+			Heavy: 100
+			Concrete: 60
+	Warhead@2Eff: CreateEffect
+		Explosion: small_clsn
+		ImpactSound: expnew12.aud
+		InvalidImpactTypes: Water, Air, AirHit
+	Warhead@3EffWater: CreateEffect
+		Explosion: small_watersplash
+		ImpactSound: ssplash3.aud
+		ValidImpactTypes: Water
+	Warhead@4EffAir: CreateEffect
+		Explosion: small_twlt
+		ImpactSound: expnew12.aud
+		ValidImpactTypes: Air, AirHit
+
+SRM2:
+	ReloadDelay: 50
+	Range: 3c512
+	Report: MISL1.AUD
+	ValidTargets: Ground
+	Projectile: Missile
+		Arm: 1
+		Shadow: true
+		Inaccuracy: 256
+		LockOnProbability: 0
+		Image: DRAGON
+		RangeLimit: 100
+		Palette: ra
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 60
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+		ValidTargets: Ground
+		Versus:
+			None: 25
+			Wood: 65
+			Steel: 100
+			Concrete: 60
+			Reflective: 200
+			Reactive: 50
+	Warhead@2Eff: CreateEffect
+		Explosion: small_clsn
+		ImpactSound: expnew12.aud
+
+LRM10:
+	ReloadDelay: 120
+	Burst: 2
+	BurstDelay: 2
+	Range: 15c0
+	Report: ORCAMIS1.AUD
+	ValidTargets: Ground, Air
+	Projectile: Missile
+		Arm: 5
+		Shadow: true
+		Inaccuracy: 256
+		LockOnProbability: 70
+		Image: DRAGON
+		RangeLimit: 100
+		Palette: ra
+	Warhead@1Dam: SpreadDamage
+		Spread: 128
+		Damage: 30
+		DamageTypes: Prone50Percent, TriggerProne, SmallExplosionDeath
+		ValidTargets: Ground, Air
+		Versus:
+			None: 25
+			Wood: 65
+			Steel: 100
+			Concrete: 60
+			Reflective: 200
+			Reactive: 50
+	Warhead@2Eff: CreateEffect
+		Explosion: small_clsn
+		ImpactSound: expnew12.aud

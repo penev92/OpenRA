@@ -1,0 +1,56 @@
+Infantry:
+	Voices:
+		Select: 15-I000, 15-I004, 15-I012, 15-I048
+		Move: 15-I018, 15-I024, 15-I044
+		Attack: 15-I044, 15-I050, 15-I044, 15-I046
+#		Feedback: 15-I058, 15-I064 # TODO
+		Die: DEDMAN1, DEDMAN3, DEDMAN4, DEDMAN5, DEDMAN6
+		Burned: DEDMAN2
+		Zapped: ELECTRO1
+
+Rocket:
+	Voices:
+		Select: 15-I000, 15-I032, 15-I048
+		Move: 15-I008, 15-I014, 15-I026
+		Attack: 15-I008, 15-I014, 15-I026, 15-I050, 15-I060
+#		Feedback: 15-I058, 15-I064 #TODO
+		Die: DEDMAN1, DEDMAN3, DEDMAN4, DEDMAN5, DEDMAN6
+		Burned: DEDMAN2
+		Zapped: ELECTRO1
+
+Engineer:
+	Voices:
+		Select: 19-I000, 19-I002, 19-I006
+		Move: 19-I010, 19-I016
+		Attack: 19-I018, 19-I016
+		Die: DEDMAN1, DEDMAN3, DEDMAN4, DEDMAN5, DEDMAN6
+		Burned: DEDMAN2
+		Zapped: ELECTRO1
+
+JumpJet:
+	Voices:
+		Select: 15-I000, 15-I004, 15-I012, 15-I048
+		Move: 15-I018, 15-I024, 15-I044
+		Attack: 15-I044, 15-I050, 15-I044, 15-I046
+#		Feedback: 15-I058, 15-I064
+		Die: DEDMAN1, DEDMAN3, DEDMAN4, DEDMAN5, DEDMAN6
+		Burned: DEDMAN2
+		Zapped: ELECTRO1
+
+Vehicle:
+	Voices:
+		Select: 25-I000, 25-I002, 25-I004, 25-I006
+		Move: 25-I012, 25-I014, 25-I016, 25-I018, 25-I022
+		Attack: 25-I014, 25-I022, 25-I024, 25-I026
+
+Mech:
+	Voices:
+		Select: 15-I000, 15-I006, 15-I040, 15-I042
+		Move: 15-I024, 15-I044
+		Attack: 15-I006, 15-I046
+
+Heli:
+	Voices:
+		Select: 30-I000, 30-I002, 30-I004, 30-I006
+		Move: 30-I014, 30-I016, 30-I018, 30-I022
+		Attack: 30-I022, 30-I030, 30-I034, 30-I036

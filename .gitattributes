@@ -8,4 +8,3 @@
 *.vbproj merge=union
 *.fsproj merge=union
 *.dbproj merge=union
-*.cs eol=lf

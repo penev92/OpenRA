@@ -9,13 +9,12 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using OpenRA.Effects;
-using OpenRA.GameRules;
+using System.Collections.Generic;
 using OpenRA.Traits;
+using OpenRA.GameRules;
 
-namespace OpenRA.Mods.RA
+namespace OpenRA.Mods.Common.Warheads
 {
 	public class LeaveSmudgeWarhead : Warhead
 	{

@@ -58,11 +58,13 @@
     <Compile Include="Activities\Teleport.cs" />
     <Compile Include="Activities\Transform.cs" />
     <Compile Include="Activities\UnloadCargo.cs" />
+    <Compile Include="Effects\ContrailFader.cs" />
     <Compile Include="Effects\Corpse.cs" />
     <Compile Include="Effects\CrateEffect.cs" />
     <Compile Include="Effects\Parachute.cs" />
     <Compile Include="Effects\PowerdownIndicator.cs" />
     <Compile Include="Effects\Rank.cs" />
+    <Compile Include="Effects\Smoke.cs" />
     <Compile Include="Orders\DeployOrderTargeter.cs" />
     <Compile Include="Orders\PlaceBuildingOrderGenerator.cs" />
     <Compile Include="Traits\Air\AttackPlane.cs" />
@@ -82,7 +84,6 @@
     <Compile Include="ActorExts.cs" />
     <Compile Include="Activities\Air\HeliReturn.cs" />
     <Compile Include="Buildings\Util.cs" />
-    <Compile Include="CommonTraitsInterfaces.cs" />
     <Compile Include="Effects\Explosion.cs" />
     <Compile Include="Effects\FloatingText.cs" />
     <Compile Include="Console\ChatCommands.cs" />
@@ -209,6 +210,7 @@
     <Compile Include="ServerTraits\MasterServerPinger.cs" />
     <Compile Include="ServerTraits\PlayerPinger.cs" />
     <Compile Include="Traits\Render\RenderRangeCircle.cs" />
+    <Compile Include="Traits\Render\WithRangeCircle.cs" />
     <Compile Include="Traits\Render\WithTurret.cs" />
     <Compile Include="Traits\Repairable.cs" />
     <Compile Include="Traits\RepairableNear.cs" />
@@ -230,6 +232,7 @@
     <Compile Include="Traits\TransformOnPassenger.cs" />
     <Compile Include="Traits\Transforms.cs" />
     <Compile Include="Traits\Turreted.cs" />
+    <Compile Include="Traits\UpgradeActorsNear.cs" />
     <Compile Include="Traits\UpgradeManager.cs" />
     <Compile Include="Traits\Valued.cs" />
     <Compile Include="UtilityCommands\ConvertPngToShpCommand.cs" />
@@ -252,6 +255,7 @@
     <Compile Include="Graphics\TextRenderable.cs" />
     <Compile Include="Graphics\VoxelActorPreview.cs" />
     <Compile Include="Graphics\VoxelRenderable.cs" />
+    <Compile Include="Warheads\LeaveSmudgeWarhead.cs" />
     <Compile Include="Widgets\ConfirmationDialogs.cs" />
     <Compile Include="Widgets\HueSliderWidget.cs" />
     <Compile Include="Widgets\LabelWithTooltipWidget.cs" />
@@ -272,10 +276,12 @@
     <Compile Include="World\BuildableTerrainLayer.cs" />
     <Compile Include="World\DomainIndex.cs" />
     <Compile Include="World\PathfinderDebugOverlay.cs" />
+    <Compile Include="World\PlayMusicOnMapLoad.cs" />
     <Compile Include="World\RadarPings.cs" />
     <Compile Include="World\ResourceClaim.cs" />
     <Compile Include="World\ResourceClaimLayer.cs" />
     <Compile Include="World\ResourceLayer.cs" />
+    <Compile Include="World\SmudgeLayer.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

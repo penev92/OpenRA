@@ -15,7 +15,8 @@ using OpenRA.Mods.Common.Traits.Air;
 
 namespace OpenRA.Mods.Common.Traits
 {
-	class ReservableInfo : TraitInfo<Reservable> {}
+	[Desc("Reserve landing places for aircraft.")]
+	class ReservableInfo : TraitInfo<Reservable> { }
 
 	public class Reservable : ITick, INotifyKilled, INotifyCapture, INotifySold
 	{

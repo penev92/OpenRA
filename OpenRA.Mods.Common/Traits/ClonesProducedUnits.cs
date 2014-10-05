@@ -36,7 +36,7 @@ namespace OpenRA.Mods.Common.Traits
 		public void UnitProducedByOther(Actor self, Actor producer, Actor produced)
 		{
 			// No recursive cloning!
-			if (producer.HasTrait<ClonesProducedUnits>())
+			if (producer.Owner != self.Owner || producer.HasTrait<ClonesProducedUnits>())
 				return;
 
 			var ci = produced.Info.Traits.GetOrDefault<CloneableInfo>();

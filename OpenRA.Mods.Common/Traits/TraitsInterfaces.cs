@@ -44,6 +44,8 @@ namespace OpenRA.Mods.Common.Traits
 		void OnNotifyResourceClaimLost(Actor self, ResourceClaim claim, Actor claimer);
 	}
 
+	public interface INotifyChat { bool OnChat (string from, string message); }
+
 	public interface INotifyParachuteLanded { void OnLanded(); }
 	public interface INotifyTransform { void BeforeTransform(Actor self); void OnTransform(Actor self); void AfterTransform(Actor toActor); }
 	public interface INotifyAttack { void Attacking(Actor self, Target target, Armament a, Barrel barrel); }

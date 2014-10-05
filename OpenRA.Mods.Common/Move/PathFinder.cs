@@ -18,6 +18,7 @@ using OpenRA.Primitives;
 
 namespace OpenRA.Mods.Common.Move
 {
+	[Desc("Calculates routes for mobile units based on the A* search algorithm.", " Attach this to the world actor.")]
 	public class PathFinderInfo : ITraitInfo
 	{
 		public object Create(ActorInitializer init) { return new PathFinder(init.world); }
@@ -27,8 +28,8 @@ namespace OpenRA.Mods.Common.Move
 	{
 		readonly static List<CPos> emptyPath = new List<CPos>(0);
 
-		readonly OpenRA.World world;
-		public PathFinder (OpenRA.World world) { this.world = world; }
+		readonly World world;
+		public PathFinder (World world) { this.world = world; }
 
 		class CachedPath
 		{

@@ -142,7 +142,6 @@
     <Compile Include="Effects\NukeLaunch.cs" />
     <Compile Include="Effects\RepairIndicator.cs" />
     <Compile Include="Effects\SatelliteLaunch.cs" />
-    <Compile Include="Effects\Smoke.cs" />
     <Compile Include="Effects\TeslaZap.cs" />
     <Compile Include="EngineerRepair.cs" />
     <Compile Include="Explodes.cs" />
@@ -180,7 +179,6 @@
     <Compile Include="Warheads\DestroyResourceWarhead.cs" />
     <Compile Include="Warheads\CreateEffectWarhead.cs" />
     <Compile Include="Warheads\CreateResourceWarhead.cs" />
-    <Compile Include="Warheads\LeaveSmudgeWarhead.cs" />
     <Compile Include="Widgets\Logic\TabCompletionLogic.cs" />
     <Compile Include="PrimaryBuilding.cs" />
     <Compile Include="ProductionBar.cs" />
@@ -256,8 +254,6 @@
     <Compile Include="Widgets\StrategicProgressWidget.cs" />
     <Compile Include="Widgets\SupportPowerTimerWidget.cs" />
     <Compile Include="Widgets\WorldCommandWidget.cs" />
-    <Compile Include="World\PlayMusicOnMapLoad.cs" />
-    <Compile Include="World\SmudgeLayer.cs" />
     <Compile Include="Player\BaseAttackNotifier.cs" />
     <Compile Include="Player\HarvesterAttackNotifier.cs" />
     <Compile Include="Infiltration\InfiltrateForExploration.cs" />
@@ -290,7 +286,6 @@
     <Compile Include="AI\States\ProtectionStates.cs" />
     <Compile Include="AI\States\AirStates.cs" />
     <Compile Include="Widgets\Logic\InstallLogic.cs" />
-    <Compile Include="Effects\ContrailFader.cs" />
     <Compile Include="Widgets\Logic\SettingsLogic.cs" />
     <Compile Include="AttackBomber.cs" />
     <Compile Include="ShroudRenderer.cs" />

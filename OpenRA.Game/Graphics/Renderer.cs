@@ -164,7 +164,6 @@ namespace OpenRA.Graphics
 			foreach (RendererAttribute r in rendererDll.GetCustomAttributes(typeof(RendererAttribute), false))
 			{
 				var factory = (IDeviceFactory)r.Type.GetConstructor(Type.EmptyTypes).Invoke(null);
-				return factory.Create(new Size(1024, 768), WindowMode.Windowed);
 				return factory.Create(new Size(width, height), window);
 			}
 

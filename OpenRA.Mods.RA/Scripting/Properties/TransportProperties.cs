@@ -9,10 +9,11 @@
 #endregion
 
 using System.Linq;
-using OpenRA.Mods.RA.Activities;
-using OpenRA.Mods.RA.Air;
-using OpenRA.Scripting;
 using OpenRA.Traits;
+using OpenRA.Scripting;
+using OpenRA.Mods.Common.Traits;
+using OpenRA.Mods.Common.Activities;
+using OpenRA.Mods.Common.Activities.Air;
 
 namespace OpenRA.Mods.RA.Scripting
 {

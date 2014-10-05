@@ -8,7 +8,7 @@
  */
 #endregion
 
-using OpenRA.Traits;
+using OpenRA.Mods.Common.Traits.Render;
 
 namespace OpenRA.Mods.RA.Render
 {

@@ -8,9 +8,10 @@
  */
 #endregion
 
-using OpenRA.Mods.RA.Buildings;
-using OpenRA.Mods.Common.Effects;
 using OpenRA.Traits;
+using OpenRA.Mods.Common.Effects;
+using OpenRA.Mods.Common.Buildings;
+using OpenRA.Mods.Common.Traits.Buildings;
 
 namespace OpenRA.Mods.RA.Render
 {
@@ -38,7 +39,7 @@ namespace OpenRA.Mods.RA.Render
 		public void Killed(Actor self, AttackInfo e)
 		{
 			var buildingInfo = self.Info.Traits.Get<BuildingInfo>();
-			FootprintUtils.UnpathableTiles(self.Info.Name, buildingInfo, self.Location).Do(
+			BuildingFootprintUtils.UnpathableTiles(self.Info.Name, buildingInfo, self.Location).Do(
 				t => self.World.AddFrameEndTask(w => w.Add(new Explosion(w, w.Map.CenterOfCell(t), info.Sequence, info.Palette))));
 		}
 	}

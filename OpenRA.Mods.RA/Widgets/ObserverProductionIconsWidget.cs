@@ -9,13 +9,13 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using OpenRA.Graphics;
-using OpenRA.Mods.RA.Render;
-using OpenRA.Traits;
+using System.Drawing;
+using System.Collections.Generic;
 using OpenRA.Widgets;
+using OpenRA.Graphics;
+using OpenRA.Mods.Common.Traits;
+using OpenRA.Mods.Common.Traits.Render;
 
 namespace OpenRA.Mods.RA.Widgets
 {

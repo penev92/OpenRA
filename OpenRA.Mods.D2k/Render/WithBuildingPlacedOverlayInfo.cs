@@ -8,11 +8,12 @@
  */
 #endregion
 
-using OpenRA.Graphics;
-using OpenRA.Mods.RA.Buildings;
 using OpenRA.Traits;
+using OpenRA.Graphics;
+using OpenRA.Mods.Common.Traits.Render;
+using OpenRA.Mods.Common.Traits.Buildings;
 
-namespace OpenRA.Mods.RA.Render
+namespace OpenRA.Mods.D2k.Render
 {
 	[Desc("Rendered when the actor constructed a building.")]
 	public class WithBuildingPlacedOverlayInfo : ITraitInfo, Requires<RenderSpritesInfo>, Requires<IBodyOrientationInfo>

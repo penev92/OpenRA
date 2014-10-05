@@ -11,8 +11,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using OpenRA.Mods.RA.Activities;
-using OpenRA.Mods.RA.Air;
+using OpenRA.Mods.Common.Activities;
+using OpenRA.Mods.Common.Activities.Air;
+using OpenRA.Mods.Common.Traits.Air;
+using OpenRA.Mods.Common.Traits.SupportPowers;
 using OpenRA.Mods.RA.Effects;
 using OpenRA.Primitives;
 using OpenRA.Traits;

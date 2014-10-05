@@ -15,13 +15,17 @@ using System.Linq;
 using NLua;
 using OpenRA.Effects;
 using OpenRA.FileSystem;
-using OpenRA.Mods.RA.Activities;
-using OpenRA.Mods.RA.Air;
+using OpenRA.Graphics;
+using OpenRA.Mods.Common.Activities;
+using OpenRA.Mods.Common.Activities.Air;
+using OpenRA.Mods.Common.Move;
+using OpenRA.Mods.Common.Traits;
+using OpenRA.Mods.Common.Traits.Attack;
 using OpenRA.Network;
 using OpenRA.Scripting;
 using OpenRA.Support;
 using OpenRA.Traits;
-using WorldRenderer = OpenRA.Graphics.WorldRenderer;
+using Util = OpenRA.Traits.Util;
 
 namespace OpenRA.Mods.RA.Scripting
 {
@@ -324,9 +328,9 @@ namespace OpenRA.Mods.RA.Scripting
 		public void AttackMove(Actor actor, CPos location, double nearEnough)
 		{
 			if (actor.HasTrait<AttackMove>())
-				actor.QueueActivity(new AttackMove.AttackMoveActivity(actor, new Move.Move(location, (int)nearEnough)));
+				actor.QueueActivity(new AttackMove.AttackMoveActivity(actor, new Move(location, (int)nearEnough)));
 			else
-				actor.QueueActivity(new Move.Move(location, (int)nearEnough));
+				actor.QueueActivity(new Move(location, (int)nearEnough));
 		}
 
 		[LuaGlobal]

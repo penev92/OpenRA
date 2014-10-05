@@ -9,8 +9,8 @@
 #endregion
 
 using System;
-using OpenRA.Mods.RA;
 using OpenRA.Widgets;
+using OpenRA.Mods.Common.Traits.SupportPowers;
 
 namespace OpenRA.Mods.RA.Widgets.Logic
 {

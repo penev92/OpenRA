@@ -15,19 +15,19 @@ using OpenRA.Traits;
 
 namespace OpenRA.Mods.RA
 {
-	public interface IAcceptOre
-	{
-		void OnDock(Actor harv, DeliverResources dockOrder);
-		void GiveOre(int amount);
-		bool CanGiveOre(int amount);
-		CVec DeliverOffset { get; }
-		bool AllowDocking { get; }
-	}
+    //public interface IAcceptOre
+    //{
+    //    void OnDock(Actor harv, DeliverResources dockOrder);
+    //    void GiveOre(int amount);
+    //    bool CanGiveOre(int amount);
+    //    CVec DeliverOffset { get; }
+    //    bool AllowDocking { get; }
+    //}
 
-	public interface IAcceptOreDockAction
-	{
-		void OnDock(Actor self, Actor harv, DeliverResources dockOrder);
-	}
+    //public interface IAcceptOreDockAction
+    //{
+    //    void OnDock(Actor self, Actor harv, DeliverResources dockOrder);
+    //}
 
 	public interface ITechTreeElement
 	{

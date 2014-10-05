@@ -8,10 +8,12 @@
  */
 #endregion
 
-using OpenRA.Graphics;
 using OpenRA.Traits;
+using OpenRA.Graphics;
+using OpenRA.Mods.Common.Traits;
+using OpenRA.Mods.Common.Traits.Render;
 
-namespace OpenRA.Mods.RA.Render
+namespace OpenRA.Mods.D2k.Render
 {
 	[Desc("Rendered together with the \"make\" animation.")]
 	public class WithCrumbleOverlayInfo : ITraitInfo, Requires<RenderSpritesInfo>

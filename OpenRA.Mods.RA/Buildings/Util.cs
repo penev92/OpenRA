@@ -8,9 +8,11 @@
  */
 #endregion
 
-using System.Collections.Generic;
 using System.Linq;
-using OpenRA.Traits;
+using System.Collections.Generic;
+using OpenRA.Mods.Common;
+using OpenRA.Mods.Common.Buildings;
+using OpenRA.Mods.Common.Traits.Buildings;
 
 namespace OpenRA.Mods.RA.Buildings
 {
@@ -36,7 +38,7 @@ namespace OpenRA.Mods.RA.Buildings
 				return true;
 
 			var res = world.WorldActor.Trait<ResourceLayer>();
-			return FootprintUtils.Tiles(world.Map.Rules, name, building, topLeft).All(
+			return BuildingFootprintUtils.Tiles(world.Map.Rules, name, building, topLeft).All(
 				t => world.Map.Contains(t) && res.GetResource(t) == null &&
 					world.IsCellBuildable(t, building, toIgnore));
 		}

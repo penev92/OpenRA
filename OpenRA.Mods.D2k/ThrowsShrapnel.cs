@@ -9,8 +9,8 @@
 #endregion
 
 using System.Linq;
-using OpenRA.GameRules;
 using OpenRA.Traits;
+using OpenRA.GameRules;
 
 namespace OpenRA.Mods.D2k
 {

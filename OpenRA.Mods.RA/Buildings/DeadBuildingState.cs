@@ -8,9 +8,9 @@
  */
 #endregion
 
-using OpenRA.Effects;
 using OpenRA.Traits;
-using OpenRA.Mods.RA.Render;
+using OpenRA.Effects;
+using OpenRA.Mods.Common.Traits.Render;
 
 namespace OpenRA.Mods.Cnc
 {

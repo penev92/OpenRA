@@ -9,9 +9,9 @@
 #endregion
 
 using OpenRA.Effects;
-using OpenRA.Mods.RA.Activities;
-using OpenRA.Mods.RA.Effects;
 using OpenRA.Primitives;
+using OpenRA.Mods.Common.Activities;
+using OpenRA.Mods.Common.Traits.SupportPowers;
 
 namespace OpenRA.Mods.RA
 {

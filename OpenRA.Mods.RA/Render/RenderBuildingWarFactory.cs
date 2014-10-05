@@ -11,6 +11,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using OpenRA.Graphics;
+using OpenRA.Mods.Common.Buildings;
+using OpenRA.Mods.Common.Traits.Buildings;
+using OpenRA.Mods.Common.Traits.Render;
 using OpenRA.Mods.RA.Buildings;
 using OpenRA.Mods.Common.Graphics;
 using OpenRA.Traits;
@@ -31,7 +34,7 @@ namespace OpenRA.Mods.RA.Render
 			anim.PlayRepeating("idle-top");
 
 			var bi = init.Actor.Traits.Get<BuildingInfo>();
-			var offset = FootprintUtils.CenterOffset(init.World, bi).Y + 512;
+			var offset = BuildingFootprintUtils.CenterOffset(init.World, bi).Y + 512;
 			yield return new SpriteActorPreview(anim, WVec.Zero, offset, p, rs.Scale);
 		}
 	}
@@ -50,7 +53,7 @@ namespace OpenRA.Mods.RA.Render
 			var bi = init.self.Info.Traits.Get<BuildingInfo>();
 
 			// Additional 512 units move from center -> top of cell
-			var offset = FootprintUtils.CenterOffset(init.world, bi).Y + 512;
+			var offset = BuildingFootprintUtils.CenterOffset(init.world, bi).Y + 512;
 			Add("roof", new AnimationWithOffset(roof, null,
 				() => !buildComplete, offset));
 		}

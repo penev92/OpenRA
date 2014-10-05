@@ -135,7 +135,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 				item.TooltipText = mod.Title;
 
 				if (j < 9)
-					item.Key = new Hotkey((Keycode)((int)Keycode.NUMBER_1 + j), Modifiers.None);
+					item.Key = new Hotkey((Keycode)((int)Keycode.NUMBER_1 + j), OpenRA.Modifiers.None);
 
 				Sprite logo = null;
 				logos.TryGetValue(mod.Id, out logo);

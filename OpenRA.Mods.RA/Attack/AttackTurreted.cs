@@ -9,6 +9,8 @@
 #endregion
 
 using System.Collections.Generic;
+using OpenRA.Mods.Common.Traits;
+using OpenRA.Mods.Common.Traits.Attack;
 using OpenRA.Traits;
 
 namespace OpenRA.Mods.RA

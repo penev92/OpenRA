@@ -9,11 +9,12 @@
 #endregion
 
 using System.Linq;
-using OpenRA.Effects;
 using OpenRA.Traits;
+using OpenRA.Effects;
 
 namespace OpenRA.Mods.RA.Activities
 {
+	[Desc("The activity of demolishing an actor.")]
 	class Demolish : Activity
 	{
 		readonly Target target;

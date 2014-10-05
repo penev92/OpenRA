@@ -11,11 +11,10 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using OpenRA.GameRules;
-using OpenRA.Mods.RA.Activities;
-using OpenRA.Mods.RA.Move;
-using OpenRA.Mods.RA.Orders;
-using OpenRA.Mods.RA.Render;
+using OpenRA.Mods.Common.Activities;
+using OpenRA.Mods.Common.Move;
+using OpenRA.Mods.Common.Orders;
+using OpenRA.Mods.Common.Traits.Render;
 using OpenRA.Primitives;
 using OpenRA.Traits;
 

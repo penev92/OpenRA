@@ -8,10 +8,10 @@
  */
 #endregion
 
-using OpenRA.Mods.RA.Effects;
-using OpenRA.Mods.RA.Move;
-using OpenRA.Primitives;
 using OpenRA.Traits;
+using OpenRA.Primitives;
+using OpenRA.Mods.Common.Move;
+using OpenRA.Mods.Common.Effects;
 
 namespace OpenRA.Mods.RA
 {

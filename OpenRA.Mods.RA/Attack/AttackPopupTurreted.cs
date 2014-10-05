@@ -9,10 +9,12 @@
 #endregion
 
 using System.Linq;
-using OpenRA.GameRules;
-using OpenRA.Mods.RA.Buildings;
-using OpenRA.Mods.RA.Render;
 using OpenRA.Traits;
+using OpenRA.GameRules;
+using OpenRA.Mods.Common.Traits;
+using OpenRA.Mods.Common.Traits.Render;
+using OpenRA.Mods.Common.Traits.Attack;
+using OpenRA.Mods.Common.Traits.Buildings;
 
 namespace OpenRA.Mods.RA
 {

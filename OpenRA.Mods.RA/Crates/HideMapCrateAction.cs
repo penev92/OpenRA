@@ -8,6 +8,8 @@
  */
 #endregion
 
+using OpenRA.Mods.Common.Traits;
+
 namespace OpenRA.Mods.RA
 {
 	[Desc("Hides the entire map in shroud.")]

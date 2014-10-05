@@ -8,9 +8,12 @@
  */
 #endregion
 
-using System.Collections.Generic;
 using System.Linq;
+using System.Collections.Generic;
 using OpenRA.Traits;
+using OpenRA.Mods.Common.Move;
+using OpenRA.Mods.Common.Activities;
+using OpenRA.Mods.Common.Traits.Attack;
 
 namespace OpenRA.Mods.RA.Activities
 {
@@ -35,7 +38,7 @@ namespace OpenRA.Mods.RA.Activities
 				return this;
 
 			return Util.SequenceActivities(
-				new AttackMove.AttackMoveActivity(self, new Move.Move(target.Location, WRange.FromCells(2))),
+				new AttackMove.AttackMoveActivity(self, new Move(target.Location, WRange.FromCells(2))),
 				new Wait(25),
 				this);
 		}

@@ -11,14 +11,15 @@
 using Eluant;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using OpenRA;
+using OpenRA.Mods.Common.Activities;
+using OpenRA.Mods.Common.Activities.Air;
+using OpenRA.Mods.Common.Move;
+using OpenRA.Mods.Common.Traits;
+using OpenRA.Mods.Common.Traits.Air;
 using OpenRA.Primitives;
 using OpenRA.Traits;
 using OpenRA.Scripting;
 using OpenRA.Effects;
-using OpenRA.Mods.RA.Activities;
-using OpenRA.Mods.RA.Air;
 
 namespace OpenRA.Mods.RA.Scripting
 {
@@ -63,7 +64,7 @@ namespace OpenRA.Mods.RA.Scripting
 			}
 			else
 			{
-				actor.QueueActivity(new Move.Move(dest, 2));
+				actor.QueueActivity(new Move(dest, 2));
 			}
 		}
 

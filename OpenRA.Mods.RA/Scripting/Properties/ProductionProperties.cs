@@ -9,9 +9,10 @@
 #endregion
 
 using Eluant;
-using OpenRA.Mods.RA.Activities;
-using OpenRA.Scripting;
 using OpenRA.Traits;
+using OpenRA.Scripting;
+using OpenRA.Mods.Common.Traits;
+using OpenRA.Mods.Common.Activities;
 
 namespace OpenRA.Mods.RA.Scripting
 {

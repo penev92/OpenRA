@@ -11,7 +11,8 @@
 using System.Linq;
 using OpenRA.Effects;
 using OpenRA.Graphics;
-using OpenRA.Mods.RA.Buildings;
+using OpenRA.Mods.Common.Traits.Buildings;
+using OpenRA.Mods.Common.Traits.Render;
 using OpenRA.Traits;
 
 namespace OpenRA.Mods.RA.Render

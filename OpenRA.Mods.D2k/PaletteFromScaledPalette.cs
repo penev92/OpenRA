@@ -9,8 +9,8 @@
 #endregion
 
 using System.Drawing;
-using OpenRA.Graphics;
 using OpenRA.Traits;
+using OpenRA.Graphics;
 
 namespace OpenRA.Mods.D2k
 {

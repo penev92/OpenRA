@@ -8,9 +8,10 @@
  */
 #endregion
 
-using OpenRA.Mods.RA.Air;
 using OpenRA.Scripting;
 using OpenRA.Traits;
+using OpenRA.Mods.Common.Traits.Air;
+using OpenRA.Mods.Common.Activities.Air;
 
 namespace OpenRA.Mods.RA.Scripting
 {

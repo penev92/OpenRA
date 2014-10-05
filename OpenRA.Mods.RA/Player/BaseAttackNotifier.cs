@@ -10,6 +10,7 @@
 
 using System.Drawing;
 using OpenRA.Mods.Common;
+using OpenRA.Mods.Common.Traits.Buildings;
 using OpenRA.Mods.RA.Buildings;
 using OpenRA.Traits;
 

@@ -8,17 +8,17 @@
  */
 #endregion
 
-using OpenRA.Mods.RA;
 using OpenRA.Traits;
+using OpenRA.Mods.Common.Traits.Buildings;
 
 namespace OpenRA.Mods.Cnc
 {
-	public class TiberiumRefineryInfo : OreRefineryInfo
+	public class TiberiumRefineryInfo : RefineryInfo
 	{
 		public override object Create(ActorInitializer init) { return new TiberiumRefinery(init.self, this); }
 	}
 
-	public class TiberiumRefinery : OreRefinery
+	public class TiberiumRefinery : Refinery
 	{
 		public TiberiumRefinery(Actor self, TiberiumRefineryInfo info) : base(self, info) { }
 

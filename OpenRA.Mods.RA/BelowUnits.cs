@@ -10,9 +10,10 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using OpenRA.Graphics;
-using OpenRA.Mods.RA.Buildings;
 using OpenRA.Traits;
+using OpenRA.Graphics;
+using OpenRA.Mods.Common.Buildings;
+using OpenRA.Mods.Common.Traits.Buildings;
 
 namespace OpenRA.Mods.RA
 {
@@ -29,7 +30,7 @@ namespace OpenRA.Mods.RA
 		{
 			// Offset effective position to the top of the northernmost occupied cell
 			var bi = self.Info.Traits.GetOrDefault<BuildingInfo>();
-			offset = ((bi != null) ? -FootprintUtils.CenterOffset(self.World, bi).Y : 0) - 512;
+			offset = ((bi != null) ? -BuildingFootprintUtils.CenterOffset(self.World, bi).Y : 0) - 512;
 		}
 
 		public IEnumerable<IRenderable> ModifyRender(Actor self, WorldRenderer wr, IEnumerable<IRenderable> r)

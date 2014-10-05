@@ -10,8 +10,8 @@
 
 using System.Linq;
 using Eluant;
-using OpenRA.Mods.RA.Air;
-using OpenRA.Mods.RA.Buildings;
+using OpenRA.Mods.Common.Traits.Air;
+using OpenRA.Mods.Common.Traits.Buildings;
 using OpenRA.Primitives;
 
 namespace OpenRA.Scripting

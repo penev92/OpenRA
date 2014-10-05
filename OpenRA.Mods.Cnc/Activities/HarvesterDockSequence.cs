@@ -10,11 +10,11 @@
 
 using System;
 using System.Collections.Generic;
-using OpenRA.Mods.RA;
-using OpenRA.Mods.RA.Activities;
-using OpenRA.Mods.RA.Move;
-using OpenRA.Mods.RA.Render;
 using OpenRA.Traits;
+using OpenRA.Mods.Common.Move;
+using OpenRA.Mods.Common.Activities;
+using OpenRA.Mods.Common.Traits;
+using OpenRA.Mods.Common.Traits.Render;
 
 namespace OpenRA.Mods.Cnc
 {

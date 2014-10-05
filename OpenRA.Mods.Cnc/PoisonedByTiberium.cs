@@ -10,8 +10,7 @@
 
 using System.Linq;
 using OpenRA.Traits;
-using OpenRA.Mods.RA;
-using OpenRA.GameRules;
+using OpenRA.Mods.Common;
 
 namespace OpenRA.Mods.Cnc
 {

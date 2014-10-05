@@ -10,9 +10,10 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using OpenRA.Mods.RA.Move;
-using OpenRA.Primitives;
 using OpenRA.Traits;
+using OpenRA.Primitives;
+using OpenRA.Mods.Common.Move;
+using OpenRA.Mods.Common.Traits;
 
 namespace OpenRA.Mods.RA.Crates
 {

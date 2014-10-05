@@ -9,7 +9,7 @@
 #endregion
 
 using System.Linq;
-using OpenRA.Mods.RA.Move;
+using OpenRA.Mods.Common.Move;
 using OpenRA.Traits;
 
 namespace OpenRA.Mods.RA

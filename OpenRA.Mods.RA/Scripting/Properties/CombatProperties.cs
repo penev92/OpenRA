@@ -8,9 +8,11 @@
  */
 #endregion
 
-using OpenRA.Mods.RA.Activities;
-using OpenRA.Scripting;
 using OpenRA.Traits;
+using OpenRA.Scripting;
+using OpenRA.Mods.Common.Move;
+using OpenRA.Mods.RA.Activities;
+using OpenRA.Mods.Common.Traits.Attack;
 
 namespace OpenRA.Mods.RA.Scripting
 {
@@ -33,7 +35,7 @@ namespace OpenRA.Mods.RA.Scripting
 			"close enough to complete the activity.")]
 		public void AttackMove(CPos cell, int closeEnough = 0)
 		{
-			self.QueueActivity(new AttackMove.AttackMoveActivity(self, new Move.Move(cell, WRange.FromCells(closeEnough))));
+			self.QueueActivity(new AttackMove.AttackMoveActivity(self, new Move(cell, WRange.FromCells(closeEnough))));
 		}
 	}
 }

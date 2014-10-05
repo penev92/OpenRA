@@ -8,11 +8,11 @@
  */
 #endregion
 
-using System;
 using System.Linq;
 using Eluant;
 using OpenRA.Scripting;
-using OpenRA.Mods.RA.Move;
+using OpenRA.Mods.Common.Move;
+using OpenRA.Mods.Common.Traits.Attack;
 
 namespace OpenRA.Mods.RA.Scripting
 {

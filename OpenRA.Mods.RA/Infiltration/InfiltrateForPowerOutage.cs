@@ -8,9 +8,8 @@
  */
 #endregion
 
-using System.Linq;
-using OpenRA.Mods.RA.Power;
 using OpenRA.Traits;
+using OpenRA.Mods.Common.Traits.Power;
 
 namespace OpenRA.Mods.RA.Infiltration
 {

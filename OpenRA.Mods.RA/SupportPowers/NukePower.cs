@@ -9,12 +9,13 @@
 #endregion
 
 using System;
-using OpenRA.Effects;
-using OpenRA.Mods.RA.Activities;
-using OpenRA.Mods.RA.Effects;
-using OpenRA.Mods.RA.Render;
-using OpenRA.Primitives;
 using OpenRA.Traits;
+using OpenRA.Effects;
+using OpenRA.Primitives;
+using OpenRA.Mods.RA.Effects;
+using OpenRA.Mods.Common.Activities;
+using OpenRA.Mods.Common.Traits.Render;
+using OpenRA.Mods.Common.Traits.SupportPowers;
 
 namespace OpenRA.Mods.RA
 {

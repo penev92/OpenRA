@@ -9,11 +9,9 @@
 #endregion
 
 using System.Collections.Generic;
-using System.Linq;
-using OpenRA.Effects;
-using OpenRA.GameRules;
 using OpenRA.Traits;
-using OpenRA.Mods.RA.Effects;
+using OpenRA.GameRules;
+using OpenRA.Mods.Common.Traits;
 
 namespace OpenRA.Mods.RA
 {

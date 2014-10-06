@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using OpenRA.Traits;
 using OpenRA.Graphics;
 using OpenRA.Mods.Common.Traits;

@@ -30,7 +30,7 @@ namespace OpenRA.Mods.Common.Traits
 		public virtual object Create(ActorInitializer init) { return new Transforms(init, this); }
 	}
 
-	class Transforms : IIssueOrder, IResolveOrder, IOrderVoice
+	public class Transforms : IIssueOrder, IResolveOrder, IOrderVoice
 	{
 		readonly Actor self;
 		readonly TransformsInfo info;

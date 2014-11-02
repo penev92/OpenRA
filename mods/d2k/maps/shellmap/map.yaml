@@ -106,7 +106,7 @@ Actors:
 	Actor41: guntowera
 		Location: 46,39
 		Owner: Harkonnen
-	Actor42: WormSpawnLocation
+	Actor42: wormspawner
 		Location: 46,64
 		Owner: Creeps
 

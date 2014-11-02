@@ -50,6 +50,10 @@ namespace OpenRA.Mods.D2k
         {
             // TODO: Add a lobby option to disable worms just like crates
 
+            // TODO: It would be even better to stop 
+            if (!spawnPoints.Value.Any())
+                return;
+
             if (--countdown > 0)
                 return;
 
@@ -58,24 +62,19 @@ namespace OpenRA.Mods.D2k
                 SpawnWorm(self);
         }
 
-        private void SpawnWorm (Actor self)
+        void SpawnWorm (Actor self)
         {
             var spawnLocation = GetRandomSpawnPosition(self);
-            self.World.AddFrameEndTask(w =>
-                        w.CreateActor(info.WormSignature, new TypeDictionary
-                                                            {
-                                                                new OwnerInit(w.Players.First(x => x.PlayerName == info.WormOwnerPlayer)),
-                                                                new LocationInit(spawnLocation)
-                                                            }));
+            self.World.AddFrameEndTask(w => w.CreateActor(info.WormSignature, new TypeDictionary
+                                            {
+                                                new OwnerInit(w.Players.First(x => x.PlayerName == info.WormOwnerPlayer)),
+                                                new LocationInit(spawnLocation)
+                                            }));
             wormsPresent++;
         }
 
-        private CPos GetRandomSpawnPosition(Actor self)
+        CPos GetRandomSpawnPosition(Actor self)
         {
-            // TODO: This is here only for testing, while the maps don't have valid spawn points
-            if (!spawnPoints.Value.Any())
-                return self.World.Map.ChooseRandomEdgeCell(self.World.SharedRandom);
-
             return spawnPoints.Value[self.World.SharedRandom.Next(0, spawnPoints.Value.Count() - 1)].Location;
         }
 
@@ -84,4 +83,8 @@ namespace OpenRA.Mods.D2k
             wormsPresent--;
         }
     }
+
+    [Desc("An actor with this trait indicates a valid spawn point for sandworms.")]
+    class WormSpawnerInfo : TraitInfo<WormSpawner> { }
+    class WormSpawner { }
 }

@@ -14,6 +14,7 @@ using System.Drawing;
 using System.Linq;
 using OpenRA.GameRules;
 using OpenRA.Mods.RA.Buildings;
+using OpenRA.Mods.RA.Move;
 using OpenRA.Traits;
 
 namespace OpenRA.Mods.RA
@@ -60,6 +61,9 @@ namespace OpenRA.Mods.RA
 		{
 			if (!self.IsInWorld)
 				return false;
+
+		    if (!HasAnyValidWeapons(target))
+		        return false;
 
 			// Building is under construction or is being sold
 			if (building.Value != null && !building.Value.BuildComplete)
@@ -137,7 +141,18 @@ namespace OpenRA.Mods.RA
 
 		public abstract Activity GetAttackActivity(Actor self, Target newTarget, bool allowMove);
 
-		public bool HasAnyValidWeapons(Target t) { return Armaments.Any(a => a.Weapon.IsValidAgainst(t, self.World, self)); }
+		public bool HasAnyValidWeapons(Target t)
+		{
+		    if (Info.AttackRequiresEnteringCell)
+		    {
+		        var mobile = self.TraitOrDefault<Mobile>();
+		        if (mobile == null || mobile.MovementSpeedForCell(self, t.Actor.Location) == 0)
+		            return false;
+		    }
+
+		    return Armaments.Any(a => a.Weapon.IsValidAgainst(t, self.World, self));
+		}
+
 		public WRange GetMaximumRange()
 		{
 			return Armaments.Select(a => a.Weapon.Range).Append(WRange.Zero).Max();

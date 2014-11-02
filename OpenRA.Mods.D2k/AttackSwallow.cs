@@ -21,20 +21,15 @@ namespace OpenRA.Mods.D2k
 	}
 	class AttackSwallow : AttackFrontal
 	{
-		readonly Sandworm sandworm;
-
 		public AttackSwallow(Actor self, AttackSwallowInfo attackSwallowInfo)
 			: base(self, attackSwallowInfo)
 		{
-			sandworm = self.Trait<Sandworm>();
 		}
 
 		public override void DoAttack(Actor self, Target target)
 		{
-			// TODO: Worm should ignore Fremen as targets unless they are firing/being fired upon (even moving fremen do not attract worms)
-
-			if (target.Type != TargetType.Actor || !CanAttack(self, target) || !sandworm.CanAttackAtLocation(self, target.Actor.Location))
-				// this is so that the worm does not launch an attack against a target that has reached solid rock
+			// This is so that the worm does not launch an attack against a target that has reached solid rock
+			if (target.Type != TargetType.Actor || !CanAttack(self, target))
 			{
 				self.CancelActivity();
 				return;

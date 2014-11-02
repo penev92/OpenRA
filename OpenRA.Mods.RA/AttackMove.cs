@@ -14,12 +14,12 @@ using OpenRA.Traits;
 
 namespace OpenRA.Mods.RA
 {
-	class AttackMoveInfo : ITraitInfo
+	public class AttackMoveInfo : ITraitInfo
 	{
 		public object Create(ActorInitializer init) { return new AttackMove(init.self, this); }
 	}
 
-	class AttackMove : IResolveOrder, IOrderVoice, INotifyIdle, ISync
+	public class AttackMove : IResolveOrder, IOrderVoice, INotifyIdle, ISync
 	{
 		[Sync] public CPos _targetLocation { get { return TargetLocation.HasValue ? TargetLocation.Value : CPos.Zero; } }
 		public CPos? TargetLocation = null;

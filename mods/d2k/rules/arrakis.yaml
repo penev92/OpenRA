@@ -42,12 +42,12 @@ SANDWORM:
 	BodyOrientation:
 	HiddenUnderFog:
 	Sandworm:
-		WanderMoveRadius: 10
 	AppearsOnRadar:
 		UseLocation: yes
 	AttackSwallow:
 		AttackRequiresEnteringCell: true
 	AttackMove:
+	AttackWander:
 	AutoTarget:
 		ScanRadius: 32
 	Armament:

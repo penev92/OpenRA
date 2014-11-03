@@ -153,11 +153,10 @@ namespace OpenRA.Mods.RA
 
 			return inRange
 				.Where(a =>
-						a.AppearsHostileTo(self) &&
-						!a.HasTrait<AutoTargetIgnore>() &&
-						attack.HasAnyValidWeapons(Target.FromActor(a)) &&
-						self.Owner.Shroud.IsTargetable(a)
-					  )
+					a.AppearsHostileTo(self) &&
+					!a.HasTrait<AutoTargetIgnore>() &&
+					attack.HasAnyValidWeapons(Target.FromActor(a)) &&
+					self.Owner.Shroud.IsTargetable(a))
 				.ClosestTo(self);
 		}
 	}

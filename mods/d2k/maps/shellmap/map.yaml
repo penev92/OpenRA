@@ -43,7 +43,7 @@ Players:
 		Name: Creeps
 		NonCombatant: True
 		Race: atreides
-		Enemies: Atreides,Harkonnen
+		Enemies: Atreides, Harkonnen
 
 Actors:
 	Actor4: spicebloom

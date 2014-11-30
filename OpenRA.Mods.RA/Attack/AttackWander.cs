@@ -33,6 +33,7 @@ namespace OpenRA.Mods.RA
 		public AttackWander(Actor self, AttackWanderInfo info)
 		{
 			Info = info;
+		    effectiveMoveRadius = info.WanderMoveRadius;
 		}
 
 		public void TickIdle(Actor self)

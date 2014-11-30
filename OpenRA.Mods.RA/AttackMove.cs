@@ -48,7 +48,8 @@ namespace OpenRA.Mods.RA
 
 		public void TickIdle(Actor self)
 		{
-			if (TargetLocation.HasValue)
+			// This might cause the actor to be stuck if the target location is unreachable
+			if (TargetLocation.HasValue && self.Location != TargetLocation.Value)
 				Activate(self);
 		}
 

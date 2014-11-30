@@ -39,7 +39,7 @@ InfantryVoice:
 	DisablePrefixes: Die
 	DisableVariants: Select, Move
 
-EngineerVoice:
+SupportVoice:
 	DefaultVariant: .AUD
 	Variants:
 		atreides: .WAV

@@ -60,12 +60,14 @@ namespace OpenRA.Mods.D2k
 			if (!spawnPoints.Value.Any())
 				return;
 
-			if (--countdown > 0)
+			// Apparantly someone doesn't want worms or the maximum number of worms has been reached
+			if (info.Maximum < 1 || wormsPresent >= info.Maximum)
+				return;
+
+			if (--countdown > 0 && wormsPresent >= info.Minimum)
 				return;
 
 			countdown = info.SpawnInterval * 25;
-			if (wormsPresent >= info.Maximum)
-				return;
 
 			var wormLocations = new List<WPos>();
 

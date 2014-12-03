@@ -8,9 +8,10 @@
  */
 #endregion
 
-using System;
+using System.Drawing;
 using System.Linq;
 using OpenRA.GameRules;
+using OpenRA.Mods.Common;
 using OpenRA.Mods.RA.Move;
 using OpenRA.Mods.RA.Render;
 using OpenRA.Traits;
@@ -24,6 +25,7 @@ namespace OpenRA.Mods.D2k
 		readonly Target target;
 		readonly WeaponInfo weapon;
 		readonly RenderUnit renderUnit;
+		readonly RadarPings radarPings;
 		readonly AttackSwallow swallow;
 		readonly IPositionable positionable;
 
@@ -37,6 +39,7 @@ namespace OpenRA.Mods.D2k
 			positionable = self.TraitOrDefault<Mobile>();
 			swallow = self.TraitOrDefault<AttackSwallow>();
 			renderUnit = self.TraitOrDefault<RenderUnit>();
+			radarPings = self.World.WorldActor.TraitOrDefault<RadarPings>();
 			countdown = swallow.AttackSwallowInfo.AttackTime;
 
 			renderUnit.DefaultAnimation.ReplaceAnim("burrowed");
@@ -54,10 +57,17 @@ namespace OpenRA.Mods.D2k
 
 			stance = AttackState.EmergingAboveGround;
 
-			lunch.Do(t => t.World.AddFrameEndTask(_ => { t.World.Remove(t); t.Kill(t); }));          // Dispose of the evidence (we don't want husks)
+			lunch.Do(t => t.World.AddFrameEndTask(_ => t.Destroy()));
 
 			positionable.SetPosition(worm, targetLocation);
 			PlayAttackAnimation(worm);
+
+			var attackPosition = worm.CenterPosition;
+			var affectedPlayers = lunch.Select(x => x.Owner).Distinct();
+			foreach (var affectedPlayer in affectedPlayers)
+			{
+				NotifyPlayer(affectedPlayer, attackPosition);
+			}
 
 			return true;
 		}
@@ -66,6 +76,12 @@ namespace OpenRA.Mods.D2k
 		{
 			renderUnit.PlayCustomAnim(self, "sand");
 			renderUnit.PlayCustomAnim(self, "mouth");
+		}
+
+		void NotifyPlayer(Player player, WPos location)
+		{
+			Sound.PlayNotification(player.World.Map.Rules, player, "Speech", swallow.AttackSwallowInfo.WormAttackNotification, player.Country.Race);
+			radarPings.Add(() => true, location, Color.Red, 50);
 		}
 
 		public override Activity Tick(Actor self)
@@ -80,15 +96,15 @@ namespace OpenRA.Mods.D2k
 			{
 				if (self.World.SharedRandom.Next()%2 == 0)      // There is a 50-50 chance that the worm would just go away
 				{
-				    self.CancelActivity();
-				    self.World.AddFrameEndTask(w => w.Remove(self));
-				    var wormManager = self.World.WorldActor.TraitOrDefault<WormManager>();
-				    if (wormManager != null)
-				        wormManager.DecreaseWorms();
+					self.CancelActivity();
+					self.World.AddFrameEndTask(w => w.Remove(self));
+					var wormManager = self.World.WorldActor.TraitOrDefault<WormManager>();
+					if (wormManager != null)
+						wormManager.DecreaseWorms();
 				}
 				else
 				{
-				    renderUnit.DefaultAnimation.ReplaceAnim("idle");
+					renderUnit.DefaultAnimation.ReplaceAnim("idle");
 				}
 				return NextActivity;
 			}

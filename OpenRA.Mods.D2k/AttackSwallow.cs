@@ -28,12 +28,12 @@ namespace OpenRA.Mods.D2k
 
 	class AttackSwallow : AttackFrontal
 	{
-		public readonly AttackSwallowInfo AttackSwallowInfo;
+		public readonly AttackSwallowInfo Info;
 
-		public AttackSwallow(Actor self, AttackSwallowInfo attackSwallowInfo)
-			: base(self, attackSwallowInfo)
+		public AttackSwallow(Actor self, AttackSwallowInfo info)
+			: base(self, info)
 		{
-			AttackSwallowInfo = attackSwallowInfo;
+			Info = info;
 		}
 
 		public override void DoAttack(Actor self, Target target)

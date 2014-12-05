@@ -22,10 +22,10 @@ namespace OpenRA.Mods.D2k
 	class WormManagerInfo : ITraitInfo
 	{
 		[Desc("Minimum number of worms")]
-		public readonly int Minimum = 3;
+		public readonly int Minimum = 2;
 
 		[Desc("Maximum number of worms")]
-		public readonly int Maximum = 8;
+		public readonly int Maximum = 4;
 
 		[Desc("Average time (seconds) between worm spawn")]
 		public readonly int SpawnInterval = 120;
@@ -35,7 +35,7 @@ namespace OpenRA.Mods.D2k
 		public readonly string WormSignature = "sandworm";
 		public readonly string WormOwnerPlayer = "Creeps";
 
-		public object Create (ActorInitializer init) { return new WormManager(this, init.self); }
+		public object Create(ActorInitializer init) { return new WormManager(this, init.self); }
 	}
 
 	class WormManager : ITick
@@ -78,23 +78,22 @@ namespace OpenRA.Mods.D2k
 			AnnounceWormSign(self, wormLocations);
 		}
 
-		WPos SpawnWorm (Actor self)
+		WPos SpawnWorm(Actor self)
 		{
-			var spawnPosition = GetRandomSpawnPosition(self);
-			var spawnLocation = self.World.Map.CellContaining(spawnPosition);
+			var spawnPoint = GetRandomSpawnPoint(self);
 			self.World.AddFrameEndTask(w => w.CreateActor(info.WormSignature, new TypeDictionary
 			{
 				new OwnerInit(w.Players.First(x => x.PlayerName == info.WormOwnerPlayer)),
-				new LocationInit(spawnLocation)
+				new LocationInit(spawnPoint.Location)
 			}));
 			wormsPresent++;
 			
-			return spawnPosition;
+			return spawnPoint.CenterPosition;
 		}
 
-		WPos GetRandomSpawnPosition(Actor self)
+		Actor GetRandomSpawnPoint(Actor self)
 		{
-			return spawnPoints.Value.Random(self.World.SharedRandom).CenterPosition;
+			return spawnPoints.Value.Random(self.World.SharedRandom);
 		}
 
 		public void DecreaseWorms()
@@ -116,9 +115,7 @@ namespace OpenRA.Mods.D2k
 			}
 
 			foreach (var wormLocation in wormLocations)
-			{
 				radarPings.Add(() => true, wormLocation, Color.Red, 50);
-			}
 			
 		}
 	}

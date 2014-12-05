@@ -107,7 +107,7 @@ Actors:
 		Location: 46,39
 		Owner: Harkonnen
 	Actor42: wormspawner
-		Location: 46,64
+		Location: 66,64
 		Owner: Creeps
 
 Smudges:

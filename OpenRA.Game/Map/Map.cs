@@ -88,6 +88,14 @@ namespace OpenRA
 		}
 	}
 
+	[Flags]
+	public enum MapClass
+	{
+		Standard = 1,
+		Shellmap = 2,
+		Mission = 4
+	}
+
 	public class Map
 	{
 		[FieldLoader.Ignore] public IFolder Container;
@@ -96,8 +104,7 @@ namespace OpenRA
 		// Yaml map data
 		public string Uid { get; private set; }
 		public int MapFormat;
-		public bool Selectable = true;
-		public bool UseAsShellmap;
+		public MapClass Class = MapClass.Standard;
 		public string RequiresMod;
 
 		public string Title;
@@ -238,6 +245,16 @@ namespace OpenRA
 
 			var nd = yaml.ToDictionary();
 
+			// Format 6 -> 7 combined the Selectable and UseAsShellmap flags into the Class enum
+			if (MapFormat < 7)
+			{
+				MiniYaml useAsShellmap;
+				if (nd.TryGetValue("UseAsShellmap", out useAsShellmap) && bool.Parse(useAsShellmap.Value))
+					Class = MapClass.Shellmap;
+				else if (Type == "Mission" || Type == "Campaign")
+					Class = MapClass.Mission;
+			}
+
 			// Load players
 			foreach (var my in nd["Players"].ToDictionary().Values)
 			{
@@ -296,7 +313,7 @@ namespace OpenRA
 			// The Uid is calculated from the data on-disk, so
 			// format changes must be flushed to disk.
 			// TODO: this isn't very nice
-			if (MapFormat < 6)
+			if (MapFormat < 7)
 				Save(path);
 
 			Uid = ComputeHash();
@@ -345,12 +362,11 @@ namespace OpenRA
 
 		public void Save(string toPath)
 		{
-			MapFormat = 6;
+			MapFormat = 7;
 
 			var root = new List<MiniYamlNode>();
 			var fields = new[]
 			{
-				"Selectable",
 				"MapFormat",
 				"RequiresMod",
 				"Title",
@@ -360,7 +376,7 @@ namespace OpenRA
 				"Tileset",
 				"MapSize",
 				"Bounds",
-				"UseAsShellmap",
+				"Class",
 				"Type",
 			};
 

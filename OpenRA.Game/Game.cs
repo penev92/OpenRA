@@ -371,7 +371,7 @@ namespace OpenRA
 		static string ChooseShellmap()
 		{
 			var shellmaps = modData.MapCache
-				.Where(m => m.Status == MapStatus.Available && m.Map.UseAsShellmap)
+				.Where(m => m.Status == MapStatus.Available && m.Map.Class == MapClass.Shellmap)
 				.Select(m => m.Uid);
 
 			if (!shellmaps.Any())

@@ -99,9 +99,8 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 			}
 
 			// Add an additional group for loose missions
-			// Loose missions must define Type: Mission and Selectable: false.
 			var looseMissions = Game.modData.MapCache
-				.Where(p => p.Status == MapStatus.Available && p.Map.Type == "Mission" && !p.Map.Selectable && !allMaps.Contains(p.Map))
+				.Where(p => p.Status == MapStatus.Available && p.Map.Class == MapClass.Mission && !allMaps.Contains(p.Map))
 				.Select(p => p.Map);
 
 			if (looseMissions.Any())

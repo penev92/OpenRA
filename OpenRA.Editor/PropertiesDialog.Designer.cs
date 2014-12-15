@@ -43,14 +43,14 @@ namespace OpenRA.Editor
 			this.TitleBox = new System.Windows.Forms.TextBox();
 			this.label2 = new System.Windows.Forms.Label();
 			this.DescBox = new System.Windows.Forms.TextBox();
-			this.SelectableCheckBox = new System.Windows.Forms.CheckBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.AuthorBox = new System.Windows.Forms.TextBox();
-			this.ShellmapCheckBox = new System.Windows.Forms.CheckBox();
+			this.mapClassComboBox = new System.Windows.Forms.ComboBox();
+			this.label4 = new System.Windows.Forms.Label();
 			this.SuspendLayout();
-			//
+			// 
 			// button2
-			//
+			// 
 			this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.button2.DialogResult = System.Windows.Forms.DialogResult.OK;
 			this.button2.Location = new System.Drawing.Point(196, 193);
@@ -59,9 +59,9 @@ namespace OpenRA.Editor
 			this.button2.TabIndex = 14;
 			this.button2.Text = "OK";
 			this.button2.UseVisualStyleBackColor = true;
-			//
+			// 
 			// button1
-			//
+			// 
 			this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
 			this.button1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.button1.Location = new System.Drawing.Point(277, 193);
@@ -70,84 +70,85 @@ namespace OpenRA.Editor
 			this.button1.TabIndex = 15;
 			this.button1.Text = "Cancel";
 			this.button1.UseVisualStyleBackColor = true;
-			//
+			// 
 			// label1
-			//
+			// 
 			this.label1.AutoSize = true;
 			this.label1.Location = new System.Drawing.Point(12, 50);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(27, 13);
 			this.label1.TabIndex = 16;
 			this.label1.Text = "Title";
-			//
-			// title
-			//
+			// 
+			// TitleBox
+			// 
 			this.TitleBox.Location = new System.Drawing.Point(66, 47);
-			this.TitleBox.Name = "title";
+			this.TitleBox.Name = "TitleBox";
 			this.TitleBox.Size = new System.Drawing.Size(286, 20);
 			this.TitleBox.TabIndex = 17;
-			//
+			// 
 			// label2
-			//
+			// 
 			this.label2.AutoSize = true;
 			this.label2.Location = new System.Drawing.Point(12, 76);
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size(32, 13);
 			this.label2.TabIndex = 16;
 			this.label2.Text = "Desc";
-			//
-			// desc
-			//
+			// 
+			// DescBox
+			// 
 			this.DescBox.Location = new System.Drawing.Point(66, 73);
-			this.DescBox.Name = "desc";
+			this.DescBox.Name = "DescBox";
 			this.DescBox.Size = new System.Drawing.Size(286, 20);
 			this.DescBox.TabIndex = 17;
-			//
-			// selectable
-			//
-			this.SelectableCheckBox.AutoSize = true;
-			this.SelectableCheckBox.Location = new System.Drawing.Point(118, 138);
-			this.SelectableCheckBox.Name = "selectable";
-			this.SelectableCheckBox.Size = new System.Drawing.Size(130, 17);
-			this.SelectableCheckBox.TabIndex = 18;
-			this.SelectableCheckBox.Text = "Show in Map Chooser";
-			this.SelectableCheckBox.UseVisualStyleBackColor = true;
-			//
+			// 
 			// label3
-			//
+			// 
 			this.label3.AutoSize = true;
 			this.label3.Location = new System.Drawing.Point(12, 102);
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size(38, 13);
 			this.label3.TabIndex = 16;
 			this.label3.Text = "Author";
-			//
-			// author
-			//
+			// 
+			// AuthorBox
+			// 
 			this.AuthorBox.Location = new System.Drawing.Point(66, 99);
-			this.AuthorBox.Name = "author";
+			this.AuthorBox.Name = "AuthorBox";
 			this.AuthorBox.Size = new System.Drawing.Size(286, 20);
 			this.AuthorBox.TabIndex = 17;
-			//
-			// checkBox1
-			//
-			this.ShellmapCheckBox.AutoSize = true;
-			this.ShellmapCheckBox.Location = new System.Drawing.Point(118, 161);
-			this.ShellmapCheckBox.Name = "checkBox1";
-			this.ShellmapCheckBox.Size = new System.Drawing.Size(105, 17);
-			this.ShellmapCheckBox.TabIndex = 18;
-			this.ShellmapCheckBox.Text = "Use as Shellmap";
-			this.ShellmapCheckBox.UseVisualStyleBackColor = true;
-			//
+			// 
+			// mapClassComboBox
+			// 
+			this.mapClassComboBox.FormattingEnabled = true;
+			this.mapClassComboBox.Items.AddRange(new object[] {
+			"Standard",
+			"Shellmap",
+			"Mission"});
+			this.mapClassComboBox.Location = new System.Drawing.Point(150, 137);
+			this.mapClassComboBox.Name = "mapClassComboBox";
+			this.mapClassComboBox.Size = new System.Drawing.Size(121, 21);
+			this.mapClassComboBox.TabIndex = 19;
+			// 
+			// label4
+			// 
+			this.label4.AutoSize = true;
+			this.label4.Location = new System.Drawing.Point(90, 140);
+			this.label4.Name = "label4";
+			this.label4.Size = new System.Drawing.Size(58, 13);
+			this.label4.TabIndex = 20;
+			this.label4.Text = "Map class:";
+			// 
 			// PropertiesDialog
-			//
+			// 
 			this.AcceptButton = this.button2;
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.button1;
 			this.ClientSize = new System.Drawing.Size(370, 228);
-			this.Controls.Add(this.ShellmapCheckBox);
-			this.Controls.Add(this.SelectableCheckBox);
+			this.Controls.Add(this.label4);
+			this.Controls.Add(this.mapClassComboBox);
 			this.Controls.Add(this.AuthorBox);
 			this.Controls.Add(this.label3);
 			this.Controls.Add(this.DescBox);
@@ -173,9 +174,9 @@ namespace OpenRA.Editor
 		public System.Windows.Forms.TextBox TitleBox;
 		private System.Windows.Forms.Label label2;
 		public System.Windows.Forms.TextBox DescBox;
-		public System.Windows.Forms.CheckBox SelectableCheckBox;
 		private System.Windows.Forms.Label label3;
 		public System.Windows.Forms.TextBox AuthorBox;
-		public System.Windows.Forms.CheckBox ShellmapCheckBox;
+		public System.Windows.Forms.ComboBox mapClassComboBox;
+		private System.Windows.Forms.Label label4;
 	}
 }

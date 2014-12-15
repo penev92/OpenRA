@@ -1,6 +1,4 @@
-Selectable: True
-
-MapFormat: 6
+MapFormat: 7
 
 RequiresMod: ra
 
@@ -14,7 +12,7 @@ MapSize: 128,128
 
 Bounds: 15,10,105,114
 
-UseAsShellmap: False
+Class: Standard
 
 Type: Conquest
 

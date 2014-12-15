@@ -1,6 +1,4 @@
-Selectable: False
-
-MapFormat: 6
+MapFormat: 7
 
 RequiresMod: cnc
 
@@ -18,7 +16,7 @@ MapSize: 64,64
 
 Bounds: 31,31,31,31
 
-UseAsShellmap: False
+Class: Mission
 
 Type: Campaign
 

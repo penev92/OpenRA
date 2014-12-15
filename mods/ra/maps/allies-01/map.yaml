@@ -1,6 +1,4 @@
-Selectable: False
-
-MapFormat: 6
+MapFormat: 7
 
 RequiresMod: ra
 
@@ -18,7 +16,7 @@ MapSize: 128,128
 
 Bounds: 49,45,30,36
 
-UseAsShellmap: False
+Class: Mission
 
 Type: Campaign
 

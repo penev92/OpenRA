@@ -1,6 +1,4 @@
-Selectable: False
-
-MapFormat: 6
+MapFormat: 7
 
 RequiresMod: ra
 
@@ -10,17 +8,17 @@ Description: A pitiful excuse for resistance has blockaded itself in this villag
 
 Author: Westwood Studios
 
+PreviewVideo: soviet1.vqa
+
 Tileset: SNOW
 
 MapSize: 128,128
 
 Bounds: 32,47,32,38
 
-UseAsShellmap: False
+Class: Mission
 
 Type: Campaign
-
-PreviewVideo: soviet1.vqa
 
 Options:
 	Crates: False
@@ -40,11 +38,11 @@ Players:
 		Enemies: USSR
 	PlayerReference@Germany:
 		Name: Germany
+		NonCombatant: True
 		Race: allies
 		ColorRamp: 0,0,80
 		Allies: France, Turkey
 		Enemies: USSR
-		NonCombatant: True
 	PlayerReference@USSR:
 		Name: USSR
 		Playable: True
@@ -59,11 +57,11 @@ Players:
 		Enemies: France, Germany, Turkey
 	PlayerReference@Turkey:
 		Name: Turkey
+		NonCombatant: True
 		Race: allies
 		ColorRamp: 14,123,167
 		Allies: France, Germany
 		Enemies: USSR
-		NonCombatant: True
 	PlayerReference@Neutral:
 		Name: Neutral
 		OwnsWorld: True
@@ -837,7 +835,6 @@ Rules:
 		ParatroopersPower:
 			ChargeTime: 60
 			DropItems: E1,E1,E1,E2,E2
-		#-RallyPoint: # TODO https://github.com/OpenRA/OpenRA/issues/6818
 
 Sequences:
 

@@ -170,7 +170,8 @@ namespace OpenRA.Mods.RA.Widgets.Logic
 					{
 						{ "initialMap", Map.Uid },
 						{ "onExit", DoNothing },
-						{ "onSelect", onSelect }
+						{ "onSelect", onSelect },
+						{ "mapClasses", MapClass.Standard },
 					});
 				};
 			}

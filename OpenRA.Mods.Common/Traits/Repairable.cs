@@ -29,11 +29,13 @@ namespace OpenRA.Mods.Common.Traits
 	{
 		readonly Actor self;
 		readonly Health health;
+		readonly IEnumerable<AmmoPool> ammoPools;
 
 		public Repairable(Actor self)
 		{
 			this.self = self;
 			health = self.Trait<Health>();
+			ammoPools = self.TraitsImplementing<AmmoPool>();
 		}
 
 		public IEnumerable<IOrderTargeter> Orders
@@ -58,10 +60,22 @@ namespace OpenRA.Mods.Common.Traits
 			return self.Info.Traits.Get<RepairableInfo>().RepairBuildings.Contains(target.Info.Name);
 		}
 
+		bool CanRearmAt(Actor target)
+		{
+			return self.Info.Traits.Get<RepairableInfo>().RepairBuildings.Contains(target.Info.Name);
+		}
+
 		bool CanRepair()
 		{
-			var li = self.TraitOrDefault<LimitedAmmo>();
-			return health.DamageState > DamageState.Undamaged || (li != null && !li.FullAmmo());
+			return health.DamageState > DamageState.Undamaged;
+		}
+
+		bool CanRearm()
+		{
+			if (ammoPools != null)
+				return ammoPools.Any(x => !x.Info.SelfReloads && !x.FullAmmo());
+			else
+				return false;
 		}
 
 		public string VoicePhraseForOrder(Actor self, Order order)
@@ -83,7 +97,9 @@ namespace OpenRA.Mods.Common.Traits
 				self.CancelActivity();
 				self.QueueActivity(new MoveAdjacentTo(self, target));
 				self.QueueActivity(movement.MoveTo(self.World.Map.CellContaining(order.TargetActor.CenterPosition), order.TargetActor));
-				self.QueueActivity(new Rearm(self));
+				if (CanRearmAt(order.TargetActor) && CanRearm())
+					self.QueueActivity(new Rearm(self));
+
 				self.QueueActivity(new Repair(order.TargetActor));
 
 				var rp = order.TargetActor.TraitOrDefault<RallyPoint>();

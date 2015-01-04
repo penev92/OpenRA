@@ -31,6 +31,9 @@ namespace OpenRA.Mods.Common.Traits
 		[WeaponReference]
 		[Desc("Has to be defined here and in weapons.yaml.")]
 		public readonly string Weapon = null;
+		[Desc("Which limited ammo pool (if present) should this armament be assigned to.")]
+		public readonly string AmmoPool = "primary";
+		[Desc("Which turret (if present) should this armament be assigned to.")]
 		public readonly string Turret = "primary";
 		[Desc("Time (in frames) until the weapon can fire again.")]
 		public readonly int FireDelay = 0;
@@ -64,7 +67,7 @@ namespace OpenRA.Mods.Common.Traits
 		readonly Actor self;
 		Lazy<Turreted> turret;
 		Lazy<IBodyOrientation> coords;
-		Lazy<LimitedAmmo> limitedAmmo;
+		Lazy<AmmoPool> ammoPool;
 		List<Pair<int, Action>> delayedActions = new List<Pair<int, Action>>();
 
 		public WRange Recoil;
@@ -79,7 +82,7 @@ namespace OpenRA.Mods.Common.Traits
 			// We can't resolve these until runtime
 			turret = Exts.Lazy(() => self.TraitsImplementing<Turreted>().FirstOrDefault(t => t.Name == info.Turret));
 			coords = Exts.Lazy(() => self.Trait<IBodyOrientation>());
-			limitedAmmo = Exts.Lazy(() => self.TraitOrDefault<LimitedAmmo>());
+			ammoPool = Exts.Lazy(() => self.TraitsImplementing<AmmoPool>().FirstOrDefault(la => la.Info.Name == info.AmmoPool));
 
 			Weapon = self.World.Map.Rules.Weapons[info.Weapon.ToLowerInvariant()];
 			Burst = Weapon.Burst;
@@ -136,7 +139,7 @@ namespace OpenRA.Mods.Common.Traits
 			if (IsReloading)
 				return null;
 
-			if (limitedAmmo.Value != null && !limitedAmmo.Value.HasAmmo())
+			if (ammoPool.Value != null && !ammoPool.Value.HasAmmo())
 				return null;
 
 			if (!target.IsInRange(self.CenterPosition, Weapon.Range))

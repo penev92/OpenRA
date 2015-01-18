@@ -31,19 +31,25 @@ namespace OpenRA.Mods.Common.Traits
 		[WeaponReference]
 		[Desc("Has to be defined here and in weapons.yaml.")]
 		public readonly string Weapon = null;
+
 		[Desc("Which limited ammo pool (if present) should this armament be assigned to.")]
 		public readonly string AmmoPool = "primary";
+
 		[Desc("Which turret (if present) should this armament be assigned to.")]
 		public readonly string Turret = "primary";
+
 		[Desc("Time (in frames) until the weapon can fire again.")]
 		public readonly int FireDelay = 0;
 
 		[Desc("Muzzle position relative to turret or body. (forward, right, up) triples")]
 		public readonly WVec[] LocalOffset = { };
+
 		[Desc("Muzzle yaw relative to turret or body.")]
 		public readonly WAngle[] LocalYaw = { };
+
 		[Desc("Move the turret backwards when firing.")]
 		public readonly WRange Recoil = WRange.Zero;
+
 		[Desc("Recoil recovery per-frame")]
 		public readonly WRange RecoilRecovery = new WRange(9);
 

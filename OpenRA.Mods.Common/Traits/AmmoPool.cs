@@ -25,10 +25,13 @@ namespace OpenRA.Mods.Common.Traits
 
 		[Desc("Initial ammo the actor is created with. Defaults to Ammo.")]
 		public readonly int InitialAmmo = -1;
+
 		[Desc("Defaults to value in Ammo. 0 means no visible pips.")]
 		public readonly int PipCount = -1;
+
 		[Desc("PipType to use for loaded ammo.")]
 		public readonly PipType PipType = PipType.Green;
+
 		[Desc("PipType to use for empty ammo.")]
 		public readonly PipType PipTypeEmpty = PipType.Transparent;
 
@@ -40,10 +43,13 @@ namespace OpenRA.Mods.Common.Traits
 
 		[Desc("Time to reload per ReloadCount on airfield etc.")]
 		public readonly int ReloadTicks = 25 * 2;
+
 		[Desc("Whether or not ammo is replenished on its own.")]
 		public readonly bool SelfReloads = false;
+
 		[Desc("Time for each ReloadCount to reload automatically.")]
 		public readonly int SelfReloadTicks = 25 * 2;
+
 		[Desc("Whether or not reload counter should be reset when ammo has been fired.")]
 		public readonly bool ResetOnFire = false;
 

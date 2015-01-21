@@ -292,15 +292,23 @@ HIND:
 		Range: 10c0
 	Armament@PRIMARY:
 		Weapon: ChainGun
+		AmmoPool: chainguns
 		LocalOffset: 85,-213,-85
 		MuzzleSequence: muzzle
 	Armament@SECONDARY:
 		Name: secondary
 		Weapon: ChainGun
+		AmmoPool: chainguns
 		LocalOffset: 85,213,-85
 		MuzzleSequence: muzzle
+	Armament@MISSILES:
+		Name: tertiary
+		Weapon: Maverick
+		AmmoPool: missiles
+		LocalOffset: 0,-426,-85, 0,426,-85
 	AttackHeli:
 		FacingTolerance: 20
+		Armaments: primary, secondary, tertiary
 	Helicopter:
 		RearmBuildings: hpad
 		LandWhenIdle: false
@@ -311,10 +319,17 @@ HIND:
 		InitialStance: HoldFire
 	RenderUnit:
 	WithRotor:
-	AmmoPool:
+	AmmoPool@CHAINGUNS:
 		Ammo: 24
+		Name: chainguns
 		PipCount: 6
-		ReloadTicks: 8
+		ReloadCount: 4
+		ReloadTicks: 32
+	AmmoPool@MISSILES:
+		Ammo: 8
+		Name: missiles
+		PipCount: 4
+		ReloadTicks: 40
 	Selectable:
 		Bounds: 38,32,0,0
 	WithMuzzleFlash:

@@ -190,7 +190,7 @@ World:
 		ClassName: Heavy Support
 		Races: allies, england, france, germany
 		BaseActor: mcv
-		SupportActors: e1,e1,e1,e3,e3,jeep,1tnk,2tnk,2tnk,2tnk
+		SupportActors: e1,e1,e1,e3,e3,jeep,1tnk,2tnk,2tnk,2tnk,4tnk
 		InnerSupportRadius: 3
 		OuterSupportRadius: 5
 	MPStartUnits@heavysoviet:
@@ -198,7 +198,7 @@ World:
 		ClassName: Heavy Support
 		Races: soviet, russia, ukraine
 		BaseActor: mcv
-		SupportActors: e1,e1,e1,e3,e3,apc,ftrk,3tnk,3tnk
+		SupportActors: e1,e1,e1,e3,e3,apc,ftrk,3tnk,3tnk,4tnk
 		InnerSupportRadius: 3
 		OuterSupportRadius: 5
 	MPStartLocations:

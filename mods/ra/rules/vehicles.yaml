@@ -173,17 +173,40 @@ V2RL:
 		ROT: 2
 	Armament@PRIMARY:
 		Weapon: 120mm
+		AmmoPool: cannon
 		LocalOffset: 900,180,340, 900,-180,340
 		Recoil: 171
 		RecoilRecovery: 30
 		MuzzleSequence: muzzle
 	Armament@SECONDARY:
 		Name: secondary
+		AmmoPool: tusk
 		Weapon: MammothTusk
 		LocalOffset: -85,384,340, -85,-384,340
 		LocalYaw: -100,100
 		Recoil: 43
 		MuzzleSequence: muzzle
+	Armament@MACHINEGUN:# unlimited ammo
+		Name: tertiary
+		Weapon: ChainGun
+		LocalOffset: 85,0,384
+		MuzzleSequence: muzzle
+	AmmoPool@CANNON:
+		Ammo: 8
+		Name: cannon
+		PipType: Yellow
+		PipCount: 4
+		ReloadCount: 2
+		ResetOnFire: true
+		SelfReloads: true
+		SelfReloadTicks: 100
+	AmmoPool@TUSK:
+		Ammo: 12
+		Name: tusk
+		PipType: Red
+		PipCount: 6
+		SelfReloads: false
+		ReloadTicks: 60
 	AttackTurreted:
 	WithMuzzleFlash:
 	RenderUnit:

@@ -90,7 +90,7 @@ namespace OpenRA.Mods.D2k.Traits
 			self.World.AddFrameEndTask(w => w.CreateActor(info.WormSignature, new TypeDictionary
 			{
 				new OwnerInit(w.Players.First(x => x.PlayerName == info.WormOwnerPlayer)),
-				new LocationInit(spawnPoint.Location)
+				new LocationInit(spawnPoint.Location + new CVec(1, 1))
 			}));
 
 			wormsPresent++;
@@ -110,7 +110,8 @@ namespace OpenRA.Mods.D2k.Traits
 
 		void AnnounceWormSign(Actor self, IEnumerable<WPos> wormLocations)
 		{
-			if (self.World.LocalPlayer != null)
+			if (self.World.LocalPlayer != null && self.World.Map.Rules.Voices.ContainsKey("speech")
+				&& self.World.Map.Rules.Voices["speech"].NotificationsPools.Value.ContainsKey(info.WormSignNotification))
 				Sound.PlayNotification(self.World.Map.Rules, self.World.LocalPlayer, "Speech", info.WormSignNotification, self.World.LocalPlayer.Country.Race);
 
 			if (radarPings.Value == null)

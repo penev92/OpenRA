@@ -24,6 +24,7 @@ namespace OpenRA.Mods.Common.Orders
 		readonly Actor producer;
 		readonly string building;
 		readonly BuildingInfo buildingInfo;
+		readonly string race;
 		IActorPreview[] preview;
 
 		Sprite buildOk, buildBlocked;
@@ -33,6 +34,7 @@ namespace OpenRA.Mods.Common.Orders
 		{
 			producer = queue.Actor;
 			building = name;
+			race = queue.MostLikelyProducer().Trait.Race;
 
 			var map = producer.World.Map;
 			var tileset = producer.World.TileSet.Id.ToLowerInvariant();
@@ -118,7 +120,12 @@ namespace OpenRA.Mods.Common.Orders
 			{
 				if (!initialized)
 				{
-					var init = new ActorPreviewInitializer(rules.Actors[building], producer.Owner, wr, new TypeDictionary());
+					var td = new TypeDictionary()
+					{
+						new RaceInit(race)
+					};
+
+					var init = new ActorPreviewInitializer(rules.Actors[building], producer.Owner, wr, td);
 					preview = rules.Actors[building].Traits.WithInterface<IRenderActorPreviewInfo>()
 						.SelectMany(rpi => rpi.RenderPreview(init))
 						.ToArray();

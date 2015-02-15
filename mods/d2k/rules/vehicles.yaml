@@ -1,7 +1,7 @@
 mcv:
 	Inherits: ^Vehicle
 	Buildable:
-		Prerequisites: ~heavy, repair, ~techlevel.medium
+		Prerequisites: repair, ~techlevel.medium
 		Queue: Armor
 		BuildPaletteOrder: 110
 	Valued:
@@ -38,28 +38,11 @@ mcv:
 	AttractsWorms:
 		Intensity: 700
 
-mcv.husk:
-	Inherits: ^Husk
-	Health:
-		HP: 175
-	Tooltip:
-		Name: Destroyed Mobile Construction Vehicle
-
-mcv.starport:
-	Inherits: mcv
-	Buildable:
-		Prerequisites: ~starport, repair
-		Queue: Starport
-	Valued:
-		Cost: 2500
-	RenderUnit:
-		Image: mcv
-
 harvester:
 	Inherits: ^Vehicle
 	Buildable:
 		Queue: Armor
-		Prerequisites: ~heavy, refinery
+		Prerequisites: refinery
 		BuildPaletteOrder: 10
 		InitialActivity: FindResources
 	Valued:
@@ -97,25 +80,6 @@ harvester:
 	AttractsWorms:
 		Intensity: 700
 
-harvester.husk:
-	Inherits: ^Husk
-	Health:
-		HP: 150
-	Tooltip:
-		Name: Destroyed Spice Harvester
-	TransformOnCapture:
-		IntoActor: harvester
-
-harvester.starport:
-	Inherits: harvester
-	Buildable:
-		Prerequisites: ~starport
-		Queue: Starport
-	Valued:
-		Cost: 1500
-	RenderUnit:
-		Image: harvester
-
 trike:
 	Inherits: ^Vehicle
 	Buildable:
@@ -152,21 +116,11 @@ trike:
 	AttractsWorms:
 		Intensity: 420
 
-trike.starport:
-	Inherits: trike
-	Buildable:
-		Queue: Starport
-		Prerequisites: starport
-	Valued:
-		Cost: 315
-	RenderUnit:
-		Image: trike
-
 quad:
 	Inherits: ^Vehicle
 	Buildable:
 		Queue: Vehicle
-		Prerequisites: ~light, radar, ~techlevel.medium
+		Prerequisites: radar, ~techlevel.medium
 		BuildPaletteOrder: 20
 	Valued:
 		Cost: 400
@@ -195,70 +149,11 @@ quad:
 	AttractsWorms:
 		Intensity: 470
 
-quad.starport:
-	Inherits: quad
-	Buildable:
-		Prerequisites: starport
-		Queue: Starport
-	Valued:
-		Cost: 500
-	RenderUnit:
-		Image: quad
-
-^combat:
-	Inherits: ^Tank
-	Buildable:
-		Queue: Armor
-		BuildPaletteOrder: 40
-	Valued:
-		Cost: 700
-	Tooltip:
-		Name: Combat Tank
-		Description: Main Battle Tank\n  Strong vs Tanks\n  Weak vs Infantry, Aircraft\n \n  Atreides:      +Range\n  Harkonnen: +Health\n  Ordos:         +Speed
-	Health:
-		HP: 350
-	Armor:
-		Type: Heavy
-	Mobile:
-		Speed: 64
-		ROT: 6
-		Crushes: crate, infantry
-	RevealsShroud:
-		Range: 7c0
-	Turreted:
-		ROT: 6
-		RealignDelay: 0
-	Armament:
-		Weapon: 90mm
-		Recoil: 128
-		RecoilRecovery: 32
-		LocalOffset: 256,0,0
-		MuzzleSequence: muzzle
-	AttackTurreted:
-	WithMuzzleFlash:
-	RenderUnit:
-	WithTurret:
-	AutoTarget:
-	Explodes:
-		Weapon: UnitExplodeSmall
-		EmptyWeapon: UnitExplodeSmall
-	Selectable:
-		Bounds: 30,30
-	AttractsWorms:
-		Intensity: 520
-
-^combat.husk:
-	Inherits: ^Husk
-	Health:
-		HP: 100
-	ThrowsParticle@turret:
-		Anim: turret
-
 siegetank:
 	Inherits: ^Tank
 	Buildable:
 		Queue: Armor
-		Prerequisites: ~heavy, radar, ~techlevel.medium
+		Prerequisites: radar, ~techlevel.medium
 		BuildPaletteOrder: 50
 	Valued:
 		Cost: 850
@@ -301,24 +196,6 @@ siegetank:
 	AttractsWorms:
 		Intensity: 600
 
-siegetank.husk:
-	Inherits: ^Husk
-	Tooltip:
-	ThrowsParticle@turret:
-		Anim: turret
-	TransformOnCapture:
-		IntoActor: siegetank
-
-siegetank.starport:
-	Inherits: siegetank
-	Buildable:
-		Prerequisites: starport
-		Queue: Starport
-	Valued:
-		Cost: 1075
-	RenderUnit:
-		Image: siegetank
-
 missiletank:
 	Inherits: ^Tank
 	Valued:
@@ -328,7 +205,7 @@ missiletank:
 		Description: Rocket Artillery\n  Strong vs Vehicles, Buildings\n  Weak vs Infantry, Aircraft
 	Buildable:
 		Queue: Armor
-		Prerequisites: ~heavy, hightech, ~techlevel.high
+		Prerequisites: hightech, ~techlevel.high
 		BuildPaletteOrder: 60
 	Mobile:
 		Speed: 64
@@ -356,18 +233,246 @@ missiletank:
 	AttractsWorms:
 		Intensity: 600
 
-missiletank.husk:
-	Inherits: ^Husk
-	RenderUnit:
-	TransformOnCapture:
-		IntoActor: missiletank
-
-missiletank.starport:
-	Inherits: missiletank
+sonictank:
+	Inherits: ^Vehicle
 	Buildable:
-		Prerequisites: starport
-		Queue: Starport
+		Queue: Armor
+		BuildPaletteOrder: 100
+		Prerequisites: ~heavy.atreides, research, ~techlevel.high
 	Valued:
 		Cost: 1250
+	Tooltip:
+		Name: Sonic Tank
+		Description: Fires sonic shocks\n  Strong vs Infantry, Vehicles\n  Weak vs Artillery, Aircraft
+	Selectable:
+		Bounds: 30,30
+	Health:
+		HP: 130
+	Armor:
+		Type: Light
+	Mobile:
+		ROT: 3
+		Speed: 74
+	RevealsShroud:
+		Range: 6c0
+	Armament:
+		Weapon: Sound
+		LocalOffset: 640,0,427
+	AttackFrontal:
+	AutoTarget:
+	Explodes:
+		Weapon: UnitExplodeSmall
+		EmptyWeapon: UnitExplodeSmall
+	LeavesHusk:
+		HuskActor: sonictank.husk
+	AttractsWorms:
+		Intensity: 600
+
+devast:
+	Inherits: ^Tank
+	Buildable:
+		Queue: Armor
+		BuildPaletteOrder: 100
+		Prerequisites: ~heavy.harkonnen, research, ~techlevel.high
+	Valued:
+		Cost: 1200
+	Tooltip:
+		Name: Devastator
+		Description: Super Heavy Tank\n  Strong vs Tanks\n  Weak vs Artillery, Aircraft
+	Health:
+		HP: 650
+	Armor:
+		Type: Heavy
+	Mobile:
+		ROT: 3
+		Speed: 42
+		Crushes: crate, infantry
+	RevealsShroud:
+		Range: 7c0
 	RenderUnit:
-		Image: missiletank
+	Armament:
+		Weapon: DevBullet
+		LocalOffset: 256,0,32
+		MuzzleSequence: muzzle
+	AttackFrontal:
+	WithMuzzleFlash:
+	AutoTarget:
+	Explodes:
+		Weapon: UnitExplodeScale
+		EmptyWeapon: UnitExplodeScale
+	Selectable:
+		Bounds: 44,38,0,0
+	LeavesHusk:
+		HuskActor: devast.husk
+	AttractsWorms:
+		Intensity: 700
+
+raider:
+	Inherits: ^Vehicle
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 10
+		Prerequisites: ~light.ordos
+	Valued:
+		Cost: 300
+	Tooltip:
+		Name: Raider Trike
+		Description: Improved Scout\n Strong vs Infantry, Light Vehicles
+	Selectable:
+		Bounds: 24,24
+	Health:
+		HP: 110
+	Armor:
+		Type: Light
+	Mobile:
+		ROT: 10
+		Speed: 149
+	RevealsShroud:
+		Range: 7c0
+	WithMuzzleFlash:
+	Armament:
+		Weapon: HMGo
+		LocalOffset: 256,0,128
+		MuzzleSequence: muzzle
+	AttackFrontal:
+	AutoTarget:
+	Explodes:
+		Weapon: UnitExplodeTiny
+		EmptyWeapon: UnitExplodeTiny
+	AttractsWorms:
+		Intensity: 420
+
+stealthraider:
+	Inherits: raider
+	Buildable:
+		Prerequisites: ~light.ordos, hightech, ~techlevel.medium
+		BuildPaletteOrder: 30
+	Valued:
+		Cost: 400
+	Tooltip:
+		Name: Stealth Raider Trike
+		Description: Invisible Raider Trike\n Strong vs Infantry, Light Vehicles
+	Cloak:
+		InitialDelay: 45
+		CloakDelay: 90
+		CloakSound: STEALTH1.WAV
+		UncloakSound: STEALTH2.WAV
+	AutoTarget:
+		InitialStance: HoldFire
+	-MustBeDestroyed:
+
+deviatortank:
+	Inherits: ^Tank
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Deviator
+		Description: Fires a warhead which changes\nthe allegiance of enemy vehicles
+	Buildable:
+		Queue: Armor
+		BuildPaletteOrder: 50
+		Prerequisites: ~heavy.ordos, research, ~techlevel.high
+	Mobile:
+		ROT: 3
+		Speed: 64
+	Health:
+		HP: 125
+	Armor:
+		Type: Light
+	RevealsShroud:
+		Range: 5c0
+	RenderUnit:
+	Armament:
+		Weapon: NerveGasMissile
+		LocalOffset: -299,0,85
+	AttackFrontal:
+	AutoTarget:
+		InitialStance: Defend
+	Explodes:
+		Weapon: UnitExplodeSmall
+		EmptyWeapon: UnitExplodeSmall
+	Selectable:
+		Bounds: 30,30
+	LeavesHusk:
+		HuskActor: deviatortank.husk
+	AttractsWorms:
+		Intensity: 600
+
+^combat:
+	Inherits: ^Tank
+	Buildable:
+		Queue: Armor
+		BuildPaletteOrder: 40
+	Valued:
+		Cost: 700
+	Tooltip:
+		Name: Combat Tank
+		Description: Main Battle Tank\n  Strong vs Tanks\n  Weak vs Infantry, Aircraft\n \n  Atreides:      +Range\n  Harkonnen: +Health\n  Ordos:         +Speed
+	Health:
+		HP: 350
+	Armor:
+		Type: Heavy
+	Mobile:
+		Speed: 64
+		ROT: 6
+		Crushes: crate, infantry
+	RevealsShroud:
+		Range: 8c0
+	Turreted:
+		ROT: 6
+		RealignDelay: 0
+	Armament:
+		Weapon: 90mm
+		Recoil: 128
+		RecoilRecovery: 32
+		LocalOffset: 256,0,0
+		MuzzleSequence: muzzle
+	AttackTurreted:
+	WithMuzzleFlash:
+	RenderUnit:
+	WithTurret:
+	AutoTarget:
+	Explodes:
+		Weapon: UnitExplodeSmall
+		EmptyWeapon: UnitExplodeSmall
+	Selectable:
+		Bounds: 30,30
+	AttractsWorms:
+		Intensity: 520
+
+combata:
+	Inherits: ^combat
+	Buildable:
+		Prerequisites: ~heavy.atreides
+
+	LeavesHusk:
+		HuskActor: combata.husk
+
+combath:
+	Inherits: ^combat
+	Buildable:
+		Prerequisites: ~heavy.harkonnen
+	Mobile:
+		Speed: 53
+		ROT: 4
+	Turreted:
+		ROT: 5
+	RevealsShroud:
+		Range: 7c0
+	Health:
+		HP: 440
+	LeavesHusk:
+		HuskActor: combath.husk
+
+combato:
+	Inherits: ^combat
+	Buildable:
+		Prerequisites: ~heavy.ordos
+	Turreted:
+		ROT: 8
+	Mobile:
+		Speed: 96
+		ROT: 8
+		Crushes: crate, infantry
+	LeavesHusk:
+		HuskActor: combato.husk

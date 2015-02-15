@@ -808,3 +808,36 @@ palace:
 	DisabledOverlay:
 	RequiresPower:
 	SupportPowerChargeBar:
+
+conyard.atreides:
+	Inherits: conyard
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 1000
+		Prerequisites: ~disabled
+		ForceRace: atreides
+	RenderBuilding:
+		Image: conyard.atreides
+		-RaceImages:
+
+conyard.harkonnen:
+	Inherits: conyard
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 1000
+		Prerequisites: ~disabled
+		ForceRace: harkonnen
+	RenderBuilding:
+		Image: conyard.harkonnen
+		-RaceImages:
+
+conyard.ordos:
+	Inherits: conyard
+	Buildable:
+		Queue: Building
+		BuildPaletteOrder: 1000
+		Prerequisites: ~disabled
+		ForceRace: ordos
+	RenderBuilding:
+		Image: conyard.ordos
+		-RaceImages:

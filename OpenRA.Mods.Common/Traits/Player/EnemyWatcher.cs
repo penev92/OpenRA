@@ -85,6 +85,9 @@ namespace OpenRA.Mods.Common.Traits
 				if (lastKnownActorIds.Contains(actor.Actor.ActorID))
 					continue;
 
+				foreach (var trait in actor.Actor.TraitsImplementing<INotifyDiscovered>())
+					trait.OnDiscovered(actor.Actor, self.Owner);
+
 				// We have already played this type of notification
 				if (playedNotifications.Contains(actor.Trait.Info.Notification))
 					continue;

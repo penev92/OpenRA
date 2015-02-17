@@ -100,9 +100,11 @@ namespace OpenRA.Mods.Common.Traits
 
 		void Announce(Actor self, TraitPair<AnnounceOnSeen> announce)
 		{
+			var notification = announce.Trait.Info.Notification;
+
 			// Audio notification
-			if (self.World.LocalPlayer != null)
-				Sound.PlayNotification(self.World.Map.Rules, self.World.LocalPlayer, "Speech", announce.Trait.Info.Notification, self.Owner.Country.Race);
+			if (self.World.LocalPlayer != null && !string.IsNullOrEmpty(notification))
+				Sound.PlayNotification(self.World.Map.Rules, self.World.LocalPlayer, "Speech", notification, self.Owner.Country.Race);
 
 			// Radar notificaion
 			if (announce.Trait.Info.PingRadar && radarPings.Value != null)

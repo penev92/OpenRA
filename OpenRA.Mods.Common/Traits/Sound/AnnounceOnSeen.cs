@@ -18,7 +18,7 @@ namespace OpenRA.Mods.Common.Traits
 		[Desc("Should there be a radar ping on enemies' radar at the actor's location when they see him")]
 		public readonly bool PingRadar = false;
 
-		public readonly string Notification = "EnemyUnitSighted";
+		public readonly string Notification = null;
 
 		public object Create(ActorInitializer init) { return new AnnounceOnSeen(this); }
 	}

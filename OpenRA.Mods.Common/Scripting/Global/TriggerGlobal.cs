@@ -412,6 +412,13 @@ namespace OpenRA.Mods.Common.Scripting
 			GetScriptTriggers(a).RegisterCallback(Trigger.OnDiscovered, func, Context);
 		}
 
+		[Desc("Call a function when this player is discovered by an enemy (doesn't work for neutrals). " +
+			"The callback function will be called as func(Player discovered, Player discoverer)")]
+		public void OnPlayerDiscovered(Player discovered, Player discoverer, LuaFunction func)
+		{
+			GetScriptTriggers(discovered.PlayerActor).RegisterCallback(Trigger.OnDiscovered, func, Context);
+		}
+
 		[Desc("Removes all triggers from this actor." +
 			"Note that the removal will only take effect at the end of a tick, " +
 			"so you must not add new triggers at the same time that you are calling this function.")]

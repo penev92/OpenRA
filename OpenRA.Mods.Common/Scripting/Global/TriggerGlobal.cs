@@ -407,14 +407,14 @@ namespace OpenRA.Mods.Common.Scripting
 
 		[Desc("Call a function when this actor is discovered by an enemy (doesn't work for neutral actors). " +
 			"The callback function will be called as func(Actor self, Player discoverer)")]
-		public void OnDiscovered(Actor a, Player discoverer, LuaFunction func)
+		public void OnDiscovered(Actor a, LuaFunction func)
 		{
 			GetScriptTriggers(a).RegisterCallback(Trigger.OnDiscovered, func, Context);
 		}
 
 		[Desc("Call a function when this player is discovered by an enemy (doesn't work for neutrals). " +
-			"The callback function will be called as func(Player discovered, Player discoverer)")]
-		public void OnPlayerDiscovered(Player discovered, Player discoverer, LuaFunction func)
+			"The callback function will be called as func(Actor self, Player discoverer)")]
+		public void OnPlayerDiscovered(Player discovered, LuaFunction func)
 		{
 			GetScriptTriggers(discovered.PlayerActor).RegisterCallback(Trigger.OnDiscovered, func, Context);
 		}

@@ -35,11 +35,13 @@ namespace OpenRA.Mods.Common.Traits
 		int ticksBeforeNextNotification;
 		HashSet<uint> lastKnownActorIds;
 		HashSet<uint> visibleActorIds;
+		HashSet<Player> discoveredPlayers;
 		HashSet<string> playedNotifications;
 
 		public EnemyWatcher(EnemyWatcherInfo info)
 		{
 			lastKnownActorIds = new HashSet<uint>();
+			discoveredPlayers = new HashSet<Player>();
 			this.info = info;
 			rescanInterval = info.ScanInterval;
 			ticksBeforeNextNotification = info.NotificationInterval;
@@ -88,9 +90,15 @@ namespace OpenRA.Mods.Common.Traits
 				foreach (var trait in actor.Actor.TraitsImplementing<INotifyDiscovered>())
 					trait.OnDiscovered(actor.Actor, self.Owner, !notificationPlayed);
 
-				// Notify the actor's owner that he's been discovered
-				foreach (var trait in actor.Actor.Owner.PlayerActor.TraitsImplementing<INotifyDiscovered>())
-					trait.OnDiscovered(actor.Actor.Owner.PlayerActor, self.Owner, false);
+				var discoveredPlayer = actor.Actor.Owner;
+				if (!discoveredPlayers.Contains(discoveredPlayer))
+				{
+					// Notify the actor's owner that he's been discovered
+					foreach (var trait in discoveredPlayer.PlayerActor.TraitsImplementing<INotifyDiscovered>())
+						trait.OnDiscovered(actor.Actor, self.Owner, false);
+
+					discoveredPlayers.Add(discoveredPlayer);
+				}
 
 				// We have already played this type of notification
 				if (notificationPlayed)

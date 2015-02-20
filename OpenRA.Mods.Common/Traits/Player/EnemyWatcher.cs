@@ -8,9 +8,7 @@
  */
 #endregion
 
-using System;
 using System.Collections.Generic;
-using System.Drawing;
 using OpenRA.Traits;
 
 namespace OpenRA.Mods.Common.Traits
@@ -25,13 +23,12 @@ namespace OpenRA.Mods.Common.Traits
 		[Desc("Minimal interval in ticks between notifications.")]
 		public readonly int NotificationInterval = 200;
 
-		public object Create(ActorInitializer init) { return new EnemyWatcher(init.Self, this); }
+		public object Create(ActorInitializer init) { return new EnemyWatcher(this); }
 	}
 
 	class EnemyWatcher : ITick
 	{
 		readonly EnemyWatcherInfo info;
-		readonly Lazy<RadarPings> radarPings;
 
 		bool announcedAny;
 		int rescanInterval;
@@ -40,15 +37,15 @@ namespace OpenRA.Mods.Common.Traits
 		HashSet<uint> visibleActorIds;
 		HashSet<string> playedNotifications;
 
-		public EnemyWatcher(Actor self, EnemyWatcherInfo info)
+		public EnemyWatcher(EnemyWatcherInfo info)
 		{
 			lastKnownActorIds = new HashSet<uint>();
 			this.info = info;
 			rescanInterval = info.ScanInterval;
 			ticksBeforeNextNotification = info.NotificationInterval;
-			radarPings = Exts.Lazy(() => self.World.WorldActor.Trait<RadarPings>());
 		}
 
+		// Here self is the player actor
 		public void Tick(Actor self)
 		{
 			// TODO: Make the AI handle such notifications and remove Owner.IsBot from this check
@@ -85,41 +82,28 @@ namespace OpenRA.Mods.Common.Traits
 				if (lastKnownActorIds.Contains(actor.Actor.ActorID))
 					continue;
 
+				var notificationPlayed = playedNotifications.Contains(actor.Trait.Info.Notification);
+
 				// Notify the actor that he's been discovered
 				foreach (var trait in actor.Actor.TraitsImplementing<INotifyDiscovered>())
-					trait.OnDiscovered(actor.Actor, self.Owner);
+					trait.OnDiscovered(actor.Actor, self.Owner, !notificationPlayed);
 
 				// Notify the actor's owner that he's been discovered
 				foreach (var trait in actor.Actor.Owner.PlayerActor.TraitsImplementing<INotifyDiscovered>())
-					trait.OnDiscovered(actor.Actor.Owner.PlayerActor, self.Owner);
+					trait.OnDiscovered(actor.Actor.Owner.PlayerActor, self.Owner, false);
 
 				// We have already played this type of notification
-				if (playedNotifications.Contains(actor.Trait.Info.Notification))
+				if (notificationPlayed)
 					continue;
 
-				Announce(self, actor);
+				playedNotifications.Add(actor.Trait.Info.Notification);
+				announcedAny = true;
 			}
 
 			if (announcedAny)
 				ticksBeforeNextNotification = info.NotificationInterval;
 
 			lastKnownActorIds = visibleActorIds;
-		}
-
-		void Announce(Actor self, TraitPair<AnnounceOnSeen> announce)
-		{
-			var notification = announce.Trait.Info.Notification;
-
-			// Audio notification
-			if (self.World.LocalPlayer != null && !string.IsNullOrEmpty(notification))
-				Sound.PlayNotification(self.World.Map.Rules, self.World.LocalPlayer, "Speech", notification, self.Owner.Country.Race);
-
-			// Radar notificaion
-			if (announce.Trait.Info.PingRadar && radarPings.Value != null)
-				radarPings.Value.Add(() => true, announce.Actor.CenterPosition, Color.Red, 50);
-
-			playedNotifications.Add(announce.Trait.Info.Notification);
-			announcedAny = true;
 		}
 	}
 }

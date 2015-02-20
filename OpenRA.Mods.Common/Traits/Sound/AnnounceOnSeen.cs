@@ -8,6 +8,8 @@
  */
 #endregion
 
+using System;
+using System.Drawing;
 using OpenRA.Traits;
 
 namespace OpenRA.Mods.Common.Traits
@@ -20,16 +22,30 @@ namespace OpenRA.Mods.Common.Traits
 
 		public readonly string Notification = null;
 
-		public object Create(ActorInitializer init) { return new AnnounceOnSeen(this); }
+		public object Create(ActorInitializer init) { return new AnnounceOnSeen(init.Self, this); }
 	}
 
-	public class AnnounceOnSeen
+	public class AnnounceOnSeen : INotifyDiscovered
 	{
 		public readonly AnnounceOnSeenInfo Info;
 
-		public AnnounceOnSeen(AnnounceOnSeenInfo info)
+		readonly Lazy<RadarPings> radarPings;
+
+		public AnnounceOnSeen(Actor self, AnnounceOnSeenInfo info)
 		{
 			Info = info;
+			radarPings = Exts.Lazy(() => self.World.WorldActor.Trait<RadarPings>());
+		}
+
+		public void OnDiscovered(Actor self, Player discoverer, bool playNotification)
+		{
+			// Audio notification
+			if (discoverer != null && !string.IsNullOrEmpty(Info.Notification))
+				Sound.PlayNotification(self.World.Map.Rules, discoverer, "Speech", Info.Notification, discoverer.Country.Race);
+
+			// Radar notificaion
+			if (Info.PingRadar && radarPings.Value != null)
+				radarPings.Value.Add(() => true, self.CenterPosition, Color.Red, 50);
 		}
 	}
 }

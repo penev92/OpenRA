@@ -324,7 +324,7 @@ namespace OpenRA.Mods.Common.Scripting
 			OnOtherProducedInternal(producee, produced);
 		}
 
-		public void OnDiscovered(Actor self, Player discoverer)
+		public void OnDiscovered(Actor self, Player discoverer, bool playNotification)
 		{
 			foreach (var f in Triggers[Trigger.OnDiscovered])
 			{

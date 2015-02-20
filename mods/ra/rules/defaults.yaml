@@ -72,6 +72,8 @@
 	TimedUpgradeBar:
 		Upgrade: invulnerability
 	MustBeDestroyed:
+	AnnounceOnSeen:
+		Notification: EnemyUnitsApproaching
 
 ^Tank:
 	AppearsOnRadar:
@@ -156,6 +158,8 @@
 		GroundCorpsePalette:
 		WaterCorpseSequence:
 		WaterCorpsePalette:
+	AnnounceOnSeen:
+		Notification: EnemyUnitsApproaching
 
 ^Infantry:
 	AppearsOnRadar:
@@ -245,6 +249,8 @@
 		UpgradeMinEnabledLevel: 1
 	UpgradeManager:
 	MustBeDestroyed:
+	AnnounceOnSeen:
+		Notification: EnemyUnitsApproaching
 
 ^Ship:
 	AppearsOnRadar:
@@ -299,6 +305,8 @@
 		Upgrade: invulnerability
 		UpgradeMinEnabledLevel: 1
 	MustBeDestroyed:
+	AnnounceOnSeen:
+		Notification: EnemyUnitsApproaching
 
 ^Plane:
 	AppearsOnRadar:
@@ -356,6 +364,8 @@
 		Upgrade: invulnerability
 	WithShadow:
 	MustBeDestroyed:
+	AnnounceOnSeen:
+		Notification: EnemyUnitsApproaching
 
 ^Helicopter:
 	Inherits: ^Plane
@@ -364,6 +374,8 @@
 	GpsDot:
 		String: Helicopter
 	Hovers:
+	AnnounceOnSeen:
+		Notification: EnemyUnitsApproaching
 
 ^Building:
 	AppearsOnRadar:

@@ -117,8 +117,8 @@ Grd3Action = function()
 	end
 end
 
-DiscoverGdiBase = function()
-	if baseDiscovered then
+DiscoverGdiBase = function(actor, discoverer)
+	if baseDiscovered or not discoverer == gdi then
 		return
 	end
 
@@ -144,7 +144,7 @@ SetupWorld = function()
 	Reinforcements.Reinforce(gdi, GdiApc, { GdiApcEntry.Location, GdiApcRallyPoint.Location }, DateTime.Seconds(1), function(actor) actor.Stance = "Defend" end)
 	Reinforcements.Reinforce(gdi, GdiInfantry, { GdiInfantryEntry.Location, GdiInfantryRallyPoint.Location }, 15, function(actor) actor.Stance = "Defend" end)
 
-	Trigger.OnPlayerDiscovered(gdiBase, gdi, DiscoverGdiBase)
+	Trigger.OnPlayerDiscovered(gdiBase, DiscoverGdiBase)
 
 	Utils.Do(Map.NamedActors, function(actor)
 		if actor.Owner == nod and actor.HasProperty("StartBuildingRepairs") then

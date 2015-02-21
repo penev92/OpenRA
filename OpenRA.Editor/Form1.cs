@@ -130,11 +130,42 @@ namespace OpenRA.Editor
 				map.MakeDefaultPlayers();
 
 			PrepareMapResources(Game.ModData, map);
+			GenerateMapPreview(map);
 
 			// Calculate total net worth of resources in cash
 			cashToolStripStatusLabel.Text = CalculateTotalResource().ToString();
 
 			dirty = false;
+		}
+
+		void GenerateMapPreview(Map map)
+		{
+			const int ChunkSize = 8;
+			
+			var countX = 0;
+			var countY = 0;
+			var newMap = new Bitmap(map.MapSize.X * tilesetRenderer.TileSize, map.MapSize.Y * tilesetRenderer.TileSize);//, System.Drawing.Imaging.PixelFormat.Format8bppIndexed);
+			using (var graphics = System.Drawing.Graphics.FromImage(newMap))
+			for (var u = 0; u < map.MapSize.X; u += ChunkSize, countY++)
+			{
+				countX = 0;
+				for (var v = 0; v < map.MapSize.Y; v += ChunkSize, countX++)
+				{
+					var x = new int2(u / ChunkSize, v / ChunkSize);
+					if (!surface1.Chunks.ContainsKey(x)) surface1.Chunks[x] = surface1.RenderChunk(u / ChunkSize, v / ChunkSize);
+					
+					var bmp = surface1.Chunks[x];
+					
+					var drawX = tilesetRenderer.TileSize * countY * ChunkSize;
+					var drawY = tilesetRenderer.TileSize * countX * ChunkSize;
+					var sourceRect = new RectangleF(0, 0, bmp.Width, bmp.Height);
+					var destRect = new RectangleF(drawX, drawY, tilesetRenderer.TileSize * ChunkSize, tilesetRenderer.TileSize * ChunkSize);
+					
+					graphics.DrawImage(bmp, destRect, sourceRect, GraphicsUnit.Pixel);
+				}
+			}
+			
+			newMap.Save(string.Format("{0}.png", Path.GetFileNameWithoutExtension(map.Path)));
 		}
 
 		void NewMap(Map map)

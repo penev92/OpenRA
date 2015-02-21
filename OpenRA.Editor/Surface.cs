@@ -256,7 +256,7 @@ namespace OpenRA.Editor
 
 		public const int ChunkSize = 8;		// 8x8 chunks ==> 192x192 bitmaps.
 
-		Bitmap RenderChunk(int u, int v)
+		public Bitmap RenderChunk(int u, int v)
 		{
 			var bitmap = new Bitmap(ChunkSize * TileSetRenderer.TileSize, ChunkSize * TileSetRenderer.TileSize);
 

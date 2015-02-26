@@ -32,7 +32,7 @@ mcv:
 		IntoActor: conyard
 		Offset: -1,-1
 		TransformSounds: BUILD1.WAV
-		NoTransformSounds: AI_DPLOY.AUD
+		NoTransformSounds: CannotDeploy
 	LeavesHusk:
 		HuskActor: mcv.husk
 	AttractsWorms:

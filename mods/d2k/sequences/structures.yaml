@@ -286,7 +286,7 @@ power.atreides:
 		Start: 4056
 		Offset: -30,-24
 
-barr.atreides:
+barracks.atreides:
 	idle: DATA
 		Start: 2525
 		Offset: -32,64
@@ -775,7 +775,7 @@ power.harkonnen:
 		Start: 4057
 		Offset: -30,-24
 
-barr.harkonnen:
+barracks.harkonnen:
 	idle: DATA
 		Start: 2685
 		Offset: -32,64
@@ -1174,7 +1174,7 @@ power.ordos:
 		Start: 4058
 		Offset: -30,-24
 
-barr.ordos:
+barracks.ordos:
 	idle: DATA
 		Start: 2845
 		Offset: -32,64

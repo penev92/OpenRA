@@ -7,13 +7,13 @@ Player:
 			Refinery: refinery
 			Power: power
 			VehiclesFactory: light, heavy, starport
-			Production: light, heavy, barr, starport
+			Production: light, heavy, barracks, starport
 			Silo: silo
 		UnitsCommonNames:
 			Mcv: mcv
 		BuildingLimits:
 			refinery: 4
-			barr: 1
+			barracks: 1
 			light: 1
 			heavy: 1
 			research: 1
@@ -23,7 +23,7 @@ Player:
 			palace: 1
 		BuildingFractions:
 			refinery: 20.1%
-			barr: 0.1%
+			barracks: 0.1%
 			light: 0.1%
 			heavy: 0.1%
 			radar: 0.1%
@@ -124,13 +124,13 @@ Player:
 			Refinery: refinery
 			Power: power
 			VehiclesFactory: light, heavy, starport
-			Production: light, heavy, barr, starport
+			Production: light, heavy, barracks, starport
 			Silo: silo
 		UnitsCommonNames:
 			Mcv: mcv
 		BuildingLimits:
 			refinery: 4
-			barr: 1
+			barracks: 1
 			light: 1
 			heavy: 1
 			research: 1
@@ -140,7 +140,7 @@ Player:
 			palace: 1
 		BuildingFractions:
 			refinery: 20.1%
-			barr: 0.1%
+			barracks: 0.1%
 			light: 0.1%
 			heavy: 0.1%
 			radar: 0.1%
@@ -241,13 +241,13 @@ Player:
 			Refinery: refinery
 			Power: power
 			VehiclesFactory: light, heavy, starport
-			Production: light, heavy, barr, starport
+			Production: light, heavy, barracks, starport
 			Silo: silo
 		UnitsCommonNames:
 			Mcv: mcv
 		BuildingLimits:
 			refinery: 4
-			barr: 1
+			barracks: 1
 			light: 1
 			heavy: 1
 			research: 1
@@ -257,7 +257,7 @@ Player:
 			palace: 1
 		BuildingFractions:
 			refinery: 20.1%
-			barr: 0.1%
+			barracks: 0.1%
 			light: 0.1%
 			heavy: 0.1%
 			repair: 0.1%

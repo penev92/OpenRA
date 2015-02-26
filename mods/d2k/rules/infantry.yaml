@@ -80,7 +80,7 @@ medic:
 	Buildable:
 		Queue: Infantry
 		BuildPaletteOrder: 60
-		Prerequisites: ~barr.medics, ~techlevel.high
+		Prerequisites: ~barracks.medics, ~techlevel.high
 	Valued:
 		Cost: 500
 	Tooltip:
@@ -117,7 +117,7 @@ fremen:
 	Buildable:
 		Queue: Infantry
 		BuildPaletteOrder: 85
-		Prerequisites: ~barr.atreides, palace, ~techlevel.high
+		Prerequisites: ~barracks.atreides, palace, ~techlevel.high
 	Selectable:
 		Bounds: 12,17,0,0
 		Voice: FremenVoice
@@ -148,7 +148,7 @@ grenadier:
 	Buildable:
 		Queue: Infantry
 		BuildPaletteOrder: 10
-		Prerequisites: ~barr.atreides, ~techlevel.medium
+		Prerequisites: ~barracks.atreides, ~techlevel.medium
 	Valued:
 		Cost: 160
 	Tooltip:
@@ -179,7 +179,7 @@ sardaukar:
 	Buildable:
 		Queue: Infantry
 		BuildPaletteOrder: 80
-		Prerequisites: ~barr.harkonnen, palace, ~techlevel.high
+		Prerequisites: ~barracks.harkonnen, palace, ~techlevel.high
 	Valued:
 		Cost: 400
 	Tooltip:
@@ -208,7 +208,7 @@ saboteur:
 	Buildable:
 		Queue: Infantry
 		BuildPaletteOrder: 100
-		Prerequisites: ~barr.ordos, palace, ~techlevel.high
+		Prerequisites: ~barracks.ordos, palace, ~techlevel.high
 	Valued:
 		Cost: 800
 	Tooltip:

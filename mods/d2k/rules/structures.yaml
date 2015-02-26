@@ -106,7 +106,7 @@ power:
 		Amount: 100
 	ScalePowerWithHealth:
 
-barr:
+barracks:
 	Inherits: ^Building
 	Buildable:
 		Prerequisites: power
@@ -142,24 +142,24 @@ barr:
 	PrimaryBuilding:
 	ProductionBar:
 	ProvidesCustomPrerequisite@atreides:
-		Prerequisite: barr.atreides
+		Prerequisite: barracks.atreides
 		Race: atreides
 	ProvidesCustomPrerequisite@ordos:
-		Prerequisite: barr.ordos
+		Prerequisite: barracks.ordos
 		Race: ordos
 	ProvidesCustomPrerequisite@harkonnen:
-		Prerequisite: barr.harkonnen
+		Prerequisite: barracks.harkonnen
 		Race: harkonnen
 	ProvidesCustomPrerequisite@medics:
-		Prerequisite: barr.medics
+		Prerequisite: barracks.medics
 		Race: atreides, ordos
 	Power:
 		Amount: -20
 	RenderBuilding:
-		Image: barr.harkonnen
+		Image: barracks.harkonnen
 		RaceImages:
-			atreides: barr.atreides
-			ordos: barr.ordos
+			atreides: barracks.atreides
+			ordos: barracks.ordos
 
 refinery:
 	Inherits: ^Building
@@ -366,7 +366,7 @@ radar:
 	CanPowerDown:
 	DisabledOverlay:
 	Buildable:
-		Prerequisites: barr, ~techlevel.medium
+		Prerequisites: barracks, ~techlevel.medium
 		Queue: Building
 		BuildPaletteOrder: 50
 	Selectable:
@@ -462,7 +462,7 @@ starport:
 wall:
 	Buildable:
 		Queue: Building
-		Prerequisites: barr
+		Prerequisites: barracks
 		BuildPaletteOrder: 60
 	SoundOnDamageTransition:
 		DamagedSound:
@@ -512,7 +512,7 @@ guntower:
 	Inherits: ^Building
 	Buildable:
 		Queue: Building
-		Prerequisites: barr
+		Prerequisites: barracks
 		BuildPaletteOrder: 90
 	Valued:
 		Cost: 650

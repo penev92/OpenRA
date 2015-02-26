@@ -90,7 +90,7 @@ Actors:
 	Actor38: palace
 		Location: 50,37
 		Owner: Creeps
-	Actor39: barr
+	Actor39: barracks
 		Location: 48,37
 		Owner: Creeps
 	Actor40: rockettower

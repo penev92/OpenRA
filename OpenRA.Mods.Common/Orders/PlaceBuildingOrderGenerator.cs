@@ -15,7 +15,6 @@ using OpenRA.Graphics;
 using OpenRA.Mods.Common.Graphics;
 using OpenRA.Mods.Common.Traits;
 using OpenRA.Primitives;
-using OpenRA.Traits;
 
 namespace OpenRA.Mods.Common.Orders
 {
@@ -25,10 +24,11 @@ namespace OpenRA.Mods.Common.Orders
 		readonly string building;
 		readonly BuildingInfo buildingInfo;
 		readonly string race;
+		readonly Sprite buildOk;
+		readonly Sprite buildBlocked;
 		IActorPreview[] preview;
 
-		Sprite buildOk, buildBlocked;
-		bool initialized = false;
+		bool initialized;
 
 		public PlaceBuildingOrderGenerator(ProductionQueue queue, string name)
 		{

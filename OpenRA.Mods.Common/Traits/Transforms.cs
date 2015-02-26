@@ -76,7 +76,7 @@ namespace OpenRA.Mods.Common.Traits
 			if (!CanDeploy() || (b != null && !b.Lock()))
 			{
 				foreach (var s in info.NoTransformSounds)
-					Sound.PlayToPlayer(self.Owner, s);
+					Sound.PlayNotification(self.World.Map.Rules, self.Owner, "Speech", s, self.Owner.Country.Race);
 
 				return;
 			}

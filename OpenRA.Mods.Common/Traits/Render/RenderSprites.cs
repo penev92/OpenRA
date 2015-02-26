@@ -85,9 +85,10 @@ namespace OpenRA.Mods.Common.Traits
 		class AnimationWrapper
 		{
 			public readonly AnimationWithOffset Animation;
-			public readonly string Palette;
-			public readonly bool IsPlayerPalette;
 			public PaletteReference PaletteReference { get; private set; }
+
+		    readonly string Palette;
+		    readonly bool IsPlayerPalette;
 
 			public AnimationWrapper(AnimationWithOffset animation, string palette, bool isPlayerPalette)
 			{
@@ -117,10 +118,10 @@ namespace OpenRA.Mods.Common.Traits
 			}
 		}
 
+	    readonly string race;
 		readonly RenderSpritesInfo info;
+	    readonly Dictionary<string, AnimationWrapper> anims = new Dictionary<string, AnimationWrapper>();
 		string cachedImage;
-		string race;
-		Dictionary<string, AnimationWrapper> anims = new Dictionary<string, AnimationWrapper>();
 
 		public static Func<int> MakeFacingFunc(Actor self)
 		{

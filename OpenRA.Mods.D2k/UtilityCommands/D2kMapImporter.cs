@@ -180,7 +180,7 @@ namespace OpenRA.Mods.D2k.UtilityCommands
 			{ 638, Pair.New("rifle", "Fremen") },
 			{ 639, Pair.New("bazooka", "Fremen") },
 			{ 640, Pair.New("fremen", "Fremen") },
-		////{ 641, Pair.new("", "Fremen") },// Fremen fremen non-stealth
+			////{ 641, Pair.new("", "Fremen") },// Fremen fremen non-stealth
 			{ 642, Pair.New("engineer", "Fremen") },
 			{ 643, Pair.New("harvester", "Fremen") },
 			{ 644, Pair.New("mcv", "Fremen") },

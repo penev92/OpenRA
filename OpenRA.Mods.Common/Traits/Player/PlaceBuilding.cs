@@ -106,7 +106,7 @@ namespace OpenRA.Mods.Common.Traits
 
 		static int GetNumBuildables(Player p)
 		{
-			// this only matters for local players.
+			// This only matters for local players.
 			if (p != p.World.LocalPlayer)
 				return 0;
 

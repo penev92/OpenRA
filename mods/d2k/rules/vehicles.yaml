@@ -444,7 +444,11 @@ combata:
 	Inherits: ^combat
 	Buildable:
 		Prerequisites: ~heavy.atreides
-
+	Armament:
+		Weapon: 90mma
+		Recoil: 128
+		RecoilRecovery: 32
+		LocalOffset: 256,0,0
 	LeavesHusk:
 		HuskActor: combata.husk
 

@@ -23,13 +23,16 @@ namespace OpenRA.Mods.Common.Activities
 		public Rearm(Actor self)
 		{
 			ammoPools = self.TraitsImplementing<AmmoPool>();
-			if (ammoPools != null)
-			{
-				ammoPoolsReloadTimes = new Dictionary<AmmoPool, int>();
 
-				foreach (var la in ammoPools)
-					ammoPoolsReloadTimes.Add(la, la.Info.ReloadTicks);
-			}
+			if (ammoPools == null)
+				return;
+
+			ammoPoolsReloadTimes = ammoPools.ToDictionary(x => x, y => y.Info.ReloadTicks);
+
+			//ammoPoolsReloadTimes = new Dictionary<AmmoPool, int>();
+
+			//foreach (var la in ammoPools)
+			//    ammoPoolsReloadTimes.Add(la, la.Info.ReloadTicks);
 		}
 
 		public override Activity Tick(Actor self)
@@ -46,25 +49,22 @@ namespace OpenRA.Mods.Common.Activities
 
 				needsReloading = true;
 
-				if (--ammoPoolsReloadTimes[pool] == 0)
-				{
-					// HACK to check if we are on the helipad/airfield/etc.
-					var hostBuilding = self.World.ActorMap.GetUnitsAt(self.Location).FirstOrDefault(a => a.HasTrait<RenderBuilding>());
+				// HACK to check if we are on the helipad/airfield/etc.
+				var hostBuilding = self.World.ActorMap.GetUnitsAt(self.Location).FirstOrDefault(a => a.HasTrait<RenderBuilding>());
 
-					if (hostBuilding == null || !hostBuilding.IsInWorld)
-						return NextActivity;
+				if (hostBuilding == null || !hostBuilding.IsInWorld)
+					return NextActivity;
 
-					if (!pool.GiveAmmo())
-						continue;
+				if (!pool.GiveAmmo())
+					continue;
 
-					hostBuilding.Trait<RenderBuilding>().PlayCustomAnim(hostBuilding, "active");
+				hostBuilding.Trait<RenderBuilding>().PlayCustomAnim(hostBuilding, "active");
 
-					var sound = pool.Info.RearmSound;
-					if (sound != null)
-						Sound.Play(sound, self.CenterPosition);
+				var sound = pool.Info.RearmSound;
+				if (sound != null)
+					Sound.Play(sound, self.CenterPosition);
 
-					ammoPoolsReloadTimes[pool] = pool.Info.ReloadTicks;
-				}
+				ammoPoolsReloadTimes[pool] = pool.Info.ReloadTicks;
 			}
 
 			return needsReloading ? this : NextActivity;

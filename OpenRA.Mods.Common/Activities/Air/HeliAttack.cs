@@ -37,15 +37,17 @@ namespace OpenRA.Mods.Common.Activities
 			if (IsCanceled || !target.IsValidFor(self))
 				return NextActivity;
 
-			if (ammoPools != null)
-				foreach (var pool in ammoPools)
-				{
-					// Skip every AmmoPool that SelfReloads or still has ammo
-					if (pool.Info.SelfReloads || pool.HasAmmo())
-						continue;
+			if (ammoPools != null && ammoPools.All(x => !x.Info.SelfReloads && !x.HasAmmo()))
+				return Util.SequenceActivities(new HeliReturn(), NextActivity);
 
-					return Util.SequenceActivities(new HeliReturn(), NextActivity);
-				}
+				//foreach (var pool in ammoPools)
+				//{
+				//    // Skip every AmmoPool that SelfReloads or still has ammo
+				//    if (pool.Info.SelfReloads || pool.HasAmmo())
+				//        continue;
+
+				//    return Util.SequenceActivities(new HeliReturn(), NextActivity);
+				//}
 
 			var dist = target.CenterPosition - self.CenterPosition;
 

@@ -104,32 +104,31 @@ namespace OpenRA.Mods.Common.Traits
 
 		public void Tick(Actor self)
 		{
-			if (Info.SelfReloads)
+			if (!Info.SelfReloads)
+				return;
+
+			// Resets the tick counter if ammo was fired.
+			if (Info.ResetOnFire && GetAmmoCount() < PreviousAmmo)
 			{
-				if (!FullAmmo() && --RemainingTicks == 0)
-				{
-					RemainingTicks = Info.SelfReloadTicks;
-
-					for (var i = 0; i < Info.ReloadCount; i++)
-						GiveAmmo();
-
-					PreviousAmmo = GetAmmoCount();
-				}
-
-				// Resets the tick counter if ammo was fired.
-				if (Info.ResetOnFire && GetAmmoCount() < PreviousAmmo)
-				{
-					RemainingTicks = Info.SelfReloadTicks;
-					PreviousAmmo = GetAmmoCount();
-				}
+				RemainingTicks = Info.SelfReloadTicks;
+				PreviousAmmo = GetAmmoCount();
 			}
+			
+			if (!FullAmmo() && --RemainingTicks == 0)
+			{
+				RemainingTicks = Info.SelfReloadTicks;
 
-			return;
+				for (var i = 0; i < Info.ReloadCount; i++)
+					GiveAmmo();
+
+				PreviousAmmo = GetAmmoCount();
+			}
 		}
 
 		public IEnumerable<PipType> GetPips(Actor self)
 		{
 			var pips = Info.PipCount >= 0 ? Info.PipCount : Info.Ammo;
+
 			return Enumerable.Range(0, pips).Select(i =>
 				(CurrentAmmo * pips) / Info.Ammo > i ?
 				Info.PipType : Info.PipTypeEmpty);

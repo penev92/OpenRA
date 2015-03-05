@@ -49,6 +49,9 @@ namespace OpenRA.Mods.Common.Activities
 
 				needsReloading = true;
 
+			    if (--ammoPoolsReloadTimes[pool] > 0)
+			        continue;
+
 				// HACK to check if we are on the helipad/airfield/etc.
 				var hostBuilding = self.World.ActorMap.GetUnitsAt(self.Location).FirstOrDefault(a => a.HasTrait<RenderBuilding>());
 

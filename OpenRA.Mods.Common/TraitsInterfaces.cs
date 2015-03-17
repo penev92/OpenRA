@@ -71,4 +71,7 @@ namespace OpenRA.Mods.Common.Traits
 		CVec DeliveryOffset { get; }
 		bool AllowDocking { get; }
 	}
+
+	public interface IDocks {}
+	public interface IAllowDocking {}
 }

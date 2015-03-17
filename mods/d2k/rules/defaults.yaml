@@ -27,8 +27,8 @@
 	ProximityCaptor:
 		Types: Vehicle
 	GivesBounty:
-	Repairable:
-		RepairBuildings: repair
+	#Repairable:
+	#	RepairBuildings: repair
 	CombatDebugOverlay:
 	Guard:
 		Voice: Guard
@@ -52,6 +52,8 @@
 	MustBeDestroyed:
 	AnnounceOnSeen:
 		Notification: EnemyUnitsApproaching
+	DocksForRepair:
+		RepairBuildings: repair
 
 ^Tank:
 	AppearsOnRadar:

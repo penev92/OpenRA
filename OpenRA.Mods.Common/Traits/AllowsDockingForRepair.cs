@@ -65,8 +65,14 @@ namespace OpenRA.Mods.Common.Traits
 
 		public void Reserve(Actor docker)
 		{
-			if(!reserved.Contains(docker))
+			if (!reserved.Contains(docker))
 				reserved.Add(docker);
+		}
+
+		public void Unreserve(Actor docker)
+		{
+			if (reserved.Contains(docker))
+				reserved.Remove(docker);
 		}
 
 		public bool RequestDock(Actor docker)
@@ -82,7 +88,7 @@ namespace OpenRA.Mods.Common.Traits
 
 			CurrentDocker = docker;
 
-			reserved.Remove(docker);
+			Unreserve(docker);
 
 			foreach (var actor in reserved)
 				actor.Trait<DocksForRepair>().MoveToWaitingArea(actor, self);

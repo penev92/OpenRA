@@ -22,23 +22,23 @@ namespace OpenRA.Mods.Common.Activities
 		readonly Actor host;
 		readonly IMove movement;
 		//readonly CPos dockLocation;
-		readonly DocksForRepair docks;
-		readonly AllowsDockingForRepair dockingForRepair;
+		readonly DocksForRepair docker;
+		readonly AllowsDockingForRepair dock;
 
 		int interval;
 		
 		State state;
 
-		public DockRepairSequence(Actor host, Actor docker, AllowsDockingForRepair dockingForRepair)
+		public DockRepairSequence(Actor host, Actor docker, AllowsDockingForRepair dock)
 		{
 			this.host = host;
+			this.dock = dock;
+			this.docker = docker.Trait<DocksForRepair>();
+			
 			state = State.Unreserved;
 			movement = docker.Trait<IMove>();
-			docks = docker.Trait<DocksForRepair>();
-			this.dockingForRepair = dockingForRepair;
 
-			interval = dockingForRepair.Info.Interval;
-			//dockLocation = host.Location + dockingForRepair.Info.DockOffset;
+			interval = dock.Info.Interval;
 		}
 
 		public override Activity Tick(Actor self)
@@ -47,7 +47,15 @@ namespace OpenRA.Mods.Common.Activities
 				return NextActivity;
 
 			if (IsCanceled)
+			{
+				if (state < State.Docked)
+				{
+					dock.Unreserve(self);
+					return NextActivity;
+				}
+
 				state = State.Undock;
+			}
 
 			switch (state)
 			{
@@ -57,52 +65,52 @@ namespace OpenRA.Mods.Common.Activities
 					return this;
 
 				case State.Moving:
-					if (self.Location == dockingForRepair.DockLocation)
+					if (self.Location == dock.DockLocation)
 						state = State.Docking;
 					else
-						if ((self.Location - dockingForRepair.DockLocation).Length < 2)
+						if ((self.Location - dock.DockLocation).Length < 2)
 						{
 							state = State.Waiting;
-							return Util.SequenceActivities(new Move(self, dockingForRepair.WaitLocation), this);
+							return Util.SequenceActivities(new Move(self, dock.WaitLocation), this);
 						}
 
 					Game.Debug("Moving");
 					return this;
 
 				case State.Waiting:
-					if (dockingForRepair.CurrentDocker == null)
+					if (dock.CurrentDocker == null)
 					{
 						state = State.Moving;
-						return Util.SequenceActivities(new Move(self, dockingForRepair.DockLocation), this);
+						return Util.SequenceActivities(new Move(self, dock.DockLocation), this);
 					}
 					return Util.SequenceActivities(new Wait(10), this);
 
 				case State.Docking:
-					if (dockingForRepair.RequestDock(self))
+					if (dock.RequestDock(self))
 						state = State.Docked;
 
 					Game.Debug("Docking");
 					return this;
 
 				case State.Docked:
-					if (self.Location != dockingForRepair.DockLocation)
+					if (self.Location != dock.DockLocation)
 						state = State.Undock;
 
 					if (--interval == 0)
 					{
 						DoRepair(self);
-						interval = dockingForRepair.Info.Interval;
+						interval = dock.Info.Interval;
 					}
 
-					if (!docks.NeedsRepair())
+					if (!docker.NeedsRepair())
 						state = State.Undock;
 
 					return this;
 
 				case State.Undock:
 					Game.Debug("Done");
-					docks.Undock();
-					dockingForRepair.Undock();
+					docker.Undock();
+					dock.Undock();
 					return NextActivity;
 			}
 
@@ -112,7 +120,7 @@ namespace OpenRA.Mods.Common.Activities
 		void DoRepair(Actor self)
 		{
 			Game.Debug("Repairing");
-			self.InflictDamage(host, -dockingForRepair.Info.HpPerStep, null);
+			self.InflictDamage(host, -dock.Info.HpPerStep, null);
 		}
 	}
 }

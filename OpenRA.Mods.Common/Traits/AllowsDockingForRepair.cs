@@ -8,6 +8,9 @@
  */
 #endregion
 
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
 using OpenRA.Activities;
 using OpenRA.Mods.Common.Activities;
 using OpenRA.Traits;
@@ -22,6 +25,9 @@ namespace OpenRA.Mods.Common.Traits
 
 		[Desc("Docking cell relative to top-left cell.")]
 		public readonly CVec DockOffset = CVec.Zero;
+
+		[Desc("Waiting area relative to top-left cell.")]
+		public readonly CVec WaitingOffset = CVec.Zero;
 
 		public readonly int HpPerStep = 10;
 
@@ -40,11 +46,16 @@ namespace OpenRA.Mods.Common.Traits
 		public Actor CurrentDocker { get; private set; }
 
 		public CPos DockLocation { get { return self.Location + Info.DockOffset; } }
+		public CPos WaitLocation { get { return self.Location + Info.WaitingOffset; } }
+
+		List<Actor> reserved; 
 
 		public AllowsDockingForRepair(Actor self, AllowsDockingForRepairInfo info)
 		{
 			Info = info;
 			this.self = self;
+
+			reserved = new List<Actor>();
 		}
 
 		public Activity DockingSequence(Actor host, Actor docker)
@@ -52,18 +63,64 @@ namespace OpenRA.Mods.Common.Traits
 			return new DockRepairSequence(host, docker, this);
 		}
 
+		public void Reserve(Actor docker)
+		{
+			if(!reserved.Contains(docker))
+				reserved.Add(docker);
+		}
+
 		public bool RequestDock(Actor docker)
 		{
 			if (CurrentDocker != null)
+			{
+				docker.Trait<DocksForRepair>().MoveToWaitingArea(docker, self);
+				return false;
+			}
+
+			if (docker.Location != DockLocation)
 				return false;
 
 			CurrentDocker = docker;
+
+			reserved.Remove(docker);
+
+			foreach (var actor in reserved)
+				actor.Trait<DocksForRepair>().MoveToWaitingArea(actor, self);
+
 			return true;
+		}
+
+		void NotifyReserved()
+		{
+			var actor = reserved.FirstOrDefault();
+			if (actor == null)
+				return;
+
+			actor.Trait<DocksForRepair>().MoveInForDocking(actor, self);
 		}
 
 		public void Undock()
 		{
-			CurrentDocker = null;
+			var rp = self.TraitOrDefault<RallyPoint>();
+			if (rp == null)
+			{
+				CurrentDocker = null;
+				return;
+			}
+			
+			var nextActivity = CurrentDocker.GetCurrentActivity().NextActivity;
+			CurrentDocker.QueueActivity(false, new CallFunc(() =>
+				{
+					CurrentDocker.SetTargetLine(Target.FromCell(self.World, rp.Location), Color.Green);
+					CurrentDocker.QueueActivity(new Move(CurrentDocker, rp.Location));
+					CurrentDocker.QueueActivity(nextActivity);
+
+					CurrentDocker = null;
+				}));
+
+			self.NotifyBlocker(DockLocation);
+
+			NotifyReserved();
 		}
 	}
 }

@@ -9,9 +9,7 @@
 #endregion
 
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
-using OpenRA.Activities;
 using OpenRA.Mods.Common.Activities;
 using OpenRA.Mods.Common.Orders;
 using OpenRA.Traits;
@@ -29,9 +27,11 @@ namespace OpenRA.Mods.Common.Traits
 	class DocksForRepair : IIssueOrder, IResolveOrder
 	{
 		readonly IMove move;
-		readonly Actor self;
 		readonly Health health;
 		readonly DocksForRepairInfo info;
+		
+		Actor self;
+		Actor dock;
 
 		public DocksForRepair(Actor self, DocksForRepairInfo info)
 		{
@@ -76,34 +76,41 @@ namespace OpenRA.Mods.Common.Traits
 				return;
 
 			var host = order.TargetActor;
-			var dock = host.Trait<AllowsDockingForRepair>();
-			var dockSequence = dock.DockingSequence(order.TargetActor, self);
-			//self.QueueActivity(dockSequence);
+
+			MoveInForDocking(self, host);
+		}
+
+		public void MoveInForDocking(Actor self, Actor host)
+		{
+			var allowsDocking = host.Trait<AllowsDockingForRepair>();
+			var dockSequence = allowsDocking.DockingSequence(host, self);
+			allowsDocking.Reserve(self);
+
+			self.CancelActivity();
+			self.QueueActivity(move.MoveTo(allowsDocking.DockLocation, host));
+			self.QueueActivity(dockSequence);
+		}
+
+		public void MoveToWaitingArea(Actor self, Actor host)
+		{
+			var allowsDocking = host.Trait<AllowsDockingForRepair>();
+			var dockSequence = allowsDocking.DockingSequence(host, self);
+			allowsDocking.Reserve(self);
 
 			self.CancelActivity();
 			self.QueueActivity(new MoveAdjacentTo(self, Target.FromActor(host)));
-			self.QueueActivity(move.MoveTo(dock.DockLocation, host));
+			self.QueueActivity(move.MoveTo(allowsDocking.WaitLocation, host));
 			self.QueueActivity(dockSequence);
-
-			var rp = order.TargetActor.TraitOrDefault<RallyPoint>();
-			if (rp != null)
-				self.QueueActivity(new CallFunc(() =>
-				{
-					self.SetTargetLine(Target.FromCell(self.World, rp.Location), Color.Green);
-					self.QueueActivity(move.MoveTo(rp.Location, order.TargetActor));
-				}));
 		}
 
 		public void Dock(Actor host)
 		{
-			var dock = host.Trait<AllowsDockingForRepair>();
-
+			dock = host;
 		}
 
-		public void Undock(Actor host)
+		public void Undock()
 		{
-			var dock = host.Trait<AllowsDockingForRepair>();
-
+			dock = null;
 		}
 	}
 }

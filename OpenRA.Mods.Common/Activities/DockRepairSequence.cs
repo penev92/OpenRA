@@ -8,6 +8,7 @@
  */
 #endregion
 
+using System;
 using OpenRA.Activities;
 using OpenRA.Mods.Common.Traits;
 using OpenRA.Traits;
@@ -16,7 +17,7 @@ namespace OpenRA.Mods.Common.Activities
 {
 	public class DockRepairSequence : Activity
 	{
-		protected enum State { Unreserved, Moving, Docking, Docked, Done }
+		protected enum State { Unreserved, Moving, Waiting, Docking, Docked, Undock }
 
 		readonly Actor host;
 		readonly IMove movement;
@@ -42,59 +43,70 @@ namespace OpenRA.Mods.Common.Activities
 
 		public override Activity Tick(Actor self)
 		{
-			if (IsCanceled || self.IsDead || !self.IsInWorld || host.IsDead || !host.IsInWorld)
+			if (self.IsDead || !self.IsInWorld || host.IsDead || !host.IsInWorld)
 				return NextActivity;
 
-			if (state == State.Unreserved)
+			if (IsCanceled)
+				state = State.Undock;
+
+			switch (state)
 			{
-				Game.Debug("Reserving");
-				state = State.Moving;
-				return this;
+				case State.Unreserved:
+					Game.Debug("Reserving");
+					state = State.Moving;
+					return this;
+
+				case State.Moving:
+					if (self.Location == dockingForRepair.DockLocation)
+						state = State.Docking;
+					else
+						if ((self.Location - dockingForRepair.DockLocation).Length < 2)
+						{
+							state = State.Waiting;
+							return Util.SequenceActivities(new Move(self, dockingForRepair.WaitLocation), this);
+						}
+
+					Game.Debug("Moving");
+					return this;
+
+				case State.Waiting:
+					if (dockingForRepair.CurrentDocker == null)
+					{
+						state = State.Moving;
+						return Util.SequenceActivities(new Move(self, dockingForRepair.DockLocation), this);
+					}
+					return Util.SequenceActivities(new Wait(10), this);
+
+				case State.Docking:
+					if (dockingForRepair.RequestDock(self))
+						state = State.Docked;
+
+					Game.Debug("Docking");
+					return this;
+
+				case State.Docked:
+					if (self.Location != dockingForRepair.DockLocation)
+						state = State.Undock;
+
+					if (--interval == 0)
+					{
+						DoRepair(self);
+						interval = dockingForRepair.Info.Interval;
+					}
+
+					if (!docks.NeedsRepair())
+						state = State.Undock;
+
+					return this;
+
+				case State.Undock:
+					Game.Debug("Done");
+					docks.Undock();
+					dockingForRepair.Undock();
+					return NextActivity;
 			}
 
-			if (state == State.Moving)
-			{
-				if (self.Location == dockingForRepair.DockLocation)
-					state = State.Docking;
-
-				Game.Debug("Moving");
-				return this;
-			}
-
-			if (state == State.Docking)
-			{
-				if (dockingForRepair.RequestDock(self))
-					state = State.Docked;
-
-				Game.Debug("Docking");
-				return this;
-			}
-
-			if (state == State.Docked)
-			{
-				//Game.Debug("Docked");
-				if (--interval == 0)
-				{
-					DoRepair(self);
-					interval = dockingForRepair.Info.Interval;
-				}
-
-				if (!docks.NeedsRepair())
-					state = State.Done;
-
-				return this;
-			}
-
-	        if (state == State.Done)
-			{
-				Game.Debug("Done");
-			    dockingForRepair.Undock();
-			}
-
-
-
-			return NextActivity;
-			//return Util.SequenceActivities(NextActivity, this);
+			throw new InvalidOperationException("Invalid dock state.");
 		}
 
 		void DoRepair(Actor self)

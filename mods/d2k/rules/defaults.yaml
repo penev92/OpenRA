@@ -84,8 +84,8 @@
 	ProximityCaptor:
 		Types: Tank
 	GivesBounty:
-	Repairable:
-		RepairBuildings: repair
+	#Repairable:
+	#	RepairBuildings: repair
 	CombatDebugOverlay:
 	Guard:
 		Voice: Guard
@@ -109,6 +109,8 @@
 	MustBeDestroyed:
 	AnnounceOnSeen:
 		Notification: EnemyUnitsApproaching
+	DocksForRepair:
+		RepairBuildings: repair
 
 ^Husk:
 	Health:

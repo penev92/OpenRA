@@ -17,7 +17,7 @@ namespace OpenRA.Mods.Common.Activities
 {
 	public class DockRepairSequence : Activity
 	{
-		protected enum State { Unreserved, Moving, Waiting, Docking, Docked, Undock }
+		protected enum State { Unreserved, Waiting, Docking, Docked, Undock }
 
 		readonly Actor host;
 		readonly IMove movement;
@@ -58,28 +58,29 @@ namespace OpenRA.Mods.Common.Activities
 			{
 				case State.Unreserved:
 					Game.Debug("Reserving");
-					dock.Reserve(self);
-					state = State.Moving;
+					//dock.Reserve(self);
+					state = State.Waiting;
 					return this;
 
-				case State.Moving:
-					if (self.Location == dock.DockLocation)
-						state = State.Docking;
-					else
-						if ((self.Location - dock.DockLocation).Length < 2)
-						{
-							state = State.Waiting;
-							return Util.SequenceActivities(new Move(self, dock.WaitLocation), this);
-						}
+				//case State.Moving:
+					//if (self.Location == dock.DockLocation)
+					//    state = State.Docking;
+					//else
+					//    if ((self.Location - dock.DockLocation).Length < 2)
+					//    {
+					//        state = State.Waiting;
+					//        return Util.SequenceActivities(new Move(self, dock.WaitLocation), this);
+					//    }
 
-					Game.Debug("Moving");
-					return this;
+					//Game.Debug("Moving");
+					//return this;
 
 				case State.Waiting:
 					if (dock.CurrentDocker == null)
 					{
-						state = State.Moving;
+						//state = State.Moving;
 						//return movement.MoveTo(dock.DockLocation, host);
+						state = State.Docking;
 						return Util.SequenceActivities(movement.MoveTo(dock.DockLocation, host), this);
 					}
 					return Util.SequenceActivities(new Wait(10), this);
@@ -123,13 +124,6 @@ namespace OpenRA.Mods.Common.Activities
 		{
 			Game.Debug("Repairing");
 			self.InflictDamage(host, -dock.Info.HpPerStep, null);
-		}
-
-		public override void Cancel(Actor self)
-		{
-			dock.Unreserve(self);
-
-			base.Cancel(self);
 		}
 	}
 }

@@ -87,9 +87,10 @@ namespace OpenRA.Mods.Common.Traits
 
 			dock = host.Trait<AllowsDockingForRepair>();
 			 var dockSequence = dock.DockingSequence(host, self);
+			 dock.Reserve(self);
 
-			 self.QueueActivity(new MoveAdjacentTo(self, Target.FromActor(host)));
-			 //self.QueueActivity(move.MoveTo(dock.DockLocation, host));
+			 //self.QueueActivity(new MoveAdjacentTo(self, Target.FromActor(host)));
+			 self.QueueActivity(move.MoveTo(dock.DockLocation, host));
 			self.QueueActivity(dockSequence);
 		}
 

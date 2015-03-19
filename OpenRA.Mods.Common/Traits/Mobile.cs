@@ -672,6 +672,20 @@ namespace OpenRA.Mods.Common.Traits
 				}
 				else
 				{
+
+				   cellInfo = notStupidCells
+						.SelectMany(c => self.World.ActorMap.GetUnitsAt(c)
+							.Where(a => a.HasTrait<Mobile>()),
+							(c, a) => new { Cell = c, Actor = a })
+						.RandomOrDefault(self.World.SharedRandom);
+
+				    var unit = self.World.ActorMap.GetUnitsAt(cellInfo.Cell).FirstOrDefault();
+				    var notifyBlocking = new CallFunc(() => Nudge(unit, self, true));
+					var waitFor = new WaitFor(() => CanEnterCell(cellInfo.Cell));
+					var move = new Move(self, cellInfo.Cell);
+					//var currentActivity = self.GetCurrentActivity();
+					self.QueueActivity(Util.SequenceActivities(notifyBlocking, waitFor, move));
+				    //Nudge(unit, self, true);
 					Log.Write("debug", "OnNudge #{0} refuses at {1}",
 						self.ActorID, self.Location);
 				}

@@ -657,7 +657,7 @@ repair:
 	AllowsDockingForRepair:
 		DockAngle: 0
 		DockOffset: 1,1
-		WaitingOffset: 2,0
+		WaitingOffset: 2,-1
 
 hightech:
 	Inherits: ^Building

@@ -94,8 +94,11 @@ namespace OpenRA.Mods.Common.Traits
 
 			Unreserve(docker);
 
-			foreach (var actor in reserved)
-				actor.Trait<DocksForRepair>().MoveToWaitingArea(actor, self);
+			foreach (var r in reserved)
+			{
+				var actor = r;
+				Game.RunAfterTick(() => actor.Trait<DocksForRepair>().MoveToWaitingArea(actor, self));
+			}
 
 			return true;
 		}
@@ -111,6 +114,21 @@ namespace OpenRA.Mods.Common.Traits
 
 		public void Undock()
 		{
+            //self.NotifyBlocker(DockLocation);
+
+            foreach (var r in reserved)
+            {
+                var actor = r;
+                Game.RunAfterTick(() => actor.Trait<DocksForRepair>().MoveToWaitingArea(actor, self));
+            }
+
+
+			var units = self.World.ActorMap.GetUnitsAt(DockLocation);
+			foreach (var unit in units.Where(x => x.HasTrait<Mobile>()))
+			{
+				unit.Trait<Mobile>().Nudge(unit, self, true);
+			}
+
 			var rp = self.TraitOrDefault<RallyPoint>();
 			if (rp == null)
 			{
@@ -128,7 +146,6 @@ namespace OpenRA.Mods.Common.Traits
 					CurrentDocker = null;
 				}));
 
-			self.NotifyBlocker(DockLocation);
 
 			//NotifyReserved();
 		}

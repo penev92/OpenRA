@@ -42,13 +42,11 @@ namespace OpenRA.Mods.Common.Traits
 		public readonly AllowsDockingForRepairInfo Info;
 
 		readonly Actor self;
+		readonly List<Actor> reserved; 
 
 		public Actor CurrentDocker { get; private set; }
-
 		public CPos DockLocation { get { return self.Location + Info.DockOffset; } }
 		public CPos WaitLocation { get { return self.Location + Info.WaitingOffset; } }
-
-		List<Actor> reserved; 
 
 		public AllowsDockingForRepair(Actor self, AllowsDockingForRepairInfo info)
 		{
@@ -60,6 +58,8 @@ namespace OpenRA.Mods.Common.Traits
 
 		public Activity DockingSequence(Actor host, Actor docker)
 		{
+		//	self.NotifyBlocker(DockLocation);
+
 			return new DockRepairSequence(host, docker, this);
 		}
 
@@ -67,12 +67,16 @@ namespace OpenRA.Mods.Common.Traits
 		{
 			if (!reserved.Contains(docker))
 				reserved.Add(docker);
+
+			docker.Trait<DocksForRepair>().HasReservation = true;
 		}
 
 		public void Unreserve(Actor docker)
 		{
 			if (reserved.Contains(docker))
 				reserved.Remove(docker);
+
+			docker.Trait<DocksForRepair>().HasReservation = false;
 		}
 
 		public bool RequestDock(Actor docker)
@@ -96,14 +100,14 @@ namespace OpenRA.Mods.Common.Traits
 			return true;
 		}
 
-		void NotifyReserved()
-		{
-			var actor = reserved.FirstOrDefault();
-			if (actor == null)
-				return;
+		//void NotifyReserved()
+		//{
+		//    var actor = reserved.FirstOrDefault();
+		//    if (actor == null)
+		//        return;
 
-			actor.Trait<DocksForRepair>().MoveInForDocking(actor, self);
-		}
+		//    actor.Trait<DocksForRepair>().MoveInForDocking(actor, self);
+		//}
 
 		public void Undock()
 		{
@@ -126,7 +130,7 @@ namespace OpenRA.Mods.Common.Traits
 
 			self.NotifyBlocker(DockLocation);
 
-			NotifyReserved();
+			//NotifyReserved();
 		}
 	}
 }

@@ -49,10 +49,7 @@ namespace OpenRA.Mods.Common.Activities
 			if (IsCanceled)
 			{
 				if (state < State.Docked)
-				{
-					dock.Unreserve(self);
 					return NextActivity;
-				}
 
 				state = State.Undock;
 			}
@@ -61,6 +58,7 @@ namespace OpenRA.Mods.Common.Activities
 			{
 				case State.Unreserved:
 					Game.Debug("Reserving");
+					dock.Reserve(self);
 					state = State.Moving;
 					return this;
 
@@ -81,13 +79,17 @@ namespace OpenRA.Mods.Common.Activities
 					if (dock.CurrentDocker == null)
 					{
 						state = State.Moving;
-						return Util.SequenceActivities(new Move(self, dock.DockLocation), this);
+						//return movement.MoveTo(dock.DockLocation, host);
+						return Util.SequenceActivities(movement.MoveTo(dock.DockLocation, host), this);
 					}
 					return Util.SequenceActivities(new Wait(10), this);
 
 				case State.Docking:
 					if (dock.RequestDock(self))
+					{
 						state = State.Docked;
+						docker.Dock(dock);
+					}
 
 					Game.Debug("Docking");
 					return this;
@@ -121,6 +123,13 @@ namespace OpenRA.Mods.Common.Activities
 		{
 			Game.Debug("Repairing");
 			self.InflictDamage(host, -dock.Info.HpPerStep, null);
+		}
+
+		public override void Cancel(Actor self)
+		{
+			dock.Unreserve(self);
+
+			base.Cancel(self);
 		}
 	}
 }

@@ -174,6 +174,9 @@ namespace OpenRA
 		{
 			if (currentActivity != null)
 				currentActivity.Cancel(this);
+
+		    foreach (var trait in TraitsImplementing<INotifyActivitiesCancelled>())
+		        trait.OnCancelled();
 		}
 
 		public Activity GetCurrentActivity()

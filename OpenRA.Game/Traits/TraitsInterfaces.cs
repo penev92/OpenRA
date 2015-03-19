@@ -117,6 +117,7 @@ namespace OpenRA.Traits
 
 	public interface IStoreResources { int Capacity { get; } }
 	public interface INotifyDocking { void Docked(Actor self, Actor harvester); void Undocked(Actor self, Actor harvester); }
+	public interface INotifyActivitiesCancelled { void OnCancelled(); }
 
 	public interface IEffectiveOwner
 	{

@@ -24,14 +24,15 @@ namespace OpenRA.Mods.Common.Traits
 		public object Create(ActorInitializer init) { return new DocksForRepair(init.Self, this); }
 	}
 
-	class DocksForRepair : IIssueOrder, IResolveOrder
+	class DocksForRepair : IIssueOrder, IResolveOrder, INotifyActivitiesCancelled
 	{
 		readonly IMove move;
 		readonly Health health;
 		readonly DocksForRepairInfo info;
 		
 		Actor self;
-		Actor dock;
+		AllowsDockingForRepair dock;
+		public bool HasReservation;
 
 		public DocksForRepair(Actor self, DocksForRepairInfo info)
 		{
@@ -82,34 +83,44 @@ namespace OpenRA.Mods.Common.Traits
 
 		public void MoveInForDocking(Actor self, Actor host)
 		{
-			var allowsDocking = host.Trait<AllowsDockingForRepair>();
-			var dockSequence = allowsDocking.DockingSequence(host, self);
-			allowsDocking.Reserve(self);
-
 			self.CancelActivity();
-			self.QueueActivity(move.MoveTo(allowsDocking.DockLocation, host));
+
+			dock = host.Trait<AllowsDockingForRepair>();
+			 var dockSequence = dock.DockingSequence(host, self);
+
+			 self.QueueActivity(new MoveAdjacentTo(self, Target.FromActor(host)));
+			 //self.QueueActivity(move.MoveTo(dock.DockLocation, host));
 			self.QueueActivity(dockSequence);
 		}
 
 		public void MoveToWaitingArea(Actor self, Actor host)
 		{
-			var allowsDocking = host.Trait<AllowsDockingForRepair>();
-			var dockSequence = allowsDocking.DockingSequence(host, self);
-			allowsDocking.Reserve(self);
-
 			self.CancelActivity();
+
+			dock = host.Trait<AllowsDockingForRepair>();
+			var dockSequence = dock.DockingSequence(host, self);
+			dock.Reserve(self);
+
 			self.QueueActivity(new MoveAdjacentTo(self, Target.FromActor(host)));
-			self.QueueActivity(move.MoveTo(allowsDocking.WaitLocation, host));
+			self.QueueActivity(move.MoveTo(dock.WaitLocation, host));
 			self.QueueActivity(dockSequence);
 		}
 
-		public void Dock(Actor host)
+		public void Dock(AllowsDockingForRepair host)
 		{
-			dock = host;
 		}
 
 		public void Undock()
 		{
+			dock = null;
+		}
+
+		public void OnCancelled()
+		{
+			if (dock == null)
+				return;
+
+			dock.Unreserve(self);
 			dock = null;
 		}
 	}

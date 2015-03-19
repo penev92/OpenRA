@@ -617,6 +617,8 @@ namespace OpenRA.Mods.Common.Traits
 
 		public void Nudge(Actor self, Actor nudger, bool force)
 		{
+			Game.Debug("{0} nudges {1}", nudger, self);
+
 			/* initial fairly braindead implementation. */
 			if (!force && self.Owner.Stances[nudger.Owner] != Stance.Ally)
 				return;		/* don't allow ourselves to be pushed around
@@ -653,6 +655,8 @@ namespace OpenRA.Mods.Common.Traits
 			}
 			else
 			{
+				Game.Debug("{0} has no available cells.", self);
+
 				var cellInfo = notStupidCells
 					.SelectMany(c => self.World.ActorMap.GetUnitsAt(c)
 						.Where(a => a.IsIdle && a.HasTrait<Mobile>()),
@@ -679,13 +683,14 @@ namespace OpenRA.Mods.Common.Traits
 							(c, a) => new { Cell = c, Actor = a })
 						.RandomOrDefault(self.World.SharedRandom);
 
-				    var unit = self.World.ActorMap.GetUnitsAt(cellInfo.Cell).FirstOrDefault();
-				    var notifyBlocking = new CallFunc(() => Nudge(unit, self, true));
+					var unit = self.World.ActorMap.GetUnitsAt(cellInfo.Cell).FirstOrDefault();
+					var notifyBlocking = new CallFunc(() => Nudge(unit, self, true));
 					var waitFor = new WaitFor(() => CanEnterCell(cellInfo.Cell));
 					var move = new Move(self, cellInfo.Cell);
+					var nextActivity = unit.GetCurrentActivity().NextActivity;
 					//var currentActivity = self.GetCurrentActivity();
-					self.QueueActivity(Util.SequenceActivities(notifyBlocking, waitFor, move));
-				    //Nudge(unit, self, true);
+					self.QueueActivity(false, Util.SequenceActivities(notifyBlocking, waitFor, move, nextActivity));
+					//Nudge(unit, self, true);
 					Log.Write("debug", "OnNudge #{0} refuses at {1}",
 						self.ActorID, self.Location);
 				}

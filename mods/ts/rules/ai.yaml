@@ -62,4 +62,11 @@ Player:
 			ttnk: 45%
 			stnk: 8%
 		SquadSize: 20
-
+	ModularAI:
+		Name: ModularAI
+	BaseBuilderAI:
+		BaseBuilderTypes: mcv
+		BaseExpansionRadius: 10
+	RandomAttacksAI:
+		UseAttackingCategories: any
+		IdleScanFrequency: 50

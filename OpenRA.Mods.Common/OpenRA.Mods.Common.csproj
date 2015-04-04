@@ -621,6 +621,10 @@
     <Compile Include="Graphics\TilesetSpecificSpriteSequence.cs" />
     <Compile Include="Traits\Pluggable.cs" />
     <Compile Include="Traits\Plug.cs" />
+    <Compile Include="Traits\ManagedByAI.cs" />
+    <Compile Include="ModularAI\ModularAI.cs" />
+    <Compile Include="ModularAI\Modules\BaseBuilderAI.cs" />
+    <Compile Include="ModularAI\Modules\RandomAttacksAI.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
@@ -635,4 +639,8 @@ cd "$(SolutionDir)"</PostBuildEvent>
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <Folder Include="ModularAI\" />
+    <Folder Include="ModularAI\Modules\" />
+  </ItemGroup>
 </Project>

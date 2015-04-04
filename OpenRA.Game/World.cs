@@ -222,6 +222,10 @@ namespace OpenRA
 			var rc = OrderManager.Connection as ReplayRecorderConnection;
 			if (rc != null)
 				rc.Metadata = new ReplayMetadata(gameInfo);
+
+			foreach (var player in Players)
+				foreach (var wlh in player.PlayerActor.TraitsImplementing<IWorldLoaded>())
+					wlh.WorldLoaded(this, wr);
 		}
 
 		public Actor CreateActor(string name, TypeDictionary initDict)

@@ -59,6 +59,8 @@
 		UpgradeMinEnabledLevel: 1
 		InitialDelay: 0
 		CloakDelay: 90
+	ManagedByAI:
+		TargetableTypes: any, buildings
 
 ^CivBuilding:
 	Inherits: ^Building
@@ -231,6 +233,10 @@
 		InitialDelay: 0
 		CloakDelay: 90
 	MustBeDestroyed:
+	ManagedByAI:
+		AttackCategories: any, attack-infantry
+		CanAttackTargetables: any
+		TargetableTypes: any, infantry
 
 ^CivilianInfantry:
 	Inherits: ^Infantry
@@ -339,6 +345,10 @@
 		InitialDelay: 0
 		CloakDelay: 90
 	MustBeDestroyed:
+	ManagedByAI:
+		AttackCategories: any, attack-vehicles
+		CanAttackTargetables: any
+		TargetableTypes: any, vehicles
 
 ^Tank:
 	AppearsOnRadar:
@@ -423,6 +433,10 @@
 		InitialDelay: 0
 		CloakDelay: 90
 	MustBeDestroyed:
+	ManagedByAI:
+		AttackCategories: any, attack-tanks
+		CanAttackTargetables: any
+		TargetableTypes: any, tanks
 
 ^Helicopter:
 	AppearsOnRadar:
@@ -470,6 +484,10 @@
 	Guardable:
 	UpgradeManager:
 	MustBeDestroyed:
+	ManagedByAI:
+		AttackCategories: any, attack-aircraft
+		CanAttackTargetables: any
+		TargetableTypes: any, aircraft
 
 ^Plane:	
 	Inherits: ^Helicopter

@@ -110,11 +110,6 @@ namespace OpenRA.Mods.Common.AI
 				a.HasTrait<IPositionable>() &&
 				a.HasTrait<ManagedByAI>()
 			).ToList();
-
-			Debug("Owns {0} actors.", OwnedActors.Count);
-
-			foreach (var act in OwnedActors)
-				Debug("Including: " + act);
 		}
 
 		public void RegisterModule(IAILogic module)

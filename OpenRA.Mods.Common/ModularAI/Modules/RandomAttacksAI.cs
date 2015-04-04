@@ -61,14 +61,15 @@ namespace OpenRA.Mods.Common.AI
 				return a.HasTrait<AttackBase>();
 			});
 
+			if (idleAttackers.Any())
+				ai.Debug("Searching for idle actors with {0} attacking categories.",
+					info.UseAttackingCategories.JoinWith(", "));
+
 			foreach (var attacker in idleAttackers)
 			{
 				var target = ClosestTargetableActor(attacker, attacker.Info.Traits.Get<ManagedByAIInfo>());
 				if (target == null || target.IsDead || !target.IsInWorld)
-				{
-					ai.Debug("Target is null, dead, or !inWorld");
 					continue;
-				}
 
 				var cell = world.Map.CellContaining(target.CenterPosition);
 				world.IssueOrder(new Order("AttackMove", attacker, false)

@@ -113,14 +113,6 @@ namespace OpenRA.Mods.Common.AI
 			).ToList();
 		}
 
-		//public void RegisterModule(IAILogic module)
-		//{
-		//	if (modules.Contains(module))
-		//		return;
-
-		//	modules.Add(module);
-		//}
-
 		public void SetMainBase(Actor mainBase)
 		{
 			MainBaseBuilding = mainBase;

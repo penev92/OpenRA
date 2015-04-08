@@ -41,8 +41,6 @@ namespace OpenRA.Mods.Common.AI
 			world = self.World;
 			this.info = info;
 			ticksSinceLastScan = info.IdleScanFrequency;
-
-			//ai.RegisterModule(this);
 		}
 
 		public void Tick(Actor self)

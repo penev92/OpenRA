@@ -1,4 +1,18 @@
 Player:
+	ModularAI:
+		Name: ModularAI
+	BaseBuilderAI:
+		BaseBuilderTypes: mcv
+		BaseExpansionRadius: 10
+	RandomAttacksAI@infantry:
+		UseAttackingCategories: attack-infantry
+		IdleScanFrequency: 100 # 4 seconds
+	RandomAttacksAI@vehicles:
+		UseAttackingCategories: attack-vehicles
+		IdleScanFrequency: 500 # 20 seconds
+	RandomAttacksAI@any:
+		UseAttackingCategories: any
+		IdleScanFrequency: 1000 # 40 seconds
 	HackyAI@TestAI:
 		Name: Test AI
 		BuildingCommonNames:
@@ -62,17 +76,3 @@ Player:
 			ttnk: 45%
 			stnk: 8%
 		SquadSize: 20
-	ModularAI:
-		Name: ModularAI
-	BaseBuilderAI:
-		BaseBuilderTypes: mcv
-		BaseExpansionRadius: 10
-	RandomAttacksAI@infantry:
-		UseAttackingCategories: attack-infantry
-		IdleScanFrequency: 100 # 4 seconds
-	RandomAttacksAI@vehicles:
-		UseAttackingCategories: attack-vehicles
-		IdleScanFrequency: 500 # 20 seconds
-	RandomAttacksAI@any:
-		UseAttackingCategories: any
-		IdleScanFrequency: 1000 # 40 seconds

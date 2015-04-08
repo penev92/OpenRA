@@ -35,8 +35,14 @@ namespace OpenRA.Mods.Common.AI
 		public object Create(ActorInitializer init) { return new ModularAI(init.Self, this); }
 	}
 
+	public interface IAILogicInfo
+	{
+		string AIName { get; }
+	}
+		
 	public interface IAILogic
 	{
+		string AIName { get; }
 		void Tick(Actor self);
 	}
 
@@ -45,8 +51,9 @@ namespace OpenRA.Mods.Common.AI
 		public void Activate(Player p)
 		{
 			Player = p;
-			botEnabled = p.IsBot;
-			modules = p.PlayerActor.TraitsImplementing<IAILogic>().Distinct().ToList();
+			BotEnabled = p.IsBot;
+			modules = p.PlayerActor.TraitsImplementing<IAILogic>()
+				.Where(t => t.AIName == Info.Name).Distinct().ToList();
 		}
 
 		public IBotInfo Info { get { return info; } }
@@ -63,13 +70,13 @@ namespace OpenRA.Mods.Common.AI
 		readonly World world;
 		readonly ModularAIInfo info;
 
-		bool botEnabled;
+		public bool BotEnabled;
 		List<IAILogic> modules;
 
 		public ModularAI(Actor self, ModularAIInfo info)
 		{
 			Player = self.Owner;
-			botEnabled = Player.IsBot;
+			BotEnabled = Player.IsBot;
 			world = self.World;
 			this.info = info;
 			OwnedActors = new List<Actor>();
@@ -114,7 +121,7 @@ namespace OpenRA.Mods.Common.AI
 
 		public void Tick(Actor self)
 		{
-			if (!botEnabled || Player.WinState == WinState.Lost)
+			if (!BotEnabled || Player.WinState == WinState.Lost)
 				return;
 
 			TickInner(self);
@@ -131,7 +138,7 @@ namespace OpenRA.Mods.Common.AI
 
 		public void Notify<T>(Action<T> action) where T : class
 		{
-			if (!botEnabled)
+			if (!BotEnabled)
 				return;
 
 			var cast = this as T;
@@ -148,7 +155,7 @@ namespace OpenRA.Mods.Common.AI
 
 		public void Debug(string message, params object[] fmt)
 		{
-			if (!botEnabled)
+			if (!BotEnabled)
 				return;
 
 			message = "{0}: {1}".F(OwnerString(Player), message.F(fmt));

@@ -1,16 +1,22 @@
 Player:
-	ModularAI:
-		Name: ModularAI
+	ModularAI@AI1:
+		Name: ModularAI_Base
 	BaseBuilderAI:
+		AIName: ModularAI_Base
 		BaseBuilderTypes: mcv
 		BaseExpansionRadius: 10
+	ModularAI@AI2:
+		Name: ModularAI_Attack
 	RandomAttacksAI@infantry:
+		AIName: ModularAI_Attack
 		UseAttackingCategories: attack-infantry
 		IdleScanFrequency: 100 # 4 seconds
 	RandomAttacksAI@vehicles:
+		AIName: ModularAI_Attack
 		UseAttackingCategories: attack-vehicles
 		IdleScanFrequency: 500 # 20 seconds
 	RandomAttacksAI@any:
+		AIName: ModularAI_Attack
 		UseAttackingCategories: any
 		IdleScanFrequency: 1000 # 40 seconds
 	HackyAI@TestAI:

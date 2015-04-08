@@ -8,21 +8,24 @@
 //  */
 // #endregion
 
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using OpenRA.Mods.Common.Traits;
 using OpenRA.Traits;
 
 namespace OpenRA.Mods.Common.AI
 {
-	public class RandomAttacksAIInfo : ITraitInfo, Requires<ModularAIInfo>
+	public class RandomAttacksAIInfo : ITraitInfo, IAILogicInfo, Requires<ModularAIInfo>
 	{
 		[Desc("Use `ManagedByAI` actors with `AttackingCategories` contained in this list. Leave empty for 'any'.")]
 		public readonly string[] UseAttackingCategories = { "any" };
 
 		[Desc("Ticks in between each scan for idle actors. Default equates to 2 seconds.")]
 		public readonly int IdleScanFrequency = 25 * 2;
+
+		[Desc("Name of the AI personality this module belongs to.")]
+		public string AIName;
+
+		string IAILogicInfo.AIName { get { return AIName; } }
 
 		public object Create(ActorInitializer init) { return new RandomAttacksAI(init.Self, this); }
 	}
@@ -35,11 +38,13 @@ namespace OpenRA.Mods.Common.AI
 
 		int ticksSinceLastScan;
 
+		public string AIName { get { return info.AIName; } }
+
 		public RandomAttacksAI(Actor self, RandomAttacksAIInfo info)
 		{
-			ai = self.Trait<ModularAI>();
-			world = self.World;
 			this.info = info;
+			ai = self.TraitsImplementing<ModularAI>().FirstOrDefault(x => x.Info.Name == AIName);
+			world = self.World;
 			ticksSinceLastScan = info.IdleScanFrequency;
 		}
 

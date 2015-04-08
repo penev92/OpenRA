@@ -17,13 +17,18 @@ using OpenRA.Traits;
 namespace OpenRA.Mods.Common.AI
 {
 	[Desc("Logic module for ModularAI. Finds a random (non-intelligent) location to deploy idle base-builder actors.")]
-	public class BaseBuilderAIInfo : ITraitInfo, Requires<ModularAIInfo>
+	public class BaseBuilderAIInfo : ITraitInfo, IAILogicInfo, Requires<ModularAIInfo>
 	{
 		[Desc("Actor type names. Not deployed factories. Typically MCVs. Must have the `Transforms` trait.")]
 		public readonly string[] BaseBuilderTypes = { "mcv" };
 
 		[Desc("Minimum number of cells to put between each base builder before attempting to deploy.")]
 		public readonly int BaseExpansionRadius = 10;
+
+		[Desc("Name of the AI personality this module belongs to.")]
+		public string AIName;
+
+		string IAILogicInfo.AIName { get { return AIName; } }
 
 		public object Create(ActorInitializer init) { return new BaseBuilderAI(init.Self, this); }
 	}
@@ -41,11 +46,13 @@ namespace OpenRA.Mods.Common.AI
 		CPos? tryGetLatestConyardAtCell;
 		Dictionary<Actor, Transforms> baseBuilders;
 
+		public string AIName { get { return info.AIName; } }
+
 		public BaseBuilderAI(Actor self, BaseBuilderAIInfo info)
 		{
-			ai = self.Trait<ModularAI>();
-			world = self.World;
 			this.info = info;
+			ai = self.TraitsImplementing<ModularAI>().FirstOrDefault(x => x.Info.Name == AIName);
+			world = self.World;
 			expansionRadius = info.BaseExpansionRadius;
 			baseBuilders = new Dictionary<Actor, Transforms>();
 		}

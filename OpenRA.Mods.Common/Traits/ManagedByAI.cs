@@ -8,6 +8,8 @@
 //  */
 // #endregion
 
+using System;
+using System.Linq;
 using OpenRA.Mods.Common.AI;
 using OpenRA.Traits;
 
@@ -35,12 +37,12 @@ namespace OpenRA.Mods.Common.Traits
 
 		public bool IsTraitDisabled { get { return ai == null; } }
 
-		readonly ModularAI ai;
+		readonly Lazy<ModularAI> ai;
 
 		public ManagedByAI(Actor self, ManagedByAIInfo info)
 		{
 			Info = info;
-			ai = self.Owner.PlayerActor.TraitOrDefault<ModularAI>();
+			ai = Exts.Lazy(() => self.Owner.PlayerActor.TraitsImplementing<ModularAI>().FirstOrDefault(x => x.BotEnabled));
 		}
 
 		// It is important to note that `self` in the *AI logic
@@ -48,14 +50,14 @@ namespace OpenRA.Mods.Common.Traits
 
 		public void OnBecomingIdle(Actor self)
 		{
-			if (!IsTraitDisabled)
-				ai.Notify<INotifyBecomingIdle>(n => n.OnBecomingIdle(self));
+			if (!IsTraitDisabled && ai.Value != null)
+				ai.Value.Notify<INotifyBecomingIdle>(n => n.OnBecomingIdle(self));
 		}
 
 		public void TickIdle(Actor self)
 		{
-			if (!IsTraitDisabled)
-				ai.Notify<INotifyIdle>(n => n.TickIdle(self));
+			if (!IsTraitDisabled && ai.Value != null)
+				ai.Value.Notify<INotifyIdle>(n => n.TickIdle(self));
 		}
 	}
 }

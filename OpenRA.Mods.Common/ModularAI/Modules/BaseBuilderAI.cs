@@ -44,7 +44,7 @@ namespace OpenRA.Mods.Common.AI
 			world = self.World;
 			this.info = info;
 			expansionRadius = info.BaseExpansionRadius;
-			ai.RegisterModule(this);
+			//ai.RegisterModule(this);
 		}
 
 		public void TickIdle(Actor self)

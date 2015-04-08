@@ -46,6 +46,7 @@ namespace OpenRA.Mods.Common.AI
 		{
 			Player = p;
 			botEnabled = p.IsBot;
+			modules = p.PlayerActor.TraitsImplementing<IAILogic>().Distinct().ToList();
 		}
 
 		public IBotInfo Info { get { return info; } }
@@ -112,13 +113,13 @@ namespace OpenRA.Mods.Common.AI
 			).ToList();
 		}
 
-		public void RegisterModule(IAILogic module)
-		{
-			if (modules.Contains(module))
-				return;
+		//public void RegisterModule(IAILogic module)
+		//{
+		//	if (modules.Contains(module))
+		//		return;
 
-			modules.Add(module);
-		}
+		//	modules.Add(module);
+		//}
 
 		public void SetMainBase(Actor mainBase)
 		{

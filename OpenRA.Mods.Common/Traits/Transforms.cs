@@ -49,6 +49,8 @@ namespace OpenRA.Mods.Common.Traits
 		readonly BuildingInfo buildingInfo;
 		readonly string race;
 
+		public string IntoActor { get { return info.IntoActor; } }
+
 		public Transforms(ActorInitializer init, TransformsInfo info)
 		{
 			self = init.Self;
@@ -62,7 +64,7 @@ namespace OpenRA.Mods.Common.Traits
 			return (order.OrderString == "DeployTransform") ? "Move" : null;
 		}
 
-		bool CanDeploy()
+		public bool CanDeploy(CPos location)
 		{
 			var building = self.TraitOrDefault<Building>();
 			if (building != null && building.Locked)
@@ -73,7 +75,7 @@ namespace OpenRA.Mods.Common.Traits
 
 		public IEnumerable<IOrderTargeter> Orders
 		{
-			get { yield return new DeployOrderTargeter("DeployTransform", 5, () => CanDeploy()); }
+			get { yield return new DeployOrderTargeter("DeployTransform", 5, () => CanDeploy(self.Location)); }
 		}
 
 		public Order IssueOrder(Actor self, IOrderTargeter order, Target target, bool queued)
@@ -87,7 +89,7 @@ namespace OpenRA.Mods.Common.Traits
 		public void DeployTransform(bool queued)
 		{
 			var building = self.TraitOrDefault<Building>();
-			if (!CanDeploy() || (building != null && !building.Lock()))
+			if (!CanDeploy(self.Location) || (building != null && !building.Lock()))
 			{
 				foreach (var s in info.NoTransformSounds)
 					Sound.PlayToPlayer(self.Owner, s);

@@ -30,13 +30,16 @@ namespace OpenRA.Mods.Common.AI
 
 	public class BaseBuilderAI : IAILogic, INotifyIdle
 	{
+		public Actor MainBaseBuilding { get; private set; }
+
 		readonly ModularAI ai;
 		readonly World world;
 		readonly BaseBuilderAIInfo info;
 
-		Actor mainBaseBuilding { get { return ai.MainBaseBuilding; } }
 		readonly int expansionRadius;
+
 		CPos? tryGetLatestConyardAtCell;
+		Dictionary<Actor, Transforms> baseBuilders;
 
 		public BaseBuilderAI(Actor self, BaseBuilderAIInfo info)
 		{
@@ -44,12 +47,16 @@ namespace OpenRA.Mods.Common.AI
 			world = self.World;
 			this.info = info;
 			expansionRadius = info.BaseExpansionRadius;
+			baseBuilders = new Dictionary<Actor, Transforms>();
 		}
 
 		public void TickIdle(Actor self)
 		{
 			if (!info.BaseBuilderTypes.Contains(self.Info.Name))
 				return;
+
+			if (!baseBuilders.ContainsKey(self))
+				baseBuilders.Add(self, self.Trait<Transforms>());
 
 			TryToDeploy(self);
 		}
@@ -62,20 +69,15 @@ namespace OpenRA.Mods.Common.AI
 		void TryToDeploy(Actor baseBuilder)
 		{
 			var tryDeploy = new Order("DeployTransform", baseBuilder, true);
-			var deploysInto = baseBuilder.Info.Traits.Get<TransformsInfo>().IntoActor;
+			var transforms = baseBuilders[baseBuilder];
+			var deploysInto = transforms.IntoActor;
 
-			if (mainBaseBuilding != null)
+			if (MainBaseBuilding != null)
 			{
 				if (baseBuilder.IsMoving())
 					return;
 
-				var srcCell = world.Map.CellContaining(baseBuilder.CenterPosition);
-				var targetCell = world.Map.FindTilesInAnnulus(
-					srcCell,
-					expansionRadius,
-					expansionRadius + expansionRadius / 2) // TODO: Sensible value
-					.Where(world.Map.Contains)
-					.MinBy(c => (c - srcCell).LengthSquared);
+				var targetCell = PickDeploymentCell(baseBuilder.CenterPosition);
 
 				ai.Debug("Try to deploy into {0} at {1}.", deploysInto, targetCell);
 
@@ -92,7 +94,8 @@ namespace OpenRA.Mods.Common.AI
 
 				return;
 			}
-			else if (tryGetLatestConyardAtCell.HasValue)
+			
+			if (tryGetLatestConyardAtCell.HasValue)
 			{
 				var occupyingCell = world.ActorMap.GetUnitsAt(tryGetLatestConyardAtCell.Value);
 				var atCell = occupyingCell.FirstOrDefault();
@@ -106,13 +109,38 @@ namespace OpenRA.Mods.Common.AI
 					return;
 				}
 
-				ai.SetMainBase(atCell);
+				MainBaseBuilding = atCell;
 				return;
 			}
 
-			tryDeploy.TargetLocation = world.Map.CellContaining(baseBuilder.CenterPosition);
-			world.IssueOrder(tryDeploy);
-			tryGetLatestConyardAtCell = tryDeploy.TargetLocation;
+			if (transforms.CanDeploy(baseBuilder.Location))
+			{
+				tryDeploy.TargetLocation = world.Map.CellContaining(baseBuilder.CenterPosition);
+				world.IssueOrder(tryDeploy);
+				tryGetLatestConyardAtCell = tryDeploy.TargetLocation;
+			}
+			else
+			{
+				var move = new Order("Move", baseBuilder, false)
+				{
+					TargetLocation = PickDeploymentCell(baseBuilder.CenterPosition)
+				};
+
+				world.IssueOrder(move);
+			}
+		}
+
+		CPos PickDeploymentCell(WPos position)
+		{
+			var srcCell = world.Map.CellContaining(position);
+			var targetCell = world.Map.FindTilesInAnnulus(
+				srcCell,
+				expansionRadius,
+				expansionRadius + expansionRadius / 2) // TODO: Sensible value
+				.Where(world.Map.Contains)
+				.MinBy(c => (c - srcCell).LengthSquared);
+
+			return targetCell;
 		}
 	}
 }

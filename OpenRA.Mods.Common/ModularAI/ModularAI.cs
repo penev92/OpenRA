@@ -51,7 +51,6 @@ namespace OpenRA.Mods.Common.AI
 
 		public IBotInfo Info { get { return info; } }
 		public Player Player { get; private set; }
-		public Actor MainBaseBuilding { get; private set; }
 		public List<Actor> OwnedActors { get; private set; }
 		public IEnumerable<Actor> GetIdleActors()
 		{
@@ -111,11 +110,6 @@ namespace OpenRA.Mods.Common.AI
 				a.HasTrait<IPositionable>() &&
 				a.HasTrait<ManagedByAI>()
 			).ToList();
-		}
-
-		public void SetMainBase(Actor mainBase)
-		{
-			MainBaseBuilding = mainBase;
 		}
 
 		public void Tick(Actor self)

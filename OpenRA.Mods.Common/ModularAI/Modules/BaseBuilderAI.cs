@@ -40,7 +40,7 @@ namespace OpenRA.Mods.Common.AI
 		public object Create(ActorInitializer init) { return new BaseBuilderAI(init.Self, this); }
 	}
 
-	public class BaseBuilderAI : IAILogic, INotifyIdle
+	public class BaseBuilderAI : IAILogic, INotifyIdle, INotifyAddedToWorld
 	{
 		public Actor MainBaseBuilding { get; private set; }
 		public readonly BaseBuilderAIInfo Info;
@@ -61,6 +61,7 @@ namespace OpenRA.Mods.Common.AI
 			Info = info;
 			this.self = self;
 			world = self.World;
+			BuildQueues = new List<ProductionQueue>();
 			expansionRadius = info.BaseExpansionRadius;
 			baseBuilders = new Dictionary<Actor, Transforms>();
 			ai = self.TraitsImplementing<ModularAI>().FirstOrDefault(x => x.Info.Name == AIName);
@@ -81,26 +82,16 @@ namespace OpenRA.Mods.Common.AI
 		{
 			if (MainBaseBuilding == null || MainBaseBuilding.IsDead || !MainBaseBuilding.IsInWorld)
 			{
-				MainBaseBuilding = world.Actors
-					.FirstOrDefault(a => a.Owner == self.Owner && !a.IsDead && a.IsInWorld
+				MainBaseBuilding = ai.OwnedActors
+					.FirstOrDefault(a => !a.IsDead && a.IsInWorld
 						&& Info.MainBaseBuildingTypes.Contains(a.Info.Name));
 
 				if (MainBaseBuilding == null)
 					return;
 			}
 			
-			// TODO: A delay here might really help performance, but make the AI's reactions slower!
-			UpdateBuildQueues();
-
 			foreach (var productionQueue in BuildQueues.Where(q => q.CurrentDone))
 				TryPlaceBuilding(productionQueue);
-		}
-
-		public void UpdateBuildQueues()
-		{
-			BuildQueues = new List<ProductionQueue>();
-			foreach (var queueName in Info.ProductionQueueNames)
-				BuildQueues.AddRange(GetBuildQueues(queueName));
 		}
 
 		void TryPlaceBuilding(ProductionQueue productionQueue)
@@ -196,13 +187,6 @@ namespace OpenRA.Mods.Common.AI
 			return targetCell;
 		}
 
-		IEnumerable<ProductionQueue> GetBuildQueues(string category)
-		{
-			return world.ActorsWithTrait<ProductionQueue>()
-				.Where(a => a.Actor.Owner == self.Owner && a.Trait.Info.Type == category && a.Trait.Enabled)
-				.Select(a => a.Trait).Where(t => t.Enabled);
-		}
-
 		public bool StartProduction(string actor)
 		{
 			var candidates = new List<ProductionQueue>();
@@ -220,6 +204,12 @@ namespace OpenRA.Mods.Common.AI
 			world.IssueOrder(Order.StartProduction(queue.Actor, actor, 1));
 
 			return true;
+		}
+
+		public void AddedToWorld(Actor self)
+		{
+			var queues = self.TraitsImplementing<ProductionQueue>().Where(x => Info.ProductionQueueNames.Contains(x.Info.Type));
+			BuildQueues.AddRange(queues);
 		}
 	}
 }

@@ -31,7 +31,7 @@ namespace OpenRA.Mods.Common.Traits
 		public object Create(ActorInitializer init) { return new ManagedByAI(init.Self, this); }
 	}
 
-	public class ManagedByAI : IDisabledTrait, INotifyIdle, INotifyBecomingIdle
+	public class ManagedByAI : IDisabledTrait, INotifyIdle, INotifyBecomingIdle, INotifyAddedToWorld
 	{
 		public readonly ManagedByAIInfo Info;
 
@@ -58,6 +58,12 @@ namespace OpenRA.Mods.Common.Traits
 		{
 			if (!IsTraitDisabled && ai.Value != null)
 				ai.Value.Notify<INotifyIdle>(n => n.TickIdle(self));
+		}
+
+		public void AddedToWorld(Actor self)
+		{
+			if (!IsTraitDisabled && ai.Value != null)
+				ai.Value.Notify<INotifyAddedToWorld>(n => n.AddedToWorld(self));
 		}
 	}
 }

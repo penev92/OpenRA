@@ -46,7 +46,7 @@ namespace OpenRA.Mods.Common.AI
 		void Tick(Actor self);
 	}
 
-	public class ModularAI : ITick, IBot, IWorldLoaded, INotifyKilled
+	public class ModularAI : ITick, IBot, INotifyAddedToWorld, INotifyKilled
 	{
 		public void Activate(Player p)
 		{
@@ -94,8 +94,7 @@ namespace OpenRA.Mods.Common.AI
 				return;
 
 			if (!a.HasTrait<ManagedByAI>())
-				throw new YamlException("ModularAI cannot manage actor type `{0}` who does not have ManagedByAI."
-					.F(a.Info.Name));
+				return;
 
 			OwnedActors.Add(a);
 		}
@@ -106,17 +105,6 @@ namespace OpenRA.Mods.Common.AI
 				return;
 
 			OwnedActors.Remove(a);
-		}
-
-		public void WorldLoaded(World w, WorldRenderer wr)
-		{
-			// After this assignment we should add/remove
-			// via (Add/Remove)Actor from module logic.
-			OwnedActors = world.Actors.Where(a =>
-				a.Owner == Player &&
-				a.HasTrait<IPositionable>() &&
-				a.HasTrait<ManagedByAI>()
-			).ToList();
 		}
 
 		public void Tick(Actor self)
@@ -193,9 +181,6 @@ namespace OpenRA.Mods.Common.AI
 			if (builder == null)
 				return false;
 
-			foreach (var module in builders)
-				module.UpdateBuildQueues();
-
 			if (checkIfQueued)
 			{
 				var queued = builders.SelectMany(x => x.BuildQueues.SelectMany(y => y.AllQueued().Select(z => z.Item)));
@@ -209,6 +194,11 @@ namespace OpenRA.Mods.Common.AI
 		public void ProduceActorFromList(IEnumerable<string> actors, bool checkIfQueued)
 		{
 			actors.Any(x => ProduceActor(x, checkIfQueued));
+		}
+
+		public void AddedToWorld(Actor self)
+		{
+			AddActor(self);
 		}
 	}
 }

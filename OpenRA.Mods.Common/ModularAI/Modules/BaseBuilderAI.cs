@@ -26,7 +26,7 @@ namespace OpenRA.Mods.Common.AI
 		public readonly int BaseExpansionRadius = 10;
 
 		[Desc("Name of the AI personality this module belongs to.")]
-		public string AIName;
+		public readonly string AIName;
 
 		string IAILogicInfo.AIName { get { return AIName; } }
 
@@ -37,14 +37,14 @@ namespace OpenRA.Mods.Common.AI
 	{
 		public Actor MainBaseBuilding { get; private set; }
 
-		readonly ModularAI ai;
 		readonly World world;
 		readonly BaseBuilderAIInfo info;
 
+		readonly ModularAI ai;
 		readonly int expansionRadius;
+		readonly Dictionary<Actor, Transforms> baseBuilders;
 
 		CPos? tryGetLatestConyardAtCell;
-		Dictionary<Actor, Transforms> baseBuilders;
 
 		public string AIName { get { return info.AIName; } }
 

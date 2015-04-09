@@ -23,7 +23,7 @@ namespace OpenRA.Mods.Common.AI
 		public readonly int IdleScanFrequency = 25 * 2;
 
 		[Desc("Name of the AI personality this module belongs to.")]
-		public string AIName;
+		public readonly string AIName;
 
 		string IAILogicInfo.AIName { get { return AIName; } }
 
@@ -43,9 +43,9 @@ namespace OpenRA.Mods.Common.AI
 		public RandomAttacksAI(Actor self, RandomAttacksAIInfo info)
 		{
 			this.info = info;
-			ai = self.TraitsImplementing<ModularAI>().FirstOrDefault(x => x.Info.Name == AIName);
 			world = self.World;
 			ticksSinceLastScan = info.IdleScanFrequency;
+			ai = self.TraitsImplementing<ModularAI>().FirstOrDefault(x => x.Info.Name == AIName);
 		}
 
 		public void Tick(Actor self)

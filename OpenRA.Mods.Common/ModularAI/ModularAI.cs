@@ -177,5 +177,38 @@ namespace OpenRA.Mods.Common.AI
 			return p.IsBot ? n + "_" + p.ClientIndex.ToString()
 					: n;
 		}
+
+		public bool ProduceActor(string actor, bool checkIfQueued)
+		{
+			var buildable = world.Map.Rules.Actors[actor].Traits.WithInterface<BuildableInfo>().FirstOrDefault();
+			if (buildable == null)
+				return false;
+
+			// TODO: Add cost check here
+
+			// Get the first module that has access to the required queue.
+			var builders = modules.OfType<BaseBuilderAI>().Where(x => x.Info.ProductionQueueNames.Intersect(buildable.Queue).Any());
+			var builder = builders.FirstOrDefault();
+
+			if (builder == null)
+				return false;
+
+			foreach (var module in builders)
+				module.UpdateBuildQueues();
+
+			if (checkIfQueued)
+			{
+				var queued = builders.SelectMany(x => x.BuildQueues.SelectMany(y => y.AllQueued().Select(z => z.Item)));
+				if (queued.Contains(actor))
+					return true;
+			}
+
+			return builder.StartProduction(actor);
+		}
+
+		public void ProduceActorFromList(IEnumerable<string> actors, bool checkIfQueued)
+		{
+			actors.Any(x => ProduceActor(x, checkIfQueued));
+		}
 	}
 }

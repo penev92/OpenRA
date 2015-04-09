@@ -5,6 +5,7 @@ Player:
 		AIName: ModularAI_Base
 		BaseBuilderTypes: mcv
 		BaseExpansionRadius: 10
+		ProductionQueueNames: Building,Defense
 		
 	ModularAI@AI2:
 		Name: ModularAI_Attack

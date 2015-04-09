@@ -6,6 +6,9 @@ Player:
 		BaseBuilderTypes: mcv
 		BaseExpansionRadius: 10
 		ProductionQueueNames: Building,Defense
+	PowerManagerAI:
+		AIName: ModularAI_Base
+		PowerProviders: gapowr,napowr,naapwr
 		
 	ModularAI@AI2:
 		Name: ModularAI_Attack

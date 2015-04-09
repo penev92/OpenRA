@@ -174,6 +174,7 @@
     <Compile Include="Lint\CheckTraitPrerequisites.cs" />
     <Compile Include="Lint\LintBuildablePrerequisites.cs" />
     <Compile Include="LoadScreens\ModChooserLoadScreen.cs" />
+    <Compile Include="ModularAI\Modules\PowerManagerAI.cs" />
     <Compile Include="Orders\BeaconOrderGenerator.cs" />
     <Compile Include="Orders\DeployOrderTargeter.cs" />
     <Compile Include="Orders\EnterAlliedActorTargeter.cs" />

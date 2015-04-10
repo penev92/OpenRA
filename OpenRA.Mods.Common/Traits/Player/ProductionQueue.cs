@@ -293,6 +293,9 @@ namespace OpenRA.Mods.Common.Traits
 									else if (!hasPlayedSound && time > 0)
 										hasPlayedSound = Sound.PlayNotification(self.World.Map.Rules, self.Owner, "Speech", Info.BlockedAudio, self.Owner.Country.Race);
 								}
+
+								foreach (var trait in self.Owner.PlayerActor.TraitsImplementing<INotifyBuildComplete>())
+									trait.BuildingComplete(self);
 							})));
 						}
 

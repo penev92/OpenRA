@@ -40,7 +40,7 @@ namespace OpenRA.Mods.Common.AI
 		public object Create(ActorInitializer init) { return new BaseBuilderAI(init.Self, this); }
 	}
 
-	public class BaseBuilderAI : IAILogic, INotifyIdle, INotifyAddedToWorld
+	public class BaseBuilderAI : IAILogic, INotifyIdle, INotifyAddedToWorld, INotifyBuildComplete
 	{
 		public Actor MainBaseBuilding { get; private set; }
 		public readonly BaseBuilderAIInfo Info;
@@ -82,16 +82,11 @@ namespace OpenRA.Mods.Common.AI
 		{
 			if (MainBaseBuilding == null || MainBaseBuilding.IsDead || !MainBaseBuilding.IsInWorld)
 			{
+				// Pick a new one
 				MainBaseBuilding = ai.OwnedActors
 					.FirstOrDefault(a => !a.IsDead && a.IsInWorld
 						&& Info.MainBaseBuildingTypes.Contains(a.Info.Name));
-
-				if (MainBaseBuilding == null)
-					return;
 			}
-			
-			foreach (var productionQueue in BuildQueues.Where(q => q.CurrentDone))
-				TryPlaceBuilding(productionQueue);
 		}
 
 		void TryPlaceBuilding(ProductionQueue productionQueue)
@@ -210,6 +205,16 @@ namespace OpenRA.Mods.Common.AI
 		{
 			var queues = self.TraitsImplementing<ProductionQueue>().Where(x => Info.ProductionQueueNames.Contains(x.Info.Type));
 			BuildQueues.AddRange(queues);
+		}
+
+		public void BuildingComplete(Actor self)
+		{
+			if (MainBaseBuilding == null || MainBaseBuilding.IsDead || !MainBaseBuilding.IsInWorld)
+				return;
+
+			// The notification might not be for one of the queues this manages, but check just in case
+			foreach (var productionQueue in BuildQueues.Where(q => q.CurrentDone))
+				TryPlaceBuilding(productionQueue);
 		}
 	}
 }

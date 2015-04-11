@@ -106,6 +106,9 @@ medic:
 	-AutoTarget:
 	AttractsWorms:
 		Intensity: 180
+	DeployToUpgrade:
+		Upgrades: cloak
+		AllowedTerrainTypes: Sand
 
 fremen:
 	Inherits: ^Infantry

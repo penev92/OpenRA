@@ -28,6 +28,9 @@ namespace OpenRA.Mods.Common.Traits
 		[Desc("Cursor to display when (un)deploying the actor.")]
 		public readonly string Cursor = "deploy";
 
+		[Desc("Cursor to display when unable to (un)deploy the actor.")]
+		public readonly string BlockedCursor = "deploy-blocked";
+
 		public object Create(ActorInitializer init) { return new DeployToUpgrade(init.Self, this); }
 	}
 
@@ -36,11 +39,13 @@ namespace OpenRA.Mods.Common.Traits
 		readonly DeployToUpgradeInfo info;
 		readonly UpgradeManager manager;
 		readonly bool checkTerrainType;
+		readonly Actor self;
 
 		bool isUpgraded;
 
 		public DeployToUpgrade(Actor self, DeployToUpgradeInfo info)
 		{
+			this.self = self;
 			this.info = info;
 			manager = self.Trait<UpgradeManager>();
 			checkTerrainType = info.AllowedTerrainTypes.Length > 0;
@@ -48,7 +53,7 @@ namespace OpenRA.Mods.Common.Traits
 
 		public IEnumerable<IOrderTargeter> Orders
 		{
-			get { yield return new DeployOrderTargeter("DeployToUpgrade", 5, info.Cursor); }
+			get { yield return new DeployOrderTargeter("DeployToUpgrade", 5, () => CanDeploy() ? info.Cursor : info.BlockedCursor); }
 		}
 
 		public Order IssueOrder(Actor self, IOrderTargeter order, Target target, bool queued)
@@ -59,20 +64,22 @@ namespace OpenRA.Mods.Common.Traits
 			return null;
 		}
 
+		bool CanDeploy()
+		{
+			var tileSet = self.World.TileSet;
+			var tiles = self.World.Map.MapTiles.Value;
+			var terrainType = tileSet[tileSet.GetTerrainIndex(tiles[self.Location])].Type;
+
+			return info.AllowedTerrainTypes.Contains(terrainType);
+		}
+
 		public void ResolveOrder(Actor self, Order order)
 		{
 			if (order.OrderString != "DeployToUpgrade")
 				return;
 
-			if (checkTerrainType)
-			{
-				var tileSet = self.World.TileSet;
-				var tiles = self.World.Map.MapTiles.Value;
-				var terrainType = tileSet[tileSet.GetTerrainIndex(tiles[self.Location])].Type;
-
-				if (!info.AllowedTerrainTypes.Contains(terrainType))
-					return;
-			}
+			if (checkTerrainType && !CanDeploy())
+				return;
 
 			if (isUpgraded)
 				foreach (var up in info.Upgrades)

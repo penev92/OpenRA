@@ -943,6 +943,21 @@ namespace OpenRA.Mods.Common.UtilityCommands
 						node.Key = node.Key.Replace("ProvidesCustomPrerequisite", "ProvidesPrerequisite");
 				}
 
+				// Rename ProductionAirdrop delivering ActorType and rename the trait
+				if (engineVersion < 20150508)
+				{
+					if (node.Key == "ProductionAirdrop")
+					{
+						var child = node.Value.Nodes.FirstOrDefault(n => n.Key == "ActorType");
+						if (child != null)
+							node.Value.Nodes.Add(new MiniYamlNode("DeliveryActor", child.Value.Value));
+
+						node.Value.Nodes.RemoveAll(n => n.Key == "ActorType");
+
+						node.Key = "ProductionByDelivery";
+					}
+				}
+
 				UpgradeActorRules(engineVersion, ref node.Value.Nodes, node, depth + 1);
 			}
 		}

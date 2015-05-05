@@ -96,8 +96,6 @@ medic:
 		Cursor: ability
 		OutsideRangeCursor: ability
 	TakeCover:
-	WithInfantryBody:
-		AttackSequence: heal
 	Passenger:
 		PipType: Blue
 	-AutoTarget:
@@ -105,6 +103,20 @@ medic:
 		Intensity: 180
 	Voiced:
 		VoiceSet: EngineerVoice
+	WithInfantryBody:
+		AttackSequence: heal
+		UpgradeTypes: deployed
+		UpgradeMaxEnabledLevel: 0
+	DeployToUpgrade:
+		Upgrades: deployed
+	DeployUpgrade:
+		UpgradeTypes: deployed
+		UpgradeMinEnabledLevel: 1
+		UpgradeMaxAcceptedLevel: 2
+	WithSpriteBody:
+		StartSequence: make
+		UpgradeTypes: deployed
+		UpgradeMinEnabledLevel: 1
 
 fremen:
 	Inherits: ^Infantry

@@ -224,8 +224,6 @@ medic: # actually thumper
 	icon: DATA.R8
 		Start: 4014
 		Offset: -30,-24
-
-thumping:
 	idle: DATA.R8
 		Start: 1458
 		Length: 5
@@ -237,9 +235,6 @@ thumping:
 		Start: 1458
 		Length: 5
 		Tick: 150
-	icon: DATA.R8
-		Frames: 4014
-		Offset: -30,-24
 
 fremen:
 	stand: DATA.R8

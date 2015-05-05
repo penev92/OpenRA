@@ -100,7 +100,6 @@ namespace OpenRA.Mods.D2k.Traits
 				if (!actor.IsInWorld)
 					continue;
 
-				// TODO: Test if we really want to ignore actors that are on rock
 				if (!mobile.Value.CanEnterCell(actor.Location, null, false))
 					continue;
 

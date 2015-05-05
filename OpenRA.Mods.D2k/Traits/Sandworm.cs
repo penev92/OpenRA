@@ -9,6 +9,7 @@
 #endregion
 
 using System;
+using System.Linq;
 using OpenRA.Mods.Common.Traits;
 using OpenRA.Traits;
 
@@ -103,29 +104,32 @@ namespace OpenRA.Mods.D2k.Traits
 				if (!mobile.Value.CanEnterCell(actor.Location, null, false))
 					continue;
 
-				var noise = actor.TraitOrDefault<AttractsWorms>();
-				if (noise == null)
+				var noiseTraits = actor.TraitsImplementing<AttractsWorms>().Where(x => !x.IsTraitDisabled);
+				if (!noiseTraits.Any())
 					continue;
 
-				var distance = actor.CenterPosition - self.CenterPosition;
-				var length = distance.Length;
-
-				// Actor is too far to be heard
-				if (noise.Info.Range[noise.Info.Range.Length - 1].Range < length)
-					continue;
-
-				// If close enough, we don't care about other actors
-				if (length <= Info.IgnoreNoiseAttackRange.Range)
+				foreach (var noiseTrait in noiseTraits)
 				{
-					self.CancelActivity();
-					attackTrait.Value.ResolveOrder(self, new Order("Attack", actor, true) { TargetActor = actor });
-					return;
+					var distance = actor.CenterPosition - self.CenterPosition;
+					var length = distance.Length;
+
+					// Actor is too far to be heard
+					if (noiseTrait.Info.Range[noiseTrait.Info.Range.Length - 1].Range < length)
+						continue;
+
+					// If close enough, we don't care about other actors
+					if (length <= Info.IgnoreNoiseAttackRange.Range)
+					{
+						self.CancelActivity();
+						attackTrait.Value.ResolveOrder(self, new Order("Attack", actor, true) { TargetActor = actor });
+						return;
+					}
+
+					var direction = 1024 * distance / length;
+					var percentage = noiseTrait.GetNoisePercentageAtDistance(length);
+
+					noiseDirection += direction * noiseTrait.Info.Intensity * percentage / 100;
 				}
-
-				var direction = 1024 * distance / length;
-				var percentage = noise.GetNoisePercentageAtDistance(length);
-
-				noiseDirection += direction * noise.Info.Intensity * percentage / 100;
 			}
 
 			// No target was found

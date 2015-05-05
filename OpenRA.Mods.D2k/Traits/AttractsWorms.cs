@@ -8,12 +8,13 @@
 */
 #endregion
 
+using OpenRA.Mods.Common.Traits;
 using OpenRA.Traits;
 
 namespace OpenRA.Mods.D2k.Traits
 {
 	[Desc("This actor makes noise, which causes them to be targeted by actors with the Sandworm trait.")]
-	public class AttractsWormsInfo : ITraitInfo
+	public class AttractsWormsInfo : UpgradableTraitInfo, ITraitInfo
 	{
 		[Desc("How much noise this actor produces.")]
 		public readonly int Intensity = 0;
@@ -30,14 +31,11 @@ namespace OpenRA.Mods.D2k.Traits
 		public object Create(ActorInitializer init) { return new AttractsWorms(this); }
 	}
 
-	public class AttractsWorms
+	public class AttractsWorms : UpgradableTrait<AttractsWormsInfo>
 	{
-		public readonly AttractsWormsInfo Info;
-
 		public AttractsWorms(AttractsWormsInfo info)
+			: base(info)
 		{
-			Info = info;
-
 			if (info.Range == null)
 				info.Range = Exts.MakeArray(info.Falloff.Length, i => i * info.Spread);
 		}

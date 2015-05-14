@@ -21,7 +21,7 @@ namespace OpenRA.Mods.Common.Traits
 	[Desc("Deliver produced units from outside the map.")]
 	public class ProductionByDeliveryInfo : ProductionInfo
 	{
-		[Desc("Delivering actor name.")]
+		[Desc("Delivering actor name. The actor needs to have either of the `Helicopter` or `Plane` traits.")]
 		[ActorReference]
 		public readonly string DeliveryActor = "c17";
 
@@ -32,11 +32,13 @@ namespace OpenRA.Mods.Common.Traits
 
 	class ProductionByDelivery : Production
 	{
+		readonly Actor self;
 		readonly CPos startPos;
 		readonly CPos endPos;
 		readonly ProductionByDeliveryInfo info;
+		readonly AircraftInfo aircraft;
+		readonly bool isPlane;
 
-		Actor self;
 		string factionVariant;
 
 		public ProductionByDelivery(ActorInitializer init, ProductionByDeliveryInfo info)
@@ -49,6 +51,9 @@ namespace OpenRA.Mods.Common.Traits
 			startPos = self.Location + new CVec(self.Owner.World.Map.Bounds.Width, 0);
 			endPos = new CPos(self.Owner.World.Map.Bounds.Left - 5, self.Location.Y);
 			this.info = info;
+
+			aircraft = self.World.Map.Rules.Actors[info.DeliveryActor].Traits.Get<AircraftInfo>();
+			isPlane = aircraft is PlaneInfo;
 		}
 
 		public override Actor DoProduction(Actor self, ActorInfo actorToProduce, ExitInfo exitInfo, string raceVariant)
@@ -74,7 +79,6 @@ namespace OpenRA.Mods.Common.Traits
 			var deliveringActorType = info.DeliveryActor;
 			var owner = self.Owner;
 
-			this.self = self;
 			factionVariant = raceVariant;
 
 			// Check if there is a valid drop-off point before sending the transport
@@ -87,15 +91,18 @@ namespace OpenRA.Mods.Common.Traits
 
 			owner.World.AddFrameEndTask(w =>
 			{
-				var altitude = self.World.Map.Rules.Actors[deliveringActorType].Traits.Get<PlaneInfo>().CruiseAltitude;
 				var deliveringActor = w.CreateActor(deliveringActorType, new TypeDictionary
 				{
-					new CenterPositionInit(w.Map.CenterOfCell(startPos) + new WVec(WRange.Zero, WRange.Zero, altitude)),
+					new CenterPositionInit(w.Map.CenterOfCell(startPos) + new WVec(WRange.Zero, WRange.Zero, aircraft.CruiseAltitude)),
 					new OwnerInit(owner),
 					new FacingInit(64)
 				});
 
-				deliveringActor.QueueActivity(new Fly(deliveringActor, Target.FromCell(w, self.Location + new CVec(9, 0))));
+				if (isPlane)
+					deliveringActor.QueueActivity(new Fly(deliveringActor, Target.FromCell(w, self.Location + new CVec(9, 0))));
+				else
+					deliveringActor.QueueActivity(new HeliFly(deliveringActor, Target.FromCell(w, self.Location + new CVec(9, 0))));
+
 				deliveringActor.QueueActivity(new CallFunc(() => TryToLand(deliveringActor, actorsToProduce)));
 			});
 
@@ -113,10 +120,24 @@ namespace OpenRA.Mods.Common.Traits
 				var value = actorsToProduce.Sum(actor => actor.Traits.Get<ValuedInfo>().Cost);
 				self.Owner.PlayerActor.Trait<PlayerResources>().GiveCash(value);
 
+				if (isPlane)
+					deliveringActor.QueueActivity(new Fly(deliveringActor, Target.FromCell(self.World, endPos)));
+				else
+					deliveringActor.QueueActivity(new HeliFly(deliveringActor, Target.FromCell(self.World, endPos)));
+
+				deliveringActor.QueueActivity(new RemoveSelf());
+
 				return;
 			}
 
-			deliveringActor.QueueActivity(new Land(deliveringActor, Target.FromActor(self)));
+			if (isPlane)
+				deliveringActor.QueueActivity(new Land(deliveringActor, Target.FromActor(self)));
+			else
+			{
+				deliveringActor.QueueActivity(new HeliFly(deliveringActor, Target.FromActor(self)));
+				deliveringActor.QueueActivity(new HeliLand(deliveringActor, false));
+			}
+
 			deliveringActor.QueueActivity(new CallFunc(() => MakeDelivery(actorsToProduce.ToList(), deliveringActor, deliveringActor.World)));
 		}
 
@@ -124,7 +145,11 @@ namespace OpenRA.Mods.Common.Traits
 		{
 			if (!actorInfos.Any())
 			{
-				deliveringActor.QueueActivity(new Fly(deliveringActor, Target.FromCell(world, endPos)));
+				if (isPlane)
+					deliveringActor.QueueActivity(new Fly(deliveringActor, Target.FromCell(world, endPos)));
+				else
+					deliveringActor.QueueActivity(new HeliFly(deliveringActor, Target.FromCell(world, endPos)));
+
 				deliveringActor.QueueActivity(new RemoveSelf());
 			}
 			else

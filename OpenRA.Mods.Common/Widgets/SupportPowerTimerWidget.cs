@@ -11,8 +11,8 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using OpenRA.Graphics;
 using OpenRA.Mods.Common.Traits;
-using OpenRA.Primitives;
 using OpenRA.Widgets;
 
 namespace OpenRA.Mods.Common.Widgets
@@ -20,34 +20,17 @@ namespace OpenRA.Mods.Common.Widgets
 	public class SupportPowerTimerWidget : Widget
 	{
 		public readonly string Font = "Bold";
-		[Translate] public readonly string NoTeamLabel = "No Team";
-		[Translate] public readonly string TeamLabel = "Team {0}";
-
-		readonly int updatesPerSecond = 2;	// Range: 1 - 26	// 26 means no delay
-											// Values are in game time.
-											// Higher is more responsive
-											// but also more computationally intensive.
 		readonly World world;
 		readonly Dictionary<Player, SupportPowerManager> init;
-		struct Timer
-		{
-			public string PowerName;
-			public string RemainingTime;
-			public Color TimerColor;
-		}
-
-		struct TextBlock
-		{
-			public string Label;	// Used only if the text block is a team label.
-			public int Team;
-			public string PlayerName;
-			public Color PlayerColor;
-			public List<Timer> Timers;
-		}
-
-		List<TextBlock> temp, texts;
-		int leftColumnWidth, middleColumnWidth, lastTick, waitTicks;
-		Player cachedPlayer;
+		[Translate] public readonly string NoTeamLabel = "No Team";
+		[Translate] public readonly string TeamLabel = "Team {0}";
+		readonly int yIncrement;
+		readonly int xIncrement;
+		readonly int maxPlayerNameWidth;
+		readonly SpriteFont font;
+		
+		int maxPowerNameWidth;
+		float2 offset;
 
 		[ObjectCreator.UseCtor]
 		public SupportPowerTimerWidget(World world)
@@ -57,147 +40,11 @@ namespace OpenRA.Mods.Common.Widgets
 				.Where(p => !p.Actor.IsDead && !p.Actor.Owner.NonCombatant))
 				init[tp.Actor.Owner] = tp.Trait;
 
-			texts = new List<TextBlock>();
+			font = Game.Renderer.Fonts[Font];
 			this.world = world;
-			waitTicks = 25 / updatesPerSecond;
-		}
-
-		bool AddTextBlock(Player p, int team, TextBlock? label, List<TextBlock> list)
-		{
-			var spiArray = init[p].Powers.Values.Where(i => i.Instances.Any() && i.Info.DisplayTimer && !i.Disabled).ToArray();
-			if (spiArray.Length == 0)
-				return false;
-
-			if (label != null)
-				list.Add((TextBlock)label);
-
-			var tb = new TextBlock();
-			tb.Timers = new List<Timer>();
-			foreach (var spi in spiArray)
-			{
-				var t = new Timer();
-				t.PowerName = spi.Info.Description;
-				t.RemainingTime = WidgetUtils.FormatTime(spi.RemainingTime, false);
-				t.TimerColor = spi.Ready && Game.LocalTick % 50 > 25 ? Color.White : p.Color.RGB;
-				tb.Timers.Add(t);
-			}
-
-			tb.Team = team;
-			tb.PlayerName = p.PlayerName;
-			tb.PlayerColor = p.Color.RGB;
-			list.Add(tb);
-			return true;
-		}
-
-		void OrderTexts(bool hasSelf, int selfTeam)
-		{
-			var grouping = temp.GroupBy(t => t.Team).OrderBy(g => g.Key);
-			foreach (var team in grouping)
-			{
-				if (!hasSelf || team.Key != -selfTeam)
-				{
-					var tb = new TextBlock();
-					tb.Label = team.Key == 0 ? NoTeamLabel : TeamLabel.F(team.Key < 0 ? -team.Key : team.Key);
-					texts.Add(tb);
-				}
-
-				foreach (var tb in team)
-					texts.Add(tb);
-			}
-		}
-
-		void UpdateColumnWidth()
-		{
-			var font = Game.Renderer.Fonts[Font];
-			leftColumnWidth = 0;
-			middleColumnWidth = 0;
-			foreach (var tb in texts)
-			{
-				var w = font.Measure(tb.PlayerName ?? tb.Label).X;
-				if (w > leftColumnWidth)
-					leftColumnWidth = w;
-
-				if (tb.Timers == null)
-					continue;
-
-				foreach (var timer in tb.Timers)
-				{
-					var tw = font.Measure(timer.PowerName).X;
-					if (tw > middleColumnWidth)
-						middleColumnWidth = tw;
-				}
-			}
-		}
-
-		void GenerateTexts(Player player, bool showSelf)
-		{
-			temp = new List<TextBlock>();
-			texts = new List<TextBlock>();
-			var hasSelf = false;
-			var selfTeam = world.LobbyInfo.ClientWithIndex(player.ClientIndex).Team;
-			foreach (var p in init.Keys)
-			{
-				if (p != player)
-				{
-					var pTeam = world.LobbyInfo.ClientWithIndex(p.ClientIndex).Team;
-					if (pTeam == selfTeam)
-						pTeam = -pTeam;
-
-					AddTextBlock(p, pTeam, null, temp);
-				}
-				else if (showSelf)
-				{
-					var tb = new TextBlock();
-					tb.Label = selfTeam == 0 ? NoTeamLabel : TeamLabel.F(selfTeam);
-					hasSelf = AddTextBlock(p, selfTeam, tb, texts);
-				}
-			}
-
-			OrderTexts(hasSelf, selfTeam);
-			UpdateColumnWidth();
-		}
-
-		void MainLogic()
-		{
-			if (world.LocalPlayer != null && world.LocalPlayer.WinState == WinState.Undefined)
-			{
-				// Viewer is a player.
-				if (cachedPlayer != world.LocalPlayer || world.WorldTick - lastTick >= waitTicks)
-				{
-					GenerateTexts(world.LocalPlayer, false);
-					cachedPlayer = world.LocalPlayer;
-					lastTick = world.WorldTick;
-				}
-
-				return;
-			}
-
-			if (world.RenderPlayer != null && world.RenderPlayer.InternalName != "Everyone")
-			{
-				// Viewer is an observer who selected a player's view.
-				if (cachedPlayer != world.RenderPlayer || world.WorldTick - lastTick >= waitTicks)
-				{
-					GenerateTexts(world.RenderPlayer, true);
-					cachedPlayer = world.RenderPlayer;
-					lastTick = world.WorldTick;
-				}
-
-				return;
-			}
-
-			// Viewer is an observer who selected "Disable Shroud" or "All Players" view.
-			if ((cachedPlayer == null || cachedPlayer.InternalName == "Everyone") && world.WorldTick - lastTick < waitTicks)
-				return;
-
-			temp = new List<TextBlock>();
-			texts = new List<TextBlock>();
-			foreach (var p in init.Keys)
-				AddTextBlock(p, world.LobbyInfo.ClientWithIndex(p.ClientIndex).Team, null, temp);
-
-			OrderTexts(false, 0);
-			UpdateColumnWidth();
-			cachedPlayer = world.RenderPlayer;
-			lastTick = world.WorldTick;
+			yIncrement = font.Measure(" ").Y + 5;
+			xIncrement = font.Measure("   ").X;
+			maxPlayerNameWidth = init.Keys.Max(x => font.Measure(x.PlayerName).X);
 		}
 
 		public override void Draw()
@@ -205,39 +52,44 @@ namespace OpenRA.Mods.Common.Widgets
 			if (!IsVisible())
 				return;
 
-			MainLogic();
+			offset = new float2(0, 0);
+			var startPosition = new float2(Bounds.Location);
+			maxPowerNameWidth = init.Values.Max(x => x.Powers.Max(y => font.Measure(y.Value.Info.Description).X));
 
-			if (texts.Count == 0)
-				return;
+			var playersByTeam = init.GroupBy(x => world.LobbyInfo.ClientWithIndex(x.Key.ClientIndex).Team);
 
-			var b = new float2(Bounds.Location);
-			var pos = new float2(0, 0);
-			var font = Game.Renderer.Fonts[Font];
-			var yIncrement = font.Measure(" ").Y + 5;
-			var padding = font.Measure("   ").X;
-
-			foreach (var tb in texts)
+			foreach (var team in playersByTeam)
 			{
-				if (tb.Label != null)
+				// Draw team label
+				var teamNumber = world.LobbyInfo.ClientWithIndex(team.First().Key.ClientIndex).Team;
+				offset.X = 0;
+				font.DrawTextWithContrast(TeamLabel.F(teamNumber), startPosition + offset, Color.White, Color.Black, 1);
+				offset.X = xIncrement;
+				offset.Y += yIncrement;
+
+				foreach (var kvp in team)
 				{
-					pos.X = 0;
-					font.DrawTextWithContrast(tb.Label, b + pos, Color.White, Color.Black, 1);
-					pos.Y += yIncrement;
-					continue;
-				}
+					// Draw player name
+					var playerColor = kvp.Key.Color.RGB;
+					font.DrawTextWithContrast(kvp.Key.PlayerName, startPosition + offset, playerColor, Color.Black, 1);
 
-				pos.X = leftColumnWidth - font.Measure(tb.PlayerName).X;
-				font.DrawTextWithContrast(tb.PlayerName, b + pos, tb.PlayerColor, Color.Black, 1);
+					// Draw support power names and timers
+					foreach (var supportPowerInstance in kvp.Value.Powers)
+					{
+						var powerName = supportPowerInstance.Value.Info.Description;
+						var remainingTime = WidgetUtils.FormatTime(supportPowerInstance.Value.RemainingTime, false);
 
-				foreach (var timer in tb.Timers)
-				{
-					pos.X = leftColumnWidth + padding;
-					font.DrawTextWithContrast(timer.PowerName, b + pos, timer.TimerColor, Color.Black, 1);
+						var nameOffset = startPosition.X + offset.X + maxPlayerNameWidth + xIncrement;
+						var timeOffset = nameOffset + maxPowerNameWidth + xIncrement;
+						var yOffset = startPosition.Y + offset.Y;
 
-					pos.X += middleColumnWidth + padding;
-					font.DrawTextWithContrast(timer.RemainingTime, b + pos, timer.TimerColor, Color.Black, 1);
+						font.DrawTextWithContrast(powerName, new float2(nameOffset, yOffset), playerColor, Color.Black, 1);
 
-					pos.Y += yIncrement;
+						//offset.X += middleColumnWidth + xIncrement;
+						font.DrawTextWithContrast(remainingTime, new float2(timeOffset, yOffset), playerColor, Color.Black, 1);
+
+						offset.Y += yIncrement;
+					}
 				}
 			}
 		}

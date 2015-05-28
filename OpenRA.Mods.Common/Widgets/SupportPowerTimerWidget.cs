@@ -28,6 +28,7 @@ namespace OpenRA.Mods.Common.Widgets
 		readonly int xIncrement;
 		readonly int maxPlayerNameWidth;
 		readonly SpriteFont font;
+		readonly IEnumerable<IGrouping<int, KeyValuePair<Player, SupportPowerManager>>> playersByTeam;
 		
 		int maxPowerNameWidth;
 		float2 offset;
@@ -45,6 +46,7 @@ namespace OpenRA.Mods.Common.Widgets
 			yIncrement = font.Measure(" ").Y + 5;
 			xIncrement = font.Measure("   ").X;
 			maxPlayerNameWidth = init.Keys.Max(x => font.Measure(x.PlayerName).X);
+			playersByTeam = init.GroupBy(x => world.LobbyInfo.ClientWithIndex(x.Key.ClientIndex).Team);
 		}
 
 		public override void Draw()
@@ -55,8 +57,6 @@ namespace OpenRA.Mods.Common.Widgets
 			offset = new float2(0, 0);
 			var startPosition = new float2(Bounds.Location);
 			maxPowerNameWidth = init.Values.Max(x => x.Powers.Max(y => font.Measure(y.Value.Info.Description).X));
-
-			var playersByTeam = init.GroupBy(x => world.LobbyInfo.ClientWithIndex(x.Key.ClientIndex).Team);
 
 			foreach (var team in playersByTeam)
 			{

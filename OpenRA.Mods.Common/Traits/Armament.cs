@@ -216,6 +216,9 @@ namespace OpenRA.Mods.Common.Traits
 		{
 			var bodyOrientation = coords.Value.QuantizeOrientation(self, self.Orientation);
 			var localOffset = b.Offset + new WVec(-Recoil, WRange.Zero, WRange.Zero);
+			var body = self.Trait<IBodyOrientation>();
+			var rotate = new WRot(WAngle.Zero, body.CameraPitch, WAngle.Zero);
+
 			if (turret.Value != null)
 			{
 				var turretOrientation = coords.Value.QuantizeOrientation(self, turret.Value.LocalOrientation(self));
@@ -223,7 +226,7 @@ namespace OpenRA.Mods.Common.Traits
 				localOffset += turret.Value.Offset;
 			}
 
-			return coords.Value.LocalToWorld(localOffset.Rotate(bodyOrientation));
+			return coords.Value.LocalToWorld(localOffset.Rotate(bodyOrientation).Rotate(rotate));
 		}
 
 		public WRot MuzzleOrientation(Actor self, Barrel b)

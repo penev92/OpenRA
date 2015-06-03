@@ -106,7 +106,7 @@ namespace OpenRA.FileSystem
 			if (filename.EndsWith(".bag", StringComparison.InvariantCultureIgnoreCase))
 				return new BagFile(filename, order);
 			if (filename.EndsWith(".hdr", StringComparison.InvariantCultureIgnoreCase) || filename.EndsWith(".cab", StringComparison.InvariantCultureIgnoreCase))
-				return new InstallShieldCABExtractor(filename, order);
+				return new MicrosoftCABFile(filename);
 
 			return new Folder(filename, order);
 		}

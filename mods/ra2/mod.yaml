@@ -176,7 +176,7 @@ ContentInstaller:
 	MenuWidget: INSTALL_PANEL
 	MusicMenuWidget: INSTALL_MUSIC_PANEL
 	# TODO: Installing from CD doesn't work (because CAB)
-	#PackageToExtractFromCD: INSTALL\Game1.CAB:CRC32
+	PackageToExtractFromCD: INSTALL\Game1.CAB:CRC32
 	#ExtractFilesFromCD: ra2.mix, language.mix, theme.mix,
 	TestFiles: ra2.mix, language.mix
 

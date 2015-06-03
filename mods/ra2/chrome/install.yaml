@@ -70,7 +70,7 @@ Background@INSTALL_PANEL:
 			Height: 25
 			Text: Use CD
 			Font: Bold
-			Disabled: True # TODO
+			Disabled: False # TODO
 		Button@BACK_BUTTON:
 			X: PARENT_RIGHT - 130
 			Y: PARENT_BOTTOM - 45

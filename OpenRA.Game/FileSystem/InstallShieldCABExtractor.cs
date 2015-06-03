@@ -202,6 +202,7 @@ namespace OpenRA.FileSystem
 
 			commonName = new string(buff.ToArray());
 			var reader = new BinaryReader(hdrFile);
+			byte[] bytes = BitConverter.GetBytes(0x28635349);
 			var signature = reader.ReadUInt32();
 			if (signature != 0x28635349)
 				throw new InvalidDataException("Not an Installshield CAB package");

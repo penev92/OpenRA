@@ -83,6 +83,7 @@
     <Compile Include="Activities\CallFunc.cs" />
     <Compile Include="Actor.cs" />
     <Compile Include="CacheStorage.cs" />
+    <Compile Include="FileSystem\MicrosoftCABFile.cs" />
     <Compile Include="FileSystem\IdxEntry.cs" />
     <Compile Include="LogProxy.cs" />
     <Compile Include="FileFormats\IdxReader.cs" />

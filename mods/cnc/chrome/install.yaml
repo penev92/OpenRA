@@ -68,7 +68,7 @@ Container@INSTALL_PANEL:
 			Width: 140
 			Height: 35
 			Text: Back
-		Button@TTFD_BUTTON:
+		Button@TFD_BUTTON:
 			X: 200
 			Y: 149
 			Width: 140
@@ -211,8 +211,8 @@ Container@INSTALL_DOWNLOAD_PANEL:
 			Height: 35
 			Text: Retry
 
-Container@INSTALL_FROM_TTFD_PANEL:
-	Logic: InstallFromTTFDLogic
+Container@INSTALL_FROM_TFD_PANEL:
+	Logic: InstallFromTFDLogic
 	X: (WINDOW_RIGHT - WIDTH)/2
 	Y: (WINDOW_BOTTOM - 150)/2
 	Width: 640

@@ -33,7 +33,7 @@ namespace OpenRA.Mods.Common
 
 		public readonly string MusicPackageMirrorList = null;
 		public readonly int ShippedSoundtracks = 0;
-		public readonly int[] TTFDIndexes = { };
+		public readonly int[] TFDIndexes = { };
 	}
 
 	public static class InstallUtils

@@ -17,7 +17,7 @@ using OpenRA.Widgets;
 
 namespace OpenRA.Mods.Common.Widgets.Logic
 {
-	public class InstallFromTTFDLogic
+	public class InstallFromTFDLogic
 	{
 		readonly Widget panel;
 		readonly Action continueLoading;
@@ -25,11 +25,11 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 		readonly ContentInstaller installData;
 
 		[ObjectCreator.UseCtor]
-		public InstallFromTTFDLogic(Widget widget, Action continueLoading)
+		public InstallFromTFDLogic(Widget widget, Action continueLoading)
 		{
 			installData = Game.ModData.Manifest.Get<ContentInstaller>();
 			this.continueLoading = continueLoading;
-			panel = widget.Get("INSTALL_FROM_TTFD_PANEL");
+			panel = widget.Get("INSTALL_FROM_TFD_PANEL");
 
 			backButton = panel.Get<ButtonWidget>("BACK_BUTTON");
 			backButton.OnClick = Ui.CloseWindow;
@@ -45,13 +45,13 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			return installData.DiskTestFiles.All(f => File.Exists(Path.Combine(diskRoot, f)));
 		}
 
-		bool IsTTFD(string diskpath)
+		bool IsTFD(string diskpath)
 		{
 			bool test = File.Exists(Path.Combine(diskpath, "data1.hdr"));
 			int i = 0;
 			while (test && i < 14)
 			{
-				test &= File.Exists(Path.Combine(diskpath, string.Format("data{0}.cab", ++i)));
+				test &= File.Exists(Path.Combine(diskpath, "data{0}.cab".F(++i)));
 			}
 
 			return test;
@@ -65,17 +65,17 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			{
 				Install(path);
 			}
-			else if ((path = InstallUtils.GetMountedDisk(IsTTFD)) != null)
+			else if ((path = InstallUtils.GetMountedDisk(IsTFD)) != null)
 			{
-				InstallTTFD(Platform.ResolvePath(path, "data1.hdr"));
+				InstallTFD(Platform.ResolvePath(path, "data1.hdr"));
 			}
 		}
 
-		void InstallTTFD(string source) {
+		void InstallTFD(string source) {
 			retryButton.IsDisabled = () => true;
 			using (var cab_ex = new InstallShieldCABExtractor(source))
 			{
-				foreach (uint index in installData.TTFDIndexes)
+				foreach (uint index in installData.TFDIndexes)
 				{
 					string filename = cab_ex.FileName(index);
 					string dest = Platform.ResolvePath("^", "Content", Game.ModData.Manifest.Mod.Id, filename.ToLower());

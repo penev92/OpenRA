@@ -242,6 +242,7 @@
     <Compile Include="Widgets\WorldInteractionControllerWidget.cs" />
     <Compile Include="Graphics\PaletteReference.cs" />
     <Compile Include="Graphics\TerrainSpriteLayer.cs" />
+    <Compile Include="FileSystem\InstallShieldCABExtractor.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FileSystem\D2kSoundResources.cs" />

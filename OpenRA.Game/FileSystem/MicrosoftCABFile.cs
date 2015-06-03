@@ -24,6 +24,8 @@ namespace OpenRA.FileSystem
 			var reader = new BinaryReader(stream);
 
 			var signature = reader.ReadChars(4);
+			if (string.Concat(signature) != "MSCF")
+				throw new InvalidDataException("Not a Microsoft CAB package!");
 		}
 
 		public Stream GetContent(string filename)

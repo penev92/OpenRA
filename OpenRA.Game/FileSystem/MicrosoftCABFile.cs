@@ -210,6 +210,7 @@ namespace OpenRA.FileSystem
 				var memStream = new MemoryStream(data.ToArray());
 
 				var input = new ZipInputStream(memStream);
+				var entry = input.GetNextEntry();
 				//var output = new ZipOutputStream(File.Open("output.zip", FileMode.CreateNew));
 
 				var stream2 = zip.GetContent(zipname);

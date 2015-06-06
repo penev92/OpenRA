@@ -308,7 +308,7 @@ namespace OpenRA.Mods.Common.Widgets
 				var y = DisplayedIconCount / Columns;
 				var rect = new Rectangle(rb.X + x * (IconSize.X + IconMargin.X), rb.Y + y * (IconSize.Y + IconMargin.Y), IconSize.X, IconSize.Y);
 
-				var rsi = item.Traits.Get<RenderSpritesInfo>();
+				var rsi = item.Traits.WithInterface<RenderSpritesInfo>().First(t => t.IsTraitEnabled());
 				var icon = new Animation(World, rsi.GetImage(item, World.Map.SequenceProvider, race));
 				icon.Play(item.Traits.Get<TooltipInfo>().Icon);
 

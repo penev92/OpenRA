@@ -17,6 +17,11 @@ using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 
 namespace OpenRA.FileSystem
 {
+	// Useful literature:
+	// https://msdn.microsoft.com/en-us/library/bb417343.aspx#cabinet_format
+	// http://download.microsoft.com/download/5/0/1/501ED102-E53F-4CE0-AA6B-B0F93629DDC6/Exchange/%5BMS-CAB%5D.pdf
+	// https://msdn.microsoft.com/en-us/library/cc483131%28v=exchg.80%29.aspx
+
 	public sealed class MicrosoftCABFile : IFolder, IDisposable
 	{
 		struct CFHeader

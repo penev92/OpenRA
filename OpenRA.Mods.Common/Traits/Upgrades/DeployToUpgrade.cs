@@ -11,6 +11,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using OpenRA.Activities;
+using OpenRA.Mods.Common.Activities;
 using OpenRA.Mods.Common.Orders;
 using OpenRA.Traits;
 
@@ -30,6 +32,9 @@ namespace OpenRA.Mods.Common.Traits
 
 		[Desc("Cursor to display when unable to (un)deploy the actor.")]
 		public readonly string DeployBlockedCursor = "deploy-blocked";
+
+		[Desc("Facing that the actor must face before deploying. Set to -1 to not care about facing.")]
+		public readonly int Facing = 0;
 
 		public object Create(ActorInitializer init) { return new DeployToUpgrade(init.Self, this); }
 	}
@@ -74,11 +79,37 @@ namespace OpenRA.Mods.Common.Traits
 				return;
 
 			if (isUpgraded)
-				foreach (var up in info.Upgrades)
-					manager.RevokeUpgrade(self, up, this);
+			{
+				// Play undeploy animation and after that revoke the upgrades
+				self.QueueActivity(new CallFunc(() =>
+				{
+					var render = self.TraitOrDefault<ISpriteBody>();
+					if (render != null)
+						render.PlayCustomAnimationBackwards(self, "make", RevokeUpgrades);
+					else
+						RevokeUpgrades();
+				}));
+			}
 			else
-				foreach (var up in info.Upgrades)
-					manager.GrantUpgrade(self, up, this);
+			{
+				self.CancelActivity();
+
+				// Turn
+				if (info.Facing != -1 && self.HasTrait<IFacing>())
+					self.QueueActivity(new Turn(self, info.Facing));
+
+				// Grant the upgrade
+				self.QueueActivity(new CallFunc(GrantUpgrades));
+
+				// Play deploy animation
+				self.QueueActivity(new CallFunc(() =>
+				{
+					var render = self.TraitOrDefault<ISpriteBody>();
+					if (render != null)
+						render.PlayCustomAnimation(self, "make",
+							() => render.PlayCustomAnimationRepeating(self, "idle"));
+				}));
+			}
 
 			isUpgraded = !isUpgraded;
 		}
@@ -96,6 +127,18 @@ namespace OpenRA.Mods.Common.Traits
 			var terrainType = tileSet[tileSet.GetTerrainIndex(tiles[self.Location])].Type;
 
 			return info.AllowedTerrainTypes.Contains(terrainType);
+		}
+
+		void GrantUpgrades()
+		{
+			foreach (var up in info.Upgrades)
+				manager.GrantUpgrade(self, up, this);
+		}
+		
+		void RevokeUpgrades()
+		{
+			foreach (var up in info.Upgrades)
+				manager.RevokeUpgrade(self, up, this);
 		}
 	}
 }

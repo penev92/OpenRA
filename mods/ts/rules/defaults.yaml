@@ -353,18 +353,18 @@
 		Weapon: UnitExplodeSmall
 		EmptyWeapon: UnitExplodeSmall
 	UpgradeManager:
-	UpgradeOverlay@EMPDISABLE:
-		UpgradeTypes: empdisable
-		UpgradeMinEnabledLevel: 1
-		UpgradeMaxAcceptedLevel: 2
-		Palette: disabled
-	DisableUpgrade@EMPDISABLE:
-		UpgradeTypes: empdisable
-		UpgradeMinEnabledLevel: 1
-		UpgradeMaxAcceptedLevel: 2
-	TimedUpgradeBar@EMPDISABLE:
-		Upgrade: empdisable
-		Color: 255,255,255
+	#UpgradeOverlay@EMPDISABLE:
+	#	UpgradeTypes: empdisable
+	#	UpgradeMinEnabledLevel: 1
+	#	UpgradeMaxAcceptedLevel: 2
+	#	Palette: disabled
+	#DisableUpgrade@EMPDISABLE:
+	#	UpgradeTypes: empdisable
+	#	UpgradeMinEnabledLevel: 1
+	#	UpgradeMaxAcceptedLevel: 2
+	#TimedUpgradeBar@EMPDISABLE:
+	#	Upgrade: empdisable
+	#	Color: 255,255,255
 	Cloak@CLOAKGENERATOR:
 		UpgradeTypes: cloakgenerator
 		UpgradeMinEnabledLevel: 1

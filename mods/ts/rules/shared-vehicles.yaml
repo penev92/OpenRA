@@ -114,6 +114,51 @@ LPST:
 		TransformSounds:
 		NoTransformSounds:
 
+LPST2:
+	Inherits: ^Vehicle
+	Valued:
+		Cost: 950
+	Tooltip:
+		Name: Awesomer Mobile Sensor Array
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 100
+		Prerequisites: ~factory, radar
+	Health:
+		HP: 600
+	Armor:
+		Type: Light
+	Mobile:
+		Speed: 85
+		ROT: 5
+	RevealsShroud:
+		Range: 10c0
+	RenderVoxels:
+		Image: lpst
+	WithVoxelBody:
+		Image: lpst
+		UpgradeTypes: deployed
+		UpgradeMaxEnabledLevel: 0
+	RenderSprites@normal:
+		Image: lpst
+	WithSpriteBody@deployed:
+		StartSequence: make
+		UpgradeTypes: deployed
+		UpgradeMinEnabledLevel: 1
+	DeployUpgrade:
+		UpgradeTypes: deployed
+		UpgradeMinEnabledLevel: 1
+		UpgradeMaxAcceptedLevel: 2
+	DeployToUpgrade:
+		Upgrades: deployed
+		Facing: 160
+	DetectCloaked:
+		UpgradeTypes: deployed
+		UpgradeMinEnabledLevel: 1
+		UpgradeMaxAcceptedLevel: 2
+		Range: 10
+	RenderDetectionCircle:
+
 GGHUNT:
 	Inherits: ^Vehicle
 	Valued:

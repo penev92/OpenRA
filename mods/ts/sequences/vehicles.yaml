@@ -18,6 +18,10 @@ hvr:
 
 lpst:
 	icon: lpsticon
+	idle: gadpsa
+	make: gadpsamk
+		Length: 36
+		ShadowStart: 36
 
 repair:
 	icon: rboticon

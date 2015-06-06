@@ -12,6 +12,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using ICSharpCode.SharpZipLib.Zip;
+using ICSharpCode.SharpZipLib.Zip.Compression;
+using ICSharpCode.SharpZipLib.Zip.Compression.Streams;
 
 namespace OpenRA.FileSystem
 {
@@ -155,11 +157,16 @@ namespace OpenRA.FileSystem
 				cbUncomp = reader.ReadUInt16();
 
 				abReserve = reader.ReadBytes(cbCFData);
-				Data = reader.ReadBytes(cbData);
-				var str = string.Concat(new[] { (char)Data[0], (char)Data[1] });
-				if (str != "CK")
-				//if (Data[0] != 0x43 || Data[1] != 0x4B)
+
+				var signature = reader.ReadChars(2);
+				if (string.Concat(signature) != "CK")
 					csum = 0;
+					
+				Data = reader.ReadBytes(cbData-2);
+
+				//var str = string.Concat(new[] { (char)Data[0], (char)Data[1] });
+				////if (Data[0] != 0x43 || Data[1] != 0x4B)
+				//if (str != "CK")
 			}
 		}
 
@@ -185,6 +192,7 @@ namespace OpenRA.FileSystem
 			for (var i = 0; i < header.cFiles; i++)
 				cfFiles.Add(new CFFile(reader));
 
+			var cfData = new List<CFData>();
 			var fileData = new List<List<byte>>();
 			foreach (var folder in cfFolders)
 			{
@@ -193,6 +201,7 @@ namespace OpenRA.FileSystem
 				for (var i = 0; i < folder.cCFData; i++)
 				{
 					var cfdata = new CFData(reader, header.cbCFHeader, header.cbCFData);
+					cfData.Add(cfdata);
 					data.AddRange(cfdata.Data);
 				}
 
@@ -205,15 +214,52 @@ namespace OpenRA.FileSystem
 			foreach (var data in fileData)
 			{
 				var zipname = "asdf" + fileNum++ + ".zip";
-				var zip = new ZipFile(zipname, 0, new Dictionary<string, byte[]> { { "all", data.ToArray() } });
+				//var zip = new ZipFile(zipname, 0, new Dictionary<string, byte[]> { { "all", data.ToArray() } });
 
-				var memStream = new MemoryStream(data.ToArray());
+				using (var memStream = new MemoryStream(data.ToArray()))
+				{
+					using (var inf = new InflaterInputStream(memStream))
+					{
+						
+					}
+					using (var zipInput = new ZipInputStream(memStream))
+					{
+						
+					}
+				}
 
-				var input = new ZipInputStream(memStream);
-				var entry = input.GetNextEntry();
+				using (var batch = new MemoryStream(cfData[0].Data))
+				{
+					using (var inf = new InflaterInputStream(batch, new Inflater(true)))
+					{
+
+					}
+					using (var zipInput = new ZipInputStream(batch))
+					{
+
+					}
+				}
+
+				//using (var inflater = new InflaterInputStream(stream, new Inflater(true)))
+				//{
+				//}
+				
+
+				//using (var zipInput = new ZipInputStream(memStream))
+				//{
+				//	var entry = zipInput.GetNextEntry();
+				//}
+
+				//using (var zipOutput = new ZipOutputStream(memStream))
+				//{
+				//	var entry = zipOutput.CanPatchEntries;
+				//}
+
+				//var input = new ZipInputStream(memStream);
+				//var entry = input.GetNextEntry();
 				//var output = new ZipOutputStream(File.Open("output.zip", FileMode.CreateNew));
 
-				var stream2 = zip.GetContent(zipname);
+				//var stream2 = zip.GetContent(zipname);
 			}
 		}
 

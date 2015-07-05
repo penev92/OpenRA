@@ -146,6 +146,10 @@ namespace OpenRA.Graphics
 				if (a.Actor.IsInWorld && !a.Actor.Disposed)
 					a.Trait.RenderAfterWorld(this, a.Actor);
 
+			//added for Weathereffects
+			foreach (var item in World.ActorsWithTrait<IRenderWeatherOverlay>())
+				item.Trait.RenderWeatherOverlay(this);
+
 			var renderShroud = World.RenderPlayer != null ? World.RenderPlayer.Shroud : null;
 
 			foreach (var a in World.ActorsWithTrait<IRenderShroud>())

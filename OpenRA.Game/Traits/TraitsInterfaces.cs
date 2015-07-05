@@ -114,6 +114,8 @@ namespace OpenRA.Traits
 		int[] SelectionBoxBounds { get; }
 	}
 
+	public interface IRenderWeatherOverlay { void RenderWeatherOverlay(WorldRenderer wr); }
+
 	public interface IVoiced
 	{
 		string VoiceSet { get; }

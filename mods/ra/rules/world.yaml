@@ -163,6 +163,7 @@ World:
 	StartGameNotification:
 	ObjectivesPanel:
 		PanelName: SKIRMISH_STATS
+	WeatherOverlay:
 
 EditorWorld:
 	Inherits: ^BaseWorld

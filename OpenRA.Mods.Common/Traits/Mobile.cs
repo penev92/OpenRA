@@ -422,6 +422,21 @@ namespace OpenRA.Mods.Common.Traits
 				if (Info.OnRails)
 					return null;
 
+				var getpath = self.World.WorldActor.Trait<IPathFinder>()
+					.FindUnitPath(self.Location, self.World.Map.CellContaining(target.CenterPosition), self);
+				var path = getpath.TakeWhile(a => a != self.Location).ToList();
+
+				if (path.Count > 0)
+				{
+					var nextCell = path[path.Count - 1];
+
+
+					var firstFacing = self.World.Map.FacingBetween(CenterPosition, nextCell, Facing);
+					if (firstFacing != Facing)
+						self.QueueActivity(false, new Turn(self, firstFacing));
+				}
+
+
 				return new Order("Move", self, queued) { TargetLocation = self.World.Map.CellContaining(target.CenterPosition) };
 			}
 
@@ -481,10 +496,10 @@ namespace OpenRA.Mods.Common.Traits
 
 		protected void PerformMove(Actor self, CPos targetLocation, bool queued)
 		{
-			if (queued)
+			//if (queued)
 				self.QueueActivity(new CallFunc(() => PerformMoveInner(self, targetLocation, true)));
-			else
-				PerformMoveInner(self, targetLocation, false);
+			//else
+			//	PerformMoveInner(self, targetLocation, false);
 		}
 
 		public void ResolveOrder(Actor self, Order order)

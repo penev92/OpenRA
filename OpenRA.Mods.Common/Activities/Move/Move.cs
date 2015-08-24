@@ -269,6 +269,7 @@ namespace OpenRA.Mods.Common.Activities
 
 		public override void Cancel(Actor self)
 		{
+			mobile.IsMoving = false;
 			path = NoPath;
 			base.Cancel(self);
 		}

@@ -172,7 +172,7 @@ namespace OpenRA.Mods.Common.Activities
 			if (nextCell == null)
 				return this;
 
-			var firstFacing = self.World.Map.FacingBetween(mobile.FromCell, nextCell.Value.First, mobile.Facing);
+			var firstFacing = self.World.Map.FacingBetween(mobile.CenterPosition, nextCell.Value.First, mobile.Facing);
 			if (firstFacing != mobile.Facing)
 			{
 				path.Add(nextCell.Value.First);
@@ -181,7 +181,7 @@ namespace OpenRA.Mods.Common.Activities
 			else
 			{
 				mobile.SetLocation(mobile.FromCell, mobile.FromSubCell, nextCell.Value.First, nextCell.Value.Second);
-				var from = self.World.Map.CenterOfSubCell(mobile.FromCell, mobile.FromSubCell);
+				var from = self.CenterPosition;//self.World.Map.CenterOfSubCell(mobile.FromCell, mobile.FromSubCell);
 				var to = Util.BetweenCells(self.World, mobile.FromCell, mobile.ToCell) +
 					(self.World.Map.OffsetOfSubCell(mobile.FromSubCell) +
 					self.World.Map.OffsetOfSubCell(mobile.ToSubCell)) / 2;
@@ -314,6 +314,9 @@ namespace OpenRA.Mods.Common.Activities
 
 			public override Activity Tick(Actor self)
 			{
+				if (IsCanceled)
+					return NextActivity;
+
 				var ret = InnerTick(self, Move.mobile);
 				Move.mobile.IsMoving = ret is MovePart;
 

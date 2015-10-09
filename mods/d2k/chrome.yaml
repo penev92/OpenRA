@@ -558,3 +558,38 @@ scrollheader-selected: dialog.png
 
 dropdown: dialog.png
     separator: 512,1,1,19
+
+scrollpanel-bg-transparent: dialog.png
+	background: 780,260,100,120#800,180,126,126
+	border-r: 800,180,1,126
+	border-l: 800,180,1,126
+	border-b: 800,180,126,1
+	border-t: 800,180,126,1
+	corner-tl: 800,180,1,1
+	corner-tr: 800,180,1,1
+	corner-bl: 800,180,1,1
+	corner-br: 800,180,1,1
+
+# A copy of scrollpanel-bg-transparent
+scrollitem-transparent-selected: dialog.png
+	background: 800,180,126,126
+	border-r: 800,180,1,126
+	border-l: 800,180,1,126
+	border-b: 800,180,126,1
+	border-t: 800,180,126,1
+	corner-tl: 800,180,1,1
+	corner-tr: 800,180,1,1
+	corner-bl: 800,180,1,1
+	corner-br: 800,180,1,1
+
+# A copy of scrollpanel-bg-transparent
+scrollitem-transparent-hover: dialog.png
+	background: 800,180,126,126
+	border-r: 800,180,1,126
+	border-l: 800,180,1,126
+	border-b: 800,180,126,1
+	border-t: 800,180,126,1
+	corner-tl: 800,180,1,1
+	corner-tr: 800,180,1,1
+	corner-bl: 800,180,1,1
+	corner-br: 800,180,1,1

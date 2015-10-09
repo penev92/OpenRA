@@ -592,7 +592,9 @@
     <Compile Include="Widgets\Logic\Ingame\IngameRadarDisplayLogic.cs" />
     <Compile Include="Widgets\Logic\Ingame\LoadIngamePlayerOrObserverUILogic.cs" />
     <Compile Include="Widgets\Logic\Ingame\LoadMapEditorLogic.cs" />
+    <Compile Include="Widgets\Logic\Ingame\ObserverMapNameLogic.cs" />
     <Compile Include="Widgets\Logic\Ingame\ObserverShroudSelectorLogic.cs" />
+    <Compile Include="Widgets\Logic\Ingame\ObserverStatsLogic2.cs" />
     <Compile Include="Widgets\Logic\Ingame\ObserverStatsLogic.cs" />
     <Compile Include="Widgets\Logic\Ingame\OrderButtonsChromeLogic.cs" />
     <Compile Include="Widgets\Logic\Ingame\ProductionTooltipLogic.cs" />

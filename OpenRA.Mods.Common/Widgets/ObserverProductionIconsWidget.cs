@@ -28,6 +28,7 @@ namespace OpenRA.Mods.Common.Widgets
 		public int IconWidth = 32;
 		public int IconHeight = 24;
 		public int IconSpacing = 8;
+		public float Scale = 0.5f;
 
 		public string ClockAnimation = "clock";
 		public string ClockSequence = "idle";
@@ -52,6 +53,7 @@ namespace OpenRA.Mods.Common.Widgets
 			IconWidth = other.IconWidth;
 			IconHeight = other.IconHeight;
 			IconSpacing = other.IconSpacing;
+			Scale = other.Scale;
 
 			ClockAnimation = other.ClockAnimation;
 			ClockSequence = other.ClockSequence;
@@ -89,24 +91,25 @@ namespace OpenRA.Mods.Common.Widgets
 				icon.Play(actor.TraitInfo<TooltipInfo>().Icon);
 				var bi = actor.TraitInfo<BuildableInfo>();
 				var location = new float2(RenderBounds.Location) + new float2(queue.i * (IconWidth + IconSpacing), 0);
-				WidgetUtils.DrawSHPCentered(icon.Image, location + 0.5f * iconSize, worldRenderer.Palette(bi.IconPalette), 0.5f);
+				WidgetUtils.DrawSHPCentered(icon.Image, location + 0.5f * iconSize, worldRenderer.Palette(bi.IconPalette), Scale);
 
 				var pio = queue.Trait.Actor.Owner.PlayerActor.TraitsImplementing<IProductionIconOverlay>().FirstOrDefault();
 				if (pio != null && pio.IsOverlayActive(actor))
-					WidgetUtils.DrawSHPCentered(pio.Sprite(), location + 0.5f * iconSize + pio.Offset(0.5f * iconSize),
-						worldRenderer.Palette(pio.Palette()), 0.5f * pio.Scale());
+					WidgetUtils.DrawSHPCentered(pio.Sprite(), location + 0.5f * iconSize + pio.Offset(Scale * iconSize),
+						worldRenderer.Palette(pio.Palette()), Scale * pio.Scale());
 
 				var clock = clocks[queue.Trait];
 				clock.PlayFetchIndex(ClockSequence,
 					() => current.TotalTime == 0 ? 0 : ((current.TotalTime - current.RemainingTime)
 					* (clock.CurrentSequence.Length - 1) / current.TotalTime));
 				clock.Tick();
-				WidgetUtils.DrawSHPCentered(clock.Image, location + 0.5f * iconSize, worldRenderer.Palette(ClockPalette), 0.5f);
+				WidgetUtils.DrawSHPCentered(clock.Image, location + 0.5f * iconSize, worldRenderer.Palette(ClockPalette), Scale);
 
 				var tiny = Game.Renderer.Fonts["Tiny"];
 				var text = GetOverlayForItem(current, world.Timestep);
+				var measure = tiny.Measure(text);
 				tiny.DrawTextWithContrast(text,
-					location + new float2(16, 16) - new float2(tiny.Measure(text).X / 2, 0),
+					location + new float2(0.5f * measure.X, IconHeight - measure.Y),
 					Color.White, Color.Black, 1);
 			}
 		}

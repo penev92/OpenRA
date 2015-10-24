@@ -7,69 +7,127 @@ Container@OBSERVER_WIDGETS:
 			Width: 480
 			Height: 300
 			Children:
-				DropDownButton@PLAYER_DETAILS:
+				DropDownButton@OBSERVER_PANEL_DROPDOWN: #PLAYER_DETAILS:
 					Width: 160
 					Height: 25
 					Text: Statistics
-				Container@INGAME_OBSERVERSTATS_BG:
-					Logic: ObserverStatsLogic2
+				Container@OBSERVER_PANEL: #INGAME_OBSERVERSTATS_BG:
+					Logic: ObserverPanelLogic
 					X: 0
 					Y: 25
-					Width: 600
-					Height: 400
+					Width: 20
+					Height: 20
 					Children:
-						ScrollPanel@PLAYER_STATS_PANEL:
-							Width: 581
-							Height: 500
-							TopBottomSpacing: 0
-							Background: scrollpanel-bg-transparent
+						Container@TEAM_TEMPLATE:
+							X: 5
+							Y: 0
+							Width: 30 #PARENT_RIGHT-35
+							Height: 25
 							Children:
-								ScrollItem@TEAM_TEMPLATE:
-									X: 5
-									Y: 0
-									Width: PARENT_RIGHT-35
-									Height: 25
-									Children:
-										Label@TEAM:
-											X: 0
-											Y: 0
-											Width: PARENT_RIGHT
-											Height: PARENT_BOTTOM
-											Font: Bold
-								ScrollItem@PRODUCTION_PLAYER_TEMPLATE:
+								Label@TEAM:
 									X: 0
 									Y: 0
-									Width: PARENT_RIGHT-25
-									Height: 38#30
-									#BaseName: scrollitem-transparent
+									Width: PARENT_RIGHT
+									Height: PARENT_BOTTOM
+									Font: Bold
+									Text: Team number here!
+						Container@PLAYER_TEMPLATE:
+							Width: 10
+							Height: 38
+							Children:
+								Image@FLAG:
+									X: 10
+									Y: 2
+									Width: 21
+									Height: 21 # Flag size in buttons.png
+									ImageName: Random
+									ImageCollection: flags
+								Label@NAME:
+									X: 40
+									Width: 160
+									Height: 25 #PARENT_BOTTOM
+									Font: Bold
+									Text: Player name here
+						Container@PRODUCTION:
+							X: 180
+							Width: 10
+							Height: 38
+							Children:
+								Container@PRODUCTION_PLAYER_TEMPLATE:
+									Width: 1
+									Height: 38
 									Children:
-										Image@FLAG:
-											X: 10
-											Y: 9
-											Width: 21
-											Height: 21 # Flag size in buttons.png
-											ImageName: random
-											ImageCollection: flags
-										Label@PLAYER:
-											X: 40
-											Y: 0
-											Width: 160
-											Height: PARENT_BOTTOM
-											Font: Bold
 										ObserverProductionIcons@PRODUCTION_ICONS:
-											X: 180
 											Y: 1
 											Width: 360
 											Height: PARENT_BOTTOM
-											IconWidth: 48#39
-											IconHeight: 37#30
+											IconWidth: 48 #39
+											IconHeight: 37 #30
 											IconSpacing: 2
-											Scale: 0.8#0.65
-										ObserverSupportPowerIcons@SUPPORT_POWER_ICONS:
-											X: 535
-											Y: 0
-											Width: 320
-											Height: PARENT_BOTTOM
+											Scale: 0.8 #0.65
+						#Container@PRODUCTION_PLAYER_TEMPLATE:
+						#	Width: 20
+						#	Height: 25
+						#	
+				#Container@INGAME_OBSERVERSTATS_BG:
+				#	Logic: ObserverStatsLogic2
+				#	X: 0
+				#	Y: 25
+				#	Width: 600
+				#	Height: 400
+				#	Children:
+				#		ScrollPanel@PLAYER_STATS_PANEL:
+				#			Width: 30 #581
+				#			Height: 500
+				#			TopBottomSpacing: 0
+				#			Background: scrollpanel-bg-transparent
+				#			Children:
+				#				ScrollItem@TEAM_TEMPLATE:
+				#					X: 5
+				#					Y: 0
+				#					Width: 30 #PARENT_RIGHT-35
+				#					Height: 25
+				#					Children:
+				#						Label@TEAM:
+				#							X: 0
+				#							Y: 0
+				#							Width: PARENT_RIGHT
+				#							Height: PARENT_BOTTOM
+				#							Font: Bold
+				#				ScrollItem@PRODUCTION_PLAYER_TEMPLATE:
+				#					X: 0
+				#					Y: 0
+				#					Width:  500#PARENT_RIGHT-25
+				#					Height: 38#30
+				#					#BaseName: scrollitem-transparent
+				#					Children:
+				#						Image@FLAG:
+				#							X: 10
+				#							Y: 9
+				#							Width: 21
+				#							Height: 21 # Flag size in buttons.png
+				#							ImageName: random
+				#							ImageCollection: flags
+				#						Label@PLAYER:
+				#							X: 40
+				#							Y: 0
+				#							Width: 160
+				#							Height: PARENT_BOTTOM
+				#							Font: Bold
+				#						ObserverProductionIcons@PRODUCTION_ICONS:
+				#							X: 180
+				#							Y: 1
+				#							Width: 360
+				#							Height: PARENT_BOTTOM
+				#							IconWidth: 48#39
+				#							IconHeight: 37#30
+				#							IconSpacing: 2
+				#							Scale: 0.8#0.65
+				#						ObserverSupportPowerIcons@SUPPORT_POWER_ICONS:
+				#							X: 535
+				#							Y: 0
+				#							Width: 320
+				#							Height: PARENT_BOTTOM
 						#Container@BACKGROUND:
 						#	Width: 500
 						#	Height: 300

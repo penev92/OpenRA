@@ -53,6 +53,10 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			teamTemplate = playerStatsPanel.Get<ScrollItemWidget>("TEAM_TEMPLATE");
 
 			DisplayStats(ProductionStats);
+
+			var bounds = playerStatsPanel.Bounds;
+			var maxChildWidth = playerStatsPanel.Children.Select(x => x.Bounds.Width).Max();
+			playerStatsPanel.Bounds = new Rectangle(bounds.Location, new Size(maxChildWidth, bounds.Height));
 		}
 
 		void DisplayStats(Func<Player, ScrollItemWidget> createItem)
@@ -81,6 +85,9 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 
 			template.Get<ObserverProductionIconsWidget>("PRODUCTION_ICONS").GetPlayer = () => player;
 			template.Get<ObserverSupportPowerIconsWidget>("SUPPORT_POWER_ICONS").GetPlayer = () => player;
+
+			template.OnClick = () => { };
+			template.IgnoreMouseOver = template.IgnoreChildMouseOver = true;
 
 			return template;
 		}

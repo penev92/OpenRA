@@ -594,6 +594,7 @@
     <Compile Include="Widgets\Logic\Ingame\LoadMapEditorLogic.cs" />
     <Compile Include="Widgets\Logic\Ingame\ObserverMapNameLogic.cs" />
     <Compile Include="Widgets\Logic\Ingame\ObserverShroudSelectorLogic.cs" />
+    <Compile Include="Widgets\Logic\Ingame\ObserverPanelLogic.cs" />
     <Compile Include="Widgets\Logic\Ingame\ObserverStatsLogic2.cs" />
     <Compile Include="Widgets\Logic\Ingame\ObserverStatsLogic.cs" />
     <Compile Include="Widgets\Logic\Ingame\OrderButtonsChromeLogic.cs" />
@@ -635,6 +636,7 @@
     <Compile Include="Widgets\Logic\SimpleTooltipLogic.cs" />
     <Compile Include="Widgets\Logic\TabCompletionLogic.cs" />
     <Compile Include="Widgets\MenuButtonWidget.cs" />
+    <Compile Include="Widgets\ObserverPanelWidget.cs" />
     <Compile Include="Widgets\ObserverProductionIconsWidget.cs" />
     <Compile Include="Widgets\ObserverSupportPowerIconsWidget.cs" />
     <Compile Include="Widgets\ProductionPaletteWidget.cs" />

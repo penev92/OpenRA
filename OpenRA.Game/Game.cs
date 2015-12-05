@@ -572,6 +572,17 @@ namespace OpenRA
 				}
 			}
 
+			var frameBuffer = Renderer.Device.CreateFrameBuffer(new Size(4096, 4096));
+			frameBuffer.Bind();
+			worldRenderer.Draw();
+			var texture = frameBuffer.Texture;
+			var data = texture.GetData();
+			using (var stream = new MemoryStream(data))
+			{
+				var bitmap = new Bitmap(stream);
+				bitmap.Save("Snapshot.png", ImageFormat.Png);
+			}
+
 			PerfHistory.Items["render"].Tick();
 			PerfHistory.Items["batches"].Tick();
 			PerfHistory.Items["render_widgets"].Tick();

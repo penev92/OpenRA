@@ -392,9 +392,12 @@
 		VoiceSet: Vehicle
 	Targetable:
 		TargetTypes: Ground, Vehicle, Repair
-	Repairable:
-		RepairBuildings: gadept
-		Voice: Move
+	DocksForRepair:
+		AcceptableDockTypes: vehicleRepair
+		Interval: 24
+		HpPerStep: 10
+		StartRepairingNotification: Repairing
+		FinishRepairingNotification: UnitRepaired
 	Passenger:
 		CargoType: Vehicle
 		Voice: Move

@@ -308,6 +308,7 @@
     <Compile Include="Traits\CashTrickler.cs" />
     <Compile Include="Traits\Cloak.cs" />
     <Compile Include="Traits\CombatDebugOverlay.cs" />
+    <Compile Include="Traits\DocksForRepair.cs" />
     <Compile Include="Traits\Crates\Crate.cs" />
     <Compile Include="Traits\Crates\CrateAction.cs" />
     <Compile Include="Traits\Crates\DuplicateUnitCrateAction.cs" />

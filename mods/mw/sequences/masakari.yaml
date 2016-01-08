@@ -1,0 +1,223 @@
+masakari:
+	idle:
+		Combine:
+			masa-legs0026:
+			masa-legs0025:
+				FlipX: true
+			masa-legs0024:
+				FlipX: true
+			masa-legs0023:
+				FlipX: true
+			masa-legs0022:
+				FlipX: true
+			masa-legs0021:
+				FlipX: true
+			masa-legs0020:
+				FlipX: true
+			masa-legs0019:
+				FlipX: true
+			masa-legs0018:
+			masa-legs0019:
+			masa-legs0020:
+			masa-legs0021:
+			masa-legs0022:
+			masa-legs0023:
+			masa-legs0024:
+			masa-legs0025:
+		Facings: 16
+	walk:
+		Combine:
+			masa-legs0044:
+				Length: 27
+			masa-legs0043:
+				FlipX: true
+				Length: 27
+			masa-legs0042:
+				FlipX: true
+				Length: 27
+			masa-legs0041:
+				FlipX: true
+				Length: 27
+			masa-legs0040:
+				FlipX: true
+				Length: 27
+			masa-legs0039:
+				FlipX: true
+				Length: 27
+			masa-legs0038:
+				FlipX: true
+				Length: 27
+			masa-legs0037:
+				FlipX: true
+				Length: 27
+			masa-legs0036:
+				Length: 27
+			masa-legs0037:
+				Length: 27
+			masa-legs0038:
+				Length: 27
+			masa-legs0039:
+				Length: 27
+			masa-legs0040:
+				Length: 27
+			masa-legs0041:
+				Length: 27
+			masa-legs0042:
+				Length: 27
+			masa-legs0043:
+				Length: 27
+		Facings: 16
+		Length: 27
+	torso:
+		Combine:
+			masa-torso0050:
+			masa-torso0049:
+				FlipX: true
+			masa-torso0048:
+				FlipX: true
+			masa-torso0047:
+				FlipX: true
+			masa-torso0046:
+				FlipX: true
+			masa-torso0045:
+				FlipX: true
+			masa-torso0044:
+				FlipX: true
+			masa-torso0043:
+				FlipX: true
+			masa-torso0042:
+				FlipX: true
+			masa-torso0041:
+				FlipX: true
+			masa-torso0040:
+				FlipX: true
+			masa-torso0039:
+				FlipX: true
+			masa-torso0038:
+				FlipX: true
+			masa-torso0037:
+				FlipX: true
+			masa-torso0036:
+				FlipX: true
+			masa-torso0035:
+				FlipX: true
+			masa-torso0034:
+			masa-torso0035:
+			masa-torso0036:
+			masa-torso0037:
+			masa-torso0038:
+			masa-torso0039:
+			masa-torso0040:
+			masa-torso0041:
+			masa-torso0042:
+			masa-torso0043:
+			masa-torso0044:
+			masa-torso0045:
+			masa-torso0046:
+			masa-torso0047:
+			masa-torso0048:
+			masa-torso0049:
+		Facings: 32
+	larm:
+		Combine:
+			masa-larm0050:
+			masa-larm0049:
+				FlipX: true
+			masa-larm0048:
+				FlipX: true
+			masa-larm0047:
+				FlipX: true
+			masa-larm0046:
+				FlipX: true
+			masa-larm0045:
+				FlipX: true
+			masa-larm0044:
+				FlipX: true
+			masa-larm0043:
+				FlipX: true
+			masa-larm0042:
+				FlipX: true
+			masa-larm0041:
+				FlipX: true
+			masa-larm0040:
+				FlipX: true
+			masa-larm0039:
+				FlipX: true
+			masa-larm0038:
+				FlipX: true
+			masa-larm0037:
+				FlipX: true
+			masa-larm0036:
+				FlipX: true
+			masa-larm0035:
+				FlipX: true
+			masa-larm0034:
+			masa-larm0035:
+			masa-larm0036:
+			masa-larm0037:
+			masa-larm0038:
+			masa-larm0039:
+			masa-larm0040:
+			masa-larm0041:
+			masa-larm0042:
+			masa-larm0043:
+			masa-larm0044:
+			masa-larm0045:
+			masa-larm0046:
+			masa-larm0047:
+			masa-larm0048:
+			masa-larm0049:
+		Facings: 32
+	rarm:
+		Combine:
+			masa-rarm0050:
+			masa-rarm0049:
+				FlipX: true
+			masa-rarm0048:
+				FlipX: true
+			masa-rarm0047:
+				FlipX: true
+			masa-rarm0046:
+				FlipX: true
+			masa-rarm0045:
+				FlipX: true
+			masa-rarm0044:
+				FlipX: true
+			masa-rarm0043:
+				FlipX: true
+			masa-rarm0042:
+				FlipX: true
+			masa-rarm0041:
+				FlipX: true
+			masa-rarm0040:
+				FlipX: true
+			masa-rarm0039:
+				FlipX: true
+			masa-rarm0038:
+				FlipX: true
+			masa-rarm0037:
+				FlipX: true
+			masa-rarm0036:
+				FlipX: true
+			masa-rarm0035:
+				FlipX: true
+			masa-rarm0034:
+			masa-rarm0035:
+			masa-rarm0036:
+			masa-rarm0037:
+			masa-rarm0038:
+			masa-rarm0039:
+			masa-rarm0040:
+			masa-rarm0041:
+			masa-rarm0042:
+			masa-rarm0043:
+			masa-rarm0044:
+			masa-rarm0045:
+			masa-rarm0046:
+			masa-rarm0047:
+			masa-rarm0048:
+			masa-rarm0049:
+		Facings: 32
+#	muzzle: gunfire
+#		Length: *
+	icon: xxicon

@@ -116,7 +116,7 @@
 	PlayerColorPalette@MCG:
 		BasePalette: mcg
 		BaseName: mcgremap
-		RemapIndex: 54, 53, 52, 51, 50, 49, 48, 47
+		RemapIndex: 55, 54, 53, 52, 51, 50, 49, 48
 	PaletteFromPlayerPaletteWithAlpha@cloak:
 		BaseName: cloak
 		BasePalette: player

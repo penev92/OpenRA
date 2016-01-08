@@ -16,6 +16,7 @@ Folders:
 	./mods/mw/bits/shp
 	./mods/mw/bits/sound
 	~^Content/mw
+	~^Content/mw/mechs
 # Tiberian Sun
 	./mods/ts/uibits
 	~^Content/ts
@@ -26,20 +27,6 @@ MapFolders:
 
 Packages:
 # Tiberian Sun
-	~scores.mix@CRC32
-	~sidenc01.mix@CRC32
-	~sidenc02.mix@CRC32
-	~gmenu.mix@CRC32
-	~e01scd01.mix@CRC32
-	~e01scd02.mix@CRC32
-	~maps01.mix@CRC32
-	~maps02.mix@CRC32
-	~movies01.mix@CRC32
-	~movies02.mix@CRC32
-	~multi.mix@CRC32
-	~patch.mix@CRC32
-	~sidecd01.mix@CRC32
-	~sidecd02.mix@CRC32
 	~tibsun.mix@CRC32
 	cache.mix@CRC32
 	conquer.mix@CRC32
@@ -55,15 +42,6 @@ Packages:
 	speech02.mix@CRC32 # Cabal
 	tem.mix@CRC32
 	temperat.mix@CRC32
-# Firestorm
-	~scores01.mix@CRC32
-	~expand01.mix@CRC32
-	~sounds01.mix@CRC32
-	~e01sc01.mix@CRC32
-	~e01sc02.mix@CRC32
-	~e01vox01.mix@CRC32
-	~e01vox02.mix@CRC32
-	~ecache01.mix@CRC32
 
 Weapons:
 	./mods/mw/weapons/ballistic.yaml
@@ -74,15 +52,17 @@ Weapons:
 Rules:
 	./mods/mw/rules/ai.yaml
 	./mods/mw/rules/defaults.yaml
-	./mods/mw/rules/mcg-rules.yaml
+	./mods/mw/rules/mechs.yaml
+	./mods/mw/rules/vehicles.yaml
+	./mods/mw/rules/structures.yaml
 	./mods/mw/rules/misc.yaml
 	./mods/mw/rules/palettes.yaml
 	./mods/mw/rules/player.yaml
+	./mods/mw/rules/world.yaml
 	./mods/mw/rules/shared-infantry.yaml
 	./mods/mw/rules/shared-structures.yaml
 	./mods/mw/rules/shared-vehicles.yaml
 	./mods/mw/rules/trees.yaml
-	./mods/mw/rules/world.yaml
 
 Sequences:
 	./mods/ts/sequences/infantry.yaml
@@ -91,8 +71,11 @@ Sequences:
 	./mods/ts/sequences/structures.yaml
 	./mods/ts/sequences/vehicles.yaml
 	./mods/ts/sequences/trees.yaml
-	./mods/mw/sequences/mcg-sequences.yaml
-	./mods/mw/sequences/mcg-mechs.yaml
+	./mods/mw/sequences/vehicles.yaml
+	./mods/mw/sequences/structures.yaml
+	./mods/mw/sequences/vulture.yaml
+	./mods/mw/sequences/madcat.yaml
+	./mods/mw/sequences/masakari.yaml
 
 VoxelSequences:
 	./mods/ts/sequences/voxels.yaml

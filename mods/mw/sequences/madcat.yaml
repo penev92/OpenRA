@@ -1,0 +1,223 @@
+madcat:
+	idle:
+		Combine:
+			madvult-legs0026:
+			madvult-legs0025:
+				FlipX: true
+			madvult-legs0024:
+				FlipX: true
+			madvult-legs0023:
+				FlipX: true
+			madvult-legs0022:
+				FlipX: true
+			madvult-legs0021:
+				FlipX: true
+			madvult-legs0020:
+				FlipX: true
+			madvult-legs0019:
+				FlipX: true
+			madvult-legs0018:
+			madvult-legs0019:
+			madvult-legs0020:
+			madvult-legs0021:
+			madvult-legs0022:
+			madvult-legs0023:
+			madvult-legs0024:
+			madvult-legs0025:
+		Facings: 16
+	walk:
+		Combine:
+			madvult-legs0044:
+				Length: 27
+			madvult-legs0043:
+				FlipX: true
+				Length: 27
+			madvult-legs0042:
+				FlipX: true
+				Length: 27
+			madvult-legs0041:
+				FlipX: true
+				Length: 27
+			madvult-legs0040:
+				FlipX: true
+				Length: 27
+			madvult-legs0039:
+				FlipX: true
+				Length: 27
+			madvult-legs0038:
+				FlipX: true
+				Length: 27
+			madvult-legs0037:
+				FlipX: true
+				Length: 27
+			madvult-legs0036:
+				Length: 27
+			madvult-legs0037:
+				Length: 27
+			madvult-legs0038:
+				Length: 27
+			madvult-legs0039:
+				Length: 27
+			madvult-legs0040:
+				Length: 27
+			madvult-legs0041:
+				Length: 27
+			madvult-legs0042:
+				Length: 27
+			madvult-legs0043:
+				Length: 27
+		Facings: 16
+		Length: 27
+	torso:
+		Combine:
+			madc-torso0050:
+			madc-torso0049:
+				FlipX: true
+			madc-torso0048:
+				FlipX: true
+			madc-torso0047:
+				FlipX: true
+			madc-torso0046:
+				FlipX: true
+			madc-torso0045:
+				FlipX: true
+			madc-torso0044:
+				FlipX: true
+			madc-torso0043:
+				FlipX: true
+			madc-torso0042:
+				FlipX: true
+			madc-torso0041:
+				FlipX: true
+			madc-torso0040:
+				FlipX: true
+			madc-torso0039:
+				FlipX: true
+			madc-torso0038:
+				FlipX: true
+			madc-torso0037:
+				FlipX: true
+			madc-torso0036:
+				FlipX: true
+			madc-torso0035:
+				FlipX: true
+			madc-torso0034:
+			madc-torso0035:
+			madc-torso0036:
+			madc-torso0037:
+			madc-torso0038:
+			madc-torso0039:
+			madc-torso0040:
+			madc-torso0041:
+			madc-torso0042:
+			madc-torso0043:
+			madc-torso0044:
+			madc-torso0045:
+			madc-torso0046:
+			madc-torso0047:
+			madc-torso0048:
+			madc-torso0049:
+		Facings: 32
+	larm:
+		Combine:
+			madc-larm0050:
+			madc-larm0049:
+				FlipX: true
+			madc-larm0048:
+				FlipX: true
+			madc-larm0047:
+				FlipX: true
+			madc-larm0046:
+				FlipX: true
+			madc-larm0045:
+				FlipX: true
+			madc-larm0044:
+				FlipX: true
+			madc-larm0043:
+				FlipX: true
+			madc-larm0042:
+				FlipX: true
+			madc-larm0041:
+				FlipX: true
+			madc-larm0040:
+				FlipX: true
+			madc-larm0039:
+				FlipX: true
+			madc-larm0038:
+				FlipX: true
+			madc-larm0037:
+				FlipX: true
+			madc-larm0036:
+				FlipX: true
+			madc-larm0035:
+				FlipX: true
+			madc-larm0034:
+			madc-larm0035:
+			madc-larm0036:
+			madc-larm0037:
+			madc-larm0038:
+			madc-larm0039:
+			madc-larm0040:
+			madc-larm0041:
+			madc-larm0042:
+			madc-larm0043:
+			madc-larm0044:
+			madc-larm0045:
+			madc-larm0046:
+			madc-larm0047:
+			madc-larm0048:
+			madc-larm0049:
+		Facings: 32
+	rarm:
+		Combine:
+			madc-rarm0050:
+			madc-rarm0049:
+				FlipX: true
+			madc-rarm0048:
+				FlipX: true
+			madc-rarm0047:
+				FlipX: true
+			madc-rarm0046:
+				FlipX: true
+			madc-rarm0045:
+				FlipX: true
+			madc-rarm0044:
+				FlipX: true
+			madc-rarm0043:
+				FlipX: true
+			madc-rarm0042:
+				FlipX: true
+			madc-rarm0041:
+				FlipX: true
+			madc-rarm0040:
+				FlipX: true
+			madc-rarm0039:
+				FlipX: true
+			madc-rarm0038:
+				FlipX: true
+			madc-rarm0037:
+				FlipX: true
+			madc-rarm0036:
+				FlipX: true
+			madc-rarm0035:
+				FlipX: true
+			madc-rarm0034:
+			madc-rarm0035:
+			madc-rarm0036:
+			madc-rarm0037:
+			madc-rarm0038:
+			madc-rarm0039:
+			madc-rarm0040:
+			madc-rarm0041:
+			madc-rarm0042:
+			madc-rarm0043:
+			madc-rarm0044:
+			madc-rarm0045:
+			madc-rarm0046:
+			madc-rarm0047:
+			madc-rarm0048:
+			madc-rarm0049:
+		Facings: 32
+#	muzzle: gunfire
+#		Length: *
+	icon: xxicon

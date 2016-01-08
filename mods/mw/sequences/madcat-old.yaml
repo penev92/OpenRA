@@ -1,0 +1,19 @@
+madcat:
+	stand: madvult-legs1
+		Start: 0
+		Facings: 16
+	run: mclegs-s
+		Start: 0
+		Length: *
+		Offset: 50,45
+	torso: madcat-torso2
+		Start: 0
+		Facings: 32
+	arm: madcat-larm2
+		Start: 0
+		Facings: 32
+	muzzle: gunfire
+		Start: 0
+		Length: *
+	icon: xxicon
+		Start: 0

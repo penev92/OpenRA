@@ -1,254 +1,234 @@
-madcat:
-	stand: madvult-legs1
-		Start: 0
-		Facings: 16
-	run: mclegs-s
-		Start: 0
-		Length: *
-		Offset: 50,45
-	torso: madcat-torso2
-		Start: 0
-		Facings: 32
-	arm: madcat-larm2
-		Start: 0
-		Facings: 32
-	muzzle: gunfire
-		Start: 0
-		Length: *
-	icon: xxicon
-		Start: 0
-
 vulture:
 	idle:
 		Combine:
-			madvultlegs0026:
-			madvultlegs0025:
+			madvult-legs0026:
+			madvult-legs0025:
 				FlipX: true
-			madvultlegs0024:
+			madvult-legs0024:
 				FlipX: true
-			madvultlegs0023:
+			madvult-legs0023:
 				FlipX: true
-			madvultlegs0022:
+			madvult-legs0022:
 				FlipX: true
-			madvultlegs0021:
+			madvult-legs0021:
 				FlipX: true
-			madvultlegs0020:
+			madvult-legs0020:
 				FlipX: true
-			madvultlegs0019:
+			madvult-legs0019:
 				FlipX: true
-			madvultlegs0018:
-			madvultlegs0019:
-			madvultlegs0020:
-			madvultlegs0021:
-			madvultlegs0022:
-			madvultlegs0023:
-			madvultlegs0024:
-			madvultlegs0025:
+			madvult-legs0018:
+			madvult-legs0019:
+			madvult-legs0020:
+			madvult-legs0021:
+			madvult-legs0022:
+			madvult-legs0023:
+			madvult-legs0024:
+			madvult-legs0025:
 		Facings: 16
 	walk:
 		Combine:
-			madvultlegs0044:
+			madvult-legs0044:
 				Length: 27
-			madvultlegs0043:
+			madvult-legs0043:
 				FlipX: true
 				Length: 27
-			madvultlegs0042:
+			madvult-legs0042:
 				FlipX: true
 				Length: 27
-			madvultlegs0041:
+			madvult-legs0041:
 				FlipX: true
 				Length: 27
-			madvultlegs0040:
+			madvult-legs0040:
 				FlipX: true
 				Length: 27
-			madvultlegs0039:
+			madvult-legs0039:
 				FlipX: true
 				Length: 27
-			madvultlegs0038:
+			madvult-legs0038:
 				FlipX: true
 				Length: 27
-			madvultlegs0037:
+			madvult-legs0037:
 				FlipX: true
 				Length: 27
-			madvultlegs0036:
+			madvult-legs0036:
 				Length: 27
-			madvultlegs0037:
+			madvult-legs0037:
 				Length: 27
-			madvultlegs0038:
+			madvult-legs0038:
 				Length: 27
-			madvultlegs0039:
+			madvult-legs0039:
 				Length: 27
-			madvultlegs0040:
+			madvult-legs0040:
 				Length: 27
-			madvultlegs0041:
+			madvult-legs0041:
 				Length: 27
-			madvultlegs0042:
+			madvult-legs0042:
 				Length: 27
-			madvultlegs0043:
+			madvult-legs0043:
 				Length: 27
 		Facings: 16
 		Length: 27
 	torso:
 		Combine:
-			vulttur0050:
-			vulttur0049:
+			vult-torso0050:
+			vult-torso0049:
 				FlipX: true
-			vulttur0048:
+			vult-torso0048:
 				FlipX: true
-			vulttur0047:
+			vult-torso0047:
 				FlipX: true
-			vulttur0046:
+			vult-torso0046:
 				FlipX: true
-			vulttur0045:
+			vult-torso0045:
 				FlipX: true
-			vulttur0044:
+			vult-torso0044:
 				FlipX: true
-			vulttur0043:
+			vult-torso0043:
 				FlipX: true
-			vulttur0042:
+			vult-torso0042:
 				FlipX: true
-			vulttur0041:
+			vult-torso0041:
 				FlipX: true
-			vulttur0040:
+			vult-torso0040:
 				FlipX: true
-			vulttur0039:
+			vult-torso0039:
 				FlipX: true
-			vulttur0038:
+			vult-torso0038:
 				FlipX: true
-			vulttur0037:
+			vult-torso0037:
 				FlipX: true
-			vulttur0036:
+			vult-torso0036:
 				FlipX: true
-			vulttur0035:
+			vult-torso0035:
 				FlipX: true
-			vulttur0034:
-			vulttur0035:
-			vulttur0036:
-			vulttur0037:
-			vulttur0038:
-			vulttur0039:
-			vulttur0040:
-			vulttur0041:
-			vulttur0042:
-			vulttur0043:
-			vulttur0044:
-			vulttur0045:
-			vulttur0046:
-			vulttur0047:
-			vulttur0048:
-			vulttur0049:
+			vult-torso0034:
+			vult-torso0035:
+			vult-torso0036:
+			vult-torso0037:
+			vult-torso0038:
+			vult-torso0039:
+			vult-torso0040:
+			vult-torso0041:
+			vult-torso0042:
+			vult-torso0043:
+			vult-torso0044:
+			vult-torso0045:
+			vult-torso0046:
+			vult-torso0047:
+			vult-torso0048:
+			vult-torso0049:
 		Facings: 32
 	torso-moving:
 		Combine:
-			vulttur0067:
+			vult-torso0067:
 #				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
 				Length: 9
-			vulttur0066:
+			vult-torso0066:
 				FlipX: true
 				Length: 9
 #				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
-			vulttur0065:
+			vult-torso0065:
 				FlipX: true
 				Length: 9
 #				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
-			vulttur0064:
+			vult-torso0064:
 				FlipX: true
 				Length: 9
 #				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
-			vulttur0063:
+			vult-torso0063:
 				FlipX: true
 				Length: 9
 #				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
-			vulttur0062:
+			vult-torso0062:
 				FlipX: true
 				Length: 9
 #				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
-			vulttur0061:
+			vult-torso0061:
 				FlipX: true
 				Length: 9
 #				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
-			vulttur0060:
+			vult-torso0060:
 				FlipX: true
 				Length: 9
 #				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
-			vulttur0059:
+			vult-torso0059:
 				FlipX: true
 				Length: 9
 #				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
-			vulttur0058:
+			vult-torso0058:
 				FlipX: true
 				Length: 9
 #				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
-			vulttur0057:
+			vult-torso0057:
 				FlipX: true
 				Length: 9
 #				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
-			vulttur0056:
+			vult-torso0056:
 				FlipX: true
 				Length: 9
 #				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
-			vulttur0055:
+			vult-torso0055:
 				FlipX: true
 				Length: 9
 #				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
-			vulttur0054:
+			vult-torso0054:
 				FlipX: true
 				Length: 9
 #				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
-			vulttur0053:
+			vult-torso0053:
 				FlipX: true
 				Length: 9
 #				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
-			vulttur0052:
+			vult-torso0052:
 				FlipX: true
 				Length: 9
 #				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
-			vulttur0051:
+			vult-torso0051:
 				Length: 9
 #				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
-			vulttur0052:
+			vult-torso0052:
 				Length: 9
 #				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
-			vulttur0053:
+			vult-torso0053:
 				Length: 9
 #				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
-			vulttur0054:
+			vult-torso0054:
 				Length: 9
 #				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
-			vulttur0055:
+			vult-torso0055:
 				Length: 9
 #				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
-			vulttur0056:
+			vult-torso0056:
 				Length: 9
 #				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
-			vulttur0057:
+			vult-torso0057:
 				Length: 9
 #				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
-			vulttur0058:
+			vult-torso0058:
 				Length: 9
 #				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
-			vulttur0059:
+			vult-torso0059:
 				Length: 9
 #				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
-			vulttur0060:
+			vult-torso0060:
 				Length: 9
 #				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
-			vulttur0061:
+			vult-torso0061:
 				Length: 9
 #				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
-			vulttur0062:
+			vult-torso0062:
 				Length: 9
 #				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
-			vulttur0063:
+			vult-torso0063:
 				Length: 9
 #				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
-			vulttur0064:
+			vult-torso0064:
 				Length: 9
 #				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
-			vulttur0065:
+			vult-torso0065:
 				Length: 9
 #				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
-			vulttur0066:
+			vult-torso0066:
 				Length: 9
 #				Frames: 0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1
 		Facings: 32
@@ -256,111 +236,104 @@ vulture:
 		Reverses: true
 	larm:
 		Combine:
-			vultlarm50:
-			vultlarm49:
+			vult-larm0050:
+			vult-larm0049:
 				FlipX: true
-			vultlarm48:
+			vult-larm0048:
 				FlipX: true
-			vultlarm47:
+			vult-larm0047:
 				FlipX: true
-			vultlarm46:
+			vult-larm0046:
 				FlipX: true
-			vultlarm45:
+			vult-larm0045:
 				FlipX: true
-			vultlarm44:
+			vult-larm0044:
 				FlipX: true
-			vultlarm43:
+			vult-larm0043:
 				FlipX: true
-			vultlarm42:
+			vult-larm0042:
 				FlipX: true
-			vultlarm41:
+			vult-larm0041:
 				FlipX: true
-			vultlarm40:
+			vult-larm0040:
 				FlipX: true
-			vultlarm39:
+			vult-larm0039:
 				FlipX: true
-			vultlarm38:
+			vult-larm0038:
 				FlipX: true
-			vultlarm37:
+			vult-larm0037:
 				FlipX: true
-			vultlarm36:
+			vult-larm0036:
 				FlipX: true
-			vultlarm35:
+			vult-larm0035:
 				FlipX: true
-			vultlarm34:
-			vultlarm35:
-			vultlarm36:
-			vultlarm37:
-			vultlarm38:
-			vultlarm39:
-			vultlarm40:
-			vultlarm41:
-			vultlarm42:
-			vultlarm43:
-			vultlarm44:
-			vultlarm45:
-			vultlarm46:
-			vultlarm47:
-			vultlarm48:
-			vultlarm49:
+			vult-larm0034:
+			vult-larm0035:
+			vult-larm0036:
+			vult-larm0037:
+			vult-larm0038:
+			vult-larm0039:
+			vult-larm0040:
+			vult-larm0041:
+			vult-larm0042:
+			vult-larm0043:
+			vult-larm0044:
+			vult-larm0045:
+			vult-larm0046:
+			vult-larm0047:
+			vult-larm0048:
+			vult-larm0049:
 		Facings: 32
 	rarm:
 		Combine:
-			vultrarm50:
-			vultrarm49:
+			vult-rarm0050:
+			vult-rarm0049:
 				FlipX: true
-			vultrarm48:
+			vult-rarm0048:
 				FlipX: true
-			vultrarm47:
+			vult-rarm0047:
 				FlipX: true
-			vultrarm46:
+			vult-rarm0046:
 				FlipX: true
-			vultrarm45:
+			vult-rarm0045:
 				FlipX: true
-			vultrarm44:
+			vult-rarm0044:
 				FlipX: true
-			vultrarm43:
+			vult-rarm0043:
 				FlipX: true
-			vultrarm42:
+			vult-rarm0042:
 				FlipX: true
-			vultrarm41:
+			vult-rarm0041:
 				FlipX: true
-			vultrarm40:
+			vult-rarm0040:
 				FlipX: true
-			vultrarm39:
+			vult-rarm0039:
 				FlipX: true
-			vultrarm38:
+			vult-rarm0038:
 				FlipX: true
-			vultrarm37:
+			vult-rarm0037:
 				FlipX: true
-			vultrarm36:
+			vult-rarm0036:
 				FlipX: true
-			vultrarm35:
+			vult-rarm0035:
 				FlipX: true
-			vultrarm34:
-			vultrarm35:
-			vultrarm36:
-			vultrarm37:
-			vultrarm38:
-			vultrarm39:
-			vultrarm40:
-			vultrarm41:
-			vultrarm42:
-			vultrarm43:
-			vultrarm44:
-			vultrarm45:
-			vultrarm46:
-			vultrarm47:
-			vultrarm48:
-			vultrarm49:
+			vult-rarm0034:
+			vult-rarm0035:
+			vult-rarm0036:
+			vult-rarm0037:
+			vult-rarm0038:
+			vult-rarm0039:
+			vult-rarm0040:
+			vult-rarm0041:
+			vult-rarm0042:
+			vult-rarm0043:
+			vult-rarm0044:
+			vult-rarm0045:
+			vult-rarm0046:
+			vult-rarm0047:
+			vult-rarm0048:
+			vult-rarm0049:
 		Facings: 32
-#	run: mclegs-s
-#		Length: *
-#		Offset: 50,45
-#	torso: madcat-torso2
-#		Facings: 32
-#	larm: vultlarm00
-#		Facings: 32
 #	muzzle: gunfire
 #		Length: *
 	icon: xxicon

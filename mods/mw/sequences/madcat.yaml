@@ -218,6 +218,7 @@ madcat:
 			madc-rarm0048:
 			madc-rarm0049:
 		Facings: 32
+		ZOffset: 2
 #	muzzle: gunfire
 #		Length: *
 	icon: xxicon

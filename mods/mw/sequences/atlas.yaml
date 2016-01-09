@@ -1,0 +1,224 @@
+atlas:
+	idle:
+		Combine:
+			atla-legs0026:
+			atla-legs0025:
+				FlipX: true
+			atla-legs0024:
+				FlipX: true
+			atla-legs0023:
+				FlipX: true
+			atla-legs0022:
+				FlipX: true
+			atla-legs0021:
+				FlipX: true
+			atla-legs0020:
+				FlipX: true
+			atla-legs0019:
+				FlipX: true
+			atla-legs0018:
+			atla-legs0019:
+			atla-legs0020:
+			atla-legs0021:
+			atla-legs0022:
+			atla-legs0023:
+			atla-legs0024:
+			atla-legs0025:
+		Facings: 16
+	walk:
+		Combine:
+			atla-legs0044:
+				Length: 27
+			atla-legs0043:
+				FlipX: true
+				Length: 27
+			atla-legs0042:
+				FlipX: true
+				Length: 27
+			atla-legs0041:
+				FlipX: true
+				Length: 27
+			atla-legs0040:
+				FlipX: true
+				Length: 27
+			atla-legs0039:
+				FlipX: true
+				Length: 27
+			atla-legs0038:
+				FlipX: true
+				Length: 27
+			atla-legs0037:
+				FlipX: true
+				Length: 27
+			atla-legs0036:
+				Length: 27
+			atla-legs0037:
+				Length: 27
+			atla-legs0038:
+				Length: 27
+			atla-legs0039:
+				Length: 27
+			atla-legs0040:
+				Length: 27
+			atla-legs0041:
+				Length: 27
+			atla-legs0042:
+				Length: 27
+			atla-legs0043:
+				Length: 27
+		Facings: 16
+		Length: 27
+	torso:
+		Combine:
+			atla-torso0050:
+			atla-torso0049:
+				FlipX: true
+			atla-torso0048:
+				FlipX: true
+			atla-torso0047:
+				FlipX: true
+			atla-torso0046:
+				FlipX: true
+			atla-torso0045:
+				FlipX: true
+			atla-torso0044:
+				FlipX: true
+			atla-torso0043:
+				FlipX: true
+			atla-torso0042:
+				FlipX: true
+			atla-torso0041:
+				FlipX: true
+			atla-torso0040:
+				FlipX: true
+			atla-torso0039:
+				FlipX: true
+			atla-torso0038:
+				FlipX: true
+			atla-torso0037:
+				FlipX: true
+			atla-torso0036:
+				FlipX: true
+			atla-torso0035:
+				FlipX: true
+			atla-torso0034:
+			atla-torso0035:
+			atla-torso0036:
+			atla-torso0037:
+			atla-torso0038:
+			atla-torso0039:
+			atla-torso0040:
+			atla-torso0041:
+			atla-torso0042:
+			atla-torso0043:
+			atla-torso0044:
+			atla-torso0045:
+			atla-torso0046:
+			atla-torso0047:
+			atla-torso0048:
+			atla-torso0049:
+		Facings: 32
+	larm:
+		Combine:
+			atla-larm0373:
+			atla-larm0372:
+				FlipX: true
+			atla-larm0371:
+				FlipX: true
+			atla-larm0370:
+				FlipX: true
+			atla-larm0369:
+				FlipX: true
+			atla-larm0368:
+				FlipX: true
+			atla-larm0367:
+				FlipX: true
+			atla-larm0366:
+				FlipX: true
+			atla-larm0365:
+				FlipX: true
+			atla-larm0364:
+				FlipX: true
+			atla-larm0363:
+				FlipX: true
+			atla-larm0362:
+				FlipX: true
+			atla-larm0361:
+				FlipX: true
+			atla-larm0360:
+				FlipX: true
+			atla-larm0359:
+				FlipX: true
+			atla-larm0358:
+				FlipX: true
+			atla-larm0357:
+			atla-larm0358:
+			atla-larm0359:
+			atla-larm0360:
+			atla-larm0361:
+			atla-larm0362:
+			atla-larm0363:
+			atla-larm0364:
+			atla-larm0365:
+			atla-larm0366:
+			atla-larm0367:
+			atla-larm0368:
+			atla-larm0369:
+			atla-larm0370:
+			atla-larm0371:
+			atla-larm0372:
+		Facings: 32
+	rarm:
+		Combine:
+			atla-rarm0373:
+			atla-rarm0372:
+				FlipX: true
+			atla-rarm0371:
+				FlipX: true
+			atla-rarm0370:
+				FlipX: true
+			atla-rarm0369:
+				FlipX: true
+			atla-rarm0368:
+				FlipX: true
+			atla-rarm0367:
+				FlipX: true
+			atla-rarm0366:
+				FlipX: true
+			atla-rarm0365:
+				FlipX: true
+			atla-rarm0364:
+				FlipX: true
+			atla-rarm0363:
+				FlipX: true
+			atla-rarm0362:
+				FlipX: true
+			atla-rarm0361:
+				FlipX: true
+			atla-rarm0360:
+				FlipX: true
+			atla-rarm0359:
+				FlipX: true
+			atla-rarm0358:
+				FlipX: true
+			atla-rarm0357:
+			atla-rarm0358:
+			atla-rarm0359:
+			atla-rarm0360:
+			atla-rarm0361:
+			atla-rarm0362:
+			atla-rarm0363:
+			atla-rarm0364:
+			atla-rarm0365:
+			atla-rarm0366:
+			atla-rarm0367:
+			atla-rarm0368:
+			atla-rarm0369:
+			atla-rarm0370:
+			atla-rarm0371:
+			atla-rarm0372:
+		Facings: 32
+		ZOffset: 2
+#	muzzle: gunfire
+#		Length: *
+	icon: xxicon

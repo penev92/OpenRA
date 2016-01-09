@@ -1,3 +1,51 @@
+ATLAS:
+	Inherits@1: ^Tank
+	Inherits@2: ^SpriteActor
+	Valued:
+		Cost: 1000
+	Tooltip:
+		Name: Atlas
+		Description: Atlas
+	Buildable:
+		Queue: Vehicle
+		BuildPaletteOrder: 73
+	Mobile:
+		Speed: 48
+		ROT: 4
+	BodyOrientation:
+		QuantizedFacings: 32
+	Turreted@TORSO:
+		ROT: 4
+	WithMovingSpriteBarrel@LEFTARM:
+		Barrel: leftarm
+		Sequence: larm
+	WithMovingSpriteBarrel@RIGHTARM:
+		Barrel: rightarm
+		Sequence: rarm
+	WithSpriteTurret@TORSO:
+		Sequence: torso
+	Health:
+		HP: 3500
+	Armor:
+		Type: Heavy
+	RevealsShroud:
+		Range: 10c0
+	Armament@RIGHTLASER:
+		Weapon: LargeERLaser
+		LocalOffset: 224,384,-160
+	Armament@LEFTLASER:
+		Weapon: LargeERLaser
+		LocalOffset: 224,-384,-160
+	AttackTurreted:
+		Voice: Attack
+	AutoTarget:
+	RenderSprites:
+		PlayerPalette: mcgremap
+	WithFacingSpriteBody:
+	WithMoveAnimation:
+		MoveSequence: walk
+#	WithMuzzleOverlay:
+
 MADCAT:
 	Inherits@1: ^Tank
 	Inherits@2: ^SpriteActor
@@ -18,11 +66,11 @@ MADCAT:
 	Turreted@TORSO:
 		ROT: 4
 #		Offset: 0,0,512
-	WithSpriteBarrel@LEFTARM:
+	WithMovingSpriteBarrel@LEFTARM:
 		Barrel: leftarm
 		Sequence: larm
 #		LocalOffset: -96,-256,0
-	WithSpriteBarrel@RIGHTARM:
+	WithMovingSpriteBarrel@RIGHTARM:
 		Barrel: rightarm
 		Sequence: rarm
 #		LocalOffset: -96,256,0
@@ -71,11 +119,11 @@ VULTURE:
 	Turreted@TORSO:
 		ROT: 4
 #		Offset: 0,0,512
-	WithSpriteBarrel@LEFTARM:
+	WithMovingSpriteBarrel@LEFTARM:
 		Barrel: leftarm
 		Sequence: larm
 #		LocalOffset: -96,-256,0
-	WithSpriteBarrel@RIGHTARM:
+	WithMovingSpriteBarrel@RIGHTARM:
 		Barrel: rightarm
 		Sequence: rarm
 #		LocalOffset: -96,256,0
@@ -124,11 +172,11 @@ MASAKARI:
 	Turreted@TORSO:
 		ROT: 4
 #		Offset: 0,0,512
-	WithSpriteBarrel@LEFTARM:
+	WithMovingSpriteBarrel@LEFTARM:
 		Barrel: leftarm
 		Sequence: larm
 #		LocalOffset: -96,-256,0
-	WithSpriteBarrel@RIGHTARM:
+	WithMovingSpriteBarrel@RIGHTARM:
 		Barrel: rightarm
 		Sequence: rarm
 #		LocalOffset: -96,256,0

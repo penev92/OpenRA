@@ -28,46 +28,46 @@ masakari:
 	walk:
 		Combine:
 			masa-legs0044:
-				Length: 27
+				Length: 49
 			masa-legs0043:
 				FlipX: true
-				Length: 27
+				Length: 49
 			masa-legs0042:
 				FlipX: true
-				Length: 27
+				Length: 49
 			masa-legs0041:
 				FlipX: true
-				Length: 27
+				Length: 49
 			masa-legs0040:
 				FlipX: true
-				Length: 27
+				Length: 49
 			masa-legs0039:
 				FlipX: true
-				Length: 27
+				Length: 49
 			masa-legs0038:
 				FlipX: true
-				Length: 27
+				Length: 49
 			masa-legs0037:
 				FlipX: true
-				Length: 27
+				Length: 49
 			masa-legs0036:
-				Length: 27
+				Length: 49
 			masa-legs0037:
-				Length: 27
+				Length: 49
 			masa-legs0038:
-				Length: 27
+				Length: 49
 			masa-legs0039:
-				Length: 27
+				Length: 49
 			masa-legs0040:
-				Length: 27
+				Length: 49
 			masa-legs0041:
-				Length: 27
+				Length: 49
 			masa-legs0042:
-				Length: 27
+				Length: 49
 			masa-legs0043:
-				Length: 27
+				Length: 49
 		Facings: 16
-		Length: 27
+		Length: 49
 	torso:
 		Combine:
 			masa-torso0050:
@@ -218,6 +218,7 @@ masakari:
 			masa-rarm0048:
 			masa-rarm0049:
 		Facings: 32
+		ZOffset: 2
 #	muzzle: gunfire
 #		Length: *
 	icon: xxicon

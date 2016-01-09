@@ -334,6 +334,7 @@ vulture:
 			vult-rarm0048:
 			vult-rarm0049:
 		Facings: 32
+		ZOffset: 2
 #	muzzle: gunfire
 #		Length: *
 	icon: xxicon

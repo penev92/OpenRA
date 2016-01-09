@@ -17,6 +17,7 @@ Folders:
 	./mods/mw/bits/sound
 	~^Content/mw
 	~^Content/mw/mechs
+	~^Content/mw/music
 # Tiberian Sun
 	./mods/ts/uibits
 	~^Content/ts
@@ -76,6 +77,7 @@ Sequences:
 	./mods/mw/sequences/vulture.yaml
 	./mods/mw/sequences/madcat.yaml
 	./mods/mw/sequences/masakari.yaml
+	./mods/mw/sequences/atlas.yaml
 
 VoxelSequences:
 	./mods/ts/sequences/voxels.yaml

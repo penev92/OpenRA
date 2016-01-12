@@ -17,6 +17,9 @@ namespace OpenRA.Mods.Common.Traits
 		[Desc("Displayed while moving.")]
 		[SequenceReference] public readonly string MoveSequence = "move";
 
+		[Desc("Displayed while transitioning from standing to moving.")]
+		public readonly string StandToMoveSequence = null;
+
 		public object Create(ActorInitializer init) { return new WithMoveAnimation(init, this); }
 	}
 
@@ -27,6 +30,9 @@ namespace OpenRA.Mods.Common.Traits
 		readonly WithSpriteBody wsb;
 
 		WPos cachedPosition;
+		bool hasTransition;
+		bool transitionPlaying;
+		bool isMoving;
 
 		public WithMoveAnimation(ActorInitializer init, WithMoveAnimationInfo info)
 		{
@@ -35,6 +41,7 @@ namespace OpenRA.Mods.Common.Traits
 			wsb = init.Self.Trait<WithSpriteBody>();
 
 			cachedPosition = init.Self.CenterPosition;
+			hasTransition = !string.IsNullOrEmpty(info.StandToMoveSequence);
 		}
 
 		public void Tick(Actor self)
@@ -42,12 +49,31 @@ namespace OpenRA.Mods.Common.Traits
 			var oldCachedPosition = cachedPosition;
 			cachedPosition = self.CenterPosition;
 
-			// Flying units set IsMoving whenever they are airborne, which isn't enough for our purposes
-			var isMoving = movement.IsMoving && !self.IsDead && (oldCachedPosition - cachedPosition).HorizontalLengthSquared != 0;
-			if (isMoving ^ (wsb.DefaultAnimation.CurrentSequence.Name != info.MoveSequence))
-				return;
+			var wasMoving = isMoving;
 
-			wsb.DefaultAnimation.ReplaceAnim(isMoving ? info.MoveSequence : wsb.Info.Sequence);
+			// Flying units set IsMoving whenever they are airborne, which isn't enough for our purposes
+			isMoving = movement.IsMoving && !self.IsDead && (oldCachedPosition - cachedPosition).HorizontalLengthSquared != 0;
+			if (!isMoving && (wsb.DefaultAnimation.CurrentSequence.Name != wsb.Info.Sequence))
+			{
+				wsb.CancelCustomAnimation(self);
+				return;
+			}
+
+			if (hasTransition && isMoving && !wasMoving)
+			{
+				transitionPlaying = true;
+				wsb.PlayCustomAnimation(self, info.StandToMoveSequence,
+				() =>
+				{
+					wsb.PlayCustomAnimationRepeating(self, info.MoveSequence);
+					transitionPlaying = false;
+				});
+
+				return;
+			}
+
+			if (!transitionPlaying)
+				wsb.DefaultAnimation.ReplaceAnim(isMoving ? info.MoveSequence : wsb.Info.Sequence);
 		}
 	}
 }

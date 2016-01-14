@@ -69,13 +69,16 @@ MADCAT:
 	WithMovingSpriteBarrel@LEFTARM:
 		Barrel: leftarm
 		Sequence: larm
+		MoveSequence: larm-moving
 #		LocalOffset: -96,-256,0
 	WithMovingSpriteBarrel@RIGHTARM:
 		Barrel: rightarm
 		Sequence: rarm
+		MoveSequence: rarm-moving
 #		LocalOffset: -96,256,0
-	WithSpriteTurret@TORSO:
+	WithMovingSpriteTurret@TORSO:
 		Sequence: torso
+		MoveSequence: torso-moving
 	Health:
 		HP: 2500
 	Armor:
@@ -97,6 +100,7 @@ MADCAT:
 	WithFacingSpriteBody:
 	WithMoveAnimation:
 		MoveSequence: walk
+		StandToMoveSequence: stand-walk
 #	WithMuzzleOverlay:
 
 VULTURE:
@@ -122,14 +126,16 @@ VULTURE:
 	WithMovingSpriteBarrel@LEFTARM:
 		Barrel: leftarm
 		Sequence: larm
+		MoveSequence: larm-moving
 #		LocalOffset: -96,-256,0
 	WithMovingSpriteBarrel@RIGHTARM:
 		Barrel: rightarm
 		Sequence: rarm
+		MoveSequence: rarm-moving
 #		LocalOffset: -96,256,0
-	WithSpriteTurret@TORSO:
+	WithMovingSpriteTurret@TORSO:
 		Sequence: torso
-#		MoveSequence: torso-moving
+		MoveSequence: torso-moving
 	Health:
 		HP: 2500
 	Armor:

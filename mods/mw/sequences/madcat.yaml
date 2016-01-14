@@ -25,6 +25,50 @@ madcat:
 			madvult-legs0024:
 			madvult-legs0025:
 		Facings: 16
+	stand-walk:
+		Combine:
+			madvult-legs0035:
+				Length: 9
+			madvult-legs0034:
+				FlipX: true
+				Length: 9
+			madvult-legs0033:
+				FlipX: true
+				Length: 9
+			madvult-legs0032:
+				FlipX: true
+				Length: 9
+			madvult-legs0031:
+				FlipX: true
+				Length: 9
+			madvult-legs0030:
+				FlipX: true
+				Length: 9
+			madvult-legs0029:
+				FlipX: true
+				Length: 9
+			madvult-legs0028:
+				FlipX: true
+				Length: 9
+			madvult-legs0027:
+				Length: 9
+			madvult-legs0028:
+				Length: 9
+			madvult-legs0029:
+				Length: 9
+			madvult-legs0030:
+				Length: 9
+			madvult-legs0031:
+				Length: 9
+			madvult-legs0032:
+				Length: 9
+			madvult-legs0033:
+				Length: 9
+			madvult-legs0034:
+				Length: 9
+		Facings: 16
+		Length: 9
+		Tick: 60
 	walk:
 		Combine:
 			madvult-legs0044:
@@ -68,6 +112,7 @@ madcat:
 				Length: 27
 		Facings: 16
 		Length: 27
+		Tick: 60
 	torso:
 		Combine:
 			madc-torso0050:
@@ -118,6 +163,1568 @@ madcat:
 			madc-torso0048:
 			madc-torso0049:
 		Facings: 32
+	torso-moving:
+		Combine:
+			madc-torso0067:	#swing from facing 0 to 31
+				Length: 9
+			madc-torso0067:	#swing from facing 31 to 0
+				Start: 8
+			madc-torso0067:
+				Start: 7
+			madc-torso0067:
+				Start: 6
+			madc-torso0067:
+				Start: 5
+			madc-torso0067:
+				Start: 4
+			madc-torso0067:
+				Start: 3
+			madc-torso0067:
+				Start: 2
+			madc-torso0067:
+				Start: 1
+			madc-torso0067:
+			madc-torso0067:	#swing from facing 0 to 1
+				Length: 9
+				FlipX: true
+			madc-torso0067:	#swing from facing 1 to 0
+				Start: 8
+				FlipX: true
+			madc-torso0067:
+				Start: 7
+				FlipX: true
+			madc-torso0067:
+				Start: 6
+				FlipX: true
+			madc-torso0067:
+				Start: 5
+				FlipX: true
+			madc-torso0067:
+				Start: 4
+				FlipX: true
+			madc-torso0067:
+				Start: 3
+				FlipX: true
+			madc-torso0067:
+				Start: 2
+				FlipX: true
+			madc-torso0067:
+				Start: 1
+				FlipX: true
+			madc-torso0067:
+				FlipX: true
+			### facing 1
+			madc-torso0067:	#swing from facing 1 to 0
+				Start: 8
+				FlipX: true
+			madc-torso0067:
+				Start: 7
+				FlipX: true
+			madc-torso0067:
+				Start: 6
+				FlipX: true
+			madc-torso0067:
+				Start: 5
+				FlipX: true
+			madc-torso0067:
+				Start: 4
+				FlipX: true
+			madc-torso0067:
+				Start: 3
+				FlipX: true
+			madc-torso0067:
+				Start: 2
+				FlipX: true
+			madc-torso0067:
+				Start: 1
+				FlipX: true
+			madc-torso0067:
+				FlipX: true
+			madc-torso0067:	#swing from facing 0 to 1
+				Length: 9
+				FlipX: true
+			madc-torso0066:	#swing from facing 1 to 2
+				FlipX: true
+				Length: 9
+			madc-torso0066:	#swing from facing 2 to 1
+				Start: 8
+				FlipX: true
+			madc-torso0066:
+				Start: 7
+				FlipX: true
+			madc-torso0066:
+				Start: 6
+				FlipX: true
+			madc-torso0066:
+				Start: 5
+				FlipX: true
+			madc-torso0066:
+				Start: 4
+				FlipX: true
+			madc-torso0066:
+				Start: 3
+				FlipX: true
+			madc-torso0066:
+				Start: 2
+				FlipX: true
+			madc-torso0066:
+				Start: 1
+				FlipX: true
+			madc-torso0066:
+				FlipX: true
+			### facing 2
+			madc-torso0065:	#swing from facing 2 to 3
+				FlipX: true
+				Length: 9
+			madc-torso0065:	#swing from facing 3 to 2
+				Start: 8
+				FlipX: true
+			madc-torso0065:
+				Start: 7
+				FlipX: true
+			madc-torso0065:
+				Start: 6
+				FlipX: true
+			madc-torso0065:
+				Start: 5
+				FlipX: true
+			madc-torso0065:
+				Start: 4
+				FlipX: true
+			madc-torso0065:
+				Start: 3
+				FlipX: true
+			madc-torso0065:
+				Start: 2
+				FlipX: true
+			madc-torso0065:
+				Start: 1
+				FlipX: true
+			madc-torso0065:
+				FlipX: true
+			madc-torso0066:	#swing from facing 2 to 1
+				Start: 8
+				FlipX: true
+			madc-torso0066:
+				Start: 7
+				FlipX: true
+			madc-torso0066:
+				Start: 6
+				FlipX: true
+			madc-torso0066:
+				Start: 5
+				FlipX: true
+			madc-torso0066:
+				Start: 4
+				FlipX: true
+			madc-torso0066:
+				Start: 3
+				FlipX: true
+			madc-torso0066:
+				Start: 2
+				FlipX: true
+			madc-torso0066:
+				Start: 1
+				FlipX: true
+			madc-torso0066:
+				FlipX: true
+			madc-torso0066:	#swing from facing 1 to 2
+				FlipX: true
+				Length: 9
+			### facing 3
+			madc-torso0064:	#swing from facing 3 to 4
+				FlipX: true
+				Length: 9
+			madc-torso0064:	#swing from facing 4 to 3
+				Start: 8
+				FlipX: true
+			madc-torso0064:
+				Start: 7
+				FlipX: true
+			madc-torso0064:
+				Start: 6
+				FlipX: true
+			madc-torso0064:
+				Start: 5
+				FlipX: true
+			madc-torso0064:
+				Start: 4
+				FlipX: true
+			madc-torso0064:
+				Start: 3
+				FlipX: true
+			madc-torso0064:
+				Start: 2
+				FlipX: true
+			madc-torso0064:
+				Start: 1
+				FlipX: true
+			madc-torso0064:
+				FlipX: true
+			madc-torso0065:	#swing from facing 3 to 2
+				Start: 8
+				FlipX: true
+			madc-torso0065:
+				Start: 7
+				FlipX: true
+			madc-torso0065:
+				Start: 6
+				FlipX: true
+			madc-torso0065:
+				Start: 5
+				FlipX: true
+			madc-torso0065:
+				Start: 4
+				FlipX: true
+			madc-torso0065:
+				Start: 3
+				FlipX: true
+			madc-torso0065:
+				Start: 2
+				FlipX: true
+			madc-torso0065:
+				Start: 1
+				FlipX: true
+			madc-torso0065:
+				FlipX: true
+			madc-torso0065:	#swing from facing 2 to 3
+				FlipX: true
+				Length: 9
+			### facing 4
+			madc-torso0063:	#swing from facing 4 to 5
+				FlipX: true
+				Length: 9
+			madc-torso0063:	#swing from facing 5 to 4
+				Start: 8
+				FlipX: true
+			madc-torso0063:
+				Start: 7
+				FlipX: true
+			madc-torso0063:
+				Start: 6
+				FlipX: true
+			madc-torso0063:
+				Start: 5
+				FlipX: true
+			madc-torso0063:
+				Start: 4
+				FlipX: true
+			madc-torso0063:
+				Start: 3
+				FlipX: true
+			madc-torso0063:
+				Start: 2
+				FlipX: true
+			madc-torso0063:
+				Start: 1
+				FlipX: true
+			madc-torso0063:
+				FlipX: true
+			madc-torso0064:	#swing from facing 4 to 3
+				Start: 8
+				FlipX: true
+			madc-torso0064:
+				Start: 7
+				FlipX: true
+			madc-torso0064:
+				Start: 6
+				FlipX: true
+			madc-torso0064:
+				Start: 5
+				FlipX: true
+			madc-torso0064:
+				Start: 4
+				FlipX: true
+			madc-torso0064:
+				Start: 3
+				FlipX: true
+			madc-torso0064:
+				Start: 2
+				FlipX: true
+			madc-torso0064:
+				Start: 1
+				FlipX: true
+			madc-torso0064:
+				FlipX: true
+			madc-torso0064:	#swing from facing 3 to 4
+				FlipX: true
+				Length: 9
+			### facing 5
+			madc-torso0062:	#swing from facing 5 to 6
+				FlipX: true
+				Length: 9
+			madc-torso0062:	#swing from facing 6 to 5
+				Start: 8
+				FlipX: true
+			madc-torso0062:
+				Start: 7
+				FlipX: true
+			madc-torso0062:
+				Start: 6
+				FlipX: true
+			madc-torso0062:
+				Start: 5
+				FlipX: true
+			madc-torso0062:
+				Start: 4
+				FlipX: true
+			madc-torso0062:
+				Start: 3
+				FlipX: true
+			madc-torso0062:
+				Start: 2
+				FlipX: true
+			madc-torso0062:
+				Start: 1
+				FlipX: true
+			madc-torso0062:
+				FlipX: true
+			madc-torso0063:	#swing from facing 5 to 4
+				Start: 8
+				FlipX: true
+			madc-torso0063:
+				Start: 7
+				FlipX: true
+			madc-torso0063:
+				Start: 6
+				FlipX: true
+			madc-torso0063:
+				Start: 5
+				FlipX: true
+			madc-torso0063:
+				Start: 4
+				FlipX: true
+			madc-torso0063:
+				Start: 3
+				FlipX: true
+			madc-torso0063:
+				Start: 2
+				FlipX: true
+			madc-torso0063:
+				Start: 1
+				FlipX: true
+			madc-torso0063:
+				FlipX: true
+			madc-torso0063:	#swing from facing 4 to 5
+				FlipX: true
+				Length: 9
+			### facing 6
+			madc-torso0061:	#swing from facing 6 to 7
+				FlipX: true
+				Length: 9
+			madc-torso0061:	#swing from facing 7 to 6
+				Start: 8
+				FlipX: true
+			madc-torso0061:
+				Start: 7
+				FlipX: true
+			madc-torso0061:
+				Start: 6
+				FlipX: true
+			madc-torso0061:
+				Start: 5
+				FlipX: true
+			madc-torso0061:
+				Start: 4
+				FlipX: true
+			madc-torso0061:
+				Start: 3
+				FlipX: true
+			madc-torso0061:
+				Start: 2
+				FlipX: true
+			madc-torso0061:
+				Start: 1
+				FlipX: true
+			madc-torso0061:
+				FlipX: true
+			madc-torso0062:	#swing from facing 6 to 5
+				Start: 8
+				FlipX: true
+			madc-torso0062:
+				Start: 7
+				FlipX: true
+			madc-torso0062:
+				Start: 6
+				FlipX: true
+			madc-torso0062:
+				Start: 5
+				FlipX: true
+			madc-torso0062:
+				Start: 4
+				FlipX: true
+			madc-torso0062:
+				Start: 3
+				FlipX: true
+			madc-torso0062:
+				Start: 2
+				FlipX: true
+			madc-torso0062:
+				Start: 1
+				FlipX: true
+			madc-torso0062:
+				FlipX: true
+			madc-torso0062:	#swing from facing 5 to 6
+				FlipX: true
+				Length: 9
+			### facing 7
+			madc-torso0060:	#swing from facing 7 to 8
+				FlipX: true
+				Length: 9
+			madc-torso0060:	#swing from facing 8 to 7
+				Start: 8
+				FlipX: true
+			madc-torso0060:
+				Start: 7
+				FlipX: true
+			madc-torso0060:
+				Start: 6
+				FlipX: true
+			madc-torso0060:
+				Start: 5
+				FlipX: true
+			madc-torso0060:
+				Start: 4
+				FlipX: true
+			madc-torso0060:
+				Start: 3
+				FlipX: true
+			madc-torso0060:
+				Start: 2
+				FlipX: true
+			madc-torso0060:
+				Start: 1
+				FlipX: true
+			madc-torso0060:
+				FlipX: true
+			madc-torso0061:	#swing from facing 7 to 6
+				Start: 8
+				FlipX: true
+			madc-torso0061:
+				Start: 7
+				FlipX: true
+			madc-torso0061:
+				Start: 6
+				FlipX: true
+			madc-torso0061:
+				Start: 5
+				FlipX: true
+			madc-torso0061:
+				Start: 4
+				FlipX: true
+			madc-torso0061:
+				Start: 3
+				FlipX: true
+			madc-torso0061:
+				Start: 2
+				FlipX: true
+			madc-torso0061:
+				Start: 1
+				FlipX: true
+			madc-torso0061:
+				FlipX: true
+			madc-torso0061:	#swing from facing 6 to 7
+				FlipX: true
+				Length: 9
+			### facing 8
+			madc-torso0059:	#swing from facing 8 to 9
+				FlipX: true
+				Length: 9
+			madc-torso0059:	#swing from facing 9 to 8
+				Start: 8
+				FlipX: true
+			madc-torso0059:
+				Start: 7
+				FlipX: true
+			madc-torso0059:
+				Start: 6
+				FlipX: true
+			madc-torso0059:
+				Start: 5
+				FlipX: true
+			madc-torso0059:
+				Start: 4
+				FlipX: true
+			madc-torso0059:
+				Start: 3
+				FlipX: true
+			madc-torso0059:
+				Start: 2
+				FlipX: true
+			madc-torso0059:
+				Start: 1
+				FlipX: true
+			madc-torso0059:
+				FlipX: true
+			madc-torso0060:	#swing from facing 8 to 7
+				Start: 8
+				FlipX: true
+			madc-torso0060:
+				Start: 7
+				FlipX: true
+			madc-torso0060:
+				Start: 6
+				FlipX: true
+			madc-torso0060:
+				Start: 5
+				FlipX: true
+			madc-torso0060:
+				Start: 4
+				FlipX: true
+			madc-torso0060:
+				Start: 3
+				FlipX: true
+			madc-torso0060:
+				Start: 2
+				FlipX: true
+			madc-torso0060:
+				Start: 1
+				FlipX: true
+			madc-torso0060:
+				FlipX: true
+			madc-torso0060:	#swing from facing 7 to 8
+				FlipX: true
+				Length: 9
+			### facing 9
+			madc-torso0058:	#swing from facing 9 to 10
+				FlipX: true
+				Length: 9
+			madc-torso0058:	#swing from facing 10 to 9
+				Start: 8
+				FlipX: true
+			madc-torso0058:
+				Start: 7
+				FlipX: true
+			madc-torso0058:
+				Start: 6
+				FlipX: true
+			madc-torso0058:
+				Start: 5
+				FlipX: true
+			madc-torso0058:
+				Start: 4
+				FlipX: true
+			madc-torso0058:
+				Start: 3
+				FlipX: true
+			madc-torso0058:
+				Start: 2
+				FlipX: true
+			madc-torso0058:
+				Start: 1
+				FlipX: true
+			madc-torso0058:
+				FlipX: true
+			madc-torso0059:	#swing from facing 9 to 8
+				Start: 8
+				FlipX: true
+			madc-torso0059:
+				Start: 7
+				FlipX: true
+			madc-torso0059:
+				Start: 6
+				FlipX: true
+			madc-torso0059:
+				Start: 5
+				FlipX: true
+			madc-torso0059:
+				Start: 4
+				FlipX: true
+			madc-torso0059:
+				Start: 3
+				FlipX: true
+			madc-torso0059:
+				Start: 2
+				FlipX: true
+			madc-torso0059:
+				Start: 1
+				FlipX: true
+			madc-torso0059:
+				FlipX: true
+			madc-torso0059:	#swing from facing 8 to 9
+				FlipX: true
+				Length: 9
+			### facing 10
+			madc-torso0057:	#swing from facing 10 to 11
+				FlipX: true
+				Length: 9
+			madc-torso0057:	#swing from facing 11 to 10
+				Start: 8
+				FlipX: true
+			madc-torso0057:
+				Start: 7
+				FlipX: true
+			madc-torso0057:
+				Start: 6
+				FlipX: true
+			madc-torso0057:
+				Start: 5
+				FlipX: true
+			madc-torso0057:
+				Start: 4
+				FlipX: true
+			madc-torso0057:
+				Start: 3
+				FlipX: true
+			madc-torso0057:
+				Start: 2
+				FlipX: true
+			madc-torso0057:
+				Start: 1
+				FlipX: true
+			madc-torso0057:
+				FlipX: true
+			madc-torso0058:	#swing from facing 10 to 9
+				Start: 8
+				FlipX: true
+			madc-torso0058:
+				Start: 7
+				FlipX: true
+			madc-torso0058:
+				Start: 6
+				FlipX: true
+			madc-torso0058:
+				Start: 5
+				FlipX: true
+			madc-torso0058:
+				Start: 4
+				FlipX: true
+			madc-torso0058:
+				Start: 3
+				FlipX: true
+			madc-torso0058:
+				Start: 2
+				FlipX: true
+			madc-torso0058:
+				Start: 1
+				FlipX: true
+			madc-torso0058:
+				FlipX: true
+			madc-torso0058:	#swing from facing 9 to 10
+				FlipX: true
+				Length: 9
+			### facing 11
+			madc-torso0056:	#swing from facing 11 to 12
+				FlipX: true
+				Length: 9
+			madc-torso0056:	#swing from facing 12 to 11
+				Start: 8
+				FlipX: true
+			madc-torso0056:
+				Start: 7
+				FlipX: true
+			madc-torso0056:
+				Start: 6
+				FlipX: true
+			madc-torso0056:
+				Start: 5
+				FlipX: true
+			madc-torso0056:
+				Start: 4
+				FlipX: true
+			madc-torso0056:
+				Start: 3
+				FlipX: true
+			madc-torso0056:
+				Start: 2
+				FlipX: true
+			madc-torso0056:
+				Start: 1
+				FlipX: true
+			madc-torso0056:
+				FlipX: true
+			madc-torso0057:	#swing from facing 11 to 10
+				Start: 8
+				FlipX: true
+			madc-torso0057:
+				Start: 7
+				FlipX: true
+			madc-torso0057:
+				Start: 6
+				FlipX: true
+			madc-torso0057:
+				Start: 5
+				FlipX: true
+			madc-torso0057:
+				Start: 4
+				FlipX: true
+			madc-torso0057:
+				Start: 3
+				FlipX: true
+			madc-torso0057:
+				Start: 2
+				FlipX: true
+			madc-torso0057:
+				Start: 1
+				FlipX: true
+			madc-torso0057:
+				FlipX: true
+			madc-torso0057:	#swing from facing 10 to 11
+				FlipX: true
+				Length: 9
+			### facing 12
+			madc-torso0055:	#swing from facing 12 to 13
+				FlipX: true
+				Length: 9
+			madc-torso0055:	#swing from facing 13 to 12
+				Start: 8
+				FlipX: true
+			madc-torso0055:
+				Start: 7
+				FlipX: true
+			madc-torso0055:
+				Start: 6
+				FlipX: true
+			madc-torso0055:
+				Start: 5
+				FlipX: true
+			madc-torso0055:
+				Start: 4
+				FlipX: true
+			madc-torso0055:
+				Start: 3
+				FlipX: true
+			madc-torso0055:
+				Start: 2
+				FlipX: true
+			madc-torso0055:
+				Start: 1
+				FlipX: true
+			madc-torso0055:
+				FlipX: true
+			madc-torso0056:	#swing from facing 12 to 11
+				Start: 8
+				FlipX: true
+			madc-torso0056:
+				Start: 7
+				FlipX: true
+			madc-torso0056:
+				Start: 6
+				FlipX: true
+			madc-torso0056:
+				Start: 5
+				FlipX: true
+			madc-torso0056:
+				Start: 4
+				FlipX: true
+			madc-torso0056:
+				Start: 3
+				FlipX: true
+			madc-torso0056:
+				Start: 2
+				FlipX: true
+			madc-torso0056:
+				Start: 1
+				FlipX: true
+			madc-torso0056:
+				FlipX: true
+			madc-torso0056:	#swing from facing 11 to 12
+				FlipX: true
+				Length: 9
+			### facing 13
+			madc-torso0054:	#swing from facing 13 to 14
+				FlipX: true
+				Length: 9
+			madc-torso0054:	#swing from facing 14 to 13
+				Start: 8
+				FlipX: true
+			madc-torso0054:
+				Start: 7
+				FlipX: true
+			madc-torso0054:
+				Start: 6
+				FlipX: true
+			madc-torso0054:
+				Start: 5
+				FlipX: true
+			madc-torso0054:
+				Start: 4
+				FlipX: true
+			madc-torso0054:
+				Start: 3
+				FlipX: true
+			madc-torso0054:
+				Start: 2
+				FlipX: true
+			madc-torso0054:
+				Start: 1
+				FlipX: true
+			madc-torso0054:
+				FlipX: true
+			madc-torso0055:	#swing from facing 13 to 12
+				Start: 8
+				FlipX: true
+			madc-torso0055:
+				Start: 7
+				FlipX: true
+			madc-torso0055:
+				Start: 6
+				FlipX: true
+			madc-torso0055:
+				Start: 5
+				FlipX: true
+			madc-torso0055:
+				Start: 4
+				FlipX: true
+			madc-torso0055:
+				Start: 3
+				FlipX: true
+			madc-torso0055:
+				Start: 2
+				FlipX: true
+			madc-torso0055:
+				Start: 1
+				FlipX: true
+			madc-torso0055:
+				FlipX: true
+			madc-torso0055:	#swing from facing 12 to 13
+				FlipX: true
+				Length: 9
+			### facing 14
+			madc-torso0053:	#swing from facing 14 to 15
+				FlipX: true
+				Length: 9
+			madc-torso0053:	#swing from facing 15 to 14
+				Start: 8
+				FlipX: true
+			madc-torso0053:
+				Start: 7
+				FlipX: true
+			madc-torso0053:
+				Start: 6
+				FlipX: true
+			madc-torso0053:
+				Start: 5
+				FlipX: true
+			madc-torso0053:
+				Start: 4
+				FlipX: true
+			madc-torso0053:
+				Start: 3
+				FlipX: true
+			madc-torso0053:
+				Start: 2
+				FlipX: true
+			madc-torso0053:
+				Start: 1
+				FlipX: true
+			madc-torso0053:
+				FlipX: true
+			madc-torso0054:	#swing from facing 14 to 13
+				Start: 8
+				FlipX: true
+			madc-torso0054:
+				Start: 7
+				FlipX: true
+			madc-torso0054:
+				Start: 6
+				FlipX: true
+			madc-torso0054:
+				Start: 5
+				FlipX: true
+			madc-torso0054:
+				Start: 4
+				FlipX: true
+			madc-torso0054:
+				Start: 3
+				FlipX: true
+			madc-torso0054:
+				Start: 2
+				FlipX: true
+			madc-torso0054:
+				Start: 1
+				FlipX: true
+			madc-torso0054:
+				FlipX: true
+			madc-torso0054:	#swing from facing 13 to 14
+				FlipX: true
+				Length: 9
+			### facing 15
+			madc-torso0052:	#swing from facing 15 to 16
+				FlipX: true
+				Length: 9
+			madc-torso0052:	#swing from facing 16 to 15
+				Start: 8
+				FlipX: true
+			madc-torso0052:
+				Start: 7
+				FlipX: true
+			madc-torso0052:
+				Start: 6
+				FlipX: true
+			madc-torso0052:
+				Start: 5
+				FlipX: true
+			madc-torso0052:
+				Start: 4
+				FlipX: true
+			madc-torso0052:
+				Start: 3
+				FlipX: true
+			madc-torso0052:
+				Start: 2
+				FlipX: true
+			madc-torso0052:
+				Start: 1
+				FlipX: true
+			madc-torso0052:
+				FlipX: true
+			madc-torso0053:	#swing from facing 15 to 14
+				Start: 8
+				FlipX: true
+			madc-torso0053:
+				Start: 7
+				FlipX: true
+			madc-torso0053:
+				Start: 6
+				FlipX: true
+			madc-torso0053:
+				Start: 5
+				FlipX: true
+			madc-torso0053:
+				Start: 4
+				FlipX: true
+			madc-torso0053:
+				Start: 3
+				FlipX: true
+			madc-torso0053:
+				Start: 2
+				FlipX: true
+			madc-torso0053:
+				Start: 1
+				FlipX: true
+			madc-torso0053:
+				FlipX: true
+			madc-torso0053:	#swing from facing 14 to 15
+				FlipX: true
+				Length: 9
+			### facing 16 (south)
+			madc-torso0051:	#swing from facing 16 to 15
+				Length: 9
+			madc-torso0051:	#swing from facing 15 to 16
+				Start: 8
+			madc-torso0051:
+				Start: 7
+			madc-torso0051:
+				Start: 6
+			madc-torso0051:
+				Start: 5
+			madc-torso0051:
+				Start: 4
+			madc-torso0051:
+				Start: 3
+			madc-torso0051:
+				Start: 2
+			madc-torso0051:
+				Start: 1
+			madc-torso0051:
+			madc-torso0052:	#swing from facing 16 to 17
+				Start: 8
+			madc-torso0052:
+				Start: 7
+			madc-torso0052:
+				Start: 6
+			madc-torso0052:
+				Start: 5
+			madc-torso0052:
+				Start: 4
+			madc-torso0052:
+				Start: 3
+			madc-torso0052:
+				Start: 2
+			madc-torso0052:
+				Start: 1
+			madc-torso0052:
+			madc-torso0052:	#swing from facing 17 to 16
+				Length: 9
+			### facing 17
+			madc-torso0052:	#swing from facing 17 to 16
+				Length: 9
+			madc-torso0052:	#swing from facing 16 to 17
+				Start: 8
+			madc-torso0052:
+				Start: 7
+			madc-torso0052:
+				Start: 6
+			madc-torso0052:
+				Start: 5
+			madc-torso0052:
+				Start: 4
+			madc-torso0052:
+				Start: 3
+			madc-torso0052:
+				Start: 2
+			madc-torso0052:
+				Start: 1
+			madc-torso0052:
+			madc-torso0053:	#swing from facing 17 to 18
+				Start: 8
+			madc-torso0053:
+				Start: 7
+			madc-torso0053:
+				Start: 6
+			madc-torso0053:
+				Start: 5
+			madc-torso0053:
+				Start: 4
+			madc-torso0053:
+				Start: 3
+			madc-torso0053:
+				Start: 2
+			madc-torso0053:
+				Start: 1
+			madc-torso0053:
+			madc-torso0053:	#swing from facing 18 to 17
+				Length: 9
+			### facing 18
+			madc-torso0053:	#swing from facing 18 to 17
+				Length: 9
+			madc-torso0053:	#swing from facing 17 to 18
+				Start: 8
+			madc-torso0053:
+				Start: 7
+			madc-torso0053:
+				Start: 6
+			madc-torso0053:
+				Start: 5
+			madc-torso0053:
+				Start: 4
+			madc-torso0053:
+				Start: 3
+			madc-torso0053:
+				Start: 2
+			madc-torso0053:
+				Start: 1
+			madc-torso0053:
+			madc-torso0054:	#swing from facing 18 to 19
+				Start: 8
+			madc-torso0054:
+				Start: 7
+			madc-torso0054:
+				Start: 6
+			madc-torso0054:
+				Start: 5
+			madc-torso0054:
+				Start: 4
+			madc-torso0054:
+				Start: 3
+			madc-torso0054:
+				Start: 2
+			madc-torso0054:
+				Start: 1
+			madc-torso0054:
+			madc-torso0054:	#swing from facing 19 to 18
+				Length: 9
+			### facing 19
+			madc-torso0054:	#swing from facing 19 to 18
+				Length: 9
+			madc-torso0054:	#swing from facing 18 to 19
+				Start: 8
+			madc-torso0054:
+				Start: 7
+			madc-torso0054:
+				Start: 6
+			madc-torso0054:
+				Start: 5
+			madc-torso0054:
+				Start: 4
+			madc-torso0054:
+				Start: 3
+			madc-torso0054:
+				Start: 2
+			madc-torso0054:
+				Start: 1
+			madc-torso0054:
+			madc-torso0055:	#swing from facing 19 to 20
+				Start: 8
+			madc-torso0055:
+				Start: 7
+			madc-torso0055:
+				Start: 6
+			madc-torso0055:
+				Start: 5
+			madc-torso0055:
+				Start: 4
+			madc-torso0055:
+				Start: 3
+			madc-torso0055:
+				Start: 2
+			madc-torso0055:
+				Start: 1
+			madc-torso0055:
+			madc-torso0055:	#swing from facing 20 to 19
+				Length: 9
+			### facing 20
+			madc-torso0055:	#swing from facing 20 to 19
+				Length: 9
+			madc-torso0055:	#swing from facing 19 to 20
+				Start: 8
+			madc-torso0055:
+				Start: 7
+			madc-torso0055:
+				Start: 6
+			madc-torso0055:
+				Start: 5
+			madc-torso0055:
+				Start: 4
+			madc-torso0055:
+				Start: 3
+			madc-torso0055:
+				Start: 2
+			madc-torso0055:
+				Start: 1
+			madc-torso0055:
+			madc-torso0056:	#swing from facing 20 to 21
+				Start: 8
+			madc-torso0056:
+				Start: 7
+			madc-torso0056:
+				Start: 6
+			madc-torso0056:
+				Start: 5
+			madc-torso0056:
+				Start: 4
+			madc-torso0056:
+				Start: 3
+			madc-torso0056:
+				Start: 2
+			madc-torso0056:
+				Start: 1
+			madc-torso0056:
+			madc-torso0056:	#swing from facing 21 to 20
+				Length: 9
+			### facing 21
+			madc-torso0056:	#swing from facing 21 to 20
+				Length: 9
+			madc-torso0056:	#swing from facing 20 to 21
+				Start: 8
+			madc-torso0056:
+				Start: 7
+			madc-torso0056:
+				Start: 6
+			madc-torso0056:
+				Start: 5
+			madc-torso0056:
+				Start: 4
+			madc-torso0056:
+				Start: 3
+			madc-torso0056:
+				Start: 2
+			madc-torso0056:
+				Start: 1
+			madc-torso0056:
+			madc-torso0057:	#swing from facing 21 to 22
+				Start: 8
+			madc-torso0057:
+				Start: 7
+			madc-torso0057:
+				Start: 6
+			madc-torso0057:
+				Start: 5
+			madc-torso0057:
+				Start: 4
+			madc-torso0057:
+				Start: 3
+			madc-torso0057:
+				Start: 2
+			madc-torso0057:
+				Start: 1
+			madc-torso0057:
+			madc-torso0057:	#swing from facing 22 to 21
+				Length: 9
+			### facing 22
+			madc-torso0057:	#swing from facing 22 to 21
+				Length: 9
+			madc-torso0057:	#swing from facing 21 to 22
+				Start: 8
+			madc-torso0057:
+				Start: 7
+			madc-torso0057:
+				Start: 6
+			madc-torso0057:
+				Start: 5
+			madc-torso0057:
+				Start: 4
+			madc-torso0057:
+				Start: 3
+			madc-torso0057:
+				Start: 2
+			madc-torso0057:
+				Start: 1
+			madc-torso0057:
+			madc-torso0058:	#swing from facing 22 to 23
+				Start: 8
+			madc-torso0058:
+				Start: 7
+			madc-torso0058:
+				Start: 6
+			madc-torso0058:
+				Start: 5
+			madc-torso0058:
+				Start: 4
+			madc-torso0058:
+				Start: 3
+			madc-torso0058:
+				Start: 2
+			madc-torso0058:
+				Start: 1
+			madc-torso0058:
+			madc-torso0058:	#swing from facing 23 to 22
+				Length: 9
+			### facing 23
+			madc-torso0058:	#swing from facing 23 to 22
+				Length: 9
+			madc-torso0058:	#swing from facing 22 to 23
+				Start: 8
+			madc-torso0058:
+				Start: 7
+			madc-torso0058:
+				Start: 6
+			madc-torso0058:
+				Start: 5
+			madc-torso0058:
+				Start: 4
+			madc-torso0058:
+				Start: 3
+			madc-torso0058:
+				Start: 2
+			madc-torso0058:
+				Start: 1
+			madc-torso0058:
+			madc-torso0059:	#swing from facing 23 to 24
+				Start: 8
+			madc-torso0059:
+				Start: 7
+			madc-torso0059:
+				Start: 6
+			madc-torso0059:
+				Start: 5
+			madc-torso0059:
+				Start: 4
+			madc-torso0059:
+				Start: 3
+			madc-torso0059:
+				Start: 2
+			madc-torso0059:
+				Start: 1
+			madc-torso0059:
+			madc-torso0059:	#swing from facing 24 to 23
+				Length: 9
+			### facing 24
+			madc-torso0059:	#swing from facing 24 to 23
+				Length: 9
+			madc-torso0059:	#swing from facing 23 to 24
+				Start: 8
+			madc-torso0059:
+				Start: 7
+			madc-torso0059:
+				Start: 6
+			madc-torso0059:
+				Start: 5
+			madc-torso0059:
+				Start: 4
+			madc-torso0059:
+				Start: 3
+			madc-torso0059:
+				Start: 2
+			madc-torso0059:
+				Start: 1
+			madc-torso0059:
+			madc-torso0060:	#swing from facing 24 to 25
+				Start: 8
+			madc-torso0060:
+				Start: 7
+			madc-torso0060:
+				Start: 6
+			madc-torso0060:
+				Start: 5
+			madc-torso0060:
+				Start: 4
+			madc-torso0060:
+				Start: 3
+			madc-torso0060:
+				Start: 2
+			madc-torso0060:
+				Start: 1
+			madc-torso0060:
+			madc-torso0060:	#swing from facing 25 to 24
+				Length: 9
+			### facing 25
+			madc-torso0060:	#swing from facing 25 to 24
+				Length: 9
+			madc-torso0060:	#swing from facing 24 to 25
+				Start: 8
+			madc-torso0060:
+				Start: 7
+			madc-torso0060:
+				Start: 6
+			madc-torso0060:
+				Start: 5
+			madc-torso0060:
+				Start: 4
+			madc-torso0060:
+				Start: 3
+			madc-torso0060:
+				Start: 2
+			madc-torso0060:
+				Start: 1
+			madc-torso0060:
+			madc-torso0061:	#swing from facing 25 to 26
+				Start: 8
+			madc-torso0061:
+				Start: 7
+			madc-torso0061:
+				Start: 6
+			madc-torso0061:
+				Start: 5
+			madc-torso0061:
+				Start: 4
+			madc-torso0061:
+				Start: 3
+			madc-torso0061:
+				Start: 2
+			madc-torso0061:
+				Start: 1
+			madc-torso0061:
+			madc-torso0061:	#swing from facing 26 to 25
+				Length: 9
+			### facing 26
+			madc-torso0061:	#swing from facing 26 to 25
+				Length: 9
+			madc-torso0061:	#swing from facing 25 to 26
+				Start: 8
+			madc-torso0061:
+				Start: 7
+			madc-torso0061:
+				Start: 6
+			madc-torso0061:
+				Start: 5
+			madc-torso0061:
+				Start: 4
+			madc-torso0061:
+				Start: 3
+			madc-torso0061:
+				Start: 2
+			madc-torso0061:
+				Start: 1
+			madc-torso0061:
+			madc-torso0062:	#swing from facing 26 to 27
+				Start: 8
+			madc-torso0062:
+				Start: 7
+			madc-torso0062:
+				Start: 6
+			madc-torso0062:
+				Start: 5
+			madc-torso0062:
+				Start: 4
+			madc-torso0062:
+				Start: 3
+			madc-torso0062:
+				Start: 2
+			madc-torso0062:
+				Start: 1
+			madc-torso0062:
+			madc-torso0062:	#swing from facing 27 to 26
+				Length: 9
+			### facing 27
+			madc-torso0062:	#swing from facing 27 to 26
+				Length: 9
+			madc-torso0062:	#swing from facing 26 to 27
+				Start: 8
+			madc-torso0062:
+				Start: 7
+			madc-torso0062:
+				Start: 6
+			madc-torso0062:
+				Start: 5
+			madc-torso0062:
+				Start: 4
+			madc-torso0062:
+				Start: 3
+			madc-torso0062:
+				Start: 2
+			madc-torso0062:
+				Start: 1
+			madc-torso0062:
+			madc-torso0063:	#swing from facing 27 to 28
+				Start: 8
+			madc-torso0063:
+				Start: 7
+			madc-torso0063:
+				Start: 6
+			madc-torso0063:
+				Start: 5
+			madc-torso0063:
+				Start: 4
+			madc-torso0063:
+				Start: 3
+			madc-torso0063:
+				Start: 2
+			madc-torso0063:
+				Start: 1
+			madc-torso0063:
+			madc-torso0063:	#swing from facing 28 to 27
+				Length: 9
+			### facing 28
+			madc-torso0063:	#swing from facing 28 to 27
+				Length: 9
+			madc-torso0063:	#swing from facing 27 to 28
+				Start: 8
+			madc-torso0063:
+				Start: 7
+			madc-torso0063:
+				Start: 6
+			madc-torso0063:
+				Start: 5
+			madc-torso0063:
+				Start: 4
+			madc-torso0063:
+				Start: 3
+			madc-torso0063:
+				Start: 2
+			madc-torso0063:
+				Start: 1
+			madc-torso0063:
+			madc-torso0064:	#swing from facing 28 to 29
+				Start: 8
+			madc-torso0064:
+				Start: 7
+			madc-torso0064:
+				Start: 6
+			madc-torso0064:
+				Start: 5
+			madc-torso0064:
+				Start: 4
+			madc-torso0064:
+				Start: 3
+			madc-torso0064:
+				Start: 2
+			madc-torso0064:
+				Start: 1
+			madc-torso0064:
+			madc-torso0064:	#swing from facing 29 to 28
+				Length: 9
+			### facing 29
+			madc-torso0064:	#swing from facing 29 to 28
+				Length: 9
+			madc-torso0064:	#swing from facing 28 to 29
+				Start: 8
+			madc-torso0064:
+				Start: 7
+			madc-torso0064:
+				Start: 6
+			madc-torso0064:
+				Start: 5
+			madc-torso0064:
+				Start: 4
+			madc-torso0064:
+				Start: 3
+			madc-torso0064:
+				Start: 2
+			madc-torso0064:
+				Start: 1
+			madc-torso0064:
+			madc-torso0065:	#swing from facing 29 to 30
+				Start: 8
+			madc-torso0065:
+				Start: 7
+			madc-torso0065:
+				Start: 6
+			madc-torso0065:
+				Start: 5
+			madc-torso0065:
+				Start: 4
+			madc-torso0065:
+				Start: 3
+			madc-torso0065:
+				Start: 2
+			madc-torso0065:
+				Start: 1
+			madc-torso0065:
+			madc-torso0065:	#swing from facing 30 to 29
+				Length: 9
+			### facing 30
+			madc-torso0065:	#swing from facing 30 to 29
+				Length: 9
+			madc-torso0065:	#swing from facing 29 to 30
+				Start: 8
+			madc-torso0065:
+				Start: 7
+			madc-torso0065:
+				Start: 6
+			madc-torso0065:
+				Start: 5
+			madc-torso0065:
+				Start: 4
+			madc-torso0065:
+				Start: 3
+			madc-torso0065:
+				Start: 2
+			madc-torso0065:
+				Start: 1
+			madc-torso0065:
+			madc-torso0066:	#swing from facing 30 to 31
+				Start: 8
+			madc-torso0066:
+				Start: 7
+			madc-torso0066:
+				Start: 6
+			madc-torso0066:
+				Start: 5
+			madc-torso0066:
+				Start: 4
+			madc-torso0066:
+				Start: 3
+			madc-torso0066:
+				Start: 2
+			madc-torso0066:
+				Start: 1
+			madc-torso0066:
+			madc-torso0066:	#swing from facing 31 to 30
+				Length: 9
+			### facing 31
+			madc-torso0066:	#swing from facing 31 to 30
+				Length: 9
+			madc-torso0066:	#swing from facing 30 to 31
+				Start: 8
+			madc-torso0066:
+				Start: 7
+			madc-torso0066:
+				Start: 6
+			madc-torso0066:
+				Start: 5
+			madc-torso0066:
+				Start: 4
+			madc-torso0066:
+				Start: 3
+			madc-torso0066:
+				Start: 2
+			madc-torso0066:
+				Start: 1
+			madc-torso0066:
+			madc-torso0067:	#swing from facing 31 to 0
+				Start: 8
+			madc-torso0067:
+				Start: 7
+			madc-torso0067:
+				Start: 6
+			madc-torso0067:
+				Start: 5
+			madc-torso0067:
+				Start: 4
+			madc-torso0067:
+				Start: 3
+			madc-torso0067:
+				Start: 2
+			madc-torso0067:
+				Start: 1
+			madc-torso0067:
+			madc-torso0067:	#swing from facing 0 to 31
+				Length: 9
+		Facings: 32
+		Length: 36
+		Tick: 60
 	larm:
 		Combine:
 			madc-larm0050:
@@ -218,6 +1825,3131 @@ madcat:
 			madc-rarm0048:
 			madc-rarm0049:
 		Facings: 32
+		ZOffset: 2
+	larm-moving:
+		Combine:
+			madc-larm0067:	#swing from facing 0 to 31
+				Length: 9
+			madc-larm0067:	#swing from facing 31 to 0
+				Start: 8
+			madc-larm0067:
+				Start: 7
+			madc-larm0067:
+				Start: 6
+			madc-larm0067:
+				Start: 5
+			madc-larm0067:
+				Start: 4
+			madc-larm0067:
+				Start: 3
+			madc-larm0067:
+				Start: 2
+			madc-larm0067:
+				Start: 1
+			madc-larm0067:
+			madc-larm0067:	#swing from facing 0 to 1
+				Length: 9
+				FlipX: true
+			madc-larm0067:	#swing from facing 1 to 0
+				Start: 8
+				FlipX: true
+			madc-larm0067:
+				Start: 7
+				FlipX: true
+			madc-larm0067:
+				Start: 6
+				FlipX: true
+			madc-larm0067:
+				Start: 5
+				FlipX: true
+			madc-larm0067:
+				Start: 4
+				FlipX: true
+			madc-larm0067:
+				Start: 3
+				FlipX: true
+			madc-larm0067:
+				Start: 2
+				FlipX: true
+			madc-larm0067:
+				Start: 1
+				FlipX: true
+			madc-larm0067:
+				FlipX: true
+			### facing 1
+			madc-larm0067:	#swing from facing 1 to 0
+				Start: 8
+				FlipX: true
+			madc-larm0067:
+				Start: 7
+				FlipX: true
+			madc-larm0067:
+				Start: 6
+				FlipX: true
+			madc-larm0067:
+				Start: 5
+				FlipX: true
+			madc-larm0067:
+				Start: 4
+				FlipX: true
+			madc-larm0067:
+				Start: 3
+				FlipX: true
+			madc-larm0067:
+				Start: 2
+				FlipX: true
+			madc-larm0067:
+				Start: 1
+				FlipX: true
+			madc-larm0067:
+				FlipX: true
+			madc-larm0067:	#swing from facing 0 to 1
+				Length: 9
+				FlipX: true
+			madc-larm0066:	#swing from facing 1 to 2
+				FlipX: true
+				Length: 9
+			madc-larm0066:	#swing from facing 2 to 1
+				Start: 8
+				FlipX: true
+			madc-larm0066:
+				Start: 7
+				FlipX: true
+			madc-larm0066:
+				Start: 6
+				FlipX: true
+			madc-larm0066:
+				Start: 5
+				FlipX: true
+			madc-larm0066:
+				Start: 4
+				FlipX: true
+			madc-larm0066:
+				Start: 3
+				FlipX: true
+			madc-larm0066:
+				Start: 2
+				FlipX: true
+			madc-larm0066:
+				Start: 1
+				FlipX: true
+			madc-larm0066:
+				FlipX: true
+			### facing 2
+			madc-larm0065:	#swing from facing 2 to 3
+				FlipX: true
+				Length: 9
+			madc-larm0065:	#swing from facing 3 to 2
+				Start: 8
+				FlipX: true
+			madc-larm0065:
+				Start: 7
+				FlipX: true
+			madc-larm0065:
+				Start: 6
+				FlipX: true
+			madc-larm0065:
+				Start: 5
+				FlipX: true
+			madc-larm0065:
+				Start: 4
+				FlipX: true
+			madc-larm0065:
+				Start: 3
+				FlipX: true
+			madc-larm0065:
+				Start: 2
+				FlipX: true
+			madc-larm0065:
+				Start: 1
+				FlipX: true
+			madc-larm0065:
+				FlipX: true
+			madc-larm0066:	#swing from facing 2 to 1
+				Start: 8
+				FlipX: true
+			madc-larm0066:
+				Start: 7
+				FlipX: true
+			madc-larm0066:
+				Start: 6
+				FlipX: true
+			madc-larm0066:
+				Start: 5
+				FlipX: true
+			madc-larm0066:
+				Start: 4
+				FlipX: true
+			madc-larm0066:
+				Start: 3
+				FlipX: true
+			madc-larm0066:
+				Start: 2
+				FlipX: true
+			madc-larm0066:
+				Start: 1
+				FlipX: true
+			madc-larm0066:
+				FlipX: true
+			madc-larm0066:	#swing from facing 1 to 2
+				FlipX: true
+				Length: 9
+			### facing 3
+			madc-larm0064:	#swing from facing 3 to 4
+				FlipX: true
+				Length: 9
+			madc-larm0064:	#swing from facing 4 to 3
+				Start: 8
+				FlipX: true
+			madc-larm0064:
+				Start: 7
+				FlipX: true
+			madc-larm0064:
+				Start: 6
+				FlipX: true
+			madc-larm0064:
+				Start: 5
+				FlipX: true
+			madc-larm0064:
+				Start: 4
+				FlipX: true
+			madc-larm0064:
+				Start: 3
+				FlipX: true
+			madc-larm0064:
+				Start: 2
+				FlipX: true
+			madc-larm0064:
+				Start: 1
+				FlipX: true
+			madc-larm0064:
+				FlipX: true
+			madc-larm0065:	#swing from facing 3 to 2
+				Start: 8
+				FlipX: true
+			madc-larm0065:
+				Start: 7
+				FlipX: true
+			madc-larm0065:
+				Start: 6
+				FlipX: true
+			madc-larm0065:
+				Start: 5
+				FlipX: true
+			madc-larm0065:
+				Start: 4
+				FlipX: true
+			madc-larm0065:
+				Start: 3
+				FlipX: true
+			madc-larm0065:
+				Start: 2
+				FlipX: true
+			madc-larm0065:
+				Start: 1
+				FlipX: true
+			madc-larm0065:
+				FlipX: true
+			madc-larm0065:	#swing from facing 2 to 3
+				FlipX: true
+				Length: 9
+			### facing 4
+			madc-larm0063:	#swing from facing 4 to 5
+				FlipX: true
+				Length: 9
+			madc-larm0063:	#swing from facing 5 to 4
+				Start: 8
+				FlipX: true
+			madc-larm0063:
+				Start: 7
+				FlipX: true
+			madc-larm0063:
+				Start: 6
+				FlipX: true
+			madc-larm0063:
+				Start: 5
+				FlipX: true
+			madc-larm0063:
+				Start: 4
+				FlipX: true
+			madc-larm0063:
+				Start: 3
+				FlipX: true
+			madc-larm0063:
+				Start: 2
+				FlipX: true
+			madc-larm0063:
+				Start: 1
+				FlipX: true
+			madc-larm0063:
+				FlipX: true
+			madc-larm0064:	#swing from facing 4 to 3
+				Start: 8
+				FlipX: true
+			madc-larm0064:
+				Start: 7
+				FlipX: true
+			madc-larm0064:
+				Start: 6
+				FlipX: true
+			madc-larm0064:
+				Start: 5
+				FlipX: true
+			madc-larm0064:
+				Start: 4
+				FlipX: true
+			madc-larm0064:
+				Start: 3
+				FlipX: true
+			madc-larm0064:
+				Start: 2
+				FlipX: true
+			madc-larm0064:
+				Start: 1
+				FlipX: true
+			madc-larm0064:
+				FlipX: true
+			madc-larm0064:	#swing from facing 3 to 4
+				FlipX: true
+				Length: 9
+			### facing 5
+			madc-larm0062:	#swing from facing 5 to 6
+				FlipX: true
+				Length: 9
+			madc-larm0062:	#swing from facing 6 to 5
+				Start: 8
+				FlipX: true
+			madc-larm0062:
+				Start: 7
+				FlipX: true
+			madc-larm0062:
+				Start: 6
+				FlipX: true
+			madc-larm0062:
+				Start: 5
+				FlipX: true
+			madc-larm0062:
+				Start: 4
+				FlipX: true
+			madc-larm0062:
+				Start: 3
+				FlipX: true
+			madc-larm0062:
+				Start: 2
+				FlipX: true
+			madc-larm0062:
+				Start: 1
+				FlipX: true
+			madc-larm0062:
+				FlipX: true
+			madc-larm0063:	#swing from facing 5 to 4
+				Start: 8
+				FlipX: true
+			madc-larm0063:
+				Start: 7
+				FlipX: true
+			madc-larm0063:
+				Start: 6
+				FlipX: true
+			madc-larm0063:
+				Start: 5
+				FlipX: true
+			madc-larm0063:
+				Start: 4
+				FlipX: true
+			madc-larm0063:
+				Start: 3
+				FlipX: true
+			madc-larm0063:
+				Start: 2
+				FlipX: true
+			madc-larm0063:
+				Start: 1
+				FlipX: true
+			madc-larm0063:
+				FlipX: true
+			madc-larm0063:	#swing from facing 4 to 5
+				FlipX: true
+				Length: 9
+			### facing 6
+			madc-larm0061:	#swing from facing 6 to 7
+				FlipX: true
+				Length: 9
+			madc-larm0061:	#swing from facing 7 to 6
+				Start: 8
+				FlipX: true
+			madc-larm0061:
+				Start: 7
+				FlipX: true
+			madc-larm0061:
+				Start: 6
+				FlipX: true
+			madc-larm0061:
+				Start: 5
+				FlipX: true
+			madc-larm0061:
+				Start: 4
+				FlipX: true
+			madc-larm0061:
+				Start: 3
+				FlipX: true
+			madc-larm0061:
+				Start: 2
+				FlipX: true
+			madc-larm0061:
+				Start: 1
+				FlipX: true
+			madc-larm0061:
+				FlipX: true
+			madc-larm0062:	#swing from facing 6 to 5
+				Start: 8
+				FlipX: true
+			madc-larm0062:
+				Start: 7
+				FlipX: true
+			madc-larm0062:
+				Start: 6
+				FlipX: true
+			madc-larm0062:
+				Start: 5
+				FlipX: true
+			madc-larm0062:
+				Start: 4
+				FlipX: true
+			madc-larm0062:
+				Start: 3
+				FlipX: true
+			madc-larm0062:
+				Start: 2
+				FlipX: true
+			madc-larm0062:
+				Start: 1
+				FlipX: true
+			madc-larm0062:
+				FlipX: true
+			madc-larm0062:	#swing from facing 5 to 6
+				FlipX: true
+				Length: 9
+			### facing 7
+			madc-larm0060:	#swing from facing 7 to 8
+				FlipX: true
+				Length: 9
+			madc-larm0060:	#swing from facing 8 to 7
+				Start: 8
+				FlipX: true
+			madc-larm0060:
+				Start: 7
+				FlipX: true
+			madc-larm0060:
+				Start: 6
+				FlipX: true
+			madc-larm0060:
+				Start: 5
+				FlipX: true
+			madc-larm0060:
+				Start: 4
+				FlipX: true
+			madc-larm0060:
+				Start: 3
+				FlipX: true
+			madc-larm0060:
+				Start: 2
+				FlipX: true
+			madc-larm0060:
+				Start: 1
+				FlipX: true
+			madc-larm0060:
+				FlipX: true
+			madc-larm0061:	#swing from facing 7 to 6
+				Start: 8
+				FlipX: true
+			madc-larm0061:
+				Start: 7
+				FlipX: true
+			madc-larm0061:
+				Start: 6
+				FlipX: true
+			madc-larm0061:
+				Start: 5
+				FlipX: true
+			madc-larm0061:
+				Start: 4
+				FlipX: true
+			madc-larm0061:
+				Start: 3
+				FlipX: true
+			madc-larm0061:
+				Start: 2
+				FlipX: true
+			madc-larm0061:
+				Start: 1
+				FlipX: true
+			madc-larm0061:
+				FlipX: true
+			madc-larm0061:	#swing from facing 6 to 7
+				FlipX: true
+				Length: 9
+			### facing 8
+			madc-larm0059:	#swing from facing 8 to 9
+				FlipX: true
+				Length: 9
+			madc-larm0059:	#swing from facing 9 to 8
+				Start: 8
+				FlipX: true
+			madc-larm0059:
+				Start: 7
+				FlipX: true
+			madc-larm0059:
+				Start: 6
+				FlipX: true
+			madc-larm0059:
+				Start: 5
+				FlipX: true
+			madc-larm0059:
+				Start: 4
+				FlipX: true
+			madc-larm0059:
+				Start: 3
+				FlipX: true
+			madc-larm0059:
+				Start: 2
+				FlipX: true
+			madc-larm0059:
+				Start: 1
+				FlipX: true
+			madc-larm0059:
+				FlipX: true
+			madc-larm0060:	#swing from facing 8 to 7
+				Start: 8
+				FlipX: true
+			madc-larm0060:
+				Start: 7
+				FlipX: true
+			madc-larm0060:
+				Start: 6
+				FlipX: true
+			madc-larm0060:
+				Start: 5
+				FlipX: true
+			madc-larm0060:
+				Start: 4
+				FlipX: true
+			madc-larm0060:
+				Start: 3
+				FlipX: true
+			madc-larm0060:
+				Start: 2
+				FlipX: true
+			madc-larm0060:
+				Start: 1
+				FlipX: true
+			madc-larm0060:
+				FlipX: true
+			madc-larm0060:	#swing from facing 7 to 8
+				FlipX: true
+				Length: 9
+			### facing 9
+			madc-larm0058:	#swing from facing 9 to 10
+				FlipX: true
+				Length: 9
+			madc-larm0058:	#swing from facing 10 to 9
+				Start: 8
+				FlipX: true
+			madc-larm0058:
+				Start: 7
+				FlipX: true
+			madc-larm0058:
+				Start: 6
+				FlipX: true
+			madc-larm0058:
+				Start: 5
+				FlipX: true
+			madc-larm0058:
+				Start: 4
+				FlipX: true
+			madc-larm0058:
+				Start: 3
+				FlipX: true
+			madc-larm0058:
+				Start: 2
+				FlipX: true
+			madc-larm0058:
+				Start: 1
+				FlipX: true
+			madc-larm0058:
+				FlipX: true
+			madc-larm0059:	#swing from facing 9 to 8
+				Start: 8
+				FlipX: true
+			madc-larm0059:
+				Start: 7
+				FlipX: true
+			madc-larm0059:
+				Start: 6
+				FlipX: true
+			madc-larm0059:
+				Start: 5
+				FlipX: true
+			madc-larm0059:
+				Start: 4
+				FlipX: true
+			madc-larm0059:
+				Start: 3
+				FlipX: true
+			madc-larm0059:
+				Start: 2
+				FlipX: true
+			madc-larm0059:
+				Start: 1
+				FlipX: true
+			madc-larm0059:
+				FlipX: true
+			madc-larm0059:	#swing from facing 8 to 9
+				FlipX: true
+				Length: 9
+			### facing 10
+			madc-larm0057:	#swing from facing 10 to 11
+				FlipX: true
+				Length: 9
+			madc-larm0057:	#swing from facing 11 to 10
+				Start: 8
+				FlipX: true
+			madc-larm0057:
+				Start: 7
+				FlipX: true
+			madc-larm0057:
+				Start: 6
+				FlipX: true
+			madc-larm0057:
+				Start: 5
+				FlipX: true
+			madc-larm0057:
+				Start: 4
+				FlipX: true
+			madc-larm0057:
+				Start: 3
+				FlipX: true
+			madc-larm0057:
+				Start: 2
+				FlipX: true
+			madc-larm0057:
+				Start: 1
+				FlipX: true
+			madc-larm0057:
+				FlipX: true
+			madc-larm0058:	#swing from facing 10 to 9
+				Start: 8
+				FlipX: true
+			madc-larm0058:
+				Start: 7
+				FlipX: true
+			madc-larm0058:
+				Start: 6
+				FlipX: true
+			madc-larm0058:
+				Start: 5
+				FlipX: true
+			madc-larm0058:
+				Start: 4
+				FlipX: true
+			madc-larm0058:
+				Start: 3
+				FlipX: true
+			madc-larm0058:
+				Start: 2
+				FlipX: true
+			madc-larm0058:
+				Start: 1
+				FlipX: true
+			madc-larm0058:
+				FlipX: true
+			madc-larm0058:	#swing from facing 9 to 10
+				FlipX: true
+				Length: 9
+			### facing 11
+			madc-larm0056:	#swing from facing 11 to 12
+				FlipX: true
+				Length: 9
+			madc-larm0056:	#swing from facing 12 to 11
+				Start: 8
+				FlipX: true
+			madc-larm0056:
+				Start: 7
+				FlipX: true
+			madc-larm0056:
+				Start: 6
+				FlipX: true
+			madc-larm0056:
+				Start: 5
+				FlipX: true
+			madc-larm0056:
+				Start: 4
+				FlipX: true
+			madc-larm0056:
+				Start: 3
+				FlipX: true
+			madc-larm0056:
+				Start: 2
+				FlipX: true
+			madc-larm0056:
+				Start: 1
+				FlipX: true
+			madc-larm0056:
+				FlipX: true
+			madc-larm0057:	#swing from facing 11 to 10
+				Start: 8
+				FlipX: true
+			madc-larm0057:
+				Start: 7
+				FlipX: true
+			madc-larm0057:
+				Start: 6
+				FlipX: true
+			madc-larm0057:
+				Start: 5
+				FlipX: true
+			madc-larm0057:
+				Start: 4
+				FlipX: true
+			madc-larm0057:
+				Start: 3
+				FlipX: true
+			madc-larm0057:
+				Start: 2
+				FlipX: true
+			madc-larm0057:
+				Start: 1
+				FlipX: true
+			madc-larm0057:
+				FlipX: true
+			madc-larm0057:	#swing from facing 10 to 11
+				FlipX: true
+				Length: 9
+			### facing 12
+			madc-larm0055:	#swing from facing 12 to 13
+				FlipX: true
+				Length: 9
+			madc-larm0055:	#swing from facing 13 to 12
+				Start: 8
+				FlipX: true
+			madc-larm0055:
+				Start: 7
+				FlipX: true
+			madc-larm0055:
+				Start: 6
+				FlipX: true
+			madc-larm0055:
+				Start: 5
+				FlipX: true
+			madc-larm0055:
+				Start: 4
+				FlipX: true
+			madc-larm0055:
+				Start: 3
+				FlipX: true
+			madc-larm0055:
+				Start: 2
+				FlipX: true
+			madc-larm0055:
+				Start: 1
+				FlipX: true
+			madc-larm0055:
+				FlipX: true
+			madc-larm0056:	#swing from facing 12 to 11
+				Start: 8
+				FlipX: true
+			madc-larm0056:
+				Start: 7
+				FlipX: true
+			madc-larm0056:
+				Start: 6
+				FlipX: true
+			madc-larm0056:
+				Start: 5
+				FlipX: true
+			madc-larm0056:
+				Start: 4
+				FlipX: true
+			madc-larm0056:
+				Start: 3
+				FlipX: true
+			madc-larm0056:
+				Start: 2
+				FlipX: true
+			madc-larm0056:
+				Start: 1
+				FlipX: true
+			madc-larm0056:
+				FlipX: true
+			madc-larm0056:	#swing from facing 11 to 12
+				FlipX: true
+				Length: 9
+			### facing 13
+			madc-larm0054:	#swing from facing 13 to 14
+				FlipX: true
+				Length: 9
+			madc-larm0054:	#swing from facing 14 to 13
+				Start: 8
+				FlipX: true
+			madc-larm0054:
+				Start: 7
+				FlipX: true
+			madc-larm0054:
+				Start: 6
+				FlipX: true
+			madc-larm0054:
+				Start: 5
+				FlipX: true
+			madc-larm0054:
+				Start: 4
+				FlipX: true
+			madc-larm0054:
+				Start: 3
+				FlipX: true
+			madc-larm0054:
+				Start: 2
+				FlipX: true
+			madc-larm0054:
+				Start: 1
+				FlipX: true
+			madc-larm0054:
+				FlipX: true
+			madc-larm0055:	#swing from facing 13 to 12
+				Start: 8
+				FlipX: true
+			madc-larm0055:
+				Start: 7
+				FlipX: true
+			madc-larm0055:
+				Start: 6
+				FlipX: true
+			madc-larm0055:
+				Start: 5
+				FlipX: true
+			madc-larm0055:
+				Start: 4
+				FlipX: true
+			madc-larm0055:
+				Start: 3
+				FlipX: true
+			madc-larm0055:
+				Start: 2
+				FlipX: true
+			madc-larm0055:
+				Start: 1
+				FlipX: true
+			madc-larm0055:
+				FlipX: true
+			madc-larm0055:	#swing from facing 12 to 13
+				FlipX: true
+				Length: 9
+			### facing 14
+			madc-larm0053:	#swing from facing 14 to 15
+				FlipX: true
+				Length: 9
+			madc-larm0053:	#swing from facing 15 to 14
+				Start: 8
+				FlipX: true
+			madc-larm0053:
+				Start: 7
+				FlipX: true
+			madc-larm0053:
+				Start: 6
+				FlipX: true
+			madc-larm0053:
+				Start: 5
+				FlipX: true
+			madc-larm0053:
+				Start: 4
+				FlipX: true
+			madc-larm0053:
+				Start: 3
+				FlipX: true
+			madc-larm0053:
+				Start: 2
+				FlipX: true
+			madc-larm0053:
+				Start: 1
+				FlipX: true
+			madc-larm0053:
+				FlipX: true
+			madc-larm0054:	#swing from facing 14 to 13
+				Start: 8
+				FlipX: true
+			madc-larm0054:
+				Start: 7
+				FlipX: true
+			madc-larm0054:
+				Start: 6
+				FlipX: true
+			madc-larm0054:
+				Start: 5
+				FlipX: true
+			madc-larm0054:
+				Start: 4
+				FlipX: true
+			madc-larm0054:
+				Start: 3
+				FlipX: true
+			madc-larm0054:
+				Start: 2
+				FlipX: true
+			madc-larm0054:
+				Start: 1
+				FlipX: true
+			madc-larm0054:
+				FlipX: true
+			madc-larm0054:	#swing from facing 13 to 14
+				FlipX: true
+				Length: 9
+			### facing 15
+			madc-larm0052:	#swing from facing 15 to 16
+				FlipX: true
+				Length: 9
+			madc-larm0052:	#swing from facing 16 to 15
+				Start: 8
+				FlipX: true
+			madc-larm0052:
+				Start: 7
+				FlipX: true
+			madc-larm0052:
+				Start: 6
+				FlipX: true
+			madc-larm0052:
+				Start: 5
+				FlipX: true
+			madc-larm0052:
+				Start: 4
+				FlipX: true
+			madc-larm0052:
+				Start: 3
+				FlipX: true
+			madc-larm0052:
+				Start: 2
+				FlipX: true
+			madc-larm0052:
+				Start: 1
+				FlipX: true
+			madc-larm0052:
+				FlipX: true
+			madc-larm0053:	#swing from facing 15 to 14
+				Start: 8
+				FlipX: true
+			madc-larm0053:
+				Start: 7
+				FlipX: true
+			madc-larm0053:
+				Start: 6
+				FlipX: true
+			madc-larm0053:
+				Start: 5
+				FlipX: true
+			madc-larm0053:
+				Start: 4
+				FlipX: true
+			madc-larm0053:
+				Start: 3
+				FlipX: true
+			madc-larm0053:
+				Start: 2
+				FlipX: true
+			madc-larm0053:
+				Start: 1
+				FlipX: true
+			madc-larm0053:
+				FlipX: true
+			madc-larm0053:	#swing from facing 14 to 15
+				FlipX: true
+				Length: 9
+			### facing 16 (south)
+			madc-larm0051:	#swing from facing 16 to 15
+				Length: 9
+			madc-larm0051:	#swing from facing 15 to 16
+				Start: 8
+			madc-larm0051:
+				Start: 7
+			madc-larm0051:
+				Start: 6
+			madc-larm0051:
+				Start: 5
+			madc-larm0051:
+				Start: 4
+			madc-larm0051:
+				Start: 3
+			madc-larm0051:
+				Start: 2
+			madc-larm0051:
+				Start: 1
+			madc-larm0051:
+			madc-larm0052:	#swing from facing 16 to 17
+				Start: 8
+			madc-larm0052:
+				Start: 7
+			madc-larm0052:
+				Start: 6
+			madc-larm0052:
+				Start: 5
+			madc-larm0052:
+				Start: 4
+			madc-larm0052:
+				Start: 3
+			madc-larm0052:
+				Start: 2
+			madc-larm0052:
+				Start: 1
+			madc-larm0052:
+			madc-larm0052:	#swing from facing 17 to 16
+				Length: 9
+			### facing 17
+			madc-larm0052:	#swing from facing 17 to 16
+				Length: 9
+			madc-larm0052:	#swing from facing 16 to 17
+				Start: 8
+			madc-larm0052:
+				Start: 7
+			madc-larm0052:
+				Start: 6
+			madc-larm0052:
+				Start: 5
+			madc-larm0052:
+				Start: 4
+			madc-larm0052:
+				Start: 3
+			madc-larm0052:
+				Start: 2
+			madc-larm0052:
+				Start: 1
+			madc-larm0052:
+			madc-larm0053:	#swing from facing 17 to 18
+				Start: 8
+			madc-larm0053:
+				Start: 7
+			madc-larm0053:
+				Start: 6
+			madc-larm0053:
+				Start: 5
+			madc-larm0053:
+				Start: 4
+			madc-larm0053:
+				Start: 3
+			madc-larm0053:
+				Start: 2
+			madc-larm0053:
+				Start: 1
+			madc-larm0053:
+			madc-larm0053:	#swing from facing 18 to 17
+				Length: 9
+			### facing 18
+			madc-larm0053:	#swing from facing 18 to 17
+				Length: 9
+			madc-larm0053:	#swing from facing 17 to 18
+				Start: 8
+			madc-larm0053:
+				Start: 7
+			madc-larm0053:
+				Start: 6
+			madc-larm0053:
+				Start: 5
+			madc-larm0053:
+				Start: 4
+			madc-larm0053:
+				Start: 3
+			madc-larm0053:
+				Start: 2
+			madc-larm0053:
+				Start: 1
+			madc-larm0053:
+			madc-larm0054:	#swing from facing 18 to 19
+				Start: 8
+			madc-larm0054:
+				Start: 7
+			madc-larm0054:
+				Start: 6
+			madc-larm0054:
+				Start: 5
+			madc-larm0054:
+				Start: 4
+			madc-larm0054:
+				Start: 3
+			madc-larm0054:
+				Start: 2
+			madc-larm0054:
+				Start: 1
+			madc-larm0054:
+			madc-larm0054:	#swing from facing 19 to 18
+				Length: 9
+			### facing 19
+			madc-larm0054:	#swing from facing 19 to 18
+				Length: 9
+			madc-larm0054:	#swing from facing 18 to 19
+				Start: 8
+			madc-larm0054:
+				Start: 7
+			madc-larm0054:
+				Start: 6
+			madc-larm0054:
+				Start: 5
+			madc-larm0054:
+				Start: 4
+			madc-larm0054:
+				Start: 3
+			madc-larm0054:
+				Start: 2
+			madc-larm0054:
+				Start: 1
+			madc-larm0054:
+			madc-larm0055:	#swing from facing 19 to 20
+				Start: 8
+			madc-larm0055:
+				Start: 7
+			madc-larm0055:
+				Start: 6
+			madc-larm0055:
+				Start: 5
+			madc-larm0055:
+				Start: 4
+			madc-larm0055:
+				Start: 3
+			madc-larm0055:
+				Start: 2
+			madc-larm0055:
+				Start: 1
+			madc-larm0055:
+			madc-larm0055:	#swing from facing 20 to 19
+				Length: 9
+			### facing 20
+			madc-larm0055:	#swing from facing 20 to 19
+				Length: 9
+			madc-larm0055:	#swing from facing 19 to 20
+				Start: 8
+			madc-larm0055:
+				Start: 7
+			madc-larm0055:
+				Start: 6
+			madc-larm0055:
+				Start: 5
+			madc-larm0055:
+				Start: 4
+			madc-larm0055:
+				Start: 3
+			madc-larm0055:
+				Start: 2
+			madc-larm0055:
+				Start: 1
+			madc-larm0055:
+			madc-larm0056:	#swing from facing 20 to 21
+				Start: 8
+			madc-larm0056:
+				Start: 7
+			madc-larm0056:
+				Start: 6
+			madc-larm0056:
+				Start: 5
+			madc-larm0056:
+				Start: 4
+			madc-larm0056:
+				Start: 3
+			madc-larm0056:
+				Start: 2
+			madc-larm0056:
+				Start: 1
+			madc-larm0056:
+			madc-larm0056:	#swing from facing 21 to 20
+				Length: 9
+			### facing 21
+			madc-larm0056:	#swing from facing 21 to 20
+				Length: 9
+			madc-larm0056:	#swing from facing 20 to 21
+				Start: 8
+			madc-larm0056:
+				Start: 7
+			madc-larm0056:
+				Start: 6
+			madc-larm0056:
+				Start: 5
+			madc-larm0056:
+				Start: 4
+			madc-larm0056:
+				Start: 3
+			madc-larm0056:
+				Start: 2
+			madc-larm0056:
+				Start: 1
+			madc-larm0056:
+			madc-larm0057:	#swing from facing 21 to 22
+				Start: 8
+			madc-larm0057:
+				Start: 7
+			madc-larm0057:
+				Start: 6
+			madc-larm0057:
+				Start: 5
+			madc-larm0057:
+				Start: 4
+			madc-larm0057:
+				Start: 3
+			madc-larm0057:
+				Start: 2
+			madc-larm0057:
+				Start: 1
+			madc-larm0057:
+			madc-larm0057:	#swing from facing 22 to 21
+				Length: 9
+			### facing 22
+			madc-larm0057:	#swing from facing 22 to 21
+				Length: 9
+			madc-larm0057:	#swing from facing 21 to 22
+				Start: 8
+			madc-larm0057:
+				Start: 7
+			madc-larm0057:
+				Start: 6
+			madc-larm0057:
+				Start: 5
+			madc-larm0057:
+				Start: 4
+			madc-larm0057:
+				Start: 3
+			madc-larm0057:
+				Start: 2
+			madc-larm0057:
+				Start: 1
+			madc-larm0057:
+			madc-larm0058:	#swing from facing 22 to 23
+				Start: 8
+			madc-larm0058:
+				Start: 7
+			madc-larm0058:
+				Start: 6
+			madc-larm0058:
+				Start: 5
+			madc-larm0058:
+				Start: 4
+			madc-larm0058:
+				Start: 3
+			madc-larm0058:
+				Start: 2
+			madc-larm0058:
+				Start: 1
+			madc-larm0058:
+			madc-larm0058:	#swing from facing 23 to 22
+				Length: 9
+			### facing 23
+			madc-larm0058:	#swing from facing 23 to 22
+				Length: 9
+			madc-larm0058:	#swing from facing 22 to 23
+				Start: 8
+			madc-larm0058:
+				Start: 7
+			madc-larm0058:
+				Start: 6
+			madc-larm0058:
+				Start: 5
+			madc-larm0058:
+				Start: 4
+			madc-larm0058:
+				Start: 3
+			madc-larm0058:
+				Start: 2
+			madc-larm0058:
+				Start: 1
+			madc-larm0058:
+			madc-larm0059:	#swing from facing 23 to 24
+				Start: 8
+			madc-larm0059:
+				Start: 7
+			madc-larm0059:
+				Start: 6
+			madc-larm0059:
+				Start: 5
+			madc-larm0059:
+				Start: 4
+			madc-larm0059:
+				Start: 3
+			madc-larm0059:
+				Start: 2
+			madc-larm0059:
+				Start: 1
+			madc-larm0059:
+			madc-larm0059:	#swing from facing 24 to 23
+				Length: 9
+			### facing 24
+			madc-larm0059:	#swing from facing 24 to 23
+				Length: 9
+			madc-larm0059:	#swing from facing 23 to 24
+				Start: 8
+			madc-larm0059:
+				Start: 7
+			madc-larm0059:
+				Start: 6
+			madc-larm0059:
+				Start: 5
+			madc-larm0059:
+				Start: 4
+			madc-larm0059:
+				Start: 3
+			madc-larm0059:
+				Start: 2
+			madc-larm0059:
+				Start: 1
+			madc-larm0059:
+			madc-larm0060:	#swing from facing 24 to 25
+				Start: 8
+			madc-larm0060:
+				Start: 7
+			madc-larm0060:
+				Start: 6
+			madc-larm0060:
+				Start: 5
+			madc-larm0060:
+				Start: 4
+			madc-larm0060:
+				Start: 3
+			madc-larm0060:
+				Start: 2
+			madc-larm0060:
+				Start: 1
+			madc-larm0060:
+			madc-larm0060:	#swing from facing 25 to 24
+				Length: 9
+			### facing 25
+			madc-larm0060:	#swing from facing 25 to 24
+				Length: 9
+			madc-larm0060:	#swing from facing 24 to 25
+				Start: 8
+			madc-larm0060:
+				Start: 7
+			madc-larm0060:
+				Start: 6
+			madc-larm0060:
+				Start: 5
+			madc-larm0060:
+				Start: 4
+			madc-larm0060:
+				Start: 3
+			madc-larm0060:
+				Start: 2
+			madc-larm0060:
+				Start: 1
+			madc-larm0060:
+			madc-larm0061:	#swing from facing 25 to 26
+				Start: 8
+			madc-larm0061:
+				Start: 7
+			madc-larm0061:
+				Start: 6
+			madc-larm0061:
+				Start: 5
+			madc-larm0061:
+				Start: 4
+			madc-larm0061:
+				Start: 3
+			madc-larm0061:
+				Start: 2
+			madc-larm0061:
+				Start: 1
+			madc-larm0061:
+			madc-larm0061:	#swing from facing 26 to 25
+				Length: 9
+			### facing 26
+			madc-larm0061:	#swing from facing 26 to 25
+				Length: 9
+			madc-larm0061:	#swing from facing 25 to 26
+				Start: 8
+			madc-larm0061:
+				Start: 7
+			madc-larm0061:
+				Start: 6
+			madc-larm0061:
+				Start: 5
+			madc-larm0061:
+				Start: 4
+			madc-larm0061:
+				Start: 3
+			madc-larm0061:
+				Start: 2
+			madc-larm0061:
+				Start: 1
+			madc-larm0061:
+			madc-larm0062:	#swing from facing 26 to 27
+				Start: 8
+			madc-larm0062:
+				Start: 7
+			madc-larm0062:
+				Start: 6
+			madc-larm0062:
+				Start: 5
+			madc-larm0062:
+				Start: 4
+			madc-larm0062:
+				Start: 3
+			madc-larm0062:
+				Start: 2
+			madc-larm0062:
+				Start: 1
+			madc-larm0062:
+			madc-larm0062:	#swing from facing 27 to 26
+				Length: 9
+			### facing 27
+			madc-larm0062:	#swing from facing 27 to 26
+				Length: 9
+			madc-larm0062:	#swing from facing 26 to 27
+				Start: 8
+			madc-larm0062:
+				Start: 7
+			madc-larm0062:
+				Start: 6
+			madc-larm0062:
+				Start: 5
+			madc-larm0062:
+				Start: 4
+			madc-larm0062:
+				Start: 3
+			madc-larm0062:
+				Start: 2
+			madc-larm0062:
+				Start: 1
+			madc-larm0062:
+			madc-larm0063:	#swing from facing 27 to 28
+				Start: 8
+			madc-larm0063:
+				Start: 7
+			madc-larm0063:
+				Start: 6
+			madc-larm0063:
+				Start: 5
+			madc-larm0063:
+				Start: 4
+			madc-larm0063:
+				Start: 3
+			madc-larm0063:
+				Start: 2
+			madc-larm0063:
+				Start: 1
+			madc-larm0063:
+			madc-larm0063:	#swing from facing 28 to 27
+				Length: 9
+			### facing 28
+			madc-larm0063:	#swing from facing 28 to 27
+				Length: 9
+			madc-larm0063:	#swing from facing 27 to 28
+				Start: 8
+			madc-larm0063:
+				Start: 7
+			madc-larm0063:
+				Start: 6
+			madc-larm0063:
+				Start: 5
+			madc-larm0063:
+				Start: 4
+			madc-larm0063:
+				Start: 3
+			madc-larm0063:
+				Start: 2
+			madc-larm0063:
+				Start: 1
+			madc-larm0063:
+			madc-larm0064:	#swing from facing 28 to 29
+				Start: 8
+			madc-larm0064:
+				Start: 7
+			madc-larm0064:
+				Start: 6
+			madc-larm0064:
+				Start: 5
+			madc-larm0064:
+				Start: 4
+			madc-larm0064:
+				Start: 3
+			madc-larm0064:
+				Start: 2
+			madc-larm0064:
+				Start: 1
+			madc-larm0064:
+			madc-larm0064:	#swing from facing 29 to 28
+				Length: 9
+			### facing 29
+			madc-larm0064:	#swing from facing 29 to 28
+				Length: 9
+			madc-larm0064:	#swing from facing 28 to 29
+				Start: 8
+			madc-larm0064:
+				Start: 7
+			madc-larm0064:
+				Start: 6
+			madc-larm0064:
+				Start: 5
+			madc-larm0064:
+				Start: 4
+			madc-larm0064:
+				Start: 3
+			madc-larm0064:
+				Start: 2
+			madc-larm0064:
+				Start: 1
+			madc-larm0064:
+			madc-larm0065:	#swing from facing 29 to 30
+				Start: 8
+			madc-larm0065:
+				Start: 7
+			madc-larm0065:
+				Start: 6
+			madc-larm0065:
+				Start: 5
+			madc-larm0065:
+				Start: 4
+			madc-larm0065:
+				Start: 3
+			madc-larm0065:
+				Start: 2
+			madc-larm0065:
+				Start: 1
+			madc-larm0065:
+			madc-larm0065:	#swing from facing 30 to 29
+				Length: 9
+			### facing 30
+			madc-larm0065:	#swing from facing 30 to 29
+				Length: 9
+			madc-larm0065:	#swing from facing 29 to 30
+				Start: 8
+			madc-larm0065:
+				Start: 7
+			madc-larm0065:
+				Start: 6
+			madc-larm0065:
+				Start: 5
+			madc-larm0065:
+				Start: 4
+			madc-larm0065:
+				Start: 3
+			madc-larm0065:
+				Start: 2
+			madc-larm0065:
+				Start: 1
+			madc-larm0065:
+			madc-larm0066:	#swing from facing 30 to 31
+				Start: 8
+			madc-larm0066:
+				Start: 7
+			madc-larm0066:
+				Start: 6
+			madc-larm0066:
+				Start: 5
+			madc-larm0066:
+				Start: 4
+			madc-larm0066:
+				Start: 3
+			madc-larm0066:
+				Start: 2
+			madc-larm0066:
+				Start: 1
+			madc-larm0066:
+			madc-larm0066:	#swing from facing 31 to 30
+				Length: 9
+			### facing 31
+			madc-larm0066:	#swing from facing 31 to 30
+				Length: 9
+			madc-larm0066:	#swing from facing 30 to 31
+				Start: 8
+			madc-larm0066:
+				Start: 7
+			madc-larm0066:
+				Start: 6
+			madc-larm0066:
+				Start: 5
+			madc-larm0066:
+				Start: 4
+			madc-larm0066:
+				Start: 3
+			madc-larm0066:
+				Start: 2
+			madc-larm0066:
+				Start: 1
+			madc-larm0066:
+			madc-larm0067:	#swing from facing 31 to 0
+				Start: 8
+			madc-larm0067:
+				Start: 7
+			madc-larm0067:
+				Start: 6
+			madc-larm0067:
+				Start: 5
+			madc-larm0067:
+				Start: 4
+			madc-larm0067:
+				Start: 3
+			madc-larm0067:
+				Start: 2
+			madc-larm0067:
+				Start: 1
+			madc-larm0067:
+			madc-larm0067:	#swing from facing 0 to 31
+				Length: 9
+		Facings: 32
+		Length: 36
+		Tick: 60
+	rarm-moving:
+		Combine:
+			madc-rarm0067:	#swing from facing 0 to 31
+				Length: 9
+			madc-rarm0067:	#swing from facing 31 to 0
+				Start: 8
+			madc-rarm0067:
+				Start: 7
+			madc-rarm0067:
+				Start: 6
+			madc-rarm0067:
+				Start: 5
+			madc-rarm0067:
+				Start: 4
+			madc-rarm0067:
+				Start: 3
+			madc-rarm0067:
+				Start: 2
+			madc-rarm0067:
+				Start: 1
+			madc-rarm0067:
+			madc-rarm0067:	#swing from facing 0 to 1
+				Length: 9
+				FlipX: true
+			madc-rarm0067:	#swing from facing 1 to 0
+				Start: 8
+				FlipX: true
+			madc-rarm0067:
+				Start: 7
+				FlipX: true
+			madc-rarm0067:
+				Start: 6
+				FlipX: true
+			madc-rarm0067:
+				Start: 5
+				FlipX: true
+			madc-rarm0067:
+				Start: 4
+				FlipX: true
+			madc-rarm0067:
+				Start: 3
+				FlipX: true
+			madc-rarm0067:
+				Start: 2
+				FlipX: true
+			madc-rarm0067:
+				Start: 1
+				FlipX: true
+			madc-rarm0067:
+				FlipX: true
+			### facing 1
+			madc-rarm0067:	#swing from facing 1 to 0
+				Start: 8
+				FlipX: true
+			madc-rarm0067:
+				Start: 7
+				FlipX: true
+			madc-rarm0067:
+				Start: 6
+				FlipX: true
+			madc-rarm0067:
+				Start: 5
+				FlipX: true
+			madc-rarm0067:
+				Start: 4
+				FlipX: true
+			madc-rarm0067:
+				Start: 3
+				FlipX: true
+			madc-rarm0067:
+				Start: 2
+				FlipX: true
+			madc-rarm0067:
+				Start: 1
+				FlipX: true
+			madc-rarm0067:
+				FlipX: true
+			madc-rarm0067:	#swing from facing 0 to 1
+				Length: 9
+				FlipX: true
+			madc-rarm0066:	#swing from facing 1 to 2
+				FlipX: true
+				Length: 9
+			madc-rarm0066:	#swing from facing 2 to 1
+				Start: 8
+				FlipX: true
+			madc-rarm0066:
+				Start: 7
+				FlipX: true
+			madc-rarm0066:
+				Start: 6
+				FlipX: true
+			madc-rarm0066:
+				Start: 5
+				FlipX: true
+			madc-rarm0066:
+				Start: 4
+				FlipX: true
+			madc-rarm0066:
+				Start: 3
+				FlipX: true
+			madc-rarm0066:
+				Start: 2
+				FlipX: true
+			madc-rarm0066:
+				Start: 1
+				FlipX: true
+			madc-rarm0066:
+				FlipX: true
+			### facing 2
+			madc-rarm0065:	#swing from facing 2 to 3
+				FlipX: true
+				Length: 9
+			madc-rarm0065:	#swing from facing 3 to 2
+				Start: 8
+				FlipX: true
+			madc-rarm0065:
+				Start: 7
+				FlipX: true
+			madc-rarm0065:
+				Start: 6
+				FlipX: true
+			madc-rarm0065:
+				Start: 5
+				FlipX: true
+			madc-rarm0065:
+				Start: 4
+				FlipX: true
+			madc-rarm0065:
+				Start: 3
+				FlipX: true
+			madc-rarm0065:
+				Start: 2
+				FlipX: true
+			madc-rarm0065:
+				Start: 1
+				FlipX: true
+			madc-rarm0065:
+				FlipX: true
+			madc-rarm0066:	#swing from facing 2 to 1
+				Start: 8
+				FlipX: true
+			madc-rarm0066:
+				Start: 7
+				FlipX: true
+			madc-rarm0066:
+				Start: 6
+				FlipX: true
+			madc-rarm0066:
+				Start: 5
+				FlipX: true
+			madc-rarm0066:
+				Start: 4
+				FlipX: true
+			madc-rarm0066:
+				Start: 3
+				FlipX: true
+			madc-rarm0066:
+				Start: 2
+				FlipX: true
+			madc-rarm0066:
+				Start: 1
+				FlipX: true
+			madc-rarm0066:
+				FlipX: true
+			madc-rarm0066:	#swing from facing 1 to 2
+				FlipX: true
+				Length: 9
+			### facing 3
+			madc-rarm0064:	#swing from facing 3 to 4
+				FlipX: true
+				Length: 9
+			madc-rarm0064:	#swing from facing 4 to 3
+				Start: 8
+				FlipX: true
+			madc-rarm0064:
+				Start: 7
+				FlipX: true
+			madc-rarm0064:
+				Start: 6
+				FlipX: true
+			madc-rarm0064:
+				Start: 5
+				FlipX: true
+			madc-rarm0064:
+				Start: 4
+				FlipX: true
+			madc-rarm0064:
+				Start: 3
+				FlipX: true
+			madc-rarm0064:
+				Start: 2
+				FlipX: true
+			madc-rarm0064:
+				Start: 1
+				FlipX: true
+			madc-rarm0064:
+				FlipX: true
+			madc-rarm0065:	#swing from facing 3 to 2
+				Start: 8
+				FlipX: true
+			madc-rarm0065:
+				Start: 7
+				FlipX: true
+			madc-rarm0065:
+				Start: 6
+				FlipX: true
+			madc-rarm0065:
+				Start: 5
+				FlipX: true
+			madc-rarm0065:
+				Start: 4
+				FlipX: true
+			madc-rarm0065:
+				Start: 3
+				FlipX: true
+			madc-rarm0065:
+				Start: 2
+				FlipX: true
+			madc-rarm0065:
+				Start: 1
+				FlipX: true
+			madc-rarm0065:
+				FlipX: true
+			madc-rarm0065:	#swing from facing 2 to 3
+				FlipX: true
+				Length: 9
+			### facing 4
+			madc-rarm0063:	#swing from facing 4 to 5
+				FlipX: true
+				Length: 9
+			madc-rarm0063:	#swing from facing 5 to 4
+				Start: 8
+				FlipX: true
+			madc-rarm0063:
+				Start: 7
+				FlipX: true
+			madc-rarm0063:
+				Start: 6
+				FlipX: true
+			madc-rarm0063:
+				Start: 5
+				FlipX: true
+			madc-rarm0063:
+				Start: 4
+				FlipX: true
+			madc-rarm0063:
+				Start: 3
+				FlipX: true
+			madc-rarm0063:
+				Start: 2
+				FlipX: true
+			madc-rarm0063:
+				Start: 1
+				FlipX: true
+			madc-rarm0063:
+				FlipX: true
+			madc-rarm0064:	#swing from facing 4 to 3
+				Start: 8
+				FlipX: true
+			madc-rarm0064:
+				Start: 7
+				FlipX: true
+			madc-rarm0064:
+				Start: 6
+				FlipX: true
+			madc-rarm0064:
+				Start: 5
+				FlipX: true
+			madc-rarm0064:
+				Start: 4
+				FlipX: true
+			madc-rarm0064:
+				Start: 3
+				FlipX: true
+			madc-rarm0064:
+				Start: 2
+				FlipX: true
+			madc-rarm0064:
+				Start: 1
+				FlipX: true
+			madc-rarm0064:
+				FlipX: true
+			madc-rarm0064:	#swing from facing 3 to 4
+				FlipX: true
+				Length: 9
+			### facing 5
+			madc-rarm0062:	#swing from facing 5 to 6
+				FlipX: true
+				Length: 9
+			madc-rarm0062:	#swing from facing 6 to 5
+				Start: 8
+				FlipX: true
+			madc-rarm0062:
+				Start: 7
+				FlipX: true
+			madc-rarm0062:
+				Start: 6
+				FlipX: true
+			madc-rarm0062:
+				Start: 5
+				FlipX: true
+			madc-rarm0062:
+				Start: 4
+				FlipX: true
+			madc-rarm0062:
+				Start: 3
+				FlipX: true
+			madc-rarm0062:
+				Start: 2
+				FlipX: true
+			madc-rarm0062:
+				Start: 1
+				FlipX: true
+			madc-rarm0062:
+				FlipX: true
+			madc-rarm0063:	#swing from facing 5 to 4
+				Start: 8
+				FlipX: true
+			madc-rarm0063:
+				Start: 7
+				FlipX: true
+			madc-rarm0063:
+				Start: 6
+				FlipX: true
+			madc-rarm0063:
+				Start: 5
+				FlipX: true
+			madc-rarm0063:
+				Start: 4
+				FlipX: true
+			madc-rarm0063:
+				Start: 3
+				FlipX: true
+			madc-rarm0063:
+				Start: 2
+				FlipX: true
+			madc-rarm0063:
+				Start: 1
+				FlipX: true
+			madc-rarm0063:
+				FlipX: true
+			madc-rarm0063:	#swing from facing 4 to 5
+				FlipX: true
+				Length: 9
+			### facing 6
+			madc-rarm0061:	#swing from facing 6 to 7
+				FlipX: true
+				Length: 9
+			madc-rarm0061:	#swing from facing 7 to 6
+				Start: 8
+				FlipX: true
+			madc-rarm0061:
+				Start: 7
+				FlipX: true
+			madc-rarm0061:
+				Start: 6
+				FlipX: true
+			madc-rarm0061:
+				Start: 5
+				FlipX: true
+			madc-rarm0061:
+				Start: 4
+				FlipX: true
+			madc-rarm0061:
+				Start: 3
+				FlipX: true
+			madc-rarm0061:
+				Start: 2
+				FlipX: true
+			madc-rarm0061:
+				Start: 1
+				FlipX: true
+			madc-rarm0061:
+				FlipX: true
+			madc-rarm0062:	#swing from facing 6 to 5
+				Start: 8
+				FlipX: true
+			madc-rarm0062:
+				Start: 7
+				FlipX: true
+			madc-rarm0062:
+				Start: 6
+				FlipX: true
+			madc-rarm0062:
+				Start: 5
+				FlipX: true
+			madc-rarm0062:
+				Start: 4
+				FlipX: true
+			madc-rarm0062:
+				Start: 3
+				FlipX: true
+			madc-rarm0062:
+				Start: 2
+				FlipX: true
+			madc-rarm0062:
+				Start: 1
+				FlipX: true
+			madc-rarm0062:
+				FlipX: true
+			madc-rarm0062:	#swing from facing 5 to 6
+				FlipX: true
+				Length: 9
+			### facing 7
+			madc-rarm0060:	#swing from facing 7 to 8
+				FlipX: true
+				Length: 9
+			madc-rarm0060:	#swing from facing 8 to 7
+				Start: 8
+				FlipX: true
+			madc-rarm0060:
+				Start: 7
+				FlipX: true
+			madc-rarm0060:
+				Start: 6
+				FlipX: true
+			madc-rarm0060:
+				Start: 5
+				FlipX: true
+			madc-rarm0060:
+				Start: 4
+				FlipX: true
+			madc-rarm0060:
+				Start: 3
+				FlipX: true
+			madc-rarm0060:
+				Start: 2
+				FlipX: true
+			madc-rarm0060:
+				Start: 1
+				FlipX: true
+			madc-rarm0060:
+				FlipX: true
+			madc-rarm0061:	#swing from facing 7 to 6
+				Start: 8
+				FlipX: true
+			madc-rarm0061:
+				Start: 7
+				FlipX: true
+			madc-rarm0061:
+				Start: 6
+				FlipX: true
+			madc-rarm0061:
+				Start: 5
+				FlipX: true
+			madc-rarm0061:
+				Start: 4
+				FlipX: true
+			madc-rarm0061:
+				Start: 3
+				FlipX: true
+			madc-rarm0061:
+				Start: 2
+				FlipX: true
+			madc-rarm0061:
+				Start: 1
+				FlipX: true
+			madc-rarm0061:
+				FlipX: true
+			madc-rarm0061:	#swing from facing 6 to 7
+				FlipX: true
+				Length: 9
+			### facing 8
+			madc-rarm0059:	#swing from facing 8 to 9
+				FlipX: true
+				Length: 9
+			madc-rarm0059:	#swing from facing 9 to 8
+				Start: 8
+				FlipX: true
+			madc-rarm0059:
+				Start: 7
+				FlipX: true
+			madc-rarm0059:
+				Start: 6
+				FlipX: true
+			madc-rarm0059:
+				Start: 5
+				FlipX: true
+			madc-rarm0059:
+				Start: 4
+				FlipX: true
+			madc-rarm0059:
+				Start: 3
+				FlipX: true
+			madc-rarm0059:
+				Start: 2
+				FlipX: true
+			madc-rarm0059:
+				Start: 1
+				FlipX: true
+			madc-rarm0059:
+				FlipX: true
+			madc-rarm0060:	#swing from facing 8 to 7
+				Start: 8
+				FlipX: true
+			madc-rarm0060:
+				Start: 7
+				FlipX: true
+			madc-rarm0060:
+				Start: 6
+				FlipX: true
+			madc-rarm0060:
+				Start: 5
+				FlipX: true
+			madc-rarm0060:
+				Start: 4
+				FlipX: true
+			madc-rarm0060:
+				Start: 3
+				FlipX: true
+			madc-rarm0060:
+				Start: 2
+				FlipX: true
+			madc-rarm0060:
+				Start: 1
+				FlipX: true
+			madc-rarm0060:
+				FlipX: true
+			madc-rarm0060:	#swing from facing 7 to 8
+				FlipX: true
+				Length: 9
+			### facing 9
+			madc-rarm0058:	#swing from facing 9 to 10
+				FlipX: true
+				Length: 9
+			madc-rarm0058:	#swing from facing 10 to 9
+				Start: 8
+				FlipX: true
+			madc-rarm0058:
+				Start: 7
+				FlipX: true
+			madc-rarm0058:
+				Start: 6
+				FlipX: true
+			madc-rarm0058:
+				Start: 5
+				FlipX: true
+			madc-rarm0058:
+				Start: 4
+				FlipX: true
+			madc-rarm0058:
+				Start: 3
+				FlipX: true
+			madc-rarm0058:
+				Start: 2
+				FlipX: true
+			madc-rarm0058:
+				Start: 1
+				FlipX: true
+			madc-rarm0058:
+				FlipX: true
+			madc-rarm0059:	#swing from facing 9 to 8
+				Start: 8
+				FlipX: true
+			madc-rarm0059:
+				Start: 7
+				FlipX: true
+			madc-rarm0059:
+				Start: 6
+				FlipX: true
+			madc-rarm0059:
+				Start: 5
+				FlipX: true
+			madc-rarm0059:
+				Start: 4
+				FlipX: true
+			madc-rarm0059:
+				Start: 3
+				FlipX: true
+			madc-rarm0059:
+				Start: 2
+				FlipX: true
+			madc-rarm0059:
+				Start: 1
+				FlipX: true
+			madc-rarm0059:
+				FlipX: true
+			madc-rarm0059:	#swing from facing 8 to 9
+				FlipX: true
+				Length: 9
+			### facing 10
+			madc-rarm0057:	#swing from facing 10 to 11
+				FlipX: true
+				Length: 9
+			madc-rarm0057:	#swing from facing 11 to 10
+				Start: 8
+				FlipX: true
+			madc-rarm0057:
+				Start: 7
+				FlipX: true
+			madc-rarm0057:
+				Start: 6
+				FlipX: true
+			madc-rarm0057:
+				Start: 5
+				FlipX: true
+			madc-rarm0057:
+				Start: 4
+				FlipX: true
+			madc-rarm0057:
+				Start: 3
+				FlipX: true
+			madc-rarm0057:
+				Start: 2
+				FlipX: true
+			madc-rarm0057:
+				Start: 1
+				FlipX: true
+			madc-rarm0057:
+				FlipX: true
+			madc-rarm0058:	#swing from facing 10 to 9
+				Start: 8
+				FlipX: true
+			madc-rarm0058:
+				Start: 7
+				FlipX: true
+			madc-rarm0058:
+				Start: 6
+				FlipX: true
+			madc-rarm0058:
+				Start: 5
+				FlipX: true
+			madc-rarm0058:
+				Start: 4
+				FlipX: true
+			madc-rarm0058:
+				Start: 3
+				FlipX: true
+			madc-rarm0058:
+				Start: 2
+				FlipX: true
+			madc-rarm0058:
+				Start: 1
+				FlipX: true
+			madc-rarm0058:
+				FlipX: true
+			madc-rarm0058:	#swing from facing 9 to 10
+				FlipX: true
+				Length: 9
+			### facing 11
+			madc-rarm0056:	#swing from facing 11 to 12
+				FlipX: true
+				Length: 9
+			madc-rarm0056:	#swing from facing 12 to 11
+				Start: 8
+				FlipX: true
+			madc-rarm0056:
+				Start: 7
+				FlipX: true
+			madc-rarm0056:
+				Start: 6
+				FlipX: true
+			madc-rarm0056:
+				Start: 5
+				FlipX: true
+			madc-rarm0056:
+				Start: 4
+				FlipX: true
+			madc-rarm0056:
+				Start: 3
+				FlipX: true
+			madc-rarm0056:
+				Start: 2
+				FlipX: true
+			madc-rarm0056:
+				Start: 1
+				FlipX: true
+			madc-rarm0056:
+				FlipX: true
+			madc-rarm0057:	#swing from facing 11 to 10
+				Start: 8
+				FlipX: true
+			madc-rarm0057:
+				Start: 7
+				FlipX: true
+			madc-rarm0057:
+				Start: 6
+				FlipX: true
+			madc-rarm0057:
+				Start: 5
+				FlipX: true
+			madc-rarm0057:
+				Start: 4
+				FlipX: true
+			madc-rarm0057:
+				Start: 3
+				FlipX: true
+			madc-rarm0057:
+				Start: 2
+				FlipX: true
+			madc-rarm0057:
+				Start: 1
+				FlipX: true
+			madc-rarm0057:
+				FlipX: true
+			madc-rarm0057:	#swing from facing 10 to 11
+				FlipX: true
+				Length: 9
+			### facing 12
+			madc-rarm0055:	#swing from facing 12 to 13
+				FlipX: true
+				Length: 9
+			madc-rarm0055:	#swing from facing 13 to 12
+				Start: 8
+				FlipX: true
+			madc-rarm0055:
+				Start: 7
+				FlipX: true
+			madc-rarm0055:
+				Start: 6
+				FlipX: true
+			madc-rarm0055:
+				Start: 5
+				FlipX: true
+			madc-rarm0055:
+				Start: 4
+				FlipX: true
+			madc-rarm0055:
+				Start: 3
+				FlipX: true
+			madc-rarm0055:
+				Start: 2
+				FlipX: true
+			madc-rarm0055:
+				Start: 1
+				FlipX: true
+			madc-rarm0055:
+				FlipX: true
+			madc-rarm0056:	#swing from facing 12 to 11
+				Start: 8
+				FlipX: true
+			madc-rarm0056:
+				Start: 7
+				FlipX: true
+			madc-rarm0056:
+				Start: 6
+				FlipX: true
+			madc-rarm0056:
+				Start: 5
+				FlipX: true
+			madc-rarm0056:
+				Start: 4
+				FlipX: true
+			madc-rarm0056:
+				Start: 3
+				FlipX: true
+			madc-rarm0056:
+				Start: 2
+				FlipX: true
+			madc-rarm0056:
+				Start: 1
+				FlipX: true
+			madc-rarm0056:
+				FlipX: true
+			madc-rarm0056:	#swing from facing 11 to 12
+				FlipX: true
+				Length: 9
+			### facing 13
+			madc-rarm0054:	#swing from facing 13 to 14
+				FlipX: true
+				Length: 9
+			madc-rarm0054:	#swing from facing 14 to 13
+				Start: 8
+				FlipX: true
+			madc-rarm0054:
+				Start: 7
+				FlipX: true
+			madc-rarm0054:
+				Start: 6
+				FlipX: true
+			madc-rarm0054:
+				Start: 5
+				FlipX: true
+			madc-rarm0054:
+				Start: 4
+				FlipX: true
+			madc-rarm0054:
+				Start: 3
+				FlipX: true
+			madc-rarm0054:
+				Start: 2
+				FlipX: true
+			madc-rarm0054:
+				Start: 1
+				FlipX: true
+			madc-rarm0054:
+				FlipX: true
+			madc-rarm0055:	#swing from facing 13 to 12
+				Start: 8
+				FlipX: true
+			madc-rarm0055:
+				Start: 7
+				FlipX: true
+			madc-rarm0055:
+				Start: 6
+				FlipX: true
+			madc-rarm0055:
+				Start: 5
+				FlipX: true
+			madc-rarm0055:
+				Start: 4
+				FlipX: true
+			madc-rarm0055:
+				Start: 3
+				FlipX: true
+			madc-rarm0055:
+				Start: 2
+				FlipX: true
+			madc-rarm0055:
+				Start: 1
+				FlipX: true
+			madc-rarm0055:
+				FlipX: true
+			madc-rarm0055:	#swing from facing 12 to 13
+				FlipX: true
+				Length: 9
+			### facing 14
+			madc-rarm0053:	#swing from facing 14 to 15
+				FlipX: true
+				Length: 9
+			madc-rarm0053:	#swing from facing 15 to 14
+				Start: 8
+				FlipX: true
+			madc-rarm0053:
+				Start: 7
+				FlipX: true
+			madc-rarm0053:
+				Start: 6
+				FlipX: true
+			madc-rarm0053:
+				Start: 5
+				FlipX: true
+			madc-rarm0053:
+				Start: 4
+				FlipX: true
+			madc-rarm0053:
+				Start: 3
+				FlipX: true
+			madc-rarm0053:
+				Start: 2
+				FlipX: true
+			madc-rarm0053:
+				Start: 1
+				FlipX: true
+			madc-rarm0053:
+				FlipX: true
+			madc-rarm0054:	#swing from facing 14 to 13
+				Start: 8
+				FlipX: true
+			madc-rarm0054:
+				Start: 7
+				FlipX: true
+			madc-rarm0054:
+				Start: 6
+				FlipX: true
+			madc-rarm0054:
+				Start: 5
+				FlipX: true
+			madc-rarm0054:
+				Start: 4
+				FlipX: true
+			madc-rarm0054:
+				Start: 3
+				FlipX: true
+			madc-rarm0054:
+				Start: 2
+				FlipX: true
+			madc-rarm0054:
+				Start: 1
+				FlipX: true
+			madc-rarm0054:
+				FlipX: true
+			madc-rarm0054:	#swing from facing 13 to 14
+				FlipX: true
+				Length: 9
+			### facing 15
+			madc-rarm0052:	#swing from facing 15 to 16
+				FlipX: true
+				Length: 9
+			madc-rarm0052:	#swing from facing 16 to 15
+				Start: 8
+				FlipX: true
+			madc-rarm0052:
+				Start: 7
+				FlipX: true
+			madc-rarm0052:
+				Start: 6
+				FlipX: true
+			madc-rarm0052:
+				Start: 5
+				FlipX: true
+			madc-rarm0052:
+				Start: 4
+				FlipX: true
+			madc-rarm0052:
+				Start: 3
+				FlipX: true
+			madc-rarm0052:
+				Start: 2
+				FlipX: true
+			madc-rarm0052:
+				Start: 1
+				FlipX: true
+			madc-rarm0052:
+				FlipX: true
+			madc-rarm0053:	#swing from facing 15 to 14
+				Start: 8
+				FlipX: true
+			madc-rarm0053:
+				Start: 7
+				FlipX: true
+			madc-rarm0053:
+				Start: 6
+				FlipX: true
+			madc-rarm0053:
+				Start: 5
+				FlipX: true
+			madc-rarm0053:
+				Start: 4
+				FlipX: true
+			madc-rarm0053:
+				Start: 3
+				FlipX: true
+			madc-rarm0053:
+				Start: 2
+				FlipX: true
+			madc-rarm0053:
+				Start: 1
+				FlipX: true
+			madc-rarm0053:
+				FlipX: true
+			madc-rarm0053:	#swing from facing 14 to 15
+				FlipX: true
+				Length: 9
+			### facing 16 (south)
+			madc-rarm0051:	#swing from facing 16 to 15
+				Length: 9
+			madc-rarm0051:	#swing from facing 15 to 16
+				Start: 8
+			madc-rarm0051:
+				Start: 7
+			madc-rarm0051:
+				Start: 6
+			madc-rarm0051:
+				Start: 5
+			madc-rarm0051:
+				Start: 4
+			madc-rarm0051:
+				Start: 3
+			madc-rarm0051:
+				Start: 2
+			madc-rarm0051:
+				Start: 1
+			madc-rarm0051:
+			madc-rarm0052:	#swing from facing 16 to 17
+				Start: 8
+			madc-rarm0052:
+				Start: 7
+			madc-rarm0052:
+				Start: 6
+			madc-rarm0052:
+				Start: 5
+			madc-rarm0052:
+				Start: 4
+			madc-rarm0052:
+				Start: 3
+			madc-rarm0052:
+				Start: 2
+			madc-rarm0052:
+				Start: 1
+			madc-rarm0052:
+			madc-rarm0052:	#swing from facing 17 to 16
+				Length: 9
+			### facing 17
+			madc-rarm0052:	#swing from facing 17 to 16
+				Length: 9
+			madc-rarm0052:	#swing from facing 16 to 17
+				Start: 8
+			madc-rarm0052:
+				Start: 7
+			madc-rarm0052:
+				Start: 6
+			madc-rarm0052:
+				Start: 5
+			madc-rarm0052:
+				Start: 4
+			madc-rarm0052:
+				Start: 3
+			madc-rarm0052:
+				Start: 2
+			madc-rarm0052:
+				Start: 1
+			madc-rarm0052:
+			madc-rarm0053:	#swing from facing 17 to 18
+				Start: 8
+			madc-rarm0053:
+				Start: 7
+			madc-rarm0053:
+				Start: 6
+			madc-rarm0053:
+				Start: 5
+			madc-rarm0053:
+				Start: 4
+			madc-rarm0053:
+				Start: 3
+			madc-rarm0053:
+				Start: 2
+			madc-rarm0053:
+				Start: 1
+			madc-rarm0053:
+			madc-rarm0053:	#swing from facing 18 to 17
+				Length: 9
+			### facing 18
+			madc-rarm0053:	#swing from facing 18 to 17
+				Length: 9
+			madc-rarm0053:	#swing from facing 17 to 18
+				Start: 8
+			madc-rarm0053:
+				Start: 7
+			madc-rarm0053:
+				Start: 6
+			madc-rarm0053:
+				Start: 5
+			madc-rarm0053:
+				Start: 4
+			madc-rarm0053:
+				Start: 3
+			madc-rarm0053:
+				Start: 2
+			madc-rarm0053:
+				Start: 1
+			madc-rarm0053:
+			madc-rarm0054:	#swing from facing 18 to 19
+				Start: 8
+			madc-rarm0054:
+				Start: 7
+			madc-rarm0054:
+				Start: 6
+			madc-rarm0054:
+				Start: 5
+			madc-rarm0054:
+				Start: 4
+			madc-rarm0054:
+				Start: 3
+			madc-rarm0054:
+				Start: 2
+			madc-rarm0054:
+				Start: 1
+			madc-rarm0054:
+			madc-rarm0054:	#swing from facing 19 to 18
+				Length: 9
+			### facing 19
+			madc-rarm0054:	#swing from facing 19 to 18
+				Length: 9
+			madc-rarm0054:	#swing from facing 18 to 19
+				Start: 8
+			madc-rarm0054:
+				Start: 7
+			madc-rarm0054:
+				Start: 6
+			madc-rarm0054:
+				Start: 5
+			madc-rarm0054:
+				Start: 4
+			madc-rarm0054:
+				Start: 3
+			madc-rarm0054:
+				Start: 2
+			madc-rarm0054:
+				Start: 1
+			madc-rarm0054:
+			madc-rarm0055:	#swing from facing 19 to 20
+				Start: 8
+			madc-rarm0055:
+				Start: 7
+			madc-rarm0055:
+				Start: 6
+			madc-rarm0055:
+				Start: 5
+			madc-rarm0055:
+				Start: 4
+			madc-rarm0055:
+				Start: 3
+			madc-rarm0055:
+				Start: 2
+			madc-rarm0055:
+				Start: 1
+			madc-rarm0055:
+			madc-rarm0055:	#swing from facing 20 to 19
+				Length: 9
+			### facing 20
+			madc-rarm0055:	#swing from facing 20 to 19
+				Length: 9
+			madc-rarm0055:	#swing from facing 19 to 20
+				Start: 8
+			madc-rarm0055:
+				Start: 7
+			madc-rarm0055:
+				Start: 6
+			madc-rarm0055:
+				Start: 5
+			madc-rarm0055:
+				Start: 4
+			madc-rarm0055:
+				Start: 3
+			madc-rarm0055:
+				Start: 2
+			madc-rarm0055:
+				Start: 1
+			madc-rarm0055:
+			madc-rarm0056:	#swing from facing 20 to 21
+				Start: 8
+			madc-rarm0056:
+				Start: 7
+			madc-rarm0056:
+				Start: 6
+			madc-rarm0056:
+				Start: 5
+			madc-rarm0056:
+				Start: 4
+			madc-rarm0056:
+				Start: 3
+			madc-rarm0056:
+				Start: 2
+			madc-rarm0056:
+				Start: 1
+			madc-rarm0056:
+			madc-rarm0056:	#swing from facing 21 to 20
+				Length: 9
+			### facing 21
+			madc-rarm0056:	#swing from facing 21 to 20
+				Length: 9
+			madc-rarm0056:	#swing from facing 20 to 21
+				Start: 8
+			madc-rarm0056:
+				Start: 7
+			madc-rarm0056:
+				Start: 6
+			madc-rarm0056:
+				Start: 5
+			madc-rarm0056:
+				Start: 4
+			madc-rarm0056:
+				Start: 3
+			madc-rarm0056:
+				Start: 2
+			madc-rarm0056:
+				Start: 1
+			madc-rarm0056:
+			madc-rarm0057:	#swing from facing 21 to 22
+				Start: 8
+			madc-rarm0057:
+				Start: 7
+			madc-rarm0057:
+				Start: 6
+			madc-rarm0057:
+				Start: 5
+			madc-rarm0057:
+				Start: 4
+			madc-rarm0057:
+				Start: 3
+			madc-rarm0057:
+				Start: 2
+			madc-rarm0057:
+				Start: 1
+			madc-rarm0057:
+			madc-rarm0057:	#swing from facing 22 to 21
+				Length: 9
+			### facing 22
+			madc-rarm0057:	#swing from facing 22 to 21
+				Length: 9
+			madc-rarm0057:	#swing from facing 21 to 22
+				Start: 8
+			madc-rarm0057:
+				Start: 7
+			madc-rarm0057:
+				Start: 6
+			madc-rarm0057:
+				Start: 5
+			madc-rarm0057:
+				Start: 4
+			madc-rarm0057:
+				Start: 3
+			madc-rarm0057:
+				Start: 2
+			madc-rarm0057:
+				Start: 1
+			madc-rarm0057:
+			madc-rarm0058:	#swing from facing 22 to 23
+				Start: 8
+			madc-rarm0058:
+				Start: 7
+			madc-rarm0058:
+				Start: 6
+			madc-rarm0058:
+				Start: 5
+			madc-rarm0058:
+				Start: 4
+			madc-rarm0058:
+				Start: 3
+			madc-rarm0058:
+				Start: 2
+			madc-rarm0058:
+				Start: 1
+			madc-rarm0058:
+			madc-rarm0058:	#swing from facing 23 to 22
+				Length: 9
+			### facing 23
+			madc-rarm0058:	#swing from facing 23 to 22
+				Length: 9
+			madc-rarm0058:	#swing from facing 22 to 23
+				Start: 8
+			madc-rarm0058:
+				Start: 7
+			madc-rarm0058:
+				Start: 6
+			madc-rarm0058:
+				Start: 5
+			madc-rarm0058:
+				Start: 4
+			madc-rarm0058:
+				Start: 3
+			madc-rarm0058:
+				Start: 2
+			madc-rarm0058:
+				Start: 1
+			madc-rarm0058:
+			madc-rarm0059:	#swing from facing 23 to 24
+				Start: 8
+			madc-rarm0059:
+				Start: 7
+			madc-rarm0059:
+				Start: 6
+			madc-rarm0059:
+				Start: 5
+			madc-rarm0059:
+				Start: 4
+			madc-rarm0059:
+				Start: 3
+			madc-rarm0059:
+				Start: 2
+			madc-rarm0059:
+				Start: 1
+			madc-rarm0059:
+			madc-rarm0059:	#swing from facing 24 to 23
+				Length: 9
+			### facing 24
+			madc-rarm0059:	#swing from facing 24 to 23
+				Length: 9
+			madc-rarm0059:	#swing from facing 23 to 24
+				Start: 8
+			madc-rarm0059:
+				Start: 7
+			madc-rarm0059:
+				Start: 6
+			madc-rarm0059:
+				Start: 5
+			madc-rarm0059:
+				Start: 4
+			madc-rarm0059:
+				Start: 3
+			madc-rarm0059:
+				Start: 2
+			madc-rarm0059:
+				Start: 1
+			madc-rarm0059:
+			madc-rarm0060:	#swing from facing 24 to 25
+				Start: 8
+			madc-rarm0060:
+				Start: 7
+			madc-rarm0060:
+				Start: 6
+			madc-rarm0060:
+				Start: 5
+			madc-rarm0060:
+				Start: 4
+			madc-rarm0060:
+				Start: 3
+			madc-rarm0060:
+				Start: 2
+			madc-rarm0060:
+				Start: 1
+			madc-rarm0060:
+			madc-rarm0060:	#swing from facing 25 to 24
+				Length: 9
+			### facing 25
+			madc-rarm0060:	#swing from facing 25 to 24
+				Length: 9
+			madc-rarm0060:	#swing from facing 24 to 25
+				Start: 8
+			madc-rarm0060:
+				Start: 7
+			madc-rarm0060:
+				Start: 6
+			madc-rarm0060:
+				Start: 5
+			madc-rarm0060:
+				Start: 4
+			madc-rarm0060:
+				Start: 3
+			madc-rarm0060:
+				Start: 2
+			madc-rarm0060:
+				Start: 1
+			madc-rarm0060:
+			madc-rarm0061:	#swing from facing 25 to 26
+				Start: 8
+			madc-rarm0061:
+				Start: 7
+			madc-rarm0061:
+				Start: 6
+			madc-rarm0061:
+				Start: 5
+			madc-rarm0061:
+				Start: 4
+			madc-rarm0061:
+				Start: 3
+			madc-rarm0061:
+				Start: 2
+			madc-rarm0061:
+				Start: 1
+			madc-rarm0061:
+			madc-rarm0061:	#swing from facing 26 to 25
+				Length: 9
+			### facing 26
+			madc-rarm0061:	#swing from facing 26 to 25
+				Length: 9
+			madc-rarm0061:	#swing from facing 25 to 26
+				Start: 8
+			madc-rarm0061:
+				Start: 7
+			madc-rarm0061:
+				Start: 6
+			madc-rarm0061:
+				Start: 5
+			madc-rarm0061:
+				Start: 4
+			madc-rarm0061:
+				Start: 3
+			madc-rarm0061:
+				Start: 2
+			madc-rarm0061:
+				Start: 1
+			madc-rarm0061:
+			madc-rarm0062:	#swing from facing 26 to 27
+				Start: 8
+			madc-rarm0062:
+				Start: 7
+			madc-rarm0062:
+				Start: 6
+			madc-rarm0062:
+				Start: 5
+			madc-rarm0062:
+				Start: 4
+			madc-rarm0062:
+				Start: 3
+			madc-rarm0062:
+				Start: 2
+			madc-rarm0062:
+				Start: 1
+			madc-rarm0062:
+			madc-rarm0062:	#swing from facing 27 to 26
+				Length: 9
+			### facing 27
+			madc-rarm0062:	#swing from facing 27 to 26
+				Length: 9
+			madc-rarm0062:	#swing from facing 26 to 27
+				Start: 8
+			madc-rarm0062:
+				Start: 7
+			madc-rarm0062:
+				Start: 6
+			madc-rarm0062:
+				Start: 5
+			madc-rarm0062:
+				Start: 4
+			madc-rarm0062:
+				Start: 3
+			madc-rarm0062:
+				Start: 2
+			madc-rarm0062:
+				Start: 1
+			madc-rarm0062:
+			madc-rarm0063:	#swing from facing 27 to 28
+				Start: 8
+			madc-rarm0063:
+				Start: 7
+			madc-rarm0063:
+				Start: 6
+			madc-rarm0063:
+				Start: 5
+			madc-rarm0063:
+				Start: 4
+			madc-rarm0063:
+				Start: 3
+			madc-rarm0063:
+				Start: 2
+			madc-rarm0063:
+				Start: 1
+			madc-rarm0063:
+			madc-rarm0063:	#swing from facing 28 to 27
+				Length: 9
+			### facing 28
+			madc-rarm0063:	#swing from facing 28 to 27
+				Length: 9
+			madc-rarm0063:	#swing from facing 27 to 28
+				Start: 8
+			madc-rarm0063:
+				Start: 7
+			madc-rarm0063:
+				Start: 6
+			madc-rarm0063:
+				Start: 5
+			madc-rarm0063:
+				Start: 4
+			madc-rarm0063:
+				Start: 3
+			madc-rarm0063:
+				Start: 2
+			madc-rarm0063:
+				Start: 1
+			madc-rarm0063:
+			madc-rarm0064:	#swing from facing 28 to 29
+				Start: 8
+			madc-rarm0064:
+				Start: 7
+			madc-rarm0064:
+				Start: 6
+			madc-rarm0064:
+				Start: 5
+			madc-rarm0064:
+				Start: 4
+			madc-rarm0064:
+				Start: 3
+			madc-rarm0064:
+				Start: 2
+			madc-rarm0064:
+				Start: 1
+			madc-rarm0064:
+			madc-rarm0064:	#swing from facing 29 to 28
+				Length: 9
+			### facing 29
+			madc-rarm0064:	#swing from facing 29 to 28
+				Length: 9
+			madc-rarm0064:	#swing from facing 28 to 29
+				Start: 8
+			madc-rarm0064:
+				Start: 7
+			madc-rarm0064:
+				Start: 6
+			madc-rarm0064:
+				Start: 5
+			madc-rarm0064:
+				Start: 4
+			madc-rarm0064:
+				Start: 3
+			madc-rarm0064:
+				Start: 2
+			madc-rarm0064:
+				Start: 1
+			madc-rarm0064:
+			madc-rarm0065:	#swing from facing 29 to 30
+				Start: 8
+			madc-rarm0065:
+				Start: 7
+			madc-rarm0065:
+				Start: 6
+			madc-rarm0065:
+				Start: 5
+			madc-rarm0065:
+				Start: 4
+			madc-rarm0065:
+				Start: 3
+			madc-rarm0065:
+				Start: 2
+			madc-rarm0065:
+				Start: 1
+			madc-rarm0065:
+			madc-rarm0065:	#swing from facing 30 to 29
+				Length: 9
+			### facing 30
+			madc-rarm0065:	#swing from facing 30 to 29
+				Length: 9
+			madc-rarm0065:	#swing from facing 29 to 30
+				Start: 8
+			madc-rarm0065:
+				Start: 7
+			madc-rarm0065:
+				Start: 6
+			madc-rarm0065:
+				Start: 5
+			madc-rarm0065:
+				Start: 4
+			madc-rarm0065:
+				Start: 3
+			madc-rarm0065:
+				Start: 2
+			madc-rarm0065:
+				Start: 1
+			madc-rarm0065:
+			madc-rarm0066:	#swing from facing 30 to 31
+				Start: 8
+			madc-rarm0066:
+				Start: 7
+			madc-rarm0066:
+				Start: 6
+			madc-rarm0066:
+				Start: 5
+			madc-rarm0066:
+				Start: 4
+			madc-rarm0066:
+				Start: 3
+			madc-rarm0066:
+				Start: 2
+			madc-rarm0066:
+				Start: 1
+			madc-rarm0066:
+			madc-rarm0066:	#swing from facing 31 to 30
+				Length: 9
+			### facing 31
+			madc-rarm0066:	#swing from facing 31 to 30
+				Length: 9
+			madc-rarm0066:	#swing from facing 30 to 31
+				Start: 8
+			madc-rarm0066:
+				Start: 7
+			madc-rarm0066:
+				Start: 6
+			madc-rarm0066:
+				Start: 5
+			madc-rarm0066:
+				Start: 4
+			madc-rarm0066:
+				Start: 3
+			madc-rarm0066:
+				Start: 2
+			madc-rarm0066:
+				Start: 1
+			madc-rarm0066:
+			madc-rarm0067:	#swing from facing 31 to 0
+				Start: 8
+			madc-rarm0067:
+				Start: 7
+			madc-rarm0067:
+				Start: 6
+			madc-rarm0067:
+				Start: 5
+			madc-rarm0067:
+				Start: 4
+			madc-rarm0067:
+				Start: 3
+			madc-rarm0067:
+				Start: 2
+			madc-rarm0067:
+				Start: 1
+			madc-rarm0067:
+			madc-rarm0067:	#swing from facing 0 to 31
+				Length: 9
+		Facings: 32
+		Length: 36
+		Tick: 60
 		ZOffset: 2
 #	muzzle: gunfire
 #		Length: *

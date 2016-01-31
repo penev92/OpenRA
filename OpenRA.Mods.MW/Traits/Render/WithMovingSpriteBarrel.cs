@@ -118,7 +118,8 @@ namespace OpenRA.Mods.MW.Traits
 		{
 			var localOffset = Info.LocalOffset + new WVec(-armament.Recoil, WDist.Zero, WDist.Zero);
 			var turretOffset = turreted != null ? turreted.Position(self) : WVec.Zero;
-			var turretOrientation = turreted != null ? turreted.LocalOrientation(self) : WRot.Zero;
+			var turretOrientation = WRot.Zero;
+			//var turretOrientation = turreted != null ? turreted.LocalOrientation(self) : WRot.Zero;
 
 			var quantizedBody = body.QuantizeOrientation(self, self.Orientation);
 			var quantizedTurret = body.QuantizeOrientation(self, turretOrientation);
@@ -129,7 +130,8 @@ namespace OpenRA.Mods.MW.Traits
 		{
 			var b = self.Orientation;
 			var qb = body.QuantizeOrientation(self, b);
-			yield return turreted.LocalOrientation(self) + WRot.FromYaw(b.Yaw - qb.Yaw);
+			yield return WRot.FromYaw(b.Yaw - qb.Yaw);
+			//yield return turreted.LocalOrientation(self) + WRot.FromYaw(b.Yaw - qb.Yaw);
 			yield return qb;
 		}
 	}

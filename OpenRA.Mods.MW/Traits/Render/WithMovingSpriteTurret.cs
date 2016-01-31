@@ -104,7 +104,8 @@ namespace OpenRA.Mods.MW.Traits
 			var recoil = arms.Aggregate(WDist.Zero, (a, b) => a + b.Recoil);
 			var localOffset = new WVec(-recoil, WDist.Zero, WDist.Zero);
 			var bodyOrientation = body.QuantizeOrientation(self, self.Orientation);
-			var turretOrientation = body.QuantizeOrientation(self, t.LocalOrientation(self));
+			var turretOrientation = WRot.Zero;
+			//var turretOrientation = body.QuantizeOrientation(self, t.LocalOrientation(self));
 			return t.Position(self) + body.LocalToWorld(localOffset.Rotate(turretOrientation).Rotate(bodyOrientation));
 		}
 

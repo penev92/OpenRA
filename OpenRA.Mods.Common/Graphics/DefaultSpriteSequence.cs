@@ -112,6 +112,9 @@ namespace OpenRA.Mods.Common.Graphics
 			Loader = loader;
 			var d = info.ToDictionary();
 
+			var tmpFrames = new List<int>();
+			var frameIndexOffset = 0;
+
 			try
 			{
 				Start = LoadField(d, "Start", 0);
@@ -169,10 +172,26 @@ namespace OpenRA.Mods.Common.Graphics
 						else
 							subLength = LoadField(sd, "Length", 1);
 
-						combined = combined.Concat(subSprites.Skip(subStart).Take(subLength));
+						var current = subSprites.Skip(subStart).Take(subLength);
+						combined = combined.Concat(current);
+
+						var frames = LoadField<int[]>(sd, "Frames", null);
+						if (frames != null)
+						{
+							tmpFrames.AddRange(frames.Select(x => x + frameIndexOffset));
+							frameIndexOffset += subSprites.Count();
+						}
+						else
+						{
+							var indexOffset = frameIndexOffset;
+							var indexLength = subLength;
+							tmpFrames.AddRange(Exts.MakeArray(indexLength, i => indexOffset + i));
+							frameIndexOffset += indexLength;
+						}
 					}
 
 					sprites = combined.ToArray();
+					Frames = Frames != null ? Frames.Concat(tmpFrames).ToArray() : tmpFrames.ToArray();
 				}
 				else
 				{

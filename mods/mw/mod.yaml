@@ -86,7 +86,7 @@ Assemblies:
 	./mods/common/OpenRA.Mods.Common.dll
 	./mods/cnc/OpenRA.Mods.Cnc.dll
 	./mods/ts/OpenRA.Mods.TS.dll
-	./mods/mw/OpenRA.Mods.MCRTS.dll
+	./mods/mw/OpenRA.Mods.MW.dll
 
 Cursors:
 	./mods/mw/cursors.yaml
@@ -187,7 +187,6 @@ ServerTraits:
 	PlayerPinger
 	MasterServerPinger
 	LobbySettingsNotification
-	ColorValidator
 
 LobbyDefaults:
 	AllowCheats: true
@@ -256,3 +255,5 @@ GameSpeeds:
 		Name: Fastest
 		Timestep: 20
 		OrderLatency: 6
+
+ColorValidator:

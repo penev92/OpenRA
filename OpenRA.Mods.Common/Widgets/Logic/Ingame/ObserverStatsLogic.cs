@@ -38,14 +38,13 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 		readonly ScrollItemWidget productionPlayerTemplate;
 		readonly ScrollItemWidget combatPlayerTemplate;
 		readonly ContainerWidget earnedThisMinuteGraphTemplate;
-		readonly ScrollItemWidget teamTemplate;
 		readonly IEnumerable<Player> players;
 		readonly World world;
 		readonly WorldRenderer worldRenderer;
 
 		[ObjectCreator.UseCtor]
 		public ObserverStatsLogic(World world, ModData modData, WorldRenderer worldRenderer, Widget widget,
-			Action onExit, ObserverStatsPanel activePanel, Dictionary<string, MiniYaml> logicArgs)
+			ObserverStatsPanel activePanel, Dictionary<string, MiniYaml> logicArgs)
 		{
 			this.world = world;
 			this.worldRenderer = worldRenderer;
@@ -73,10 +72,8 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			combatPlayerTemplate = playerStatsPanel.Get<ScrollItemWidget>("COMBAT_PLAYER_TEMPLATE");
 			earnedThisMinuteGraphTemplate = playerStatsPanel.Get<ContainerWidget>("EARNED_THIS_MIN_GRAPH_TEMPLATE");
 
-			teamTemplate = playerStatsPanel.Get<ScrollItemWidget>("TEAM_TEMPLATE");
-
 			var statsDropDown = widget.Get<DropDownButtonWidget>("STATS_DROPDOWN");
-			Func<string, ContainerWidget, Action, StatsDropDownOption> createStatsOption = (title, headers, a) =>
+			Func<string, ContainerWidget, ScrollItemWidget, Action, StatsDropDownOption> createStatsOption = (title, headers, template, a) =>
 			{
 				return new StatsDropDownOption
 				{
@@ -86,38 +83,36 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 					{
 						ClearStats();
 						statsDropDown.GetText = () => title;
+						if (template != null)
+							AdjustStatisticsPanel(headers, template);
+
 						a();
 					}
 				};
 			};
 
-			var statsDropDownOptions = new StatsDropDownOption[]
+			var statsDropDownOptions = new []
 			{
-				createStatsOption("Basic", basicStatsHeaders, () => DisplayStats(BasicStats)),
-				createStatsOption("Economy", economyStatsHeaders, () => DisplayStats(EconomyStats)),
-				createStatsOption("Production", productionStatsHeaders, () => DisplayStats(ProductionStats)),
-				createStatsOption("Combat", combatStatsHeaders, () => DisplayStats(CombatStats)),
-				createStatsOption("Earnings (graph)", earnedThisMinuteGraphHeaders, () => EarnedThisMinuteGraph())
+				createStatsOption("Basic", basicStatsHeaders, basicPlayerTemplate, () => DisplayStats(BasicStats)),
+				createStatsOption("Economy", economyStatsHeaders, economyPlayerTemplate, () => DisplayStats(EconomyStats)),
+				createStatsOption("Production", productionStatsHeaders, productionPlayerTemplate, () => DisplayStats(ProductionStats)),
+				createStatsOption("Combat", combatStatsHeaders, combatPlayerTemplate, () => DisplayStats(CombatStats)),
+				createStatsOption("Earnings (graph)", earnedThisMinuteGraphHeaders, null, EarnedThisMinuteGraph)
 			};
 
-			Func<StatsDropDownOption, ScrollItemWidget, ScrollItemWidget> setupItem = (option, template) =>
+			statsDropDown.OnMouseDown = _ =>
 			{
-				var item = ScrollItemWidget.Setup(template, option.IsSelected, option.OnClick);
-				item.Get<LabelWidget>("LABEL").GetText = () => option.Title;
-				return item;
-			};
-
-			statsDropDown.OnMouseDown = _ => statsDropDown.ShowDropDown("LABEL_DROPDOWN_TEMPLATE", 150, statsDropDownOptions, setupItem);
-			statsDropDownOptions[(int)activePanel].OnClick();
-
-			var close = widget.GetOrNull<ButtonWidget>("CLOSE");
-			if (close != null)
-				close.OnClick = () =>
+				Func<StatsDropDownOption, ScrollItemWidget, ScrollItemWidget> setupItem = (option, template) =>
 				{
-					Ui.CloseWindow();
-					Ui.Root.RemoveChild(widget);
-					onExit();
+					var item = ScrollItemWidget.Setup(template, option.IsSelected, option.OnClick);
+					item.Get<LabelWidget>("LABEL").GetText = () => option.Title;
+					return item;
 				};
+
+				statsDropDown.ShowDropDown("LABEL_DROPDOWN_TEMPLATE", 150, statsDropDownOptions, setupItem);
+			};
+
+			statsDropDownOptions[(int)activePanel].OnClick();
 
 			var keyListener = statsDropDown.Get<LogicKeyListenerWidget>("STATS_DROPDOWN_KEYHANDLER");
 			keyListener.AddHandler(e =>
@@ -170,10 +165,6 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			foreach (var t in teams)
 			{
 				var team = t;
-				var tt = ScrollItemWidget.Setup(teamTemplate, () => false, () => { });
-				tt.IgnoreMouseOver = true;
-				tt.Get<LabelWidget>("TEAM").GetText = () => team.Key == 0 ? "No Team" : "Team " + team.Key;
-				playerStatsPanel.AddChild(tt);
 				foreach (var p in team)
 				{
 					var player = p;
@@ -279,6 +270,20 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 				if (playerBase != null)
 					worldRenderer.Viewport.Center(playerBase.CenterPosition);
 			});
+		}
+
+		// TODO: How about no.
+		void AdjustStatisticsPanel(ContainerWidget headerTemplate, Widget itemTemplate)
+		{
+			var height = playerStatsPanel.Bounds.Height;
+
+			playerStatsPanel.Bounds.Width = itemTemplate.Bounds.Width + playerStatsPanel.ScrollbarWidth;
+			playerStatsPanel.Bounds.Height = Math.Min(players.Count(), 8) * (itemTemplate.Bounds.Height + playerStatsPanel.ItemSpacing) + playerStatsPanel.TopBottomSpacing * 2;
+
+			if (playerStatsPanel.Bounds.Height < height)
+				playerStatsPanel.ScrollToTop();
+
+			headerTemplate.Parent.Bounds.Width = playerStatsPanel.Bounds.Width;
 		}
 
 		static string MapControl(double control)

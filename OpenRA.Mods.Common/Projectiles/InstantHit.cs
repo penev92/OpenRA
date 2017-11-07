@@ -47,9 +47,11 @@ namespace OpenRA.Mods.Common.Projectiles
 	{
 		readonly ProjectileArgs args;
 		readonly InstantHitInfo info;
+		readonly WPos source;
 
 		Target target;
-		WPos source;
+
+		Actor SourceActor { get { return args.SourceActor; } }
 
 		public InstantHit(InstantHitInfo info, ProjectileArgs args)
 		{
@@ -63,7 +65,7 @@ namespace OpenRA.Mods.Common.Projectiles
 			{
 				var inaccuracy = Util.ApplyPercentageModifiers(info.Inaccuracy.Length, args.InaccuracyModifiers);
 				var maxOffset = inaccuracy * (args.PassiveTarget - source).Length / args.Weapon.Range.Length;
-				target = Target.FromPos(args.PassiveTarget + WVec.FromPDF(args.SourceActor.World.SharedRandom, 2) * maxOffset / 1024);
+				target = Target.FromPos(args.PassiveTarget + WVec.FromPDF(SourceActor.World.SharedRandom, 2) * maxOffset / 1024);
 			}
 			else
 				target = Target.FromPos(args.PassiveTarget);
@@ -79,7 +81,7 @@ namespace OpenRA.Mods.Common.Projectiles
 				target = Target.FromPos(blockedPos);
 			}
 
-			args.Weapon.Impact(target, args.SourceActor, args.DamageModifiers);
+			args.Weapon.Impact(target, SourceActor, args.DamageModifiers);
 			world.AddFrameEndTask(w => w.Remove(this));
 		}
 

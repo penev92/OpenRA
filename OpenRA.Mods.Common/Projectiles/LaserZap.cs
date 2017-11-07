@@ -102,14 +102,16 @@ namespace OpenRA.Mods.Common.Projectiles
 		bool doneDamage;
 		bool animationComplete;
 		[Sync] WPos target;
-		[Sync] WPos source;
+		[Sync] readonly WPos source;		// TODO: Something is not right here!
+
+		Actor SourceActor { get { return args.SourceActor; } }
 
 		public LaserZap(LaserZapInfo info, ProjectileArgs args, Color color)
 		{
 			this.args = args;
 			this.info = info;
 			this.color = color;
-			secondaryColor = info.SecondaryBeamUsePlayerColor ? args.SourceActor.Owner.Color.RGB : info.SecondaryBeamColor;
+			secondaryColor = info.SecondaryBeamUsePlayerColor ? SourceActor.Owner.Color.RGB : info.SecondaryBeamColor;
 			target = args.PassiveTarget;
 			source = args.Source;
 
@@ -117,17 +119,17 @@ namespace OpenRA.Mods.Common.Projectiles
 			{
 				var inaccuracy = OpenRA.Mods.Common.Util.ApplyPercentageModifiers(info.Inaccuracy.Length, args.InaccuracyModifiers);
 				var maxOffset = inaccuracy * (target - source).Length / args.Weapon.Range.Length;
-				target += WVec.FromPDF(args.SourceActor.World.SharedRandom, 2) * maxOffset / 1024;
+				target += WVec.FromPDF(SourceActor.World.SharedRandom, 2) * maxOffset / 1024;
 			}
 
 			if (!string.IsNullOrEmpty(info.HitAnim))
-				hitanim = new Animation(args.SourceActor.World, info.HitAnim);
+				hitanim = new Animation(SourceActor.World, info.HitAnim);
 		}
 
 		public void Tick(World world)
 		{
 			// Beam tracks target
-			if (info.TrackTarget && args.GuidedTarget.IsValidFor(args.SourceActor))
+			if (info.TrackTarget && args.GuidedTarget.IsValidFor(SourceActor))
 				target = args.Weapon.TargetActorCenter ? args.GuidedTarget.CenterPosition : args.GuidedTarget.Positions.PositionClosestTo(source);
 
 			// Check for blocking actors
@@ -145,7 +147,7 @@ namespace OpenRA.Mods.Common.Projectiles
 				else
 					animationComplete = true;
 
-				args.Weapon.Impact(Target.FromPos(target), args.SourceActor, args.DamageModifiers);
+				args.Weapon.Impact(Target.FromPos(target), SourceActor, args.DamageModifiers);
 				doneDamage = true;
 			}
 

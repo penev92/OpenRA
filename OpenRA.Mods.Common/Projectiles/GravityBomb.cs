@@ -52,6 +52,8 @@ namespace OpenRA.Mods.Common.Projectiles
 		[Sync] WVec velocity;
 		[Sync] WPos pos;
 
+		Actor SourceActor { get { return args.SourceActor; } }
+
 		public GravityBomb(GravityBombInfo info, ProjectileArgs args)
 		{
 			this.info = info;
@@ -63,12 +65,12 @@ namespace OpenRA.Mods.Common.Projectiles
 
 			if (!string.IsNullOrEmpty(info.Image))
 			{
-				anim = new Animation(args.SourceActor.World, info.Image);
+				anim = new Animation(SourceActor.World, info.Image);
 
 				if (!string.IsNullOrEmpty(info.OpenSequence))
-					anim.PlayThen(info.OpenSequence, () => anim.PlayRepeating(info.Sequences.Random(args.SourceActor.World.SharedRandom)));
+					anim.PlayThen(info.OpenSequence, () => anim.PlayRepeating(info.Sequences.Random(SourceActor.World.SharedRandom)));
 				else
-					anim.PlayRepeating(info.Sequences.Random(args.SourceActor.World.SharedRandom));
+					anim.PlayRepeating(info.Sequences.Random(SourceActor.World.SharedRandom));
 			}
 		}
 
@@ -81,7 +83,7 @@ namespace OpenRA.Mods.Common.Projectiles
 			{
 				pos += new WVec(0, 0, args.PassiveTarget.Z - pos.Z);
 				world.AddFrameEndTask(w => w.Remove(this));
-				args.Weapon.Impact(Target.FromPos(pos), args.SourceActor, args.DamageModifiers);
+				args.Weapon.Impact(Target.FromPos(pos), SourceActor, args.DamageModifiers);
 			}
 
 			if (anim != null)
@@ -93,7 +95,7 @@ namespace OpenRA.Mods.Common.Projectiles
 			if (anim == null)
 				yield break;
 
-			var world = args.SourceActor.World;
+			var world = SourceActor.World;
 			if (!world.FogObscures(pos))
 			{
 				if (info.Shadow)

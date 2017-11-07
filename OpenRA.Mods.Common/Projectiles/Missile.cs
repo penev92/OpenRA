@@ -183,15 +183,15 @@ namespace OpenRA.Mods.Common.Projectiles
 
 		int ticksToNextSmoke;
 		ContrailRenderable contrail;
-		string trailPalette;
+		readonly string trailPalette;
 
 		States state;
 		bool targetPassedBy;
-		bool lockOn = false;
+		readonly bool lockOn = false;
 		bool allowPassBy; // TODO: use this also with high minimum launch angle settings
 
 		WPos targetPosition;
-		WVec offset;
+		readonly WVec offset;
 
 		WVec tarVel;
 		WVec predVel;
@@ -201,13 +201,14 @@ namespace OpenRA.Mods.Common.Projectiles
 		int speed;
 		int loopRadius;
 		WDist distanceCovered;
-		WDist rangeLimit;
+		readonly WDist rangeLimit;
 
 		int renderFacing;
 		[Sync] int hFacing;
 		[Sync] int vFacing;
 
-		public Actor SourceActor { get { return args.SourceActor; } }
+		Actor SourceActor { get { return args.SourceActor; } }
+
 		public Target GuidedTarget { get { return args.GuidedTarget; } }
 
 		public Missile(MissileInfo info, ProjectileArgs args)
@@ -226,7 +227,7 @@ namespace OpenRA.Mods.Common.Projectiles
 			minLaunchAngle = info.MinimumLaunchAngle;
 			maxLaunchAngle = info.MaximumLaunchAngle;
 
-			var world = args.SourceActor.World;
+			var world = SourceActor.World;
 
 			if (info.Inaccuracy.Length > 0)
 			{
@@ -251,13 +252,13 @@ namespace OpenRA.Mods.Common.Projectiles
 
 			if (info.ContrailLength > 0)
 			{
-				var color = info.ContrailUsePlayerColor ? ContrailRenderable.ChooseColor(args.SourceActor) : info.ContrailColor;
+				var color = info.ContrailUsePlayerColor ? ContrailRenderable.ChooseColor(SourceActor) : info.ContrailColor;
 				contrail = new ContrailRenderable(world, color, info.ContrailWidth, info.ContrailLength, info.ContrailDelay, info.ContrailZOffset);
 			}
 
 			trailPalette = info.TrailPalette;
 			if (info.TrailUsePlayerPalette)
-				trailPalette += args.SourceActor.Owner.InternalName;
+				trailPalette += SourceActor.Owner.InternalName;
 		}
 
 		static int LoopRadius(int speed, int rot)
@@ -423,7 +424,7 @@ namespace OpenRA.Mods.Common.Projectiles
 			if ((tp.Actor.CenterPosition - pos).HorizontalLengthSquared > tp.Trait.Range.LengthSquared)
 				return false;
 
-			if (!tp.Trait.DeflectionStances.HasStance(tp.Actor.Owner.Stances[args.SourceActor.Owner]))
+			if (!tp.Trait.DeflectionStances.HasStance(tp.Actor.Owner.Stances[SourceActor.Owner]))
 				return false;
 
 			return tp.Actor.World.SharedRandom.Next(100 / tp.Trait.Chance) == 0;
@@ -770,7 +771,7 @@ namespace OpenRA.Mods.Common.Projectiles
 				desiredHFacing = hFacing + world.SharedRandom.Next(-info.JammedDiversionRange, info.JammedDiversionRange + 1);
 				desiredVFacing = vFacing + world.SharedRandom.Next(-info.JammedDiversionRange, info.JammedDiversionRange + 1);
 			}
-			else if (!args.GuidedTarget.IsValidFor(args.SourceActor))
+			else if (!args.GuidedTarget.IsValidFor(SourceActor))
 				desiredHFacing = hFacing;
 
 			// Compute new direction the projectile will be facing
@@ -811,7 +812,7 @@ namespace OpenRA.Mods.Common.Projectiles
 
 			// Check if target position should be updated (actor visible & locked on)
 			var newTarPos = targetPosition;
-			if (args.GuidedTarget.IsValidFor(args.SourceActor) && lockOn)
+			if (args.GuidedTarget.IsValidFor(SourceActor) && lockOn)
 				newTarPos = (args.Weapon.TargetActorCenter ? args.GuidedTarget.CenterPosition : args.GuidedTarget.Positions.PositionClosestTo(args.Source))
 					+ new WVec(WDist.Zero, WDist.Zero, info.AirburstAltitude);
 
@@ -889,7 +890,7 @@ namespace OpenRA.Mods.Common.Projectiles
 			if (ticks <= info.Arm)
 				return;
 
-			args.Weapon.Impact(Target.FromPos(pos), args.SourceActor, args.DamageModifiers);
+			args.Weapon.Impact(Target.FromPos(pos), SourceActor, args.DamageModifiers);
 		}
 
 		public IEnumerable<IRenderable> Render(WorldRenderer wr)
@@ -900,7 +901,7 @@ namespace OpenRA.Mods.Common.Projectiles
 			if (anim == null)
 				yield break;
 
-			var world = args.SourceActor.World;
+			var world = SourceActor.World;
 			if (!world.FogObscures(pos))
 			{
 				if (info.Shadow)

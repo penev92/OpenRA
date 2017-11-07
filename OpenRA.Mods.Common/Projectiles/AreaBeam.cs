@@ -115,14 +115,16 @@ namespace OpenRA.Mods.Common.Projectiles
 		bool IsBeamComplete { get { return !isHeadTravelling && headTicks >= length &&
 			!isTailTravelling && tailTicks >= length; } }
 
+		Actor SourceActor { get { return args.SourceActor; } }
+
 		public AreaBeam(AreaBeamInfo info, ProjectileArgs args, Color color)
 		{
 			this.info = info;
 			this.args = args;
 			this.color = color;
-			actorAttackBase = args.SourceActor.Trait<AttackBase>();
+			actorAttackBase = SourceActor.Trait<AttackBase>();
 
-			var world = args.SourceActor.World;
+			var world = SourceActor.World;
 			if (info.Speed.Length > 1)
 				speed = new WDist(world.SharedRandom.Next(info.Speed[0].Length, info.Speed[1].Length));
 			else
@@ -155,7 +157,7 @@ namespace OpenRA.Mods.Common.Projectiles
 			if (!continueTracking)
 				return;
 
-			if (args.GuidedTarget.IsValidFor(args.SourceActor))
+			if (args.GuidedTarget.IsValidFor(SourceActor))
 			{
 				var guidedTargetPos = args.Weapon.TargetActorCenter ? args.GuidedTarget.CenterPosition : args.GuidedTarget.Positions.PositionClosestTo(args.Source);
 				var targetDistance = new WDist((guidedTargetPos - args.Source).Length);
@@ -196,7 +198,7 @@ namespace OpenRA.Mods.Common.Projectiles
 			else if (isHeadTravelling)
 				headPos = WPos.LerpQuadratic(args.Source, target, WAngle.Zero, headTicks, length);
 
-			if (tailTicks <= 0 && args.SourceActor.IsInWorld && !args.SourceActor.IsDead)
+			if (tailTicks <= 0 && SourceActor.IsInWorld && !SourceActor.IsDead)
 			{
 				args.Source = args.CurrentSource();
 				tailPos = args.Source;
@@ -207,7 +209,7 @@ namespace OpenRA.Mods.Common.Projectiles
 
 			// While the head is travelling, the tail must start to follow Duration ticks later.
 			// Alternatively, also stop emitting the beam if source actor dies or is ordered to stop.
-			if ((headTicks >= info.Duration && !isTailTravelling) || args.SourceActor.IsDead ||
+			if ((headTicks >= info.Duration && !isTailTravelling) || SourceActor.IsDead ||
 				!actorAttackBase.IsAttacking || outOfWeaponRange)
 				StopTargeting();
 
@@ -239,7 +241,7 @@ namespace OpenRA.Mods.Common.Projectiles
 				foreach (var a in actors)
 				{
 					var adjustedModifiers = args.DamageModifiers.Append(GetFalloff((args.Source - a.CenterPosition).Length));
-					args.Weapon.Impact(Target.FromActor(a), args.SourceActor, adjustedModifiers);
+					args.Weapon.Impact(Target.FromActor(a), SourceActor, adjustedModifiers);
 				}
 			}
 

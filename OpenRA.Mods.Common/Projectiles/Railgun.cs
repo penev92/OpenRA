@@ -136,6 +136,8 @@ namespace OpenRA.Mods.Common.Projectiles
 		public WVec UpVector { get; private set; }
 		public WAngle AngleStep { get; private set; }
 
+		Actor SourceActor { get { return args.SourceActor; } }
+
 		public Railgun(ProjectileArgs args, RailgunInfo info, Color beamColor, Color helixColor)
 		{
 			this.args = args;
@@ -146,7 +148,7 @@ namespace OpenRA.Mods.Common.Projectiles
 			this.HelixColor = helixColor;
 
 			if (!string.IsNullOrEmpty(info.HitAnim))
-				hitanim = new Animation(args.SourceActor.World, info.HitAnim);
+				hitanim = new Animation(SourceActor.World, info.HitAnim);
 
 			CalculateVectors();
 		}
@@ -155,7 +157,7 @@ namespace OpenRA.Mods.Common.Projectiles
 		{
 			// Check for blocking actors
 			WPos blockedPos;
-			if (info.Blockable && BlocksProjectiles.AnyBlockingActorsBetween(args.SourceActor.World, target, args.Source,
+			if (info.Blockable && BlocksProjectiles.AnyBlockingActorsBetween(SourceActor.World, target, args.Source,
 					info.BeamWidth, info.BlockerScanRadius, out blockedPos))
 				target = blockedPos;
 
@@ -202,12 +204,12 @@ namespace OpenRA.Mods.Common.Projectiles
 					animationComplete = true;
 
 				if (!info.DamageActorsInLine)
-					args.Weapon.Impact(Target.FromPos(target), args.SourceActor, args.DamageModifiers);
+					args.Weapon.Impact(Target.FromPos(target), SourceActor, args.DamageModifiers);
 				else
 				{
 					var actors = world.FindActorsOnLine(args.Source, target, info.BeamWidth, info.AreaVictimScanRadius);
 					foreach (var a in actors)
-						args.Weapon.Impact(Target.FromActor(a), args.SourceActor, args.DamageModifiers);
+						args.Weapon.Impact(Target.FromActor(a), SourceActor, args.DamageModifiers);
 				}
 			}
 

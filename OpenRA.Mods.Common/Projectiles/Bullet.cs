@@ -130,7 +130,7 @@ namespace OpenRA.Mods.Common.Projectiles
 		int ticks, smokeTicks;
 		int remainingBounces;
 
-		public Actor SourceActor { get { return args.SourceActor; } }
+		Actor SourceActor { get { return args.SourceActor; } }
 
 		public Bullet(BulletInfo info, ProjectileArgs args)
 		{
@@ -139,7 +139,7 @@ namespace OpenRA.Mods.Common.Projectiles
 			pos = args.Source;
 			source = args.Source;
 
-			var world = args.SourceActor.World;
+			var world = SourceActor.World;
 
 			if (info.LaunchAngle.Length > 1)
 				angle = new WAngle(world.SharedRandom.Next(info.LaunchAngle[0].Angle, info.LaunchAngle[1].Angle));
@@ -174,13 +174,13 @@ namespace OpenRA.Mods.Common.Projectiles
 
 			if (info.ContrailLength > 0)
 			{
-				var color = info.ContrailUsePlayerColor ? ContrailRenderable.ChooseColor(args.SourceActor) : info.ContrailColor;
+				var color = info.ContrailUsePlayerColor ? ContrailRenderable.ChooseColor(SourceActor) : info.ContrailColor;
 				contrail = new ContrailRenderable(world, color, info.ContrailWidth, info.ContrailLength, info.ContrailDelay, info.ContrailZOffset);
 			}
 
 			trailPalette = info.TrailPalette;
 			if (info.TrailUsePlayerPalette)
-				trailPalette += args.SourceActor.Owner.InternalName;
+				trailPalette += SourceActor.Owner.InternalName;
 
 			smokeTicks = info.TrailDelay;
 			remainingBounces = info.BounceCount;
@@ -210,7 +210,7 @@ namespace OpenRA.Mods.Common.Projectiles
 			// Check for walls or other blocking obstacles
 			var shouldExplode = false;
 			WPos blockedPos;
-			if (info.Blockable && BlocksProjectiles.AnyBlockingActorsBetween(world, lastPos, pos, info.Width,
+			if (info.Blockable && BlocksProjectiles.AnyBlockingActorsBetween(world, args.SourceActor, lastPos, pos, info.Width,
 				info.BlockerScanRadius, out blockedPos))
 			{
 				pos = blockedPos;
@@ -234,7 +234,7 @@ namespace OpenRA.Mods.Common.Projectiles
 
 			if (flightLengthReached && shouldBounce)
 			{
-				shouldExplode |= AnyValidTargetsInRadius(world, pos, info.Width + info.BounceBlockerScanRadius, args.SourceActor, true);
+				shouldExplode |= AnyValidTargetsInRadius(world, pos, info.Width + info.BounceBlockerScanRadius, SourceActor, true);
 				target += (pos - source) * info.BounceRangeModifier / 100;
 				var dat = world.Map.DistanceAboveTerrain(target);
 				target += new WVec(0, 0, -dat.Length);
@@ -252,7 +252,7 @@ namespace OpenRA.Mods.Common.Projectiles
 
 			// After first bounce, check for targets each tick
 			if (remainingBounces < info.BounceCount)
-				shouldExplode |= AnyValidTargetsInRadius(world, pos, info.Width + info.BounceBlockerScanRadius, args.SourceActor, true);
+				shouldExplode |= AnyValidTargetsInRadius(world, pos, info.Width + info.BounceBlockerScanRadius, SourceActor, true);
 
 			if (shouldExplode)
 				Explode(world);
@@ -266,7 +266,7 @@ namespace OpenRA.Mods.Common.Projectiles
 			if (anim == null || ticks >= length)
 				yield break;
 
-			var world = args.SourceActor.World;
+			var world = SourceActor.World;
 			if (!world.FogObscures(pos))
 			{
 				if (info.Shadow)
@@ -290,7 +290,7 @@ namespace OpenRA.Mods.Common.Projectiles
 
 			world.AddFrameEndTask(w => w.Remove(this));
 
-			args.Weapon.Impact(Target.FromPos(pos), args.SourceActor, args.DamageModifiers);
+			args.Weapon.Impact(Target.FromPos(pos), SourceActor, args.DamageModifiers);
 		}
 
 		bool AnyValidTargetsInRadius(World world, WPos pos, WDist radius, Actor firedBy, bool checkTargetType)

@@ -134,7 +134,7 @@ namespace OpenRA.Mods.Common.Projectiles
 
 			// Check for blocking actors
 			WPos blockedPos;
-			if (info.Blockable && BlocksProjectiles.AnyBlockingActorsBetween(world, source, target,
+			if (info.Blockable && BlocksProjectiles.AnyBlockingActorsBetween(world, SourceActor, source, target,
 				info.Width, info.BlockerScanRadius, out blockedPos))
 			{
 				target = blockedPos;

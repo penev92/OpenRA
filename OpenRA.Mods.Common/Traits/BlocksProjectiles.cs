@@ -19,6 +19,9 @@ namespace OpenRA.Mods.Common.Traits
 	{
 		public readonly WDist Height = WDist.FromCells(1);
 
+		[Desc("Blocks projectiles from actors of players with these stances.")]
+		public readonly Stance Stances = Stance.Ally | Stance.Neutral | Stance.Enemy;
+
 		public override object Create(ActorInitializer init) { return new BlocksProjectiles(init.Self, this); }
 	}
 
@@ -29,25 +32,21 @@ namespace OpenRA.Mods.Common.Traits
 
 		WDist IBlocksProjectiles.BlockingHeight { get { return Info.Height; } }
 
-		public static bool AnyBlockingActorAt(World world, WPos pos)
-		{
-			var dat = world.Map.DistanceAboveTerrain(pos);
-
-			return world.ActorMap.GetActorsAt(world.Map.CellContaining(pos))
-				.Any(a => a.TraitsImplementing<IBlocksProjectiles>()
-					.Where(t => t.BlockingHeight > dat)
-					.Any(Exts.IsTraitEnabled));
-		}
-
-		public static bool AnyBlockingActorsBetween(World world, WPos start, WPos end, WDist width, WDist overscan, out WPos hit)
+		public Stance BlockingStances { get { return Info.Stances; } }
+		
+		public static bool AnyBlockingActorsBetween(World world, Actor sourceActor, WPos start, WPos end, WDist width, WDist overscan, out WPos hit)
 		{
 			var actors = world.FindActorsOnLine(start, end, width, overscan);
 			var length = (end - start).Length;
 
 			foreach (var a in actors)
 			{
+				var stance = sourceActor.Owner.Stances[a.Owner];
+
 				var blockers = a.TraitsImplementing<IBlocksProjectiles>()
-					.Where(Exts.IsTraitEnabled).ToList();
+					.Where(Exts.IsTraitEnabled)
+					.Where(b => b.BlockingStances.HasStance(stance))
+					.ToList();
 
 				if (!blockers.Any())
 					continue;

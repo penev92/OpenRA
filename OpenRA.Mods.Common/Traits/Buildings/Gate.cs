@@ -30,6 +30,9 @@ namespace OpenRA.Mods.Common.Traits
 		[Desc("Blocks bullets scaled to open value.")]
 		public readonly WDist BlocksProjectilesHeight = new WDist(640);
 
+		[Desc("Blocks projectiles from actors of players with these stances.")]
+		public readonly Stance Stances = Stance.Ally | Stance.Neutral | Stance.Enemy;
+
 		public override object Create(ActorInitializer init) { return new Gate(init, this); }
 	}
 
@@ -132,5 +135,7 @@ namespace OpenRA.Mods.Common.Traits
 				return new WDist(info.BlocksProjectilesHeight.Length * (OpenPosition - Position) / OpenPosition);
 			}
 		}
+
+		public Stance BlockingStances { get { return info.Stances; } }
 	}
 }

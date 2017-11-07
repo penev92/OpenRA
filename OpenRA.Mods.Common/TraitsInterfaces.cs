@@ -38,6 +38,8 @@ namespace OpenRA.Mods.Common.Traits
 	public interface IBlocksProjectiles
 	{
 		WDist BlockingHeight { get; }
+
+		Stance BlockingStances { get; }
 	}
 
 	[RequireExplicitImplementation]

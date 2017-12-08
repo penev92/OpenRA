@@ -40,13 +40,9 @@ namespace OpenRA.Mods.Common.Widgets
 		public ProductionIcon TooltipIcon { get; private set; }
 		public Func<ProductionIcon> GetTooltipIcon;
 
-		Dictionary<ProductionQueue, Animation> clocks;
+		readonly Dictionary<ProductionQueue, Animation> clocks;
+		readonly Lazy<TooltipContainerWidget> tooltipContainer;
 		float2 iconSize;
-		Rectangle[] iconRects = new Rectangle[0];
-		ProductionIcon[] icons;
-		Rectangle renderBounds;
-		int lastIconIdx;
-		Lazy<TooltipContainerWidget> tooltipContainer;
 
 		[ObjectCreator.UseCtor]
 		public ObserverProductionIconsWidget(World world, WorldRenderer worldRenderer)
@@ -87,7 +83,6 @@ namespace OpenRA.Mods.Common.Widgets
 
 			tooltipContainer = Exts.Lazy(() =>
 				Ui.Root.Get<TooltipContainerWidget>(TooltipContainer));
-			renderBounds = Rectangle.Empty;
 		}
 
 		public override void Draw()
@@ -103,15 +98,6 @@ namespace OpenRA.Mods.Common.Widgets
 			foreach (var queue in queues)
 				if (!clocks.ContainsKey(queue.Trait))
 					clocks.Add(queue.Trait, new Animation(world, ClockAnimation));
-
-			if (renderBounds != RenderBounds)
-			{
-				renderBounds = RenderBounds;
-				InitIcons(renderBounds);
-			}
-			else
-				for (var i = 0; i < icons.Length; i++)
-					icons[i].Actor = null;
 
 			var queueCol = -1;
 			var currentItemsByItem = queues		// TODO: Change to grouping by actor type.
@@ -205,38 +191,6 @@ namespace OpenRA.Mods.Common.Widgets
 				return;
 
 			tooltipContainer.Value.RemoveTooltip();
-		}
-
-		public override void Tick()
-		{
-			if (TooltipIcon != null && iconRects[lastIconIdx].Contains(Viewport.LastMousePos))
-				return;
-
-			for (var i = 0; i < iconRects.Length; i++)
-			{
-				if (iconRects[i].Contains(Viewport.LastMousePos))
-				{
-					lastIconIdx = i;
-					TooltipIcon = icons[i];
-					return;
-				}
-			}
-
-			TooltipIcon = null;
-		}
-
-		void InitIcons(Rectangle renderBounds)
-		{
-			var iconWidthWithSpacing = IconWidth + IconSpacing;
-			var numOfIcons = renderBounds.Width / iconWidthWithSpacing;
-			iconRects = new Rectangle[numOfIcons];
-			icons = new ProductionIcon[numOfIcons];
-
-			for (var i = 0; i < numOfIcons; i++)
-			{
-				iconRects[i] = new Rectangle(renderBounds.X + i * iconWidthWithSpacing, renderBounds.Y, IconWidth, IconHeight);
-				icons[i] = new ProductionIcon();
-			}
 		}
 	}
 }

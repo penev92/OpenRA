@@ -276,6 +276,18 @@ Container@INGAME_OBSERVERSTATS_BG:
 					Background: dialogTransparentNoBorder
 					ScrollbarWidth: 24
 					Children:
+						ScrollItem@TEAM_TEMPLATE:
+							X: 0
+							Y: 0
+							Width: PARENT_RIGHT - 35
+							Height: 25
+							Children:
+								Label@TEAM:
+									X: 0
+									Y: 0
+									Width: PARENT_RIGHT
+									Height: PARENT_BOTTOM
+									Font: Bold
 						ScrollItem@BASIC_PLAYER_TEMPLATE:
 							X: 0
 							Y: 0

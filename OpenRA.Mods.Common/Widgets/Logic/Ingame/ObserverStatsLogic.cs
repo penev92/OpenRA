@@ -38,7 +38,10 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 		readonly ScrollItemWidget productionPlayerTemplate;
 		readonly ScrollItemWidget combatPlayerTemplate;
 		readonly ContainerWidget earnedThisMinuteGraphTemplate;
+		readonly ScrollItemWidget teamTemplate;
 		readonly IEnumerable<Player> players;
+		readonly IOrderedEnumerable<IGrouping<int, Player>> teams;
+		readonly bool hasTeams;
 		readonly World world;
 		readonly WorldRenderer worldRenderer;
 
@@ -56,6 +59,8 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 				statsHotkeys[i] = logicArgs.TryGetValue("Statistics" + keyNames[i] + "Key", out yaml) ? modData.Hotkeys[yaml.Value] : new HotkeyReference();
 
 			players = world.Players.Where(p => !p.NonCombatant);
+			teams = players.GroupBy(p => (world.LobbyInfo.ClientWithIndex(p.ClientIndex) ?? new Session.Client()).Team).OrderBy(g => g.Key);
+			hasTeams = !(teams.Count() == 1 && teams.First().Key == 0);
 
 			basicStatsHeaders = widget.Get<ContainerWidget>("BASIC_STATS_HEADERS");
 			economyStatsHeaders = widget.Get<ContainerWidget>("ECONOMY_STATS_HEADERS");
@@ -71,6 +76,8 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			productionPlayerTemplate = playerStatsPanel.Get<ScrollItemWidget>("PRODUCTION_PLAYER_TEMPLATE");
 			combatPlayerTemplate = playerStatsPanel.Get<ScrollItemWidget>("COMBAT_PLAYER_TEMPLATE");
 			earnedThisMinuteGraphTemplate = playerStatsPanel.Get<ContainerWidget>("EARNED_THIS_MIN_GRAPH_TEMPLATE");
+
+			teamTemplate = playerStatsPanel.Get<ScrollItemWidget>("TEAM_TEMPLATE");
 
 			var statsDropDown = widget.Get<DropDownButtonWidget>("STATS_DROPDOWN");
 			Func<string, ContainerWidget, ScrollItemWidget, Action, StatsDropDownOption> createStatsOption = (title, headers, template, a) =>
@@ -161,10 +168,16 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 
 		void DisplayStats(Func<Player, ScrollItemWidget> createItem)
 		{
-			var teams = players.GroupBy(p => (world.LobbyInfo.ClientWithIndex(p.ClientIndex) ?? new Session.Client()).Team).OrderBy(g => g.Key);
-			foreach (var t in teams)
+			foreach (var team in teams)
 			{
-				var team = t;
+				if (hasTeams)
+				{
+					var tt = ScrollItemWidget.Setup(teamTemplate, () => false, () => { });
+					tt.IgnoreMouseOver = true;
+					tt.Get<LabelWidget>("TEAM").GetText = () => team.Key == 0 ? "No Team" : "Team " + team.Key;
+					playerStatsPanel.AddChild(tt);
+				}
+
 				foreach (var p in team)
 				{
 					var player = p;
@@ -278,7 +291,9 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			var height = playerStatsPanel.Bounds.Height;
 
 			playerStatsPanel.Bounds.Width = itemTemplate.Bounds.Width + playerStatsPanel.ScrollbarWidth;
-			playerStatsPanel.Bounds.Height = Math.Min(players.Count(), 8) * (itemTemplate.Bounds.Height + playerStatsPanel.ItemSpacing) + playerStatsPanel.TopBottomSpacing * 2;
+			playerStatsPanel.Bounds.Height = Math.Min(players.Count(), 8) * (itemTemplate.Bounds.Height + playerStatsPanel.ItemSpacing)
+				+ playerStatsPanel.TopBottomSpacing * 2
+				+ (teamTemplate.Bounds.Height + playerStatsPanel.ItemSpacing) * (hasTeams ? teams.Count() : 0);
 
 			if (playerStatsPanel.Bounds.Height < height)
 				playerStatsPanel.ScrollToTop();

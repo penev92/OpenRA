@@ -21,6 +21,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 					Width: 185
 					Height: 25
 					Font: Bold
+					Background: sidebar-button-observer
 					Children:
 						LogicKeyListener@STATS_DROPDOWN_KEYHANDLER:
 				Background@GRAPH_BG:
@@ -287,7 +288,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 					Height: PARENT_BOTTOM - 60
 					TopBottomSpacing: 5
 					ItemSpacing: 2
-					Background: dialogTransparentNoBorder
+					Background:
 					ScrollbarWidth: 24
 					ScrollBarAlign: Left
 					Children:
@@ -303,6 +304,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Width: PARENT_RIGHT
 									Height: PARENT_BOTTOM
 									Font: Bold
+									Contrast: True
 						ScrollItem@BASIC_PLAYER_TEMPLATE:
 							X: 0
 							Y: 0
@@ -312,7 +314,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 								GradientColorBlock@PLAYER_GRADIENT:
 									X: 0
 									Y: 0
-									Width: 200
+									Width: PARENT_RIGHT
 									Height: PARENT_BOTTOM
 								Image@FLAG:
 									X: 5
@@ -397,7 +399,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 								GradientColorBlock@PLAYER_GRADIENT:
 									X: 0
 									Y: 0
-									Width: 200
+									Width: PARENT_RIGHT
 									Height: PARENT_BOTTOM
 								Image@FLAG:
 									X: 5
@@ -412,7 +414,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Width: 160
 									Height: PARENT_BOTTOM
 									Font: Bold
-									Shadow: True
+									# Shadow: True
 								Label@CASH:
 									X: 200
 									Y: 0
@@ -465,7 +467,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 								GradientColorBlock@PLAYER_GRADIENT:
 									X: 0
 									Y: 0
-									Width: 200
+									Width: PARENT_RIGHT
 									Height: PARENT_BOTTOM
 								Image@FLAG:
 									X: 5
@@ -480,7 +482,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Width: 160
 									Height: PARENT_BOTTOM
 									Font: Bold
-									Shadow: True
+									# Shadow: True
 								ObserverProductionIcons@PRODUCTION_ICONS:
 									X: 200
 									Y: 0
@@ -496,7 +498,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 								GradientColorBlock@PLAYER_GRADIENT:
 									X: 0
 									Y: 0
-									Width: 200
+									Width: PARENT_RIGHT
 									Height: PARENT_BOTTOM
 								Image@FLAG:
 									X: 5
@@ -511,7 +513,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Width: 160
 									Height: PARENT_BOTTOM
 									Font: Bold
-									Shadow: True
+									# Shadow: True
 								ObserverSupportPowerIcons@SUPPORT_POWER_ICONS:
 									X: 200
 									Y: 0
@@ -526,7 +528,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 								GradientColorBlock@PLAYER_GRADIENT:
 									X: 0
 									Y: 0
-									Width: 200
+									Width: PARENT_RIGHT
 									Height: PARENT_BOTTOM
 								Image@FLAG:
 									X: 5
@@ -541,7 +543,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Width: 160
 									Height: PARENT_BOTTOM
 									Font: Bold
-									Shadow: True
+									# Shadow: True
 								Label@ASSETS_DESTROYED:
 									X: 200
 									Y: 0

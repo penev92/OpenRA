@@ -303,6 +303,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Width: PARENT_RIGHT
 									Height: PARENT_BOTTOM
 									Font: Bold
+									Contrast: True
 						ScrollItem@BASIC_PLAYER_TEMPLATE:
 							X: 0
 							Y: 0

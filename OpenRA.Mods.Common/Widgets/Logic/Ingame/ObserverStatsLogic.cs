@@ -30,12 +30,14 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 		readonly ContainerWidget basicStatsHeaders;
 		readonly ContainerWidget economyStatsHeaders;
 		readonly ContainerWidget productionStatsHeaders;
+		readonly ContainerWidget supportPowerStatsHeaders;
 		readonly ContainerWidget combatStatsHeaders;
 		readonly ContainerWidget earnedThisMinuteGraphHeaders;
 		readonly ScrollPanelWidget playerStatsPanel;
 		readonly ScrollItemWidget basicPlayerTemplate;
 		readonly ScrollItemWidget economyPlayerTemplate;
 		readonly ScrollItemWidget productionPlayerTemplate;
+		readonly ScrollItemWidget supportPowersPlayerTemplate;
 		readonly ScrollItemWidget combatPlayerTemplate;
 		readonly ContainerWidget earnedThisMinuteGraphTemplate;
 		readonly ScrollItemWidget teamTemplate;
@@ -65,6 +67,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			basicStatsHeaders = widget.Get<ContainerWidget>("BASIC_STATS_HEADERS");
 			economyStatsHeaders = widget.Get<ContainerWidget>("ECONOMY_STATS_HEADERS");
 			productionStatsHeaders = widget.Get<ContainerWidget>("PRODUCTION_STATS_HEADERS");
+			supportPowerStatsHeaders = widget.Get<ContainerWidget>("SUPPORT_POWERS_HEADERS");
 			combatStatsHeaders = widget.Get<ContainerWidget>("COMBAT_STATS_HEADERS");
 			earnedThisMinuteGraphHeaders = widget.Get<ContainerWidget>("EARNED_THIS_MIN_GRAPH_HEADERS");
 
@@ -74,6 +77,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			basicPlayerTemplate = playerStatsPanel.Get<ScrollItemWidget>("BASIC_PLAYER_TEMPLATE");
 			economyPlayerTemplate = playerStatsPanel.Get<ScrollItemWidget>("ECONOMY_PLAYER_TEMPLATE");
 			productionPlayerTemplate = playerStatsPanel.Get<ScrollItemWidget>("PRODUCTION_PLAYER_TEMPLATE");
+			supportPowersPlayerTemplate = playerStatsPanel.Get<ScrollItemWidget>("SUPPORT_POWERS_PLAYER_TEMPLATE");
 			combatPlayerTemplate = playerStatsPanel.Get<ScrollItemWidget>("COMBAT_PLAYER_TEMPLATE");
 			earnedThisMinuteGraphTemplate = playerStatsPanel.Get<ContainerWidget>("EARNED_THIS_MIN_GRAPH_TEMPLATE");
 
@@ -103,6 +107,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 				createStatsOption("Basic", basicStatsHeaders, basicPlayerTemplate, () => DisplayStats(BasicStats)),
 				createStatsOption("Economy", economyStatsHeaders, economyPlayerTemplate, () => DisplayStats(EconomyStats)),
 				createStatsOption("Production", productionStatsHeaders, productionPlayerTemplate, () => DisplayStats(ProductionStats)),
+				createStatsOption("Support powers", supportPowerStatsHeaders, supportPowersPlayerTemplate, () => DisplayStats(SupportPowerStats)),
 				createStatsOption("Combat", combatStatsHeaders, combatPlayerTemplate, () => DisplayStats(CombatStats)),
 				createStatsOption("Earnings (graph)", earnedThisMinuteGraphHeaders, null, EarnedThisMinuteGraph)
 			};
@@ -146,6 +151,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			basicStatsHeaders.Visible = false;
 			economyStatsHeaders.Visible = false;
 			productionStatsHeaders.Visible = false;
+			supportPowerStatsHeaders.Visible = false;
 			combatStatsHeaders.Visible = false;
 			earnedThisMinuteGraphHeaders.Visible = false;
 		}
@@ -213,6 +219,18 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			LobbyUtils.AddPlayerFlagAndName(template, player);
 
 			template.Get<ObserverProductionIconsWidget>("PRODUCTION_ICONS").GetPlayer = () => player;
+			template.IgnoreChildMouseOver = false;
+
+			return template;
+		}
+
+		ScrollItemWidget SupportPowerStats(Player player)
+		{
+			supportPowerStatsHeaders.Visible = true;
+			var template = SetupPlayerScrollItemWidget(supportPowersPlayerTemplate, player);
+
+			LobbyUtils.AddPlayerFlagAndName(template, player);
+
 			template.Get<ObserverSupportPowerIconsWidget>("SUPPORT_POWER_ICONS").GetPlayer = () => player;
 			template.IgnoreChildMouseOver = false;
 

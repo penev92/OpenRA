@@ -329,7 +329,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Font: Bold
 									Shadow: True
 								Label@CASH:
-									X: 215
+									X: 200
 									Y: 0
 									Width: 80
 									Height: PARENT_BOTTOM
@@ -414,7 +414,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Font: Bold
 									Shadow: True
 								Label@CASH:
-									X: 215
+									X: 200
 									Y: 0
 									Width: 80
 									Height: PARENT_BOTTOM
@@ -545,7 +545,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Font: Bold
 									Shadow: True
 								Label@ASSETS_DESTROYED:
-									X: 215
+									X: 200
 									Y: 0
 									Width: 60
 									Height: PARENT_BOTTOM

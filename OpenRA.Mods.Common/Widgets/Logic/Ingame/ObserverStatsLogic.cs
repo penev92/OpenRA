@@ -301,6 +301,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			headerTemplate.Parent.Bounds.Width = playerStatsPanel.Bounds.Width;
 		}
 
+		// TODO: Either start using or remove this.
 		static string MapControl(double control)
 		{
 			return (control * 100).ToString("F1") + "%";
@@ -316,6 +317,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			return "$" + (world.WorldTick == 0 ? 0 : earned / (world.WorldTick / 1500.0)).ToString("F2");
 		}
 
+		// TODO: Either start using or remove this.
 		string KillDeathRatio(int killed, int dead)
 		{
 			var kdr = (float)killed / Math.Max(1.0, dead);

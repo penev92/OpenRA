@@ -3,6 +3,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 		StatisticsBasicKey: StatisticsBasic
 		StatisticsEconomyKey: StatisticsEconomy
 		StatisticsProductionKey: StatisticsProduction
+		StatisticsSupportPowersKey: StatisticsSupportPowers
 		StatisticsCombatKey: StatisticsCombat
 		StatisticsGraphKey: StatisticsGraph
 	X: 0

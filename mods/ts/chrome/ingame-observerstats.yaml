@@ -281,7 +281,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Text: Earnings received each minute
 									Align: Center
 				ScrollPanel@PLAYER_STATS_PANEL:
-					X: 0
+					X: 24
 					Y: 60
 					Width: PARENT_RIGHT
 					Height: PARENT_BOTTOM - 60
@@ -289,6 +289,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 					ItemSpacing: 2
 					Background: dialogTransparentNoBorder
 					ScrollbarWidth: 24
+					ScrollBarAlign: Left
 					Children:
 						ScrollItem@TEAM_TEMPLATE:
 							X: 0

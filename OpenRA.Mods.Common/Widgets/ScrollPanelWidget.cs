@@ -30,6 +30,12 @@ namespace OpenRA.Mods.Common.Widgets
 		Top
 	}
 
+	public enum ScrollBarAlign
+	{
+		Left,
+		Right
+	}
+
 	public class ScrollPanelWidget : Widget
 	{
 		readonly Ruleset modRules;
@@ -44,6 +50,7 @@ namespace OpenRA.Mods.Common.Widgets
 		public ILayout Layout;
 		public int MinimumThumbSize = 10;
 		public ScrollPanelAlign Align = ScrollPanelAlign.Top;
+		public ScrollBarAlign ScrollBarAlign = ScrollBarAlign.Right;
 		public bool CollapseHiddenChildren;
 		public float SmoothScrollSpeed = 0.333f;
 
@@ -141,9 +148,21 @@ namespace OpenRA.Mods.Common.Widgets
 
 			if (ScrollbarWidth > 0)
 			{
-				upButtonRect = new Rectangle(rb.Right - ScrollbarWidth, rb.Y, ScrollbarWidth, ScrollbarWidth);
-				downButtonRect = new Rectangle(rb.Right - ScrollbarWidth, rb.Bottom - ScrollbarWidth, ScrollbarWidth, ScrollbarWidth);
-				scrollbarRect = new Rectangle(rb.Right - ScrollbarWidth, rb.Y + ScrollbarWidth - 1, ScrollbarWidth, scrollbarHeight + 2);
+				switch (ScrollBarAlign)
+				{
+					case ScrollBarAlign.Left:
+						upButtonRect = new Rectangle(0, rb.Y, ScrollbarWidth, ScrollbarWidth);
+						downButtonRect = new Rectangle(0, rb.Bottom - ScrollbarWidth, ScrollbarWidth, ScrollbarWidth);
+						scrollbarRect = new Rectangle(0, rb.Y + ScrollbarWidth - 1, ScrollbarWidth, scrollbarHeight + 2);
+						break;
+					case ScrollBarAlign.Right:
+						upButtonRect = new Rectangle(rb.Right - ScrollbarWidth, rb.Y, ScrollbarWidth, ScrollbarWidth);
+						downButtonRect = new Rectangle(rb.Right - ScrollbarWidth, rb.Bottom - ScrollbarWidth, ScrollbarWidth, ScrollbarWidth);
+						scrollbarRect = new Rectangle(rb.Right - ScrollbarWidth, rb.Y + ScrollbarWidth - 1, ScrollbarWidth, scrollbarHeight + 2);
+						break;
+					default:
+						throw new ArgumentOutOfRangeException();
+				}
 			}
 
 			if (ScrollbarWidth > 0)

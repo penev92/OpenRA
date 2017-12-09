@@ -186,8 +186,21 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Height: 25
 									Font: Bold
 									Text: Production
+						Container@SUPPORT_POWERS_HEADERS:
+							X: 0
+							Y: 0
+							Width: PARENT_RIGHT
+							Height: PARENT_BOTTOM
+							Children:
+								Label@PLAYER_HEADER:
+									X: 40
+									Y: 0
+									Width: 160
+									Height: 25
+									Font: Bold
+									Text: Player
 								Label@SUPPORT_POWERS_HEADER:
-									X: 774
+									X: 150
 									Y: 0
 									Width: 133
 									Height: 25
@@ -457,8 +470,28 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Width: 616
 									Height: PARENT_BOTTOM
 									TooltipContainer: TOOLTIP_CONTAINER
+						ScrollItem@SUPPORT_POWERS_PLAYER_TEMPLATE:
+							X: 0
+							Y: 0
+							Width: 915
+							Height: 52
+							Children:
+								Image@FLAG:
+									X: 5
+									Y: 20
+									Width: 35
+									Height: PARENT_BOTTOM - 5
+									ImageName: random
+									ImageCollection: flags
+								Label@PLAYER:
+									X: 40
+									Y: 0
+									Width: 160
+									Height: PARENT_BOTTOM
+									Font: Bold
+									Shadow: True
 								ObserverSupportPowerIcons@SUPPORT_POWER_ICONS:
-									X: 774
+									X: 150
 									Y: 0
 									Width: 133
 									Height: PARENT_BOTTOM

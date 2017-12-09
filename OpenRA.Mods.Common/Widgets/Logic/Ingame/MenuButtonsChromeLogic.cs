@@ -93,7 +93,11 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			if (stats != null)
 			{
 				stats.IsDisabled = () => disableSystemButtons || world.Map.Visibility.HasFlag(MapVisibility.MissionSelector);
-				stats.OnClick = () => OpenMenuPanel(stats, new WidgetArgs() { { "activePanel", ObserverStatsPanel.Basic } });
+				stats.OnClick = () =>
+				{
+					OpenMenuPanel(stats, new WidgetArgs { { "activePanel", ObserverStatsPanel.Basic } });
+					disableSystemButtons = false;	// HACK to keep the Options Menu button active.
+				};
 			}
 
 			var keyListener = widget.GetOrNull<LogicKeyListenerWidget>("OBSERVER_KEY_LISTENER");
@@ -107,7 +111,8 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 						{
 							if (statsHotkeys[i].IsActivatedBy(e))
 							{
-								OpenMenuPanel(stats, new WidgetArgs() { { "activePanel", i } });
+								OpenMenuPanel(stats, new WidgetArgs { { "activePanel", i } });
+								disableSystemButtons = false;	// HACK to keep the Options Menu button active.
 								return true;
 							}
 						}

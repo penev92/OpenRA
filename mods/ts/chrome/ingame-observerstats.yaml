@@ -308,6 +308,11 @@ Container@INGAME_OBSERVERSTATS_BG:
 							Width: 940
 							Height: 25
 							Children:
+								GradientColorBlock@PLAYER_GRADIENT:
+									X: 0
+									Y: 0
+									Width: 200
+									Height: PARENT_BOTTOM
 								Image@FLAG:
 									X: 5
 									Y: 5
@@ -388,6 +393,11 @@ Container@INGAME_OBSERVERSTATS_BG:
 							Width: 855
 							Height: 25
 							Children:
+								GradientColorBlock@PLAYER_GRADIENT:
+									X: 0
+									Y: 0
+									Width: 200
+									Height: PARENT_BOTTOM
 								Image@FLAG:
 									X: 5
 									Y: 5
@@ -451,6 +461,11 @@ Container@INGAME_OBSERVERSTATS_BG:
 							Width: 758
 							Height: 54
 							Children:
+								GradientColorBlock@PLAYER_GRADIENT:
+									X: 0
+									Y: 0
+									Width: 200
+									Height: PARENT_BOTTOM
 								Image@FLAG:
 									X: 5
 									Y: 20
@@ -478,6 +493,11 @@ Container@INGAME_OBSERVERSTATS_BG:
 							Width: 758
 							Height: 54
 							Children:
+								GradientColorBlock@PLAYER_GRADIENT:
+									X: 0
+									Y: 0
+									Width: 200
+									Height: PARENT_BOTTOM
 								Image@FLAG:
 									X: 5
 									Y: 20
@@ -504,6 +524,11 @@ Container@INGAME_OBSERVERSTATS_BG:
 							Width: 790
 							Height: 25
 							Children:
+								GradientColorBlock@PLAYER_GRADIENT:
+									X: 0
+									Y: 0
+									Width: 200
+									Height: PARENT_BOTTOM
 								Image@FLAG:
 									X: 5
 									Y: 5

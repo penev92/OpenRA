@@ -208,6 +208,10 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			template.Get<LabelWidget>("BUILDINGS_KILLED").GetText = () => stats.BuildingsKilled.ToString();
 			template.Get<LabelWidget>("BUILDINGS_DEAD").GetText = () => stats.BuildingsDead.ToString();
 
+			var playerGradient = template.Get<GradientColorBlockWidget>("PLAYER_GRADIENT");
+			playerGradient.GetTopLeftColor = () => player.Color.RGB;
+			playerGradient.GetBottomLeftColor = () => player.Color.RGB;
+
 			return template;
 		}
 
@@ -221,6 +225,10 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			template.Get<ObserverProductionIconsWidget>("PRODUCTION_ICONS").GetPlayer = () => player;
 			template.IgnoreChildMouseOver = false;
 
+			var playerGradient = template.Get<GradientColorBlockWidget>("PLAYER_GRADIENT");
+			playerGradient.GetTopLeftColor = () => player.Color.RGB;
+			playerGradient.GetBottomLeftColor = () => player.Color.RGB;
+
 			return template;
 		}
 
@@ -233,6 +241,10 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 
 			template.Get<ObserverSupportPowerIconsWidget>("SUPPORT_POWER_ICONS").GetPlayer = () => player;
 			template.IgnoreChildMouseOver = false;
+
+			var playerGradient = template.Get<GradientColorBlockWidget>("PLAYER_GRADIENT");
+			playerGradient.GetTopLeftColor = () => player.Color.RGB;
+			playerGradient.GetBottomLeftColor = () => player.Color.RGB;
 
 			return template;
 		}
@@ -262,6 +274,10 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			var harvesters = template.Get<LabelWidget>("HARVESTERS");
 			harvesters.GetText = () => world.ActorsHavingTrait<Harvester>().Count(a => a.Owner == player && !a.IsDead).ToString();
 
+			var playerGradient = template.Get<GradientColorBlockWidget>("PLAYER_GRADIENT");
+			playerGradient.GetTopLeftColor = () => player.Color.RGB;
+			playerGradient.GetBottomLeftColor = () => player.Color.RGB;
+
 			return template;
 		}
 
@@ -282,13 +298,19 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			power.GetColor = () => GetPowerColor(powerRes.PowerState);
 
 			var stats = player.PlayerActor.TraitOrDefault<PlayerStatistics>();
-			if (stats == null) return template;
+			if (stats == null)
+				return template;
+
 			template.Get<LabelWidget>("KILLS").GetText = () => (stats.UnitsKilled + stats.BuildingsKilled).ToString();
 			template.Get<LabelWidget>("DEATHS").GetText = () => (stats.UnitsDead + stats.BuildingsDead).ToString();
 			template.Get<LabelWidget>("ASSETS_DESTROYED").GetText = () => "$" + stats.KillsCost;
 			template.Get<LabelWidget>("ASSETS_LOST").GetText = () => "$" + stats.DeathsCost;
 			template.Get<LabelWidget>("EXPERIENCE").GetText = () => stats.Experience.ToString();
 			template.Get<LabelWidget>("ACTIONS_MIN").GetText = () => AverageOrdersPerMinute(stats.OrderCount);
+
+			var playerGradient = template.Get<GradientColorBlockWidget>("PLAYER_GRADIENT");
+			playerGradient.GetTopLeftColor = () => player.Color.RGB;
+			playerGradient.GetBottomLeftColor = () => player.Color.RGB;
 
 			return template;
 		}

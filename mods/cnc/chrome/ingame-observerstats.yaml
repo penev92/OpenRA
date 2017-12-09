@@ -287,7 +287,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 					Height: PARENT_BOTTOM - 60
 					TopBottomSpacing: 5
 					ItemSpacing: 1
-					Background: dialogTransparentNoBorder
+					Background: #dialogTransparentNoBorder
 					ScrollbarWidth: 24
 					ScrollBarAlign: Left
 					Children:
@@ -303,6 +303,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Width: PARENT_RIGHT
 									Height: PARENT_BOTTOM
 									Font: Bold
+									Contrast: True
 						ScrollItem@BASIC_PLAYER_TEMPLATE:
 							X: 0
 							Y: 0

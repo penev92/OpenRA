@@ -233,7 +233,8 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			playerGradient.GetBottomLeftColor = () => player.Color.RGB;
 
 			template.Get<ObserverProductionIconsWidget>("PRODUCTION_ICONS").GetPlayer = () => player;
-			template.IgnoreChildMouseOver = false;
+			template.IgnoreChildMouseOver = true;
+			template.IgnoreChildMouseOver = true;
 
 			return template;
 		}

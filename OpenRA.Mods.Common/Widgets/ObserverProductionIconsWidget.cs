@@ -108,6 +108,8 @@ namespace OpenRA.Mods.Common.Widgets
 				.ThenBy(g => g.First().Item)
 				.ToList();
 
+			Bounds.Width = currentItemsByItem.Count * (IconWidth * 2 + IconSpacing);
+
 			foreach (var currentItems in currentItemsByItem)
 			{
 				var current = currentItems.OrderBy(pi => pi.Done ? 0 : (pi.Paused ? 2 : 1)).ThenBy(q => q.RemainingTimeActual).First();

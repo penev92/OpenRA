@@ -107,6 +107,7 @@ Container@OBSERVER_WIDGETS:
 		StatisticsBasicKey: StatisticsBasic
 		StatisticsEconomyKey: StatisticsEconomy
 		StatisticsProductionKey: StatisticsProduction
+		StatisticsSupportPowersKey: StatisticsSupportPowers
 		StatisticsCombatKey: StatisticsCombat
 		StatisticsGraphKey: StatisticsGraph
 	Children:

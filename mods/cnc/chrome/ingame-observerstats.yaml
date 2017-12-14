@@ -313,7 +313,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 								GradientColorBlock@PLAYER_GRADIENT:
 									X: 0
 									Y: 0
-									Width: 200
+									Width: PARENT_RIGHT
 									Height: PARENT_BOTTOM
 								Image@FLAG:
 									X: 5
@@ -398,7 +398,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 								GradientColorBlock@PLAYER_GRADIENT:
 									X: 0
 									Y: 0
-									Width: 200
+									Width: PARENT_RIGHT
 									Height: PARENT_BOTTOM
 								Image@FLAG:
 									X: 5
@@ -527,7 +527,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 								GradientColorBlock@PLAYER_GRADIENT:
 									X: 0
 									Y: 0
-									Width: 200
+									Width: PARENT_RIGHT
 									Height: PARENT_BOTTOM
 								Image@FLAG:
 									X: 5

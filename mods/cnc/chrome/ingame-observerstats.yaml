@@ -313,7 +313,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 								GradientColorBlock@PLAYER_GRADIENT:
 									X: 0
 									Y: 0
-									Width: PARENT_RIGHT
+									Width: 200
 									Height: PARENT_BOTTOM
 								Image@FLAG:
 									X: 5
@@ -398,7 +398,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 								GradientColorBlock@PLAYER_GRADIENT:
 									X: 0
 									Y: 0
-									Width: PARENT_RIGHT
+									Width: 200
 									Height: PARENT_BOTTOM
 								Image@FLAG:
 									X: 5
@@ -460,13 +460,13 @@ Container@INGAME_OBSERVERSTATS_BG:
 						ScrollItem@PRODUCTION_PLAYER_TEMPLATE:
 							X: 0
 							Y: 0
-							Width: 915
+							Width: 900
 							Height: 52
 							Children:
 								GradientColorBlock@PLAYER_GRADIENT:
 									X: 0
 									Y: 0
-									Width: PARENT_RIGHT
+									Width: 200
 									Height: PARENT_BOTTOM
 								Image@FLAG:
 									X: 5
@@ -485,19 +485,19 @@ Container@INGAME_OBSERVERSTATS_BG:
 								ObserverProductionIcons@PRODUCTION_ICONS:
 									X: 200
 									Y: 0
-									Width: 616
+									Width: 0
 									Height: PARENT_BOTTOM
 									TooltipContainer: TOOLTIP_CONTAINER
 						ScrollItem@SUPPORT_POWERS_PLAYER_TEMPLATE:
 							X: 0
 							Y: 0
-							Width: 915
+							Width: 900
 							Height: 52
 							Children:
 								GradientColorBlock@PLAYER_GRADIENT:
 									X: 0
 									Y: 0
-									Width: PARENT_RIGHT
+									Width: 200
 									Height: PARENT_BOTTOM
 								Image@FLAG:
 									X: 5
@@ -516,7 +516,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 								ObserverSupportPowerIcons@SUPPORT_POWER_ICONS:
 									X: 200
 									Y: 0
-									Width: 133
+									Width: 0
 									Height: PARENT_BOTTOM
 						ScrollItem@COMBAT_PLAYER_TEMPLATE:
 							X: 0
@@ -527,7 +527,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 								GradientColorBlock@PLAYER_GRADIENT:
 									X: 0
 									Y: 0
-									Width: PARENT_RIGHT
+									Width: 200
 									Height: PARENT_BOTTOM
 								Image@FLAG:
 									X: 5

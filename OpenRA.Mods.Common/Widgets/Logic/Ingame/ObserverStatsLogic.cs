@@ -180,7 +180,9 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 				{
 					var tt = ScrollItemWidget.Setup(teamTemplate, () => false, () => { });
 					tt.IgnoreMouseOver = true;
-					tt.Get<LabelWidget>("TEAM").GetText = () => team.Key == 0 ? "No Team" : "Team " + team.Key;
+					var teamLabel = tt.Get<LabelWidget>("TEAM");
+					teamLabel.GetText = () => team.Key == 0 ? "No Team" : "Team " + team.Key;
+					tt.Bounds.Width = teamLabel.Bounds.Width = Game.Renderer.Fonts[tt.Font].Measure(tt.Get<LabelWidget>("TEAM").GetText()).X;
 					playerStatsPanel.AddChild(tt);
 				}
 
@@ -233,8 +235,6 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			playerGradient.GetBottomLeftColor = () => player.Color.RGB;
 
 			template.Get<ObserverProductionIconsWidget>("PRODUCTION_ICONS").GetPlayer = () => player;
-			template.IgnoreChildMouseOver = true;
-			template.IgnoreChildMouseOver = true;
 
 			return template;
 		}
@@ -254,7 +254,6 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			playerGradient.GetBottomLeftColor = () => player.Color.RGB;
 
 			template.Get<ObserverSupportPowerIconsWidget>("SUPPORT_POWER_ICONS").GetPlayer = () => player;
-			template.IgnoreChildMouseOver = false;
 
 			return template;
 		}

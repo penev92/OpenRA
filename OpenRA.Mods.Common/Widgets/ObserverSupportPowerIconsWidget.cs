@@ -76,7 +76,7 @@ namespace OpenRA.Mods.Common.Widgets
 				return;
 
 			var powers = player.PlayerActor.Trait<SupportPowerManager>().Powers
-				.Where(x => !x.Value.Disabled).Select((a, i) => new { a, i });
+				.Where(x => !x.Value.Disabled).Select((a, i) => new { a, i }).ToList();
 			foreach (var power in powers)
 			{
 				if (!clocks.ContainsKey(power.a.Key))
@@ -107,6 +107,12 @@ namespace OpenRA.Mods.Common.Widgets
 					location + iconSize - new float2(tiny.Measure(text).X / 2, 3),
 					Color.White, Color.Black, 1);
 			}
+
+			Bounds.Width = powers.Count * (IconWidth * 2 + IconSpacing);
+			var parentWidth = Bounds.X + Bounds.Width;
+
+			Parent.Bounds.Width = parentWidth;
+			Parent.Get<GradientColorBlockWidget>("PLAYER_GRADIENT").Bounds.Width = parentWidth;
 		}
 
 		static string GetOverlayForItem(SupportPowerInstance item, int timestep)

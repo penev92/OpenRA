@@ -22,7 +22,7 @@ namespace OpenRA.Mods.Common.Widgets
 {
 	public class ObserverProductionIconsWidget : Widget
 	{
-		public readonly string TooltipTemplate = "PRODUCTION_TOOLTIP";
+		public readonly string TooltipTemplate = "PRODUCTION_TOOLTIP";	// This is missing from YAML?!?
 		public readonly string TooltipContainer;
 		public Func<Player> GetPlayer;
 		readonly World world;
@@ -100,7 +100,7 @@ namespace OpenRA.Mods.Common.Widgets
 					clocks.Add(queue.Trait, new Animation(world, ClockAnimation));
 
 			var queueCol = -1;
-			var currentItemsByItem = queues		// TODO: Change to grouping by actor type.
+			var currentItemsByItem = queues     // TODO: Change to grouping by actor type.
 				.Select(a => a.Trait.CurrentItem())
 				.Where(pi => pi != null)
 				.GroupBy(pr => pr.Item)
@@ -162,6 +162,11 @@ namespace OpenRA.Mods.Common.Widgets
 						Color.White, Color.Black, 1);
 				}
 			}
+
+			var parentWidth = Bounds.X + Bounds.Width;
+
+			Parent.Bounds.Width = parentWidth;
+			Parent.Get<GradientColorBlockWidget>("PLAYER_GRADIENT").Bounds.Width = parentWidth;
 		}
 
 		static string GetOverlayForItem(ProductionItem item, int timestep)

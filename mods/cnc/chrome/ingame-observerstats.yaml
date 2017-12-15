@@ -469,7 +469,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Height: PARENT_BOTTOM
 								Image@FLAG:
 									X: 5
-									Y: 20
+									Y: 13
 									Width: 35
 									Height: PARENT_BOTTOM - 5
 									ImageName: random

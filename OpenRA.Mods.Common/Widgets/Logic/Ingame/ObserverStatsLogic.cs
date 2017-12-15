@@ -309,7 +309,6 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 
 			var res = player.PlayerActor.Trait<PlayerResources>();
 			template.Get<LabelWidget>("CASH").GetText = () => "$" + (res.Cash + res.Resources);
-			template.Get<LabelWidget>("EARNED_MIN").GetText = () => AverageEarnedPerMinute(res.Earned);
 
 			var powerRes = player.PlayerActor.Trait<PowerManager>();
 			var power = template.Get<LabelWidget>("POWER");
@@ -325,7 +324,6 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			template.Get<LabelWidget>("ASSETS_DESTROYED").GetText = () => "$" + stats.KillsCost;
 			template.Get<LabelWidget>("ASSETS_LOST").GetText = () => "$" + stats.DeathsCost;
 			template.Get<LabelWidget>("EXPERIENCE").GetText = () => stats.Experience.ToString();
-			template.Get<LabelWidget>("ACTIONS_MIN").GetText = () => AverageOrdersPerMinute(stats.OrderCount);
 
 			return template;
 		}

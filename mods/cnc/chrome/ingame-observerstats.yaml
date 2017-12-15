@@ -52,16 +52,8 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Font: Bold
 									Text: Cash
 									Contrast: True
-								Label@EARNED_MIN_HEADER:
-									X: 285
-									Y: 0
-									Width: 60
-									Height: 25
-									Font: Bold
-									Text: Earned/min
-									Contrast: True
 								Label@POWER_HEADER:
-									X: 385
+									X: 285
 									Y: 0
 									Width: 60
 									Height: 25
@@ -69,7 +61,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Text: Power
 									Contrast: True
 								Label@KILLS_HEADER:
-									X: 430
+									X: 330
 									Y: 0
 									Width: 60
 									Height: 25
@@ -78,7 +70,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Align: Right
 									Contrast: True
 								Label@DEATHS_HEADER:
-									X: 490
+									X: 390
 									Y: 0
 									Width: 60
 									Height: 25
@@ -87,7 +79,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Align: Right
 									Contrast: True
 								Label@ASSETS_DESTROYED_HEADER:
-									X: 550
+									X: 450
 									Y: 0
 									Width: 80
 									Height: 25
@@ -96,7 +88,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Align: Right
 									Contrast: True
 								Label@ASSETS_LOST_HEADER:
-									X: 600
+									X: 500
 									Y: 0
 									Width: 80
 									Height: 25
@@ -105,21 +97,12 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Align: Right
 									Contrast: True
 								Label@EXPERIENCE_HEADER:
-									X: 655
+									X: 555
 									Y: 0
 									Width: 95
 									Height: 25
 									Font: Bold
 									Text: Score
-									Align: Right
-									Contrast: True
-								Label@ACTIONS_MIN_HEADER:
-									X: 755
-									Y: 0
-									Width: 90
-									Height: 25
-									Font: Bold
-									Text: Actions/min
 									Align: Right
 									Contrast: True
 						Container@ECONOMY_STATS_HEADERS:
@@ -336,7 +319,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 						ScrollItem@BASIC_PLAYER_TEMPLATE:
 							X: 0
 							Y: 0
-							Width: PARENT_RIGHT - 35
+							Width: 640
 							Height: 25
 							Children:
 								GradientColorBlock@PLAYER_GRADIENT:
@@ -364,57 +347,44 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Width: 80
 									Height: PARENT_BOTTOM
 									Shadow: True
-								Label@EARNED_MIN:
-									X: 265
-									Y: 0
-									Width: 60
-									Height: PARENT_BOTTOM
-									Shadow: True
 								Label@POWER:
-									X: 360
+									X: 260
 									Y: 0
 									Width: 80
 									Height: PARENT_BOTTOM
 									Shadow: True
 								Label@KILLS:
-									X: 400
+									X: 300
 									Y: 0
 									Width: 60
 									Height: PARENT_BOTTOM
 									Align: Right
 									Shadow: True
 								Label@DEATHS:
-									X: 450
+									X: 350
 									Y: 0
 									Width: 60
 									Height: PARENT_BOTTOM
 									Align: Right
 									Shadow: True
 								Label@ASSETS_DESTROYED:
-									X: 510
+									X: 410
 									Y: 0
 									Width: 80
 									Height: PARENT_BOTTOM
 									Align: Right
 									Shadow: True
 								Label@ASSETS_LOST:
-									X: 580
+									X: 480
 									Y: 0
 									Width: 80
 									Height: PARENT_BOTTOM
 									Align: Right
 									Shadow: True
 								Label@EXPERIENCE:
-									X: 620
+									X: 520
 									Y: 0
 									Width: 95
-									Height: PARENT_BOTTOM
-									Align: Right
-									Shadow: True
-								Label@ACTIONS_MIN:
-									X: 690
-									Y: 0
-									Width: 90
 									Height: PARENT_BOTTOM
 									Align: Right
 									Shadow: True

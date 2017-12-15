@@ -43,6 +43,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Height: 25
 									Font: Bold
 									Text: Player
+									Contrast: True
 								Label@CASH_HEADER:
 									X: 225
 									Y: 0
@@ -50,6 +51,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Height: 25
 									Font: Bold
 									Text: Cash
+									Contrast: True
 								Label@EARNED_MIN_HEADER:
 									X: 295
 									Y: 0
@@ -57,6 +59,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Height: 25
 									Font: Bold
 									Text: Earned/min
+									Contrast: True
 								Label@POWER_HEADER:
 									X: 395
 									Y: 0
@@ -64,6 +67,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Height: 25
 									Font: Bold
 									Text: Power
+									Contrast: True
 								Label@KILLS_HEADER:
 									X: 465
 									Y: 0
@@ -72,6 +76,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Font: Bold
 									Text: Kills
 									Align: Right
+									Contrast: True
 								Label@DEATHS_HEADER:
 									X: 535
 									Y: 0
@@ -80,6 +85,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Font: Bold
 									Text: Deaths
 									Align: Right
+									Contrast: True
 								Label@ASSETS_DESTROYED_HEADER:
 									X: 605
 									Y: 0
@@ -88,6 +94,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Font: Bold
 									Text: Destroyed
 									Align: Right
+									Contrast: True
 								Label@ASSETS_LOST_HEADER:
 									X: 665
 									Y: 0
@@ -96,6 +103,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Font: Bold
 									Text: Lost
 									Align: Right
+									Contrast: True
 								Label@EXPERIENCE_HEADER:
 									X: 745
 									Y: 0
@@ -104,6 +112,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Font: Bold
 									Text: Score
 									Align: Right
+									Contrast: True
 								Label@ACTIONS_MIN_HEADER:
 									X: 840
 									Y: 0
@@ -112,6 +121,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Font: Bold
 									Text: Actions/min
 									Align: Right
+									Contrast: True
 						Container@ECONOMY_STATS_HEADERS:
 							X: 0
 							Y: 0
@@ -124,42 +134,49 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Height: 25
 									Font: Bold
 									Text: Player
+									Contrast: True
 								Label@CASH_HEADER:
 									X: 225
 									Width: 80
 									Height: 25
 									Font: Bold
 									Text: Cash
+									Contrast: True
 								Label@EARNED_MIN_HEADER:
 									X: 295
 									Width: 60
 									Height: 25
 									Font: Bold
 									Text: Earned/min
+									Contrast: True
 								Label@EARNED_THIS_MIN_HEADER:
 									X: 395
 									Width: 60
 									Height: 25
 									Font: Bold
 									Text: Earned this min
+									Contrast: True
 								Label@ASSETS_HEADER:
 									X: 535
 									Width: 60
 									Height: 25
 									Font: Bold
 									Text: Assets
+									Contrast: True
 								Label@EARNED_HEADER:
 									X: 615
 									Width: 60
 									Height: 25
 									Font: Bold
 									Text: Earned
+									Contrast: True
 								Label@SPENT_HEADER:
 									X: 695
 									Width: 60
 									Height: 25
 									Font: Bold
 									Text: Spent
+									Contrast: True
 								Label@HARVESTERS_HEADER:
 									X: 785
 									Width: 60
@@ -167,6 +184,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Font: Bold
 									Text: Harvesters
 									Align: Right
+									Contrast: True
 						Container@PRODUCTION_STATS_HEADERS:
 							X: 0
 							Y: 0
@@ -180,6 +198,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Height: 25
 									Font: Bold
 									Text: Player
+									Contrast: True
 								Label@PRODUCTION_HEADER:
 									X: 225
 									Y: 0
@@ -187,6 +206,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Height: 25
 									Font: Bold
 									Text: Production
+									Contrast: True
 						Container@SUPPORT_POWERS_HEADERS:
 							X: 0
 							Y: 0
@@ -200,6 +220,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Height: 25
 									Font: Bold
 									Text: Player
+									Contrast: True
 								Label@SUPPORT_POWERS_HEADER:
 									X: 225
 									Y: 0
@@ -207,6 +228,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Height: 25
 									Font: Bold
 									Text: Support Powers
+									Contrast: True
 						Container@COMBAT_STATS_HEADERS:
 							X: 0
 							Y: 0
@@ -220,6 +242,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Height: 25
 									Font: Bold
 									Text: Player
+									Contrast: True
 								Label@ASSETS_DESTROYED_HEADER:
 									X: 200
 									Y: 0
@@ -227,6 +250,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Height: 25
 									Font: Bold
 									Text: Destroyed
+									Contrast: True
 								Label@ASSETS_LOST_HEADER:
 									X: 295
 									Y: 0
@@ -234,6 +258,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Height: 25
 									Font: Bold
 									Text: Lost
+									Contrast: True
 								Label@UNITS_KILLED_HEADER:
 									X: 425
 									Y: 0
@@ -242,6 +267,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Font: Bold
 									Text: Units Killed
 									Align: Right
+									Contrast: True
 								Label@UNITS_DEAD_HEADER:
 									X: 525
 									Y: 0
@@ -250,6 +276,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Font: Bold
 									Text: Units Lost
 									Align: Right
+									Contrast: True
 								Label@BUILDINGS_KILLED_HEADER:
 									X: 645
 									Y: 0
@@ -258,6 +285,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Font: Bold
 									Text: Bldg Killed
 									Align: Right
+									Contrast: True
 								Label@BUILDINGS_DEAD_HEADER:
 									X: 700
 									Y: 0
@@ -266,6 +294,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Font: Bold
 									Text: Bldg Lost
 									Align: Right
+									Contrast: True
 						Container@EARNED_THIS_MIN_GRAPH_HEADERS:
 							X: 0
 							Y: 0

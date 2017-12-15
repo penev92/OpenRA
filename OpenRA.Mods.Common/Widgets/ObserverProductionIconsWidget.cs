@@ -29,9 +29,11 @@ namespace OpenRA.Mods.Common.Widgets
 		readonly WorldRenderer worldRenderer;
 		readonly int timestep;
 
-		public int IconWidth = 32;
-		public int IconHeight = 24;
-		public int IconSpacing = 5;
+		public int IconWidth = (int)(64 * 0.75f);
+		public int IconHeight = (int)(48 * 0.75f);
+		public int IconSpacing = 2;
+		public int IconVerticalOffset = 1;
+		public float IconScale = 0.75f;		// SHPs are 64x48, so scale down.
 
 		public string ClockAnimation = "clock";
 		public string ClockSequence = "idle";
@@ -87,6 +89,9 @@ namespace OpenRA.Mods.Common.Widgets
 
 		public override void Draw()
 		{
+			IconSpacing = 1;
+			IconVerticalOffset = 2;
+
 			var player = GetPlayer();
 			if (player == null)
 				return;
@@ -99,7 +104,6 @@ namespace OpenRA.Mods.Common.Widgets
 				if (!clocks.ContainsKey(queue.Trait))
 					clocks.Add(queue.Trait, new Animation(world, ClockAnimation));
 
-			var queueCol = -1;
 			var currentItemsByItem = queues     // TODO: Change to grouping by actor type.
 				.Select(a => a.Trait.CurrentItem())
 				.Where(pi => pi != null)
@@ -108,8 +112,9 @@ namespace OpenRA.Mods.Common.Widgets
 				.ThenBy(g => g.First().Item)
 				.ToList();
 
-			Bounds.Width = currentItemsByItem.Count * (IconWidth * 2 + IconSpacing);
+			Bounds.Width = currentItemsByItem.Count * (IconWidth + IconSpacing);
 
+			var queueCol = 0;
 			foreach (var currentItems in currentItemsByItem)
 			{
 				var current = currentItems.OrderBy(pi => pi.Done ? 0 : (pi.Paused ? 2 : 1)).ThenBy(q => q.RemainingTimeActual).First();
@@ -120,37 +125,36 @@ namespace OpenRA.Mods.Common.Widgets
 				if (actor == null)
 					continue;
 
-				queueCol += 1;
-				var loc = new float2(queueCol * (IconWidth * 2 + IconSpacing), 3);
-				if (loc.X + iconSize.X * 2 > Bounds.Width + 8)
-					break;
-
 				var rsi = actor.TraitInfo<RenderSpritesInfo>();
 				var icon = new Animation(world, rsi.GetImage(actor, world.Map.Rules.Sequences, faction));
 				var bi = actor.TraitInfo<BuildableInfo>();
 				icon.Play(bi.Icon);
 
-				var location = new float2(RenderBounds.Location) + loc;
-				WidgetUtils.DrawSHPCentered(icon.Image, location + iconSize, worldRenderer.Palette(bi.IconPalette), 1f);
+				var topLeftOffset = new float2(queueCol * (IconWidth + IconSpacing), IconVerticalOffset);
+				//if (loc.X + iconSize.X * 2 > Bounds.Width + 8)
+				//	break;
+
+				var centerPosition = RenderOrigin + topLeftOffset + iconSize / 2;
+				WidgetUtils.DrawSHPCentered(icon.Image, centerPosition, worldRenderer.Palette(bi.IconPalette), IconScale);
 
 				var pio = queue.Actor.Owner.PlayerActor.TraitsImplementing<IProductionIconOverlay>()
 					.FirstOrDefault(p => p.IsOverlayActive(actor));
 
 				if (pio != null)
-					WidgetUtils.DrawSHPCentered(pio.Sprite, location + iconSize + pio.Offset(iconSize),
+					WidgetUtils.DrawSHPCentered(pio.Sprite, centerPosition + pio.Offset(iconSize),
 						worldRenderer.Palette(pio.Palette), 1f);
 
 				var clock = clocks[queue];
-				clock.PlayFetchIndex(ClockSequence,
-					() => current.TotalTime == 0 ? 0 : ((current.TotalTime - current.RemainingTime)
-					* (clock.CurrentSequence.Length - 1) / current.TotalTime));
+				clock.PlayFetchIndex(ClockSequence, () => current.TotalTime == 0 ? 0 :
+					(current.TotalTime - current.RemainingTime) * (clock.CurrentSequence.Length - 1) / current.TotalTime);
+
 				clock.Tick();
-				WidgetUtils.DrawSHPCentered(clock.Image, location + iconSize, worldRenderer.Palette(ClockPalette), 1f);
+				WidgetUtils.DrawSHPCentered(clock.Image, centerPosition, worldRenderer.Palette(ClockPalette), IconScale);
 
 				var tiny = Game.Renderer.Fonts["Tiny"];
 				var text = GetOverlayForItem(current, timestep);
 				tiny.DrawTextWithContrast(text,
-					location + iconSize - new float2(tiny.Measure(text).X / 2, 3),
+					centerPosition - new float2(tiny.Measure(text).X / 2, 3),
 					Color.White, Color.Black, 1);
 
 				if (currentItems.Count() > 1)
@@ -158,9 +162,11 @@ namespace OpenRA.Mods.Common.Widgets
 					var bold = Game.Renderer.Fonts["Bold"];
 					text = currentItems.Count().ToString();
 					bold.DrawTextWithContrast(text,
-						new float2(RenderBounds.Location) + new float2(queueCol * (IconWidth * 2 + IconSpacing) + 5, 5),
+						new float2(RenderBounds.Location) + new float2(queueCol * (IconWidth + IconSpacing) + 5, 5),
 						Color.White, Color.Black, 1);
 				}
+
+				queueCol++;
 			}
 
 			var parentWidth = Bounds.X + Bounds.Width;

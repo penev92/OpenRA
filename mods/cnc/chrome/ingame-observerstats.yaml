@@ -181,7 +181,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Font: Bold
 									Text: Player
 								Label@PRODUCTION_HEADER:
-									X: 230
+									X: 225
 									Y: 0
 									Width: 100
 									Height: 25
@@ -201,7 +201,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Font: Bold
 									Text: Player
 								Label@SUPPORT_POWERS_HEADER:
-									X: 230
+									X: 225
 									Y: 0
 									Width: 100
 									Height: 25
@@ -461,7 +461,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 							X: 0
 							Y: 0
 							Width: 900
-							Height: 52
+							Height: 40
 							Children:
 								GradientColorBlock@PLAYER_GRADIENT:
 									X: 0

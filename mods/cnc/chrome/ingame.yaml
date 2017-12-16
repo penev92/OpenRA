@@ -59,7 +59,7 @@ Container@INGAME_ROOT:
 				Container@GAME_TIMER_BLOCK:
 					Logic: GameTimerLogic
 					X: WINDOW_RIGHT / 2 - WIDTH
-                    Width: 70
+					Width: 70
 					Height: 15
 					Children:
 						LabelWithTooltip@GAME_TIMER:

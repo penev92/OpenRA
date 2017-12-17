@@ -187,7 +187,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Width: 160
 									Height: 25
 									Font: Bold
-									Text: Player
+									Text: #Player
 									Contrast: True
 								Label@PRODUCTION_HEADER:
 									X: 225
@@ -195,7 +195,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Width: 100
 									Height: 25
 									Font: Bold
-									Text: Production
+									Text: #Production
 									Contrast: True
 						Container@SUPPORT_POWERS_HEADERS:
 							X: 0
@@ -209,7 +209,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Width: 160
 									Height: 25
 									Font: Bold
-									Text: Player
+									Text: #Player
 									Contrast: True
 								Label@SUPPORT_POWERS_HEADER:
 									X: 225
@@ -217,7 +217,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Width: 100
 									Height: 25
 									Font: Bold
-									Text: Support Powers
+									Text: #Support Powers
 									Contrast: True
 						Container@COMBAT_STATS_HEADERS:
 							X: 0

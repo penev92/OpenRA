@@ -335,10 +335,15 @@ Container@INGAME_OBSERVERSTATS_BG:
 							Width: 650
 							Height: 25
 							Children:
-								GradientColorBlock@PLAYER_GRADIENT:
+								ColorBlock@PLAYER_COLOR:
 									X: 0
 									Y: 0
-									Width: PARENT_RIGHT
+									Width: 200
+									Height: PARENT_BOTTOM
+								GradientColorBlock@PLAYER_GRADIENT:
+									X: 200
+									Y: 0
+									Width: PARENT_RIGHT - 200
 									Height: PARENT_BOTTOM
 								Image@FLAG:
 									X: 5
@@ -407,10 +412,15 @@ Container@INGAME_OBSERVERSTATS_BG:
 							Width: PARENT_RIGHT - 35
 							Height: 25
 							Children:
-								GradientColorBlock@PLAYER_GRADIENT:
+								ColorBlock@PLAYER_COLOR:
 									X: 0
 									Y: 0
-									Width: PARENT_RIGHT
+									Width: 200
+									Height: PARENT_BOTTOM
+								GradientColorBlock@PLAYER_GRADIENT:
+									X: 200
+									Y: 0
+									Width: PARENT_RIGHT - 200
 									Height: PARENT_BOTTOM
 								Image@FLAG:
 									X: 5
@@ -475,10 +485,15 @@ Container@INGAME_OBSERVERSTATS_BG:
 							Width: 900
 							Height: 40
 							Children:
-								GradientColorBlock@PLAYER_GRADIENT:
+								ColorBlock@PLAYER_COLOR:
 									X: 0
 									Y: 0
 									Width: 200
+									Height: PARENT_BOTTOM
+								GradientColorBlock@PLAYER_GRADIENT:
+									X: 200
+									Y: 0
+									Width: PARENT_RIGHT - 200
 									Height: PARENT_BOTTOM
 								Image@FLAG:
 									X: 5
@@ -506,10 +521,15 @@ Container@INGAME_OBSERVERSTATS_BG:
 							Width: 900
 							Height: 52
 							Children:
-								GradientColorBlock@PLAYER_GRADIENT:
+								ColorBlock@PLAYER_COLOR:
 									X: 0
 									Y: 0
 									Width: 200
+									Height: PARENT_BOTTOM
+								GradientColorBlock@PLAYER_GRADIENT:
+									X: 200
+									Y: 0
+									Width: PARENT_RIGHT - 200
 									Height: PARENT_BOTTOM
 								Image@FLAG:
 									X: 5
@@ -536,10 +556,15 @@ Container@INGAME_OBSERVERSTATS_BG:
 							Width: PARENT_RIGHT - 35
 							Height: 25
 							Children:
-								GradientColorBlock@PLAYER_GRADIENT:
+								ColorBlock@PLAYER_COLOR:
 									X: 0
 									Y: 0
-									Width: PARENT_RIGHT
+									Width: 200
+									Height: PARENT_BOTTOM
+								GradientColorBlock@PLAYER_GRADIENT:
+									X: 200
+									Y: 0
+									Width: PARENT_RIGHT - 200
 									Height: PARENT_BOTTOM
 								Image@FLAG:
 									X: 5

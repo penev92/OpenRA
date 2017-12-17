@@ -209,6 +209,9 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			var playerName = template.Get<LabelWidget>("PLAYER");
 			playerName.GetColor = () => Color.White;
 
+			var playerColor = template.Get<ColorBlockWidget>("PLAYER_COLOR");
+			playerColor.GetColor = () => player.Color.RGB;
+
 			var playerGradient = template.Get<GradientColorBlockWidget>("PLAYER_GRADIENT");
 			playerGradient.GetTopLeftColor = () => player.Color.RGB;
 			playerGradient.GetBottomLeftColor = () => player.Color.RGB;
@@ -235,6 +238,9 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			var playerName = template.Get<LabelWidget>("PLAYER");
 			playerName.GetColor = () => Color.White;
 
+			var playerColor = template.Get<ColorBlockWidget>("PLAYER_COLOR");
+			playerColor.GetColor = () => player.Color.RGB;
+
 			var playerGradient = template.Get<GradientColorBlockWidget>("PLAYER_GRADIENT");
 			playerGradient.GetTopLeftColor = () => player.Color.RGB;
 			playerGradient.GetBottomLeftColor = () => player.Color.RGB;
@@ -254,6 +260,9 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			var playerName = template.Get<LabelWidget>("PLAYER");
 			playerName.GetColor = () => Color.White;
 
+			var playerColor = template.Get<ColorBlockWidget>("PLAYER_COLOR");
+			playerColor.GetColor = () => player.Color.RGB;
+
 			var playerGradient = template.Get<GradientColorBlockWidget>("PLAYER_GRADIENT");
 			playerGradient.GetTopLeftColor = () => player.Color.RGB;
 			playerGradient.GetBottomLeftColor = () => player.Color.RGB;
@@ -272,6 +281,9 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 
 			var playerName = template.Get<LabelWidget>("PLAYER");
 			playerName.GetColor = () => Color.White;
+
+			var playerColor = template.Get<ColorBlockWidget>("PLAYER_COLOR");
+			playerColor.GetColor = () => player.Color.RGB;
 
 			var playerGradient = template.Get<GradientColorBlockWidget>("PLAYER_GRADIENT");
 			playerGradient.GetTopLeftColor = () => player.Color.RGB;
@@ -307,6 +319,9 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 
 			var playerName = template.Get<LabelWidget>("PLAYER");
 			playerName.GetColor = () => Color.White;
+
+			var playerColor = template.Get<ColorBlockWidget>("PLAYER_COLOR");
+			playerColor.GetColor = () => player.Color.RGB;
 
 			var playerGradient = template.Get<GradientColorBlockWidget>("PLAYER_GRADIENT");
 			playerGradient.GetTopLeftColor = () => player.Color.RGB;

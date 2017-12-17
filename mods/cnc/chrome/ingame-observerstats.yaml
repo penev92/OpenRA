@@ -323,7 +323,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Width: PARENT_RIGHT
 									Height: PARENT_BOTTOM
 								Label@TEAM:
-									X: 0
+									X: 10
 									Y: 0
 									Width: PARENT_RIGHT
 									Height: PARENT_BOTTOM

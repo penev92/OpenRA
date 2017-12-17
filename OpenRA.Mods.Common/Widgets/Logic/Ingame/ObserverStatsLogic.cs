@@ -180,9 +180,14 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 				{
 					var tt = ScrollItemWidget.Setup(teamTemplate, () => false, () => { });
 					tt.IgnoreMouseOver = true;
+
 					var teamLabel = tt.Get<LabelWidget>("TEAM");
 					teamLabel.GetText = () => team.Key == 0 ? "No Team" : "Team " + team.Key;
 					tt.Bounds.Width = teamLabel.Bounds.Width = Game.Renderer.Fonts[tt.Font].Measure(tt.Get<LabelWidget>("TEAM").GetText()).X;
+
+					var gradient = tt.Get<GradientColorBlockWidget>("TEAM_GRADIENT");
+					gradient.Bounds.Width = tt.Parent.Bounds.Width;
+
 					playerStatsPanel.AddChild(tt);
 				}
 

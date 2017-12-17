@@ -297,8 +297,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 					Y: 60
 					Width: PARENT_RIGHT
 					Height: PARENT_BOTTOM - 60
-					TopBottomSpacing: 5
-					ItemSpacing: 1
+					TopBottomSpacing: 0
 					Background: #dialogTransparentNoBorder
 					ScrollbarWidth: 24
 					ScrollBarAlign: Left

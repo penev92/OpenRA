@@ -44,7 +44,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Width: PARENT_RIGHT
 									Height: PARENT_BOTTOM
 								Label@PLAYER_HEADER:
-									X: 40
+									X: 75
 									Y: 0
 									Width: 160
 									Height: 25

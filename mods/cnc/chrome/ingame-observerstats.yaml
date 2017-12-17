@@ -50,7 +50,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Height: 25
 									Font: Bold
 									Text: Player
-									Contrast: True
+									Shadow: True
 								Label@CASH_HEADER:
 									X: 225
 									Y: 0
@@ -58,7 +58,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Height: 25
 									Font: Bold
 									Text: Cash
-									Contrast: True
+									Shadow: True
 								Label@POWER_HEADER:
 									X: 285
 									Y: 0
@@ -66,7 +66,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Height: 25
 									Font: Bold
 									Text: Power
-									Contrast: True
+									Shadow: True
 								Label@KILLS_HEADER:
 									X: 330
 									Y: 0
@@ -75,7 +75,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Font: Bold
 									Text: Kills
 									Align: Right
-									Contrast: True
+									Shadow: True
 								Label@DEATHS_HEADER:
 									X: 390
 									Y: 0
@@ -84,7 +84,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Font: Bold
 									Text: Deaths
 									Align: Right
-									Contrast: True
+									Shadow: True
 								Label@ASSETS_DESTROYED_HEADER:
 									X: 450
 									Y: 0
@@ -93,7 +93,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Font: Bold
 									Text: Destroyed
 									Align: Right
-									Contrast: True
+									Shadow: True
 								Label@ASSETS_LOST_HEADER:
 									X: 500
 									Y: 0
@@ -102,7 +102,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Font: Bold
 									Text: Lost
 									Align: Right
-									Contrast: True
+									Shadow: True
 								Label@EXPERIENCE_HEADER:
 									X: 555
 									Y: 0
@@ -111,7 +111,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Font: Bold
 									Text: Score
 									Align: Right
-									Contrast: True
+									Shadow: True
 						Container@ECONOMY_STATS_HEADERS:
 							X: 0
 							Y: 0
@@ -328,7 +328,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 									Width: PARENT_RIGHT
 									Height: PARENT_BOTTOM
 									Font: Bold
-									Contrast: True
+									Shadow: True
 						ScrollItem@BASIC_PLAYER_TEMPLATE:
 							X: 0
 							Y: 0

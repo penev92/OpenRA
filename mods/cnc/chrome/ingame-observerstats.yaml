@@ -26,7 +26,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 				Background@GRAPH_BG:
 					Y: 35
 					ClickThrough: true
-					Background: #dialogTransparentNoBorder
+					Background: dialogTransparentNoBorder
 					Width: PARENT_RIGHT
 					Height: 25
 					Children:
@@ -305,7 +305,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 					Width: PARENT_RIGHT
 					Height: PARENT_BOTTOM - 60
 					TopBottomSpacing: 0
-					Background: #dialogTransparentNoBorder
+					Background: dialogTransparentNoBorder
 					ScrollbarWidth: 24
 					ScrollBarAlign: Left
 					Children:
@@ -482,7 +482,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 						ScrollItem@PRODUCTION_PLAYER_TEMPLATE:
 							X: 0
 							Y: 0
-							Width: 900
+							Width: 200
 							Height: 40
 							Children:
 								ColorBlock@PLAYER_COLOR:
@@ -493,7 +493,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 								GradientColorBlock@PLAYER_GRADIENT:
 									X: 200
 									Y: 0
-									Width: PARENT_RIGHT - 200
+									Width: 32
 									Height: PARENT_BOTTOM
 								Image@FLAG:
 									X: 5

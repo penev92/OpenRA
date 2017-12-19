@@ -172,7 +172,7 @@ namespace OpenRA.Mods.Common.Widgets
 			var parentWidth = Bounds.X + Bounds.Width;
 
 			Parent.Bounds.Width = parentWidth;
-			Parent.Get<GradientColorBlockWidget>("PLAYER_GRADIENT").Bounds.Width = parentWidth;
+			Parent.Get<GradientColorBlockWidget>("PLAYER_GRADIENT").Bounds.Width = Math.Max(Bounds.Width, IconWidth + IconSpacing) + 20;
 		}
 
 		static string GetOverlayForItem(ProductionItem item, int timestep)

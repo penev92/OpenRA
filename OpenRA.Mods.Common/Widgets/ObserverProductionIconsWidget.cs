@@ -169,10 +169,14 @@ namespace OpenRA.Mods.Common.Widgets
 				queueCol++;
 			}
 
+			//Parent.Parent.Bounds.Width = 100;
 			var parentWidth = Bounds.X + Bounds.Width;
+			var gradientWidth = Math.Max(Bounds.Width, IconWidth + IconSpacing) + 20;
 
-			Parent.Bounds.Width = parentWidth;
-			Parent.Get<GradientColorBlockWidget>("PLAYER_GRADIENT").Bounds.Width = Math.Max(Bounds.Width, IconWidth + IconSpacing) + 20;
+			Parent.Bounds.Width = parentWidth;	// This is the ScrollItemWidget
+			var gradient = Parent.Get<GradientColorBlockWidget>("PLAYER_GRADIENT");
+			gradient.Bounds.Width = gradientWidth;
+			Parent.Parent.Bounds.Width = Math.Max(Parent.Parent.Bounds.Width, gradient.Bounds.Left + gradientWidth + 25);
 		}
 
 		static string GetOverlayForItem(ProductionItem item, int timestep)
@@ -193,6 +197,7 @@ namespace OpenRA.Mods.Common.Widgets
 
 		public override void MouseEntered()
 		{
+			Game.Debug("Entered");
 			if (TooltipContainer != null)
 				tooltipContainer.Value.SetTooltip(TooltipTemplate,
 					new WidgetArgs() { { "player", GetPlayer() }, { "getTooltipIcon", GetTooltipIcon } });

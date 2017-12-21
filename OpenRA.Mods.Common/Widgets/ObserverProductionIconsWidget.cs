@@ -45,6 +45,7 @@ namespace OpenRA.Mods.Common.Widgets
 		readonly Dictionary<ProductionQueue, Animation> clocks;
 		readonly Lazy<TooltipContainerWidget> tooltipContainer;
 		float2 iconSize;
+		List<ProductionIcon> icons;
 
 		[ObjectCreator.UseCtor]
 		public ObserverProductionIconsWidget(World world, WorldRenderer worldRenderer)
@@ -91,6 +92,8 @@ namespace OpenRA.Mods.Common.Widgets
 		{
 			IconSpacing = 1;
 			IconVerticalOffset = 2;
+
+			icons.Clear();
 
 			var player = GetPlayer();
 			if (player == null)
@@ -199,8 +202,7 @@ namespace OpenRA.Mods.Common.Widgets
 		{
 			Game.Debug("Entered");
 			if (TooltipContainer != null)
-				tooltipContainer.Value.SetTooltip(TooltipTemplate,
-					new WidgetArgs() { { "player", GetPlayer() }, { "getTooltipIcon", GetTooltipIcon } });
+				tooltipContainer.Value.SetTooltip(TooltipTemplate, new WidgetArgs { { "player", GetPlayer() }, { "getTooltipIcon", GetTooltipIcon } });
 		}
 
 		public override void MouseExited()

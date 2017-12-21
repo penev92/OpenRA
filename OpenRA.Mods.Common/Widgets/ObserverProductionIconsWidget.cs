@@ -246,12 +246,12 @@ namespace OpenRA.Mods.Common.Widgets
 
 			for (var i = 0; i < productionIconsBounds.Count; i++)
 			{
-				if (productionIconsBounds[i].Contains(Viewport.LastMousePos))
-				{
-					lastIconIdx = i;
-					TooltipIcon = productionIcons[i];
-					return;
-				}
+				if (!productionIconsBounds[i].Contains(Viewport.LastMousePos))
+					continue;
+
+				lastIconIdx = i;
+				TooltipIcon = productionIcons[i];
+				return;
 			}
 
 			TooltipIcon = null;

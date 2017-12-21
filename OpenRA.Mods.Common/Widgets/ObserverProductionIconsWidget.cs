@@ -44,8 +44,10 @@ namespace OpenRA.Mods.Common.Widgets
 
 		readonly Dictionary<ProductionQueue, Animation> clocks;
 		readonly Lazy<TooltipContainerWidget> tooltipContainer;
+		readonly List<ProductionIcon> productionIcons = new List<ProductionIcon>();
+		readonly List<Rectangle> productionIconsBounds = new List<Rectangle>();
 		float2 iconSize;
-		List<ProductionIcon> icons;
+		int lastIconIdx = 0;
 
 		[ObjectCreator.UseCtor]
 		public ObserverProductionIconsWidget(World world, WorldRenderer worldRenderer)
@@ -93,7 +95,8 @@ namespace OpenRA.Mods.Common.Widgets
 			IconSpacing = 1;
 			IconVerticalOffset = 2;
 
-			icons.Clear();
+			productionIcons.Clear();
+			productionIconsBounds.Clear();
 
 			var player = GetPlayer();
 			if (player == null)
@@ -137,8 +140,12 @@ namespace OpenRA.Mods.Common.Widgets
 				//if (loc.X + iconSize.X * 2 > Bounds.Width + 8)
 				//	break;
 
-				var centerPosition = RenderOrigin + topLeftOffset + iconSize / 2;
+				var iconTopLeft = RenderOrigin + topLeftOffset;
+				var centerPosition = iconTopLeft + iconSize / 2;
 				WidgetUtils.DrawSHPCentered(icon.Image, centerPosition, worldRenderer.Palette(bi.IconPalette), IconScale);
+
+				productionIcons.Add(new ProductionIcon { Actor = actor, ProductionQueue = current.Queue });
+				productionIconsBounds.Add(new Rectangle(new Point((int)iconTopLeft.X, (int)iconTopLeft.Y), new Size((int)iconSize.X, (int)iconSize.Y)));
 
 				var pio = queue.Actor.Owner.PlayerActor.TraitsImplementing<IProductionIconOverlay>()
 					.FirstOrDefault(p => p.IsOverlayActive(actor));
@@ -172,14 +179,17 @@ namespace OpenRA.Mods.Common.Widgets
 				queueCol++;
 			}
 
-			//Parent.Parent.Bounds.Width = 100;
 			var parentWidth = Bounds.X + Bounds.Width;
 			var gradientWidth = Math.Max(Bounds.Width, IconWidth + IconSpacing) + 20;
 
-			Parent.Bounds.Width = parentWidth;	// This is the ScrollItemWidget
+			Parent.Bounds.Width = parentWidth;
 			var gradient = Parent.Get<GradientColorBlockWidget>("PLAYER_GRADIENT");
 			gradient.Bounds.Width = gradientWidth;
-			Parent.Parent.Bounds.Width = Math.Max(Parent.Parent.Bounds.Width, gradient.Bounds.Left + gradientWidth + 25);
+
+			var widestChildWidth = Parent.Parent.Children.Max(x => x.Bounds.Width);
+
+			// Add 25 pixels to account for the scrollbar on the left and 25 for gradiend fade-out after the icons.
+			Parent.Parent.Bounds.Width = Math.Max(25 + widestChildWidth, gradient.Bounds.Left + gradientWidth) + 25;
 		}
 
 		static string GetOverlayForItem(ProductionItem item, int timestep)
@@ -200,9 +210,19 @@ namespace OpenRA.Mods.Common.Widgets
 
 		public override void MouseEntered()
 		{
-			Game.Debug("Entered");
-			if (TooltipContainer != null)
-				tooltipContainer.Value.SetTooltip(TooltipTemplate, new WidgetArgs { { "player", GetPlayer() }, { "getTooltipIcon", GetTooltipIcon } });
+			if (TooltipContainer == null)
+				return;
+
+			for (var i = 0; i < productionIconsBounds.Count; i++)
+			{
+				if (!productionIconsBounds[i].Contains(Viewport.LastMousePos))
+					continue;
+
+				TooltipIcon = productionIcons[i];
+				break;
+			}
+
+			tooltipContainer.Value.SetTooltip(TooltipTemplate, new WidgetArgs { { "player", GetPlayer() }, { "getTooltipIcon", GetTooltipIcon } });
 		}
 
 		public override void MouseExited()
@@ -211,6 +231,30 @@ namespace OpenRA.Mods.Common.Widgets
 				return;
 
 			tooltipContainer.Value.RemoveTooltip();
+		}
+
+		public override void Tick()
+		{
+			if (lastIconIdx >= productionIconsBounds.Count)
+			{
+				TooltipIcon = null;
+				return;
+			}
+
+			if (TooltipIcon != null && productionIconsBounds[lastIconIdx].Contains(Viewport.LastMousePos))
+				return;
+
+			for (var i = 0; i < productionIconsBounds.Count; i++)
+			{
+				if (productionIconsBounds[i].Contains(Viewport.LastMousePos))
+				{
+					lastIconIdx = i;
+					TooltipIcon = productionIcons[i];
+					return;
+				}
+			}
+
+			TooltipIcon = null;
 		}
 	}
 }

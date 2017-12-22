@@ -564,6 +564,7 @@
     <Compile Include="UtilityCommands\ExtractTraitDocsCommand.cs" />
     <Compile Include="UtilityCommands\ExtractWeaponDocsCommand.cs" />
     <Compile Include="Widgets\GradientColorBlockWidget.cs" />
+    <Compile Include="Widgets\Logic\Ingame\MapInfoLogic.cs" />
     <Compile Include="Widgets\Logic\Ingame\MenuButtonsChromeLogic.cs" />
     <Compile Include="Widgets\Logic\MusicHotkeyLogic.cs" />
     <Compile Include="WorldExtensions.cs" />

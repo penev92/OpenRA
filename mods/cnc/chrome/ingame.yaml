@@ -156,10 +156,25 @@ Container@OBSERVER_WIDGETS:
 					Y: 1
 					Width: PARENT_RIGHT - 2
 					Height: PARENT_BOTTOM - 2
+		Background@MAP_INFO:
+			Logic: MapInfoLogic
+			X: WINDOW_RIGHT - WIDTH - 5
+			Y: 260
+			Width: 256
+			Height: 25
+			Background: panel-black
+			Children:
+				Label@MAP_NAME:
+					X: 0
+					Y: 0
+					Width: PARENT_RIGHT
+					Height: PARENT_BOTTOM
+					Text: Map name here
+					Align: Center
 		Background@REPLAY_PLAYER:
 			Logic: ReplayControlBarLogic
 			X: WINDOW_RIGHT - WIDTH - 5
-			Y: 283
+			Y: 284
 			Width: 256
 			Height: 46
 			Background: panel-black
@@ -252,7 +267,7 @@ Container@OBSERVER_WIDGETS:
 				CombinedViewKey: ObserverCombinedView
 				WorldViewKey: ObserverWorldView
 			X: WINDOW_RIGHT - WIDTH - 5
-			Y: 260
+			Y: 329
 			Width: 256
 			Height: 25
 			Font: Bold

@@ -95,6 +95,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 				stats.IsDisabled = () => disableSystemButtons || world.Map.Visibility.HasFlag(MapVisibility.MissionSelector);
 				stats.OnClick = () =>
 				{
+					menuRoot.RemoveChild(currentWidget);
 					OpenMenuPanel(stats, new WidgetArgs { { "activePanel", ObserverStatsPanel.Basic } });
 					disableSystemButtons = false;	// HACK to keep the Options Menu button active.
 				};

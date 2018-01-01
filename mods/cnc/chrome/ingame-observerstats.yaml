@@ -333,7 +333,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 							X: 0
 							Y: 0
 							Width: 650
-							Height: 25
+							Height: 26
 							Children:
 								ColorBlock@PLAYER_COLOR:
 									X: 0
@@ -483,7 +483,7 @@ Container@INGAME_OBSERVERSTATS_BG:
 							X: 0
 							Y: 0
 							Width: 200
-							Height: 40
+							Height: 26
 							Children:
 								ColorBlock@PLAYER_COLOR:
 									X: 0

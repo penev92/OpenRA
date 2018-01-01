@@ -4,6 +4,7 @@ mcv:
 		UseClassicFacingFudge: True
 	icon: mcvicnh.tem
 		AddExtension: False
+	icon-small: mcvicon
 
 mcv.destroyed:
 	idle: mcv
@@ -26,6 +27,7 @@ harv:
 		Start: 7
 	icon: harvicnh.tem
 		AddExtension: False
+	icon-small: harvicon
 
 harv.destroyed:
 	idle: harv
@@ -46,6 +48,7 @@ bggy:
 		Facings: 8
 	icon: bggyicnh.tem
 		AddExtension: False
+	icon-small: bggyicon
 
 bggy.destroyed:
 	idle: bggy
@@ -70,6 +73,7 @@ mtnk:
 		Length: *
 	icon: mtnkicnh.tem
 		AddExtension: False
+	icon-small: mtnkicon
 
 mtnk.destroyed:
 	idle: mtnk
@@ -94,6 +98,7 @@ ltnk:
 		Length: *
 	icon: ltnkicnh.tem
 		AddExtension: False
+	icon-small: ltnkicon
 
 ltnk.destroyed:
 	idle: ltnk
@@ -118,6 +123,7 @@ htnk:
 		Length: *
 	icon: htnkicnh.tem
 		AddExtension: False
+	icon-small: htnkicon
 
 htnk.destroyed:
 	idle: htnk
@@ -143,6 +149,7 @@ jeep:
 		Facings: 8
 	icon: jeepicnh.tem
 		AddExtension: False
+	icon-small: jeepicon
 
 jeep.destroyed:
 	idle: jeep
@@ -161,6 +168,7 @@ bike:
 		UseClassicFacingFudge: True
 	icon: bikeicnh.tem
 		AddExtension: False
+	icon-small: bikeicon
 
 bike.destroyed:
 	idle: bike
@@ -202,6 +210,7 @@ ftnk:
 		Length: 13
 	icon: ftnkicnh.tem
 		AddExtension: False
+	icon-small: ftnkicon
 
 ftnk.destroyed:
 	idle: ftnk
@@ -217,6 +226,7 @@ mhq:
 		Start: 32
 		Length: 32
 	icon: mhqicnh
+	icon-small: mhqicon
 
 msam:
 	idle:
@@ -236,6 +246,7 @@ msam:
 		UseClassicFacingFudge: True
 	icon: msamicnh.tem
 		AddExtension: False
+	icon-small: msamicon
 
 msam.destroyed:
 	idle: msam
@@ -270,6 +281,7 @@ mlrs:
 		UseClassicFacingFudge: True
 	icon: mlrsicnh.tem
 		AddExtension: False
+	icon-small: mlrsicon
 
 mlrs.destroyed:
 	idle: mlrs
@@ -288,6 +300,7 @@ stnk:
 		UseClassicFacingFudge: True
 	icon: stnkicnh.tem
 		AddExtension: False
+	icon-small: stnkicon
 
 stnk.destroyed:
 	idle: stnk
@@ -303,6 +316,7 @@ arty:
 		Length: *
 	icon: artyicnh.tem
 		AddExtension: False
+	icon-small: artyicon
 
 arty.destroyed:
 	idle: arty
@@ -327,6 +341,7 @@ apc:
 		Start: 32
 	icon: apcicnh.tem
 		AddExtension: False
+	icon-small: apcicon
 
 apc.destroyed:
 	idle: apc

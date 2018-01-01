@@ -37,6 +37,9 @@ namespace OpenRA.Mods.Common.Traits
 		[Desc("Sequence of the actor that contains the icon.")]
 		[SequenceReference] public readonly string Icon = "icon";
 
+		[Desc("Sequence of the actor that contains the small icon.")]
+		[SequenceReference] public readonly string SmallIcon = "icon-small";
+
 		[Desc("Palette used for the production icon.")]
 		[PaletteReference] public readonly string IconPalette = "chrome";
 

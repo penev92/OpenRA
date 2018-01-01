@@ -29,9 +29,9 @@ namespace OpenRA.Mods.Common.Widgets
 		readonly WorldRenderer worldRenderer;
 		readonly int timestep;
 
-		public int IconWidth = (int)(64 * 0.75f);
-		public int IconHeight = (int)(48 * 0.75f);
-		public int IconSpacing = 2;
+		public int IconWidth = 32;//(int)(64 * 0.75f);
+		public int IconHeight = 24;//(int)(48 * 0.75f);
+		public int IconSpacing = 1;
 		public int IconVerticalOffset = 1;
 		public float IconScale = 0.75f;		// SHPs are 64x48, so scale down.
 
@@ -92,9 +92,6 @@ namespace OpenRA.Mods.Common.Widgets
 
 		public override void Draw()
 		{
-			IconSpacing = 1;
-			IconVerticalOffset = 2;
-
 			productionIcons.Clear();
 			productionIconsBounds.Clear();
 
@@ -134,15 +131,18 @@ namespace OpenRA.Mods.Common.Widgets
 				var rsi = actor.TraitInfo<RenderSpritesInfo>();
 				var icon = new Animation(world, rsi.GetImage(actor, world.Map.Rules.Sequences, faction));
 				var bi = actor.TraitInfo<BuildableInfo>();
-				icon.Play(bi.Icon);
+				icon.Play(bi.SmallIcon);
 
-				var topLeftOffset = new float2(queueCol * (IconWidth + IconSpacing), IconVerticalOffset);
+				var topLeftOffset = new float2(queueCol * (IconWidth + IconSpacing), 2);//IconVerticalOffset);	// HACK: This should be 1px because the parent
+				// ScrollItemWidget is 26px high, the icon is 24px high and we want 1px spacing above and below the icon, but something is rendered 1px too low,
+				// so we account for that manually by hacking a 2px offset here instead of 1px. It's wrong but looks proper.
+
 				//if (loc.X + iconSize.X * 2 > Bounds.Width + 8)
 				//	break;
 
 				var iconTopLeft = RenderOrigin + topLeftOffset;
 				var centerPosition = iconTopLeft + iconSize / 2;
-				WidgetUtils.DrawSHPCentered(icon.Image, centerPosition, worldRenderer.Palette(bi.IconPalette), IconScale);
+				WidgetUtils.DrawSHPCentered(icon.Image, centerPosition, worldRenderer.Palette(bi.IconPalette), 1);//IconScale);
 
 				productionIcons.Add(new ProductionIcon { Actor = actor, ProductionQueue = current.Queue });
 				productionIconsBounds.Add(new Rectangle(new Point((int)iconTopLeft.X, (int)iconTopLeft.Y), new Size((int)iconSize.X, (int)iconSize.Y)));
@@ -159,13 +159,13 @@ namespace OpenRA.Mods.Common.Widgets
 					(current.TotalTime - current.RemainingTime) * (clock.CurrentSequence.Length - 1) / current.TotalTime);
 
 				clock.Tick();
-				WidgetUtils.DrawSHPCentered(clock.Image, centerPosition, worldRenderer.Palette(ClockPalette), IconScale);
+				WidgetUtils.DrawSHPCentered(clock.Image, centerPosition, worldRenderer.Palette(ClockPalette), 0.5f);//IconScale);
 
 				var tiny = Game.Renderer.Fonts["Tiny"];
 				var text = GetOverlayForItem(current, timestep);
-				tiny.DrawTextWithContrast(text,
-					centerPosition - new float2(tiny.Measure(text).X / 2, 3),
-					Color.White, Color.Black, 1);
+				//tiny.DrawTextWithContrast(text,
+				//	centerPosition - new float2(tiny.Measure(text).X / 2, 3) + new float2(0, 10),
+				//	Color.White, Color.Black, 1);
 
 				if (currentItems.Count() > 1)
 				{

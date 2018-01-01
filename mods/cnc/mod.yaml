@@ -12,6 +12,7 @@ Packages:
 	./mods/common: common
 	~speech.mix
 	~conquer.mix
+	~tdconquer.mix
 	~sounds.mix
 	~tempicnh.mix
 	~temperat.mix

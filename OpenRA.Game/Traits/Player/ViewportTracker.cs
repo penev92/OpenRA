@@ -69,6 +69,18 @@ namespace OpenRA.Traits
 			var screenCenterPosition = worldRenderer.ScreenPxPosition(centerPosition);
 			player.ViewportTopLeft = screenCenterPosition - viewportSize / 2;
 			player.ViewportBottomRight = screenCenterPosition + viewportSize / 2;
+
+			// Only manipulate the viewport when observing a game or watching a replay.
+			if (self.Owner == self.World.RenderPlayer && self.World.LocalPlayer == null)
+			{
+				worldRenderer.Viewport.IsLocked = true;
+				worldRenderer.Viewport.Center(centerPosition, true);
+				worldRenderer.Viewport.SetZoom(zoom, true);
+			}
+			else
+			{
+				worldRenderer.Viewport.IsLocked = false;
+			}
 		}
 	}
 }

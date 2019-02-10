@@ -182,7 +182,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			pixelDoubleCheckbox.OnClick = () =>
 			{
 				pixelDoubleOnClick();
-				worldRenderer.Viewport.Zoom = ds.PixelDouble ? 2 : 1;
+				worldRenderer.Viewport.SetZoom(ds.PixelDouble ? 2 : 1);
 			};
 
 			// Cursor doubling is only supported with software cursors and when pixel doubling is enabled
@@ -295,7 +295,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 
 				ds.PixelDouble = dds.PixelDouble;
 				ds.CursorDouble = dds.CursorDouble;
-				worldRenderer.Viewport.Zoom = ds.PixelDouble ? 2 : 1;
+				worldRenderer.Viewport.SetZoom(ds.PixelDouble ? 2 : 1);
 
 				ps.Color = dps.Color;
 				ps.Name = dps.Name;

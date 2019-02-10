@@ -81,7 +81,7 @@ namespace OpenRA.Mods.Common.Widgets
 
 			var zoom = zoomSteps[nextIndex];
 			Parent.Get<DropDownButtonWidget>("ZOOM_BUTTON").SelectedItem = zoom.ToString();
-			worldRenderer.Viewport.Zoom = zoom;
+			worldRenderer.Viewport.SetZoom(zoom);
 		}
 
 		public override bool HandleMouseInput(MouseInput mi)

@@ -56,29 +56,12 @@ namespace OpenRA.Graphics
 		bool allCellsDirty = true;
 		readonly float[] availableZoomSteps = new[] { 2f, 1f, 0.5f, 0.25f };
 
-		float zoom = 1f;
-
 		public float[] AvailableZoomSteps
 		{
 			get { return availableZoomSteps; }
 		}
 
-		public float Zoom
-		{
-			get
-			{
-				return zoom;
-			}
-
-			set
-			{
-				var newValue = ClosestTo(AvailableZoomSteps, value);
-				zoom = newValue;
-				viewportSize = (1f / zoom * new float2(Game.Renderer.Resolution)).ToInt2();
-				cellsDirty = true;
-				allCellsDirty = true;
-			}
-		}
+		public float Zoom { get; private set; }
 
 		public static long LastMoveRunTime = 0;
 		public static int2 LastMousePos;
@@ -140,7 +123,7 @@ namespace OpenRA.Graphics
 				CenterLocation = (tl + br) / 2;
 			}
 
-			Zoom = Game.Settings.Graphics.PixelDouble ? 2 : 1;
+			SetZoom(Game.Settings.Graphics.PixelDouble ? 2 : 1);
 			tileSize = grid.TileSize;
 		}
 
@@ -236,6 +219,14 @@ namespace OpenRA.Graphics
 
 			if (!ignoreBorders)
 				CenterLocation = CenterLocation.Clamp(mapBounds);
+		}
+
+		public void SetZoom(float newValue)
+		{
+			Zoom = ClosestTo(AvailableZoomSteps, newValue);
+			viewportSize = (1f / Zoom * new float2(Game.Renderer.Resolution)).ToInt2();
+			cellsDirty = true;
+			allCellsDirty = true;
 		}
 
 		// Rectangle (in viewport coords) that contains things to be drawn

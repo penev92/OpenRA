@@ -32,12 +32,12 @@ namespace OpenRA.Mods.Common.Widgets.Logic.Ingame
 		{
 			// Zoom is currently always set directly, so we don't need to worry about floating point imprecision
 			if (viewport.Zoom == 1f)
-				viewport.Zoom = 2f;
+				viewport.SetZoom(2f);
 			else
 			{
 				// Reset zoom to regular view if it was anything else before
 				// (like a zoom level only reachable by using the scroll wheel).
-				viewport.Zoom = 1f;
+				viewport.SetZoom(1f);
 			}
 
 			Game.Settings.Graphics.PixelDouble = viewport.Zoom == 2f;

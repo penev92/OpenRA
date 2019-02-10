@@ -328,7 +328,7 @@ namespace OpenRA.Mods.Common.Widgets
 			if (!IsZoomAllowed(zoom))
 				return;
 
-			worldRenderer.Viewport.Zoom = zoom;
+			worldRenderer.Viewport.SetZoom(zoom);
 		}
 
 		public override bool HandleMouseInput(MouseInput mi)

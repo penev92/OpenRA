@@ -244,6 +244,10 @@ namespace OpenRA
 					wlh.WorldLoaded(this, wr);
 			}
 
+			foreach (var player in Players)
+				foreach (var trait in player.PlayerActor.TraitsImplementing<IWorldLoaded>())
+					trait.WorldLoaded(this, wr);
+
 			gameInfo.StartTimeUtc = DateTime.UtcNow;
 			foreach (var player in Players)
 				gameInfo.AddPlayer(player, OrderManager.LobbyInfo);

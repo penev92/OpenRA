@@ -49,6 +49,9 @@ namespace OpenRA.Graphics
 		public int2 TopLeft { get { return CenterLocation - viewportSize / 2; } }
 		public int2 BottomRight { get { return CenterLocation + viewportSize / 2; } }
 		int2 viewportSize;
+
+		public bool IsLocked { get; set; }
+
 		ProjectedCellRegion cells;
 		bool cellsDirty = true;
 
@@ -195,23 +198,29 @@ namespace OpenRA.Graphics
 		public int2 ViewToWorldPx(int2 view) { return (1f / Zoom * view.ToFloat2()).ToInt2() + TopLeft; }
 		public int2 WorldToViewPx(int2 world) { return (Zoom * (world - TopLeft).ToFloat2()).ToInt2(); }
 
-		public void Center(IEnumerable<Actor> actors)
+		public void Center(IEnumerable<Actor> actors, bool ignoreLock = false)
 		{
 			if (!actors.Any())
 				return;
 
-			Center(actors.Select(a => a.CenterPosition).Average());
+			Center(actors.Select(a => a.CenterPosition).Average(), ignoreLock);
 		}
 
-		public void Center(WPos pos)
+		public void Center(WPos pos, bool ignoreLock = false)
 		{
+			if (IsLocked && !ignoreLock)
+				return;
+
 			CenterLocation = worldRenderer.ScreenPxPosition(pos).Clamp(mapBounds);
 			cellsDirty = true;
 			allCellsDirty = true;
 		}
 
-		public void Scroll(float2 delta, bool ignoreBorders)
+		public void Scroll(float2 delta, bool ignoreBorders, bool ignoreLock = false)
 		{
+			if (IsLocked && !ignoreLock)
+				return;
+
 			// Convert scroll delta from world-px to viewport-px
 			CenterLocation += (1f / Zoom * delta).ToInt2();
 			cellsDirty = true;
@@ -221,8 +230,11 @@ namespace OpenRA.Graphics
 				CenterLocation = CenterLocation.Clamp(mapBounds);
 		}
 
-		public void SetZoom(float newValue)
+		public void SetZoom(float newValue, bool ignoreLock = false)
 		{
+			if (IsLocked && !ignoreLock)
+				return;
+
 			Zoom = ClosestTo(AvailableZoomSteps, newValue);
 			viewportSize = (1f / Zoom * new float2(Game.Renderer.Resolution)).ToInt2();
 			cellsDirty = true;

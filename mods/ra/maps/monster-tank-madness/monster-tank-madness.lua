@@ -269,9 +269,13 @@ end
 SetupMission = function()
 	TestCamera = Actor.Create("camera" ,true , { Owner = player, Location = ProvingGroundsCameraPoint.Location })
 	Camera.Position = ProvingGroundsCameraPoint.CenterPosition
+	Camera.IsViewportLocked = true
+	Camera.Zoom = 2.0
 	TimerColor = player.Color
 
 	Trigger.AfterDelay(DateTime.Seconds(12), function()
+		Camera.IsViewportLocked = false
+		Camera.Zoom = 1.0
 		Media.PlaySpeechNotification(player, "StartGame")
 		Trigger.AfterDelay(DateTime.Seconds(2), SendAlliedUnits)
 	end)

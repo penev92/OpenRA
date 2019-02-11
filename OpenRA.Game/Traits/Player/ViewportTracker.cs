@@ -24,6 +24,10 @@ namespace OpenRA.Traits
 	{
 		static WorldRenderer worldRenderer;
 
+		public bool IsForceLocked { get; set; }
+
+		bool hasLockedViewport;
+
 		public void WorldLoaded(World w, WorldRenderer wr)
 		{
 			worldRenderer = wr;
@@ -73,13 +77,23 @@ namespace OpenRA.Traits
 			// Only manipulate the viewport when observing a game or watching a replay.
 			if (self.Owner == self.World.RenderPlayer && self.World.LocalPlayer == null)
 			{
-				worldRenderer.Viewport.IsLocked = true;
-				worldRenderer.Viewport.Center(centerPosition, true);
-				worldRenderer.Viewport.SetZoom(zoom, true);
+				if (IsForceLocked)
+				{
+					hasLockedViewport = true;
+					worldRenderer.Viewport.IsLocked = true;
+					worldRenderer.Viewport.Center(centerPosition, true);
+					worldRenderer.Viewport.SetZoom(zoom, true);
+				}
+				else
+				{
+					if (hasLockedViewport)
+						worldRenderer.Viewport.IsLocked = false;
+				}
 			}
 			else
 			{
-				worldRenderer.Viewport.IsLocked = false;
+				if (hasLockedViewport)
+					worldRenderer.Viewport.IsLocked = false;
 			}
 		}
 	}

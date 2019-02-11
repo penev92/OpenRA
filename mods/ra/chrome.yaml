@@ -296,8 +296,8 @@ stance-icons: chrome.png
 	hold-fire-active: 688,48,16,16
 
 sidebar-observer: chrome.png
-	background: 512,167,238,287
-	replay-bottom: 512,454,238,40
+	background: 512,167,238,325
+	replay-bottom: 512,449,238,45
 	observer-bottom: 512,495,238,8
 
 sidebar-button-observershroud: chrome.png

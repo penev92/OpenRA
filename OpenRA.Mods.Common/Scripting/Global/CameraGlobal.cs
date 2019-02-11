@@ -19,11 +19,25 @@ namespace OpenRA.Mods.Common.Scripting
 		public CameraGlobal(ScriptContext context)
 			: base(context) { }
 
+		[Desc("Locks the player's viewport to prevent unwanted manipulations. Scripts can still manipulate it even when locked.")]
+		public bool IsViewportLocked
+		{
+			get { return Context.WorldRenderer.Viewport.IsLocked; }
+			set { Context.WorldRenderer.Viewport.IsLocked = value; }
+		}
+
 		[Desc("The center of the visible viewport.")]
 		public WPos Position
 		{
 			get { return Context.WorldRenderer.Viewport.CenterPosition; }
-			set { Context.WorldRenderer.Viewport.Center(value); }
+			set { Context.WorldRenderer.Viewport.Center(value, true); }
+		}
+
+		[Desc("The zoom level. Only use predefined values to avoid rendering issues.")]
+		public double Zoom
+		{
+			get { return Context.WorldRenderer.Viewport.Zoom; }
+			set { Context.WorldRenderer.Viewport.SetZoom((float)value, true); }
 		}
 	}
 }

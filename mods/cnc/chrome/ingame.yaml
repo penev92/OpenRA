@@ -272,6 +272,7 @@ Container@OBSERVER_WIDGETS:
 					Logic: ObserverShroudSelectorLogic
 						CombinedViewKey: ObserverCombinedView
 						WorldViewKey: ObserverWorldView
+						LockToPlayerCameraKey: ObserverLockToPlayerCamera
 					Width: 256
 					Height: 25
 					Font: Bold

@@ -11,6 +11,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using OpenRA.Graphics;
 using OpenRA.Mods.Common.Activities;
 using OpenRA.Mods.Common.Orders;
 using OpenRA.Primitives;
@@ -19,7 +20,7 @@ using OpenRA.Traits;
 namespace OpenRA.Mods.Common.Traits
 {
 	[Desc("Provides access to the attack-move command, which will make the actor automatically engage viable targets while moving to the destination.")]
-	sealed class AttackMoveInfo : TraitInfo, Requires<IMoveInfo>
+	public sealed class AttackMoveInfo : TraitInfo, Requires<IMoveInfo>
 	{
 		[VoiceReference]
 		public readonly string Voice = "Action";
@@ -53,15 +54,18 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new AttackMove(init.Self, this); }
 	}
 
-	sealed class AttackMove : IResolveOrder, IOrderVoice
+	public sealed class AttackMove : IResolveOrder, IOrderVoice
 	{
 		public readonly AttackMoveInfo Info;
 		readonly IMove move;
+		readonly List<CPos> patrolWaypoints;
 
 		public AttackMove(Actor self, AttackMoveInfo info)
 		{
 			move = self.Trait<IMove>();
 			Info = info;
+
+			patrolWaypoints = new List<CPos>();
 		}
 
 		string IOrderVoice.VoicePhraseForOrder(Actor self, Order order)
@@ -73,7 +77,8 @@ namespace OpenRA.Mods.Common.Traits
 					return null;
 			}
 
-			if (order.OrderString == "AttackMove" || order.OrderString == "AssaultMove")
+			if (order.OrderString == "AttackMove" || order.OrderString == "AssaultMove" ||
+				order.OrderString == "BeginPatrol" || order.OrderString == "BeginAssaultPatrol")
 				return Info.Voice;
 
 			return null;
@@ -97,18 +102,41 @@ namespace OpenRA.Mods.Common.Traits
 				self.QueueActivity(order.Queued, new AttackMoveActivity(self, () => move.MoveTo(targetLocation, 8, targetLineColor: Info.TargetLineColor), assaultMoving));
 				self.ShowTargetLines();
 			}
+			else if (order.OrderString == "InitPatrol")
+				patrolWaypoints.Clear();
+			else if (order.OrderString == "AddPatrolWaypoint")
+			{
+				var cell = self.World.Map.Clamp(self.World.Map.CellContaining(order.Target.CenterPosition));
+				if (!Info.MoveIntoShroud && !self.Owner.Shroud.IsExplored(cell))
+					return;
+
+				if (!patrolWaypoints.Remove(cell))
+					patrolWaypoints.Add(cell);
+			}
+			else if (order.OrderString == "BeginPatrol" || order.OrderString == "BeginAssaultPatrol")
+			{
+				if (patrolWaypoints.Count < 2)
+					return;
+
+				if (!order.Queued)
+					self.CancelActivity();
+
+				var assaultMoving = order.OrderString == "BeginAssaultPatrol";
+				self.QueueActivity(new Patrol(self, patrolWaypoints.ToArray(), true, 0, assaultMoving));
+				patrolWaypoints.Clear();
+			}
 		}
 	}
 
 	public class AttackMoveOrderGenerator : UnitOrderGenerator
 	{
-		TraitPair<AttackMove>[] subjects;
+		protected TraitPair<AttackMove>[] subjects;
 
-		readonly MouseButton expectedButton;
+		protected readonly MouseButton ExpectedButton;
 
 		public AttackMoveOrderGenerator(IEnumerable<Actor> subjects, MouseButton button)
 		{
-			expectedButton = button;
+			ExpectedButton = button;
 
 			this.subjects = subjects.Where(a => !a.IsDead)
 				.SelectMany(a => a.TraitsImplementing<AttackMove>()
@@ -118,7 +146,7 @@ namespace OpenRA.Mods.Common.Traits
 
 		public override IEnumerable<Order> Order(World world, CPos cell, int2 worldPixel, MouseInput mi)
 		{
-			if (mi.Button != expectedButton)
+			if (mi.Button != ExpectedButton)
 				world.CancelInputMode();
 
 			return OrderInner(world, cell, mi);
@@ -126,7 +154,7 @@ namespace OpenRA.Mods.Common.Traits
 
 		protected virtual IEnumerable<Order> OrderInner(World world, CPos cell, MouseInput mi)
 		{
-			if (mi.Button == expectedButton)
+			if (mi.Button == ExpectedButton)
 			{
 				var queued = mi.Modifiers.HasModifier(Modifiers.Shift);
 				if (!queued)
@@ -134,7 +162,7 @@ namespace OpenRA.Mods.Common.Traits
 
 				var orderName = mi.Modifiers.HasModifier(Modifiers.Ctrl) ? "AssaultMove" : "AttackMove";
 
-				// Cells outside the playable area should be clamped to the edge for consistency with move orders
+				// Cells outside the playable area should be clamped to the edge for consistency with move orders.
 				cell = world.Map.Clamp(cell);
 				yield return new Order(orderName, null, Target.FromCell(world, cell), queued, null, subjects.Select(s => s.Actor).ToArray());
 			}
@@ -187,5 +215,59 @@ namespace OpenRA.Mods.Common.Traits
 		}
 
 		public override bool ClearSelectionOnLeftClick => false;
+	}
+
+	public class PatrolOrderGenerator : AttackMoveOrderGenerator
+	{
+		readonly List<WPos> waypoints;
+		bool started;
+
+		public PatrolOrderGenerator(IEnumerable<Actor> subjects, MouseButton button)
+			: base(subjects, button)
+		{
+			waypoints = new List<WPos>();
+		}
+
+		public override IEnumerable<Order> Order(World world, CPos cell, int2 worldPixel, MouseInput mi)
+		{
+			var queued = mi.Modifiers.HasModifier(Modifiers.Shift);
+
+			if (mi.Button == ExpectedButton && !mi.Modifiers.HasModifier(Modifiers.Alt))
+			{
+				if (!started)
+				{
+					started = true;
+
+					foreach (var a in subjects)
+						yield return new Order("InitPatrol", a.Actor, queued);
+				}
+
+				cell = world.Map.Clamp(cell);
+				var pos = world.Map.CenterOfCell(cell);
+				if (!waypoints.Remove(pos))
+					waypoints.Add(pos);
+
+				foreach (var a in subjects)
+					yield return new Order("AddPatrolWaypoint", a.Actor, Target.FromCell(world, cell), queued);
+			}
+			else if (mi.Button == ExpectedButton && mi.Modifiers.HasModifier(Modifiers.Alt))
+			{
+				world.CancelInputMode();
+				var order = mi.Modifiers.HasModifier(Modifiers.Ctrl) ? "BeginAssaultPatrol" : "BeginPatrol";
+
+				foreach (var a in subjects)
+					yield return new Order(order, a.Actor, queued);
+			}
+			else
+				world.CancelInputMode();
+		}
+
+		public override IEnumerable<IRenderable> RenderAboveShroud(WorldRenderer wr, World world)
+		{
+			if (waypoints.Count < 2)
+				yield break;
+
+			yield return new TargetLineRenderable(waypoints, Color.Red);
+		}
 	}
 }

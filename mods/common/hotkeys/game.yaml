@@ -73,6 +73,10 @@ AttackMove: A
 	Types: Unit
 	Contexts: Player
 
+Patrol: P
+	Description: Patrol
+	Types: Unit
+
 Stop: S
 	Description: Stop
 	Types: Unit

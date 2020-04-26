@@ -46,7 +46,6 @@ airstrike.proxy:
 		Icon: airstrike
 		StartFullyCharged: True
 		ChargeInterval: 3000
-		SquadSize: 3
 		QuantizedFacings: 8
 		Description: Air Strike
 		LongDesc: Deploy an aerial napalm strike.\nBurns buildings and infantry along a line.
@@ -54,7 +53,6 @@ airstrike.proxy:
 		SelectTargetSpeechNotification: SelectTarget
 		InsufficientPowerSpeechNotification: InsufficientPower
 		IncomingSpeechNotification: EnemyPlanesApproaching
-		UnitType: a10
 		DisplayBeacon: True
 		BeaconPoster: airstrike
 		DisplayRadarPing: True
@@ -63,6 +61,17 @@ airstrike.proxy:
 		ClockSequence: clock
 		CircleSequence: circles
 		SupportPowerPaletteOrder: 10
+		Squad:
+			SquadMember@0:
+				UnitType: a10
+				SpawnOffset: -1536,-1536,0
+				TargetOffset: 0,-1536,0
+			SquadMember@1:
+				UnitType: a10
+			SquadMember@2:
+				UnitType: a10
+				SpawnOffset: -1536,1536,0
+				TargetOffset: 0,1536,0
 
 MoneyCrate:
 	Inherits: ^Crate

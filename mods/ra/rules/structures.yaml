@@ -1505,7 +1505,6 @@ AFLD:
 		EndChargeSpeechNotification: SpyPlaneReady
 		CameraActor: camera.spyplane
 		CameraRemoveDelay: 150
-		UnitType: u2
 		QuantizedFacings: 8
 		DisplayBeacon: true
 		BeaconPoster: camicon
@@ -1515,6 +1514,9 @@ AFLD:
 		UseDirectionalTarget: True
 		DirectionArrowAnimation: paradirection
 		SupportPowerPaletteOrder: 60
+		Squad:
+			SquadMember:
+				UnitType: u2
 	ParatroopersPower@paratroopers:
 		OrderName: SovietParatroopers
 		Prerequisites: aircraft.soviet
@@ -1546,18 +1548,26 @@ AFLD:
 		SelectTargetSpeechNotification: SelectTarget
 		CameraActor: camera
 		CameraRemoveDelay: 150
-		UnitType: badr.bomber
 		QuantizedFacings: 8
 		DisplayBeacon: true
 		BeaconPoster: pbmbicon
-		SquadSize: 3
-		SquadOffset: 1792,1792,0
 		ArrowSequence: arrow
 		ClockSequence: clock
 		CircleSequence: circles
 		UseDirectionalTarget: True
 		DirectionArrowAnimation: paradirection
 		SupportPowerPaletteOrder: 40
+		Squad:
+			SquadMember@0:
+				UnitType: badr.bomber
+				SpawnOffset: 1792,-1792,0
+				TargetOffset: 0,-1792,0
+			SquadMember@1:
+				UnitType: badr.bomber
+			SquadMember@2:
+				UnitType: badr.bomber
+				SpawnOffset: 1792,1792,0
+				TargetOffset: 0,1792,0
 	ProductionBar:
 		ProductionType: Aircraft
 	SupportPowerChargeBar:

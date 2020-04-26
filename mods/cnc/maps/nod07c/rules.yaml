@@ -112,6 +112,9 @@ TRAN:
 HQ:
 	AirstrikePower:
 		Prerequisites: gdi
+		Squad@override:
+			SquadMember:
+				UnitType: a10 # Assuming we want consistency with Nod07a and Nod07b. This should be discussed during review.
 
 BOAT:
 	Health:

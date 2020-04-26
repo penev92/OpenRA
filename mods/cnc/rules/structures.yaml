@@ -679,7 +679,6 @@ HQ:
 		Prerequisites: ~techlevel.superweapons
 		Icon: airstrike
 		ChargeInterval: 7500
-		SquadSize: 3
 		QuantizedFacings: 8
 		Name: Air Strike
 		Description: Deploy an aerial napalm strike.\nBurns buildings and infantry along a line.
@@ -691,7 +690,6 @@ HQ:
 		SelectTargetTextNotification: notification-select-target
 		InsufficientPowerTextNotification: notification-insufficient-power
 		IncomingTextNotification: notification-enemy-planes-approaching
-		UnitType: a10
 		DisplayBeacon: True
 		BeaconPoster: airstrike
 		BeaconPosterPalette: beaconposter
@@ -703,6 +701,17 @@ HQ:
 		UseDirectionalTarget: True
 		DirectionArrowAnimation: airstrikedirection
 		SupportPowerPaletteOrder: 10
+		Squad:
+			SquadMember@0:
+				UnitType: a10
+				SpawnOffset: -1536,-1536,0
+				TargetOffset: 0,-1536,0
+			SquadMember@1:
+				UnitType: a10
+			SquadMember@2:
+				UnitType: a10
+				SpawnOffset: -1536,1536,0
+				TargetOffset: 0,1536,0
 	SupportPowerChargeBar:
 	Power:
 		Amount: -50

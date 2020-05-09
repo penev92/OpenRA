@@ -41,7 +41,7 @@ namespace OpenRA.Traits
 		}
 	}
 
-	[AttributeUsage(AttributeTargets.Field)]
+	[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
 	public sealed class WeaponReferenceAttribute : Attribute { }
 
 	[AttributeUsage(AttributeTargets.Field)]

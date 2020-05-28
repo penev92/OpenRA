@@ -48,15 +48,25 @@ namespace OpenRA.Mods.Common.Lint
 					CheckVoiceReference(actorInfo, traitInfo, field, rules.Voices,
 						field.GetCustomAttributes<VoiceSetReferenceAttribute>(true)[0]);
 			}
+
+			foreach (var property in actualType.GetProperties())
+			{
+				if (property.HasAttribute<ActorReferenceAttribute>())
+					CheckActorReference(actorInfo, traitInfo, property, rules.Actors,
+						property.GetCustomAttributes<ActorReferenceAttribute>(true)[0]);
+			}
 		}
 
 		void CheckActorReference(ActorInfo actorInfo,
 			TraitInfo traitInfo,
-			FieldInfo fieldInfo,
+			MemberInfo memberInfo,
 			IReadOnlyDictionary<string, ActorInfo> dict,
 			ActorReferenceAttribute attribute)
 		{
-			var values = LintExts.GetFieldValues(traitInfo, fieldInfo, emitError, attribute.DictionaryReference);
+			var values = memberInfo is PropertyInfo ?
+				LintExts.GetPropertyValues(traitInfo, (PropertyInfo)memberInfo, emitError, attribute.DictionaryReference) :
+				LintExts.GetFieldValues(traitInfo, (FieldInfo)memberInfo, emitError, attribute.DictionaryReference);
+
 			foreach (var value in values)
 			{
 				if (value == null)
@@ -69,7 +79,7 @@ namespace OpenRA.Mods.Common.Lint
 				if (!dict.ContainsKey(v))
 				{
 					emitError("{0}.{1}.{2}: Missing actor `{3}`."
-						.F(actorInfo.Name, traitInfo.GetType().Name, fieldInfo.Name, value));
+						.F(actorInfo.Name, traitInfo.GetType().Name, memberInfo.Name, value));
 
 					continue;
 				}
@@ -77,7 +87,7 @@ namespace OpenRA.Mods.Common.Lint
 				foreach (var requiredTrait in attribute.RequiredTraits)
 					if (!dict[v].TraitsInConstructOrder().Any(t => t.GetType() == requiredTrait || t.GetType().IsSubclassOf(requiredTrait)))
 						emitError("Actor type {0} does not have trait {1} which is required by {2}.{3}."
-							.F(value, requiredTrait.Name, traitInfo.GetType().Name, fieldInfo.Name));
+							.F(value, requiredTrait.Name, traitInfo.GetType().Name, memberInfo.Name));
 			}
 		}
 

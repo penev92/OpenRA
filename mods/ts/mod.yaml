@@ -264,6 +264,7 @@ ModelSequenceFormat: VoxelModelSequence
 AssetBrowser:
 	SpriteExtensions: .shp, .tem, .sno
 	ModelExtensions: .vxl
+	AudioExtensions: .aud, .wav
 	VideoExtensions: .vqa
 
 GameSpeeds:

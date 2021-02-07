@@ -27,6 +27,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 		readonly string[] allowedExtensions;
 		readonly string[] allowedSpriteExtensions;
 		readonly string[] allowedModelExtensions;
+		readonly string[] allowedAudioExtensions;
 		readonly string[] allowedVideoExtensions;
 		readonly IEnumerable<IReadOnlyPackage> acceptablePackages;
 
@@ -48,6 +49,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 		IReadOnlyPackage currentPackage;
 		Sprite[] currentSprites;
 		IModel currentVoxel;
+		ISound currentSound;
 		VideoPlayerWidget player = null;
 		bool isVideoLoaded = false;
 		bool isLoadError = false;
@@ -300,9 +302,11 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			var assetBrowserModData = modData.Manifest.Get<AssetBrowser>();
 			allowedSpriteExtensions = assetBrowserModData.SpriteExtensions;
 			allowedModelExtensions = assetBrowserModData.ModelExtensions;
+			allowedAudioExtensions = assetBrowserModData.AudioExtensions;
 			allowedVideoExtensions = assetBrowserModData.VideoExtensions;
 			allowedExtensions = allowedSpriteExtensions
 				.Union(allowedModelExtensions)
+				.Union(allowedAudioExtensions)
 				.Union(allowedVideoExtensions)
 				.ToArray();
 
@@ -390,6 +394,23 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 
 		bool LoadAsset(IReadOnlyPackage package, string filename)
 		{
+			if (currentSprites != null)
+			{
+				currentSprites = null;
+				currentFrame = 0;
+			}
+
+			if (currentVoxel != null)
+			{
+				currentVoxel = null;
+			}
+
+			if (currentSound != null)
+			{
+				Game.Sound.StopSound(currentSound);
+				currentSound = null;
+			}
+
 			if (isVideoLoaded)
 			{
 				player.Stop();
@@ -433,7 +454,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 
 					currentVoxel = null;
 
-					// In case we're switching away from a type of asset that forced the music to pause.
+					// Just in case we're switching away from a type of asset that forced the music to pause.
 					Game.Sound.PlayMusic();
 				}
 				else if (allowedModelExtensions.Contains(fileExtension))
@@ -442,8 +463,18 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 					currentVoxel = world.ModelCache.GetModel(voxelName);
 					currentSprites = null;
 
-					// In case we're switching away from a type of asset that forced the music to pause.
+					// Just in case we're switching away from a type of asset that forced the music to pause.
 					Game.Sound.PlayMusic();
+				}
+				else if (allowedAudioExtensions.Contains(fileExtension))
+				{
+					// Pause music so it doesn't interfere with current asset.
+					Game.Sound.PauseMusic();
+
+					using (var soundStream = Game.ModData.DefaultFileSystem.Open(filename))
+						foreach (var modDataSoundLoader in Game.ModData.SoundLoaders)
+							if (modDataSoundLoader.TryParseSound(soundStream, out var soundFormat))
+								currentSound = Game.Sound.Play(soundFormat);
 				}
 				else if (allowedVideoExtensions.Contains(fileExtension))
 				{

@@ -158,6 +158,12 @@ namespace OpenRA
 			return Play(type, player, names.Random(world.LocalRandom), false, pos, volumeModifier);
 		}
 
+		public ISound Play(ISoundFormat soundFormat)
+		{
+			return soundEngine.Play2DStream(soundFormat.GetPCMInputStream(), soundFormat.Channels, soundFormat.SampleBits, soundFormat.SampleRate,
+				false, true, WPos.Zero, MusicVolume);
+		}
+
 		public void PlayVideo(byte[] raw, int channels, int sampleBits, int sampleRate)
 		{
 			StopVideo();

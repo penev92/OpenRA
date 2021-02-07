@@ -3,7 +3,7 @@ Container@ASSETBROWSER_PANEL:
 	X: (WINDOW_RIGHT - WIDTH) / 2
 	Y: (WINDOW_BOTTOM - HEIGHT) / 2
 	Width: 695
-	Height: 435
+	Height: 460
 	Children:
 		LogicTicker@ANIMATION_TICKER:
 		ColorPreviewManager@COLOR_MANAGER:
@@ -16,7 +16,7 @@ Container@ASSETBROWSER_PANEL:
 			Text: Asset Browser
 		Background@bg:
 			Width: PARENT_RIGHT
-			Height: 435
+			Height: 460
 			Background: panel-black
 			Children:
 				Label@SOURCE_SELECTOR_DESC:
@@ -197,9 +197,24 @@ Container@ASSETBROWSER_PANEL:
 							Height: 25
 							Font: TinyBold
 							Align: Left
+						Label@SPRITE_SCALE:
+							X: 0
+							Y: 32
+							Width: 40
+							Height: 25
+							Font: TinyBold
+							Align: Left
+							Text: Scale
+						Slider@SPRITE_SCALE_SLIDER:
+							X: 35
+							Y: 35
+							Width: 100
+							Height: 20
+							MinimumValue: 0.5
+							MaximumValue: 4
 		Button@CLOSE_BUTTON:
 			Key: escape
-			Y: 434
+			Y: 459
 			Width: 140
 			Height: 35
 			Text: Back

@@ -402,18 +402,26 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 					}
 
 					currentVoxel = null;
+
+					// In case we're switching away from a type of asset that forced the music to pause.
+					Game.Sound.PlayMusic();
 				}
 				else if (allowedModelExtensions.Contains(fileExtension))
 				{
 					var voxelName = Path.GetFileNameWithoutExtension(filename);
 					currentVoxel = world.ModelCache.GetModel(voxelName);
 					currentSprites = null;
+
+					// In case we're switching away from a type of asset that forced the music to pause.
+					Game.Sound.PlayMusic();
 				}
 				else if (allowedVideoExtensions.Contains(fileExtension))
 				{
 					var video = VideoLoader.GetVideo(Game.ModData.DefaultFileSystem.Open(filename), Game.ModData.VideoLoaders);
 					if (video != null)
 					{
+						// Pause music so it doesn't interfere with current asset.
+						Game.Sound.PauseMusic();
 
 						player = panel.Get<VideoPlayerWidget>("PLAYER");
 						player.Load(prefix + filename);

@@ -214,7 +214,7 @@ Background@ASSETBROWSER_PANEL:
 					MinimumValue: 1
 					MaximumValue: 1023
 				Label@PITCH:
-					X: 310
+					X: 300
 					Y: 1
 					Width: 40
 					Height: 25
@@ -243,6 +243,21 @@ Background@ASSETBROWSER_PANEL:
 					Height: 20
 					MinimumValue: 1
 					MaximumValue: 1023
+				Label@MODEL_SCALE:
+					X: 130
+					Y: 30
+					Width: 40
+					Height: 25
+					Font: TinyBold
+					Align: Left
+					Text: Scale
+				Slider@MODEL_SCALE_SLIDER:
+					X: 165
+					Y: 32
+					Width: 100
+					Height: 20
+					MinimumValue: 10
+					MaximumValue: 64
 		Button@CLOSE_BUTTON:
 			Key: escape
 			X: PARENT_RIGHT - 180

@@ -232,7 +232,8 @@ SpriteSequenceFormat: ClassicTilesetSpecificSpriteSequence
 ModelSequenceFormat: PlaceholderModelSequence
 
 AssetBrowser:
-	SupportedExtensions: .shp, .tmp, .tem, .des, .sno, .int, .vqa
+	SpriteExtensions: .shp, .tmp, .tem, .des, .sno, .int
+	VideoExtensions: .vqa
 
 GameSpeeds:
 	slowest:

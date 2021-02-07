@@ -27,6 +27,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 		readonly string[] allowedExtensions;
 		readonly string[] allowedSpriteExtensions;
 		readonly string[] allowedModelExtensions;
+		readonly string[] allowedAudioExtensions;
 		readonly string[] allowedVideoExtensions;
 		readonly IEnumerable<IReadOnlyPackage> acceptablePackages;
 
@@ -48,6 +49,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 		IReadOnlyPackage currentPackage;
 		Sprite[] currentSprites;
 		IModel currentVoxel;
+		ISound currentSound;
 		VideoPlayerWidget player = null;
 		bool isVideoLoaded = false;
 		bool isLoadError = false;
@@ -68,7 +70,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			{
 				ticker.OnTick = () =>
 				{
-					if (animateFrames)
+					if (animateFrames && currentSprites != null)
 						SelectNextFrame();
 				};
 			}
@@ -292,9 +294,11 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			var assetBrowserModData = modData.Manifest.Get<AssetBrowser>();
 			allowedSpriteExtensions = assetBrowserModData.SpriteExtensions;
 			allowedModelExtensions = assetBrowserModData.ModelExtensions;
+			allowedAudioExtensions = assetBrowserModData.AudioExtensions;
 			allowedVideoExtensions = assetBrowserModData.VideoExtensions;
 			allowedExtensions = allowedSpriteExtensions
 				.Union(allowedModelExtensions)
+				.Union(allowedAudioExtensions)
 				.Union(allowedVideoExtensions)
 				.ToArray();
 
@@ -384,6 +388,14 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 
 		bool LoadAsset(IReadOnlyPackage package, string filename)
 		{
+			if (currentSound != null)
+				Game.Sound.StopSound(currentSound);
+
+			currentSprites = null;
+			currentFrame = 0;
+			currentVoxel = null;
+			currentSound = null;
+
 			if (isVideoLoaded)
 			{
 				player.Stop();
@@ -438,6 +450,16 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 
 					// Just in case we're switching away from a type of asset that forced the music to pause.
 					UnMuteSounds();
+				}
+				else if (allowedAudioExtensions.Contains(fileExtension))
+				{
+					// Mute music so it doesn't interfere with current asset.
+					MuteSounds();
+
+					using (var soundStream = Game.ModData.DefaultFileSystem.Open(prefix + filename))
+						foreach (var modDataSoundLoader in Game.ModData.SoundLoaders)
+							if (modDataSoundLoader.TryParseSound(soundStream, out var soundFormat))
+								currentSound = Game.Sound.Play(soundFormat, Game.Sound.SoundVolume);
 				}
 				else if (allowedVideoExtensions.Contains(fileExtension))
 				{

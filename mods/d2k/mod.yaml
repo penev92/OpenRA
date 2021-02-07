@@ -204,6 +204,7 @@ ModelSequenceFormat: PlaceholderModelSequence
 
 AssetBrowser:
 	SpriteExtensions: .shp, .r8
+	AudioExtensions: .aud, .wav
 	VideoExtensions: .vqa
 
 GameSpeeds:

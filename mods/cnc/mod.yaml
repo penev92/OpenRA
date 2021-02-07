@@ -228,6 +228,7 @@ ModelSequenceFormat: PlaceholderModelSequence
 
 AssetBrowser:
 	SpriteExtensions: .shp, .tem, .des, .sno, .jun
+	AudioExtensions: .aud, .wav
 	VideoExtensions: .vqa
 
 GameSpeeds:

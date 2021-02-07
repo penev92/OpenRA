@@ -15,6 +15,7 @@ namespace OpenRA
 	{
 		public readonly string[] SpriteExtensions = { };
 		public readonly string[] ModelExtensions = { };
+		public readonly string[] AudioExtensions = { };
 		public readonly string[] VideoExtensions = { };
 	}
 }

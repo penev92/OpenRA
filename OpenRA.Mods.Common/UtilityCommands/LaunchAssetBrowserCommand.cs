@@ -149,7 +149,7 @@ namespace OpenRA.Mods.Common.UtilityCommands
 				currentPaletteColors[i] = palette.GetColor(i);
 		}
 
-		public byte[] LoadAsset(string assetFileName)
+		public IDictionary<string, byte[]> LoadAsset(string assetFileName)
 		{
 			if (!TryLoadAsset(assetFileName, out var stream, out var fileExtension))
 				return null;
@@ -177,21 +177,25 @@ namespace OpenRA.Mods.Common.UtilityCommands
 			return modData.DefaultFileSystem.TryOpen(fileName, out stream);
 		}
 
-		byte[] LoadSpriteAsset(Stream stream)
+		IDictionary<string, byte[]> LoadSpriteAsset(Stream stream)
 		{
+			var result = new Dictionary<string, byte[]>();
 			var frames = FrameLoader.GetFrames(stream, modData.SpriteLoaders, out _);
 
 			var count = 0;
+			var usePadding = false; // TODO: Handle padding.
 
-			var frame = frames[0];
+			for (var i = 0; i < frames.Length; i++)
 			{
-				var frameSize = !frame.DisableExportPadding ? frame.FrameSize : frame.Size;
-				var offset = !frame.DisableExportPadding ? (frame.Offset - 0.5f * new float2(frame.Size - frame.FrameSize)).ToInt2() : int2.Zero;
+				var frame = frames[i];
+				var frameSize = usePadding && !frame.DisableExportPadding ? frame.FrameSize : frame.Size;
+				var offset = usePadding && !frame.DisableExportPadding ? (frame.Offset - 0.5f * new float2(frame.Size - frame.FrameSize)).ToInt2() : int2.Zero;
 
 				// shp(ts) may define empty frames
 				if (frameSize.Width == 0 && frameSize.Height == 0)
 				{
 					count++;
+					continue;
 				}
 
 				// TODO: expand frame with zero padding
@@ -199,15 +203,15 @@ namespace OpenRA.Mods.Common.UtilityCommands
 				if (frameSize != frame.Size)
 				{
 					pngData = new byte[frameSize.Width * frameSize.Height];
-					for (var i = 0; i < frame.Size.Height; i++)
-						Buffer.BlockCopy(frame.Data, i * frame.Size.Width,
-							pngData, (i + offset.Y) * frameSize.Width + offset.X,
-							frame.Size.Width);
+					for (var j = 0; j < frame.Size.Height; j++)
+						Buffer.BlockCopy(frame.Data, j * frame.Size.Width, pngData, (j + offset.Y) * frameSize.Width + offset.X, frame.Size.Width);
 				}
 
 				var png = new Png(pngData, SpriteFrameType.Indexed8, frameSize.Width, frameSize.Height, currentPaletteColors);
-				return png.Save();
+				result.Add(i.ToString(), png.Save());
 			}
+
+			return result;
 		}
 
 		#endregion

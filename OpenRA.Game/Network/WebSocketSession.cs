@@ -194,8 +194,6 @@ namespace OpenRA.Network
 						messageBuffer.Write(data, 0, data.Length);
 					}
 
-					Console.WriteLine($@"RECV: {BitConverter.ToString(packet.ToArray())}");
-
 					if (!fin) continue;
 					var message = messageBuffer.ToArray();
 
@@ -301,7 +299,6 @@ namespace OpenRA.Network
 				var stream = client.GetStream();
 
 				var finalPacket = packet.ToArray();
-				Console.WriteLine($@"SENT: {BitConverter.ToString(finalPacket)}");
 
 				// Send the packet
 				foreach (var b in finalPacket)

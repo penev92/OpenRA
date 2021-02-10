@@ -1,0 +1,191 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+    <title>websocket client</title>
+    <script type="text/javascript">
+        var currentSpriteData = null;
+        var start = function () {
+            var inc = document.getElementById('incomming');
+            var wsImpl = window.WebSocket || window.MozWebSocket;
+            var form = document.getElementById('sendForm');
+            var input = document.getElementById('sendText');
+
+            inc.innerHTML += "connecting to server ..<br/>";
+
+            // create a new websocket and connect
+            window.ws = new wsImpl('ws://localhost:6464/');
+
+            // when data is comming from the server, this metod is called
+            ws.onmessage = function (evt) {
+                let message = JSON.parse(evt.data);
+                let command = message["CommandName"];
+                let payload = message["Data"];
+
+                if (command === "ListPackages") {
+                    handleIncomingAssetPackages(payload);
+                }
+                else if (command === "LoadAsset"){
+                    handleIncomingAssetData(payload);
+                }
+                else {
+                    handleIncomingMessageDefault(payload);
+                }
+            };
+
+            // when the connection is established, this method is called
+            ws.onopen = function () {
+                inc.innerHTML += '.. connection open<br/>';
+            };
+
+            // when the connection is closed, this method is called
+            ws.onclose = function () {
+                inc.innerHTML += '.. connection closed<br/>';
+            }
+
+			form.addEventListener('submit', function(e){
+				e.preventDefault();
+				var val = input.value;
+				ws.send(val);
+				input.value = "";
+			});
+        };
+
+        function handleIncomingAssetPackages(packages) {
+            let assetsByPackage = { "all": [] };
+            let palettes = [];
+
+            let select = document.getElementById("selectPackage");
+            for (let packageName in packages) {
+                let element = document.createElement("option");
+                element.textContent = packageName;
+                element.value = packageName;
+                select.appendChild(element);
+
+                assetsByPackage[packageName] = [];
+                for (let index in packages[packageName]) {
+                    let assetName = packages[packageName][index];
+                    assetsByPackage[packageName].push(assetName);
+                    assetsByPackage["all"].push(assetName);
+
+                    if (assetName.endsWith(".pal")) {
+                        palettes.push(assetName);
+                    }
+                };
+            };
+
+            window.localStorage.setItem("assetsByPackage", JSON.stringify(assetsByPackage));
+            window.localStorage.setItem("palettes", JSON.stringify(palettes));
+
+            populatePalettes();
+        };
+
+        function handleIncomingAssetData(data) {
+            currentSpriteData = data;
+            window.localStorage.setItem("currentAssetData", JSON.stringify(data));
+            window.localStorage.setItem("currentFrame", 0);
+
+            populateSpriteAsset(data[0]);
+        };
+
+        function handleIncomingMessageDefault(message) {
+            var inc = document.getElementById('incomming');
+            inc.innerHTML += message + '<br/>';
+        };
+
+        function populatePalettes() {
+            var select = document.getElementById("selectPalette");
+            select.innerHTML = null;
+
+            let palettes = JSON.parse(localStorage.getItem("palettes"));
+            if (palettes !== null) {
+                palettes.forEach(paletteName => {
+                    var element = document.createElement("option");
+                    element.textContent = paletteName;
+                    element.value = paletteName;
+                    select.appendChild(element);
+                });
+            }
+        };
+
+        function populateAssets(selectedPackage) {
+            var select = document.getElementById("selectAsset");
+            select.innerHTML = null;
+
+            var assets = JSON.parse(localStorage.getItem("assetsByPackage"))[selectedPackage];
+            if (assets !== null)
+            {
+                assets.forEach(assetName => {
+                    var element = document.createElement("option");
+                    element.textContent = assetName;
+                    element.value = assetName;
+                    select.appendChild(element);
+                });
+            }
+
+            requestSetPalette("unittem.pal");
+
+            if (select.options.length > 0) {
+                requestAsset(select.options[0]);
+            }
+        };
+
+        function populateSpriteAsset(imageData) {
+            document.getElementById("ItemPreview").src = "data:image/png;base64," + imageData;
+        };
+
+        function nextFrame() {
+            let currentFrame = window.localStorage.getItem("currentFrame");
+            let currentAssetData = JSON.parse(window.localStorage.getItem("currentAssetData"));
+
+            currentFrame++;
+            if (currentFrame >= Object.keys(currentAssetData).length){
+                currentFrame = 0;
+            }
+
+            populateSpriteAsset(currentAssetData[currentFrame]);
+
+            window.localStorage.setItem("currentFrame", currentFrame);
+        };
+
+        function requestAsset(selectedAsset) {
+            document.getElementById("ItemPreview").src = null;
+            let select = document.getElementById("selectAsset");
+            let message = {
+                CommandName: "LoadAsset",
+                Data: select.value
+            };
+
+            ws.send(JSON.stringify(message));
+        };
+
+        function requestSetPalette(selectedPalette) {
+            let paletteName = "unittem.pal";
+            // let paletteName = "PALETTE.BIN";
+            let message = {
+                CommandName: "SetPalette",
+                Data: paletteName
+            };
+
+            ws.send(JSON.stringify(message));
+        };
+
+        window.onload = start;
+    </script>
+</head>
+<body>
+	<form id="sendForm">
+		<input id="sendText" placeholder="Text to send" />
+	</form>
+    <select name="selectPackage" id="selectPackage" onchange="populateAssets(this.value)">
+        <option value="none"></option>
+        <option value="all">All packages</option>
+    </select>
+    <select name="selectAsset" id="selectAsset" onchange="requestAsset(this.value)"></select>
+    <select name="selectPalette" id="selectPalette" onchange="setPalette(this.value)"></select>
+    <br/>
+    <button name="nextFrameButton" id="nextFrameButton" onclick="nextFrame()">Next frame</button>
+    <br/>
+    <pre id="incomming"></pre>
+    <img id="ItemPreview" src="">
+</body>
+</html>

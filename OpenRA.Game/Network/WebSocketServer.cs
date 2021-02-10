@@ -54,7 +54,6 @@ namespace OpenRA.Network
 
 					session.TextMessageReceived += (sender, message) =>
 					{
-						Console.WriteLine(message);
 						OnMessageReceived?.Invoke(sender, message);
 					};
 

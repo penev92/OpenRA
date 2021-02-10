@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "OpenRA.Utility": {
+      "commandName": "Project",
+      "commandLineArgs": "ts --asset-browser"
+    }
+  }
+}

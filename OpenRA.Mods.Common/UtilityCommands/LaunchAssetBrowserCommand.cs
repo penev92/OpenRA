@@ -110,8 +110,8 @@ namespace OpenRA.Mods.Common.UtilityCommands
 			var bytes = assetBrowser.LoadAsset(assetName, request);
 			if (bytes != null)
 			{
-				// SendMessage(session, LoadAsset, bytes);
-				session.SendMessage(bytes, true);
+				// session.SendMessage(bytes, true);
+				SendMessage(session, LoadAsset, bytes);
 			}
 			else
 			{
@@ -172,13 +172,13 @@ namespace OpenRA.Mods.Common.UtilityCommands
 			return 0;
 		}
 
-		public byte[] LoadAsset(string assetFileName, IDictionary<string, string> request)
+		public float[] LoadAsset(string assetFileName, IDictionary<string, string> request)
 		{
 			if (!TryLoadAsset(assetFileName, out var stream, out var fileExtension))
 				return null;
 
 			if (allowedSpriteExtensions.Contains(fileExtension))
-				return LoadSpriteAsset(stream, request);
+				return null; // return LoadSpriteAsset(stream, request);
 
 			if (allowedModelExtensions.Contains(fileExtension))
 				return null; // TODO: Not implemented yet.
@@ -231,15 +231,26 @@ namespace OpenRA.Mods.Common.UtilityCommands
 			return png.Save();
 		}
 
-		byte[] LoadAudioAsset(string fileName)
+		float[] LoadAudioAsset(string fileName)
 		{
-			// using (var soundStream = modData.DefaultFileSystem.Open(fileName))
-			// 	return soundStream.ReadAllBytes();
 			using (var soundStream = modData.DefaultFileSystem.Open(fileName))
 				foreach (var modDataSoundLoader in modData.SoundLoaders)
 					if (modDataSoundLoader.TryParseSound(soundStream, out var soundFormat))
 						using (var pcmStream = soundFormat.GetPCMInputStream())
-							return pcmStream.ReadAllBytes();
+						{
+							var bytes = pcmStream.ReadAllBytes();
+							var floats = new List<float>();
+							for (var i = 0; i < bytes.Length; i += 2)
+							{
+								var localBytes = new[] { bytes[i], bytes[i + 1] };
+								var value = BitConverter.ToInt16(localBytes, 0);
+								var newFloat = (float)value / short.MaxValue;
+								floats.Add(newFloat);
+								floats.Add(newFloat);
+							}
+
+							return floats.Take(400000).ToArray();
+						}
 
 			return null;
 		}

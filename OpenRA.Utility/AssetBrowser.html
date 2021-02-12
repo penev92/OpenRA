@@ -179,8 +179,9 @@
         };
 
         function requestSetPalette(selectedPalette) {
+            let paletteName = "temperat.pal";
+            // let paletteName = "PALETTE.BIN";
             // let paletteName = "unittem.pal";
-            let paletteName = "PALETTE.BIN";
             let message = {
                 CommandName: "SetPalette",
                 PaletteName: paletteName
@@ -315,10 +316,11 @@
             );
         }
 
-        function startAudioStream(byteArrayAsBase64String, sampleRate, latency) {
+        function startAudioStream(arrayOfFloats, sampleRate, latency) {
             //let byteArray = _base64ToArrayBuffer(byteArrayAsBase64String);
-            let byteArray = byteArrayAsBase64String;
-            let floatArray = new Float32Array(byteArray);
+            //let byteArray = byteArrayAsBase64String;
+            let channelData1 = new Float32Array(arrayOfFloats.filter((element, index) => { return index % 2 === 0; }));
+            let channelData2 = new Float32Array(arrayOfFloats.filter((element, index) => { return index % 2 !== 0; }));
             //floatArray = floatArray.map(x => x/256);
             var AudioContext = window.AudioContext;// || window.webkitAudioContext;
             var context = new AudioContext();
@@ -326,12 +328,10 @@
 
             // function update(byteArray) {
                 // buffer = context.createBuffer(1, byteArray.byteLength / 4, sampleRate);
-                let buffer = context.createBuffer(1, floatArray.length, 22050);
+                let buffer = context.createBuffer(2, channelData1.length, 22050);
 
-                if (typeof buffer.copyToChannel === "function")
-                    buffer.copyToChannel(floatArray, 0);
-                else
-                    buffer.getChannelData(0).set(floatArray);
+                buffer.copyToChannel(channelData1, 0);
+                buffer.copyToChannel(channelData2, 1);
 
                 var source = context.createBufferSource();
                 source.buffer = buffer;
@@ -432,9 +432,9 @@
             let message = {
                 // CommandName: "PlaySound",
                 // FileName: "gg.mp3"
-                CommandName: "LoadAsset",
+                //CommandName: "LoadAsset",
                 // AssetName: "00-n086.aud"
-                AssetName: "THUMPER1.WAV"
+                //AssetName: "THUMPER1.WAV"
             };
 
             ws.send(JSON.stringify(message));

@@ -27,6 +27,7 @@ namespace OpenRA.Mods.Common.UtilityCommands
 		const string Chat = nameof(Chat);
 		const string SetPalette = nameof(SetPalette);
 		const string ListPackages = nameof(ListPackages);
+		const string GetSpriteFramesCount = nameof(GetSpriteFramesCount);
 		const string LoadAsset = nameof(LoadAsset);
 
 		const int Port = 6464;
@@ -62,6 +63,7 @@ namespace OpenRA.Mods.Common.UtilityCommands
 
 		void SendMessage(WebSocketSession session, string commandName, object payload)
 		{
+			// payload = System.IO.File.ReadAllBytes(@"D:\Work.Personal\DiscordBots\surprise-motherfucker.mp3");
 			var message = JsonSerializer.Serialize(new
 			{
 				CommandName = commandName,
@@ -77,10 +79,16 @@ namespace OpenRA.Mods.Common.UtilityCommands
 			switch (message[CommandName])
 			{
 				case SetPalette:
-					SetPaletteMessageHandler(message["Data"]);
+					SetPaletteMessageHandler(message["PaletteName"]);
+					break;
+				case GetSpriteFramesCount:
+					GetSpriteFramesCountMessageHandler(sender, message["AssetName"]);
 					break;
 				case LoadAsset:
-					LoadAssetMessageHandler(sender, message["Data"]);
+					LoadAssetMessageHandler(sender, message);
+					break;
+				case "PlaySound":
+					SendMessage(sender, "PlaySound", File.ReadAllBytes(@"D:\Work.Personal\DiscordBots\surprise-motherfucker.mp3"));
 					break;
 			}
 		}
@@ -90,13 +98,20 @@ namespace OpenRA.Mods.Common.UtilityCommands
 			assetBrowser.SetPalette(paletteName);
 		}
 
-		void LoadAssetMessageHandler(WebSocketSession session, string assetName)
+		void GetSpriteFramesCountMessageHandler(WebSocketSession session, string assetName)
 		{
-			var bytes = assetBrowser.LoadAsset(assetName);
+			var count = assetBrowser.GetSpriteFramesCount(assetName);
+			SendMessage(session, GetSpriteFramesCount, count);
+		}
+
+		void LoadAssetMessageHandler(WebSocketSession session, IDictionary<string, string> request)
+		{
+			var assetName = request["AssetName"];
+			var bytes = assetBrowser.LoadAsset(assetName, request);
 			if (bytes != null)
 			{
-				SendMessage(session, Chat, $"Sending you asset {assetName}...");
-				SendMessage(session, LoadAsset, bytes);
+				// SendMessage(session, LoadAsset, bytes);
+				session.SendMessage(bytes, true);
 			}
 			else
 			{
@@ -141,7 +156,7 @@ namespace OpenRA.Mods.Common.UtilityCommands
 		{
 			var shadowIndex = new int[] { }; // TODO: Handle shadow indices.
 
-			var stream = modData.ModFiles.Open(paletteFileName);
+			var stream = modData.DefaultFileSystem.Open(paletteFileName);
 
 			var palette = new ImmutablePalette(stream, shadowIndex);
 			currentPaletteColors = new Color[Palette.Size];
@@ -149,19 +164,27 @@ namespace OpenRA.Mods.Common.UtilityCommands
 				currentPaletteColors[i] = palette.GetColor(i);
 		}
 
-		public IDictionary<string, byte[]> LoadAsset(string assetFileName)
+		public int GetSpriteFramesCount(string fileName)
+		{
+			if (TryLoadAsset(fileName, out var stream, out var fileExtension) && allowedSpriteExtensions.Contains(fileExtension))
+				return FrameLoader.GetFrames(stream, modData.SpriteLoaders, out _).Length;
+
+			return 0;
+		}
+
+		public byte[] LoadAsset(string assetFileName, IDictionary<string, string> request)
 		{
 			if (!TryLoadAsset(assetFileName, out var stream, out var fileExtension))
 				return null;
 
 			if (allowedSpriteExtensions.Contains(fileExtension))
-				return LoadSpriteAsset(stream);
+				return LoadSpriteAsset(stream, request);
 
 			if (allowedModelExtensions.Contains(fileExtension))
 				return null; // TODO: Not implemented yet.
 
 			if (allowedAudioExtensions.Contains(fileExtension))
-				return null; // TODO: Not implemented yet.
+				return LoadAudioAsset(assetFileName); // return stream.ReadAllBytes();
 
 			if (allowedVideoExtensions.Contains(fileExtension))
 				return null; // TODO: Not implemented yet.
@@ -177,41 +200,48 @@ namespace OpenRA.Mods.Common.UtilityCommands
 			return modData.DefaultFileSystem.TryOpen(fileName, out stream);
 		}
 
-		IDictionary<string, byte[]> LoadSpriteAsset(Stream stream)
+		byte[] LoadSpriteAsset(Stream stream, IDictionary<string, string> request)
 		{
-			var result = new Dictionary<string, byte[]>();
+			var frameNumber = int.Parse(request["FrameNumber"]);
 			var frames = FrameLoader.GetFrames(stream, modData.SpriteLoaders, out _);
 
-			var count = 0;
-			var usePadding = false; // TODO: Handle padding.
+			var usePadding = true; // TODO: Handle padding.
 
-			for (var i = 0; i < frames.Length; i++)
+			var frame = frames[frameNumber];
+			var frameSize = usePadding && !frame.DisableExportPadding ? frame.FrameSize : frame.Size;
+			var offset = usePadding && !frame.DisableExportPadding ? (frame.Offset - 0.5f * new float2(frame.Size - frame.FrameSize)).ToInt2() : int2.Zero;
+
+			// shp(ts) may define empty frames
+			// TODO: This sounds very wrong. D2k R8 tileset files also have empty frames but those work fine.
+			if (frameSize.Width == 0 && frameSize.Height == 0)
 			{
-				var frame = frames[i];
-				var frameSize = usePadding && !frame.DisableExportPadding ? frame.FrameSize : frame.Size;
-				var offset = usePadding && !frame.DisableExportPadding ? (frame.Offset - 0.5f * new float2(frame.Size - frame.FrameSize)).ToInt2() : int2.Zero;
-
-				// shp(ts) may define empty frames
-				if (frameSize.Width == 0 && frameSize.Height == 0)
-				{
-					count++;
-					continue;
-				}
-
-				// TODO: expand frame with zero padding
-				var pngData = frame.Data;
-				if (frameSize != frame.Size)
-				{
-					pngData = new byte[frameSize.Width * frameSize.Height];
-					for (var j = 0; j < frame.Size.Height; j++)
-						Buffer.BlockCopy(frame.Data, j * frame.Size.Width, pngData, (j + offset.Y) * frameSize.Width + offset.X, frame.Size.Width);
-				}
-
-				var png = new Png(pngData, SpriteFrameType.Indexed8, frameSize.Width, frameSize.Height, currentPaletteColors);
-				result.Add(i.ToString(), png.Save());
+				return new byte[0];
 			}
 
-			return result;
+			// TODO: expand frame with zero padding
+			var pngData = frame.Data;
+			if (frameSize != frame.Size)
+			{
+				pngData = new byte[Math.Max(frameSize.Width * frameSize.Height, frame.Size.Width * frame.Size.Height)];
+				for (var j = 0; j < frame.Size.Height; j++)
+					Buffer.BlockCopy(frame.Data, j * frame.Size.Width, pngData, (j + offset.Y) * frameSize.Width + offset.X, frame.Size.Width);
+			}
+
+			var png = new Png(pngData, SpriteFrameType.Indexed8, Math.Max(frameSize.Width, frame.Size.Width), Math.Max(frameSize.Height, frame.Size.Height), currentPaletteColors);
+			return png.Save();
+		}
+
+		byte[] LoadAudioAsset(string fileName)
+		{
+			// using (var soundStream = modData.DefaultFileSystem.Open(fileName))
+			// 	return soundStream.ReadAllBytes();
+			using (var soundStream = modData.DefaultFileSystem.Open(fileName))
+				foreach (var modDataSoundLoader in modData.SoundLoaders)
+					if (modDataSoundLoader.TryParseSound(soundStream, out var soundFormat))
+						using (var pcmStream = soundFormat.GetPCMInputStream())
+							return pcmStream.ReadAllBytes();
+
+			return null;
 		}
 
 		#endregion

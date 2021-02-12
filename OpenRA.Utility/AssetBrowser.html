@@ -3,7 +3,11 @@
 <head>
     <title>websocket client</title>
     <script type="text/javascript">
-        var currentSpriteData = null;
+
+        let currentSpriteName = null;
+        let currentSpriteFrame = 0;
+        let currentSpriteFramesCount = 0;
+
         var start = function () {
             var inc = document.getElementById('incomming');
             var wsImpl = window.WebSocket || window.MozWebSocket;
@@ -17,18 +21,32 @@
 
             // when data is comming from the server, this metod is called
             ws.onmessage = function (evt) {
-                let message = JSON.parse(evt.data);
-                let command = message["CommandName"];
-                let payload = message["Data"];
+                if (typeof(evt.data) === "string") {
+                    let message = JSON.parse(evt.data);
+                    let command = message["CommandName"];
+                    let payload = message["Data"];
 
-                if (command === "ListPackages") {
-                    handleIncomingAssetPackages(payload);
-                }
-                else if (command === "LoadAsset"){
-                    handleIncomingAssetData(payload);
+                    if (command === "ListPackages") {
+                        handleIncomingAssetPackages(payload);
+                    }
+                    else if (command === "GetSpriteFramesCount") {
+                        currentSpriteFramesCount = payload;
+                    }
+                    else if (command === "LoadAsset") {
+                        //playSound_working(payload);
+                        startAudioStream(payload, '', '');
+                        handleIncomingAssetData(payload);
+                    }
+                    else if (command === "PlaySound") {
+                        playSound(payload);
+                    }
+                    else {
+                        handleIncomingMessageDefault(payload);
+                    }
                 }
                 else {
-                    handleIncomingMessageDefault(payload);
+                    var floatArray = new Float32Array(evt.data);
+                    playAudioBlob(evt.data);
                 }
             };
 
@@ -80,14 +98,11 @@
         };
 
         function handleIncomingAssetData(data) {
-            currentSpriteData = data;
-            window.localStorage.setItem("currentAssetData", JSON.stringify(data));
-            window.localStorage.setItem("currentFrame", 0);
-
-            populateSpriteAsset(data[0]);
+            populateSpriteAsset(data);
         };
 
         function handleIncomingMessageDefault(message) {
+            console.log(message);
             var inc = document.getElementById('incomming');
             inc.innerHTML += message + '<br/>';
         };
@@ -125,51 +140,305 @@
             requestSetPalette("unittem.pal");
 
             if (select.options.length > 0) {
-                requestAsset(select.options[0]);
+                currentSpriteName = select.options[0].value;
+                requestSpriteFramesCount(currentSpriteName)
+                requestAsset(currentSpriteName);
             }
         };
 
         function populateSpriteAsset(imageData) {
             document.getElementById("ItemPreview").src = "data:image/png;base64," + imageData;
+            document.getElementById("sendText").value = currentSpriteFrame.toString() + " / " + currentSpriteFramesCount.toString();
         };
 
         function nextFrame() {
-            let currentFrame = window.localStorage.getItem("currentFrame");
-            let currentAssetData = JSON.parse(window.localStorage.getItem("currentAssetData"));
-
-            currentFrame++;
-            if (currentFrame >= Object.keys(currentAssetData).length){
-                currentFrame = 0;
-            }
-
-            populateSpriteAsset(currentAssetData[currentFrame]);
-
-            window.localStorage.setItem("currentFrame", currentFrame);
+            currentSpriteFrame++;
+            requestAsset(currentSpriteName);
         };
 
         function requestAsset(selectedAsset) {
             document.getElementById("ItemPreview").src = null;
-            let select = document.getElementById("selectAsset");
+            //let select = document.getElementById("selectAsset");
             let message = {
                 CommandName: "LoadAsset",
-                Data: select.value
+                //AssetName: select.value,
+                AssetName: selectedAsset,
+                FrameNumber: currentSpriteFrame.toString()
+            };
+
+            ws.send(JSON.stringify(message));
+        };
+
+        function requestSpriteFramesCount(selectedAsset) {
+            let message = {
+                CommandName: "GetSpriteFramesCount",
+                AssetName: selectedAsset
             };
 
             ws.send(JSON.stringify(message));
         };
 
         function requestSetPalette(selectedPalette) {
-            let paletteName = "unittem.pal";
-            // let paletteName = "PALETTE.BIN";
+            // let paletteName = "unittem.pal";
+            let paletteName = "PALETTE.BIN";
             let message = {
                 CommandName: "SetPalette",
-                Data: paletteName
+                PaletteName: paletteName
             };
 
             ws.send(JSON.stringify(message));
         };
 
         window.onload = start;
+
+        function updateCurrentAsset(selectedAsset) {
+            currentSpriteFrame = 0;
+            currentSpriteName = selectedAsset;
+            requestSpriteFramesCount(currentSpriteName);
+            requestAsset(currentSpriteName);
+
+            //play();
+        };
+
+        function addWavHeader(samples, sampleRateTmp, sampleBits, channelCount) {
+            let dataLength = samples.byteLength
+            let buffer = new ArrayBuffer(44 + dataLength)
+            let view = new DataView(buffer)
+            function writeString (view, innerOffset, string) {
+                for (let i = 0; i < string.length; i++) {
+                    view.setUint8(innerOffset + i, string.charCodeAt(i))
+                }
+            };
+
+            let offset = 0
+            /* resource exchange file identifier */
+            writeString(view, offset, 'RIFF'); offset += 4
+            /* The total number of bytes from the next address to the end of the file, ie file size -8 */
+            view.setUint32(offset, /* 32 */ 36 + dataLength, true); offset += 4
+            /* WAV file mark */
+            writeString(view, offset, 'WAVE'); offset += 4
+            /* Waveform format flag */
+            writeString(view, offset, 'fmt '); offset += 4
+            /* Filter bytes, typically 0x10 = 16 */
+            view.setUint32(offset, 16, true); offset += 4
+            /* Format category (sampled data in PCM format) */
+            view.setUint16(offset, 1, true); offset += 2
+            /* Number of channels */
+            view.setUint16(offset, channelCount, true); offset += 2
+            /* Sampling rate, number of samples per second, indicating the playback speed of each channel */
+            view.setUint32(offset, sampleRateTmp, true); offset += 4
+            /* Waveform data transfer rate (average number of bytes per second) Number of channels × data bits per second × data bits per sample / 8 * /
+            view.setUint32(offset, sampleRateTmp * channelCount * (sampleBits / 8), true); offset += 4
+            /* Fast data adjustment number Number of bytes occupied at the time of sampling Number of channels × number of data bits per sample / 8 * /
+            view.setUint16(offset, channelCount * (sampleBits / 8), true); offset += 2
+            /* Number of data per sample */
+            view.setUint16(offset, sampleBits, true); offset += 2
+            /* data identifier */
+            writeString(view, offset, 'data'); offset += 4
+            /* Total number of sampled data, ie the total size of the data -44 */
+            view.setUint32(offset, dataLength, true); offset += 4
+            function floatTo32BitPCM (output, offset, input) {
+                input = new Int32Array(input)
+                for (let i = 0; i < input.length; i++, offset += 4) {
+                output.setInt32(offset, input[i], true)
+                }
+            }
+            function floatTo16BitPCM (output, offset, input) {
+                input = new Int16Array(input)
+                for (let i = 0; i < input.length; i++, offset += 2) {
+                output.setInt16(offset, input[i], true)
+                }
+            }
+            function floatTo8BitPCM (output, offset, input) {
+                input = new Int8Array(input)
+                for (let i = 0; i < input.length; i++, offset++) {
+                output.setInt8(offset, input[i], true)
+                }
+            }
+            if (sampleBits == 16) {
+                floatTo16BitPCM(view, 44, samples)
+            } else if (sampleBits == 8) {
+                floatTo8BitPCM(view, 44, samples)
+            } else {
+                floatTo32BitPCM(view, 44, samples)
+            }
+
+            return view.buffer
+        };
+
+        function playSound_working(data) {
+            let byteArray = _base64ToArrayBuffer(data);
+            // let newData = addWavHeader(bytes, 16000, 16, 1);
+            // var src = `data:audio/wav;base64,${data}`;
+
+            let blob = new Blob([byteArray], {type: "audio/mpeg"});
+            let blobUrl = URL.createObjectURL(blob);
+
+            var audioPlayer = document.getElementById("audioPlayer");
+            audioPlayer.src = blobUrl;
+            audioPlayer.play();
+        };
+
+        function playAudioBlob(audioDataBlob) {
+            let audioStream = audioDataBlob.stream();
+
+            //startAudioStream(audioDataBlob, '', '');
+
+            readStream(audioStream);
+        };
+
+        // evt.data.stream().getReader().read().then(function kor({done, value}) { if (done) {console.log("done"); } else { console.log("kor") }  return reader })
+        function readStream(readableStream) {
+            const reader = readableStream.getReader();
+            let charsReceived = 0;
+
+            // read() returns a promise that resolves
+            // when a value has been received
+            reader.read().then(
+                function processText({ done, value }) {
+                    // Result objects contain two properties:
+                    // done  - true if the stream has already given you all its data.
+                    // value - some data. Always undefined when done is true.
+                    if (done) {
+                        handleIncomingMessageDefault("Done!");
+                        return;
+                    }
+
+                    charsReceived += value.length;
+                    const chunk = value;
+                    startAudioStream(chunk);
+                    handleIncomingMessageDefault(`Read ${charsReceived} characters. Current chunk = ${chunk}`);
+
+                    // Read some more, and call this function again
+                    return reader.read().then(processText);
+                }
+            );
+        }
+
+        function startAudioStream(byteArrayAsBase64String, sampleRate, latency) {
+            //let byteArray = _base64ToArrayBuffer(byteArrayAsBase64String);
+            let byteArray = byteArrayAsBase64String;
+            let floatArray = new Float32Array(byteArray);
+            //floatArray = floatArray.map(x => x/256);
+            var AudioContext = window.AudioContext;// || window.webkitAudioContext;
+            var context = new AudioContext();
+            var nextTime = 0;
+
+            // function update(byteArray) {
+                // buffer = context.createBuffer(1, byteArray.byteLength / 4, sampleRate);
+                let buffer = context.createBuffer(1, floatArray.length, 22050);
+
+                if (typeof buffer.copyToChannel === "function")
+                    buffer.copyToChannel(floatArray, 0);
+                else
+                    buffer.getChannelData(0).set(floatArray);
+
+                var source = context.createBufferSource();
+                source.buffer = buffer;
+
+                //if (nextTime == 0)
+                //    nextTime = context.currentTime + latency;
+
+                source.connect(context.destination);
+                source.start();
+                //nextTime += buffer.duration;
+            // };
+
+            // audioClient = new BinaryClient(websocketAddress);
+            // audioClient.on('stream', function(stream, meta) {
+            //     stream.on('data', function(data) {
+            //         update(new Float32Array(data));
+            //     });
+            // });
+        }
+
+        function playSound(byteArrayAsBase64String) {
+            let byteArray = _base64ToArrayBuffer(byteArrayAsBase64String);
+            // let newData = addWavHeader(bytes, 16000, 16, 1);
+            // var src = `data:audio/wav;base64,${data}`;
+
+            let blob = new Blob([byteArray], {type: "audio/mpeg"});
+            let blobUrl = URL.createObjectURL(blob);
+
+            var audioPlayer = document.getElementById("audioPlayer");
+            audioPlayer.src = blobUrl;
+            //audioPlayer.play();
+
+
+
+            let audioCtx = new window.AudioContext();
+
+            // Create an empty three-second stereo buffer at the sample rate of the AudioContext
+            var myArrayBuffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 1, 22050);
+
+            // Fill the buffer with white noise;
+            // just random values between -1.0 and 1.0
+            for (var channel = 0; channel < myArrayBuffer.numberOfChannels; channel++) {
+                // This gives us the actual array that contains the data
+                var nowBuffering = myArrayBuffer.getChannelData(channel);
+                for (var i = 0; i < myArrayBuffer.length; i++) {
+                    // Math.random() is in [0; 1.0]
+                    // audio needs to be in [-1.0; 1.0]
+                    nowBuffering[i] = Math.random() * 2 - 1;
+                }
+            }
+
+            // Get an AudioBufferSourceNode.
+            // This is the AudioNode to use when we want to play an AudioBuffer
+            var source = audioCtx.createBufferSource();
+
+            // set the buffer in the AudioBufferSourceNode
+            source.buffer = byteArray;
+
+            // connect the AudioBufferSourceNode to the
+            // destination so we can hear the sound
+            source.connect(audioCtx.destination);
+
+            // start the source playing
+            source.start();
+
+        }
+
+        function _base64ToArrayBuffer(base64String) {
+            var binaryString = atob(base64String);
+            var len = binaryString.length;
+            var bytes = new Uint8Array(len);
+            for (var i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+
+            return bytes.buffer;
+        }
+
+        // function playSound(data) {
+        //     let byteCharacters = atob(data);
+        //     let byteNumbers = new Array(byteCharacters.length);
+        //     for (let i = 0; i < byteCharacters.length; i++) {
+        //         byteNumbers[i] = byteCharacters.charCodeAt(i);
+        //     }
+
+        //     let byteArray = new Uint8Array(byteNumbers);
+        //     let blob = new Blob([byteArray], {type: "audio/mpeg"});
+        //     let blobUrl = URL.createObjectURL(blob)
+
+        //     var audioPlayer = document.getElementById("audioPlayer");
+        //     audioPlayer.src = blobUrl;
+        //     audioPlayer.play();
+        //     // var audio = new Audio('https://cdn.discordapp.com/attachments/400092105831350282/809203508657913916/gg.mp3');
+        //     // audio.play();
+        // };
+
+        function requestPlaySound() {
+            let message = {
+                // CommandName: "PlaySound",
+                // FileName: "gg.mp3"
+                CommandName: "LoadAsset",
+                // AssetName: "00-n086.aud"
+                AssetName: "THUMPER1.WAV"
+            };
+
+            ws.send(JSON.stringify(message));
+        };
     </script>
 </head>
 <body>
@@ -180,10 +449,12 @@
         <option value="none"></option>
         <option value="all">All packages</option>
     </select>
-    <select name="selectAsset" id="selectAsset" onchange="requestAsset(this.value)"></select>
+    <select name="selectAsset" id="selectAsset" onchange="updateCurrentAsset(this.value)"></select>
     <select name="selectPalette" id="selectPalette" onchange="setPalette(this.value)"></select>
     <br/>
     <button name="nextFrameButton" id="nextFrameButton" onclick="nextFrame()">Next frame</button>
+    <button name="playSoundButton" id="playSoundButton" onclick="requestPlaySound()">Play sound</button>
+    <audio id="audioPlayer" src="">
     <br/>
     <pre id="incomming"></pre>
     <img id="ItemPreview" src="">

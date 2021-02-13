@@ -26,7 +26,7 @@
 
 function handleIncomingSpriteAssetData(dataBlob) {
     document.getElementById("spriteAssetPreview").src = URL.createObjectURL(dataBlob, "image/png");
-    document.getElementById("spriteAssetPreview").style.display = "";
+    //document.getElementById("spriteAssetPreview").style.display = "";
 
     document.getElementById("textField").value = `Frame ${currentSpriteFrame} / ${currentSpriteFramesCount}`;
 };
@@ -34,6 +34,7 @@ function handleIncomingSpriteAssetData(dataBlob) {
 function handleIncomingAudioAssetData(dataBlob) {
     let audioStream = dataBlob.stream();
     readStream(audioStream);
+    dataBlob = null;
 };
 
 function handleIncomingMessageDefault(message) {

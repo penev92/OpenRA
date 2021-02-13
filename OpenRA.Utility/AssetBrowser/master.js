@@ -1,9 +1,14 @@
-﻿const port = 6464;
+﻿const PORT = 6464;
+
+const AUDIO_CONTEXT_TYPE = window.AudioContext || window.webkitAudioContext;
+const AUDIO_CONTEXT = new AUDIO_CONTEXT_TYPE();
 
 let currentAssetType = undefined;
 let currentSpriteName = undefined;
 let currentSpriteFrame = 0;
 let currentSpriteFramesCount = 0;
+
+let audioChunkStartTime = 0;
 
 function initialize() {
     let inc = document.getElementById('incomming');
@@ -12,7 +17,7 @@ function initialize() {
     inc.innerHTML += "connecting to server ..<br/>";
 
     // create a new websocket and connect
-    window.ws = new wsImpl(`ws://localhost:${port}/`);
+    window.ws = new wsImpl(`ws://localhost:${PORT}/`);
 
     // when data is comming from the server, this metod is called
     ws.onmessage = function (evt) {
@@ -26,6 +31,7 @@ function initialize() {
             }
             else if (command === "SendingAsset") {
                 currentAssetType = payload["AssetType"];
+                audioChunkStartTime = 0;
             }
             else if (command === "GetSpriteFramesCount") {
                 currentSpriteFramesCount = payload;

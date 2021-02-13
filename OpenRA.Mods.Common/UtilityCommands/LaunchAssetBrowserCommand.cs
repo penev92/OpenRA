@@ -32,6 +32,7 @@ namespace OpenRA.Mods.Common.UtilityCommands
 		const string UpdateState = nameof(UpdateState);
 
 		const int Port = 6464;
+		const int StreamingChunkSize = 204800;
 
 		WebSocketServer webSocketServer;
 		AssetBrowserLogic assetBrowser;
@@ -114,11 +115,11 @@ namespace OpenRA.Mods.Common.UtilityCommands
 			switch (assetType)
 			{
 				case AssetBrowserLogic.AssetType.Sprite:
-					var bytes = assetBrowser.LoadSpriteAsset(assetName, requestData);
-					if (bytes != null)
+					var spriteData = assetBrowser.LoadSpriteAsset(assetName, requestData);
+					if (spriteData != null)
 					{
 						SendMessage(session, SendingAsset, new { AssetType = assetType.ToString() });
-						SendData(session, bytes);
+						SendData(session, spriteData);
 					}
 
 					break;
@@ -126,15 +127,22 @@ namespace OpenRA.Mods.Common.UtilityCommands
 					SendMessage(session, Chat, $"Not yet supported asset type for {assetName}!");
 					break;
 				case AssetBrowserLogic.AssetType.Audio:
-					var floats = assetBrowser.LoadAudioAsset(assetName);
-					if (floats != null)
+					var audioData = assetBrowser.LoadAudioAsset(assetName);
+					if (audioData != null)
 					{
 						SendMessage(session, SendingAsset, new { AssetType = assetType.ToString() });
 
-						var byteArray = new byte[floats.Length * 4];
-						Buffer.BlockCopy(floats, 0, byteArray, 0, byteArray.Length);
+						var remaining = audioData.Length;
+						for (var i = 0; i < audioData.Length; i += StreamingChunkSize)
+						{
+							var chunkSize = Math.Min(remaining, StreamingChunkSize);
 
-						SendData(session, byteArray);
+							var audioChunk = new byte[chunkSize];
+							Buffer.BlockCopy(audioData, i, audioChunk, 0, chunkSize);
+							remaining -= chunkSize;
+
+							SendData(session, audioChunk);
+						}
 					}
 
 					break;
@@ -254,25 +262,35 @@ namespace OpenRA.Mods.Common.UtilityCommands
 			return bytes;
 		}
 
-		public float[] LoadAudioAsset(string fileName)
+		public byte[] LoadAudioAsset(string fileName)
 		{
 			using (var soundStream = modData.DefaultFileSystem.Open(fileName))
 				foreach (var modDataSoundLoader in modData.SoundLoaders)
 					if (modDataSoundLoader.TryParseSound(soundStream, out var soundFormat))
 						using (var pcmStream = soundFormat.GetPCMInputStream())
 						{
+							// Convert the PCM data we have to "non-interleaved IEEE754 32-bit linear PCM with a nominal range between -1 and +1"
+							// As described here https://developer.mozilla.org/en-US/docs/Web/API/AudioBuffer
 							var bytes = pcmStream.ReadAllBytes();
-							var floats = new List<float>();
+							var floats = new float[bytes.Length];
 							for (var i = 0; i < bytes.Length; i += 2)
 							{
 								var localBytes = new[] { bytes[i], bytes[i + 1] };
 								var value = BitConverter.ToInt16(localBytes, 0);
 								var newFloat = (float)value / short.MaxValue;
-								floats.Add(newFloat);
-								floats.Add(newFloat);
+
+								// Add the value to the results once for single channel audio.
+								floats[i] = newFloat;
+
+								// Add the value to the results a second time for dual-channel audio.
+								floats[i + 1] = newFloat;
 							}
 
-							return floats.Take(200000).ToArray();
+							// Once the data is in the correct format, convert to a byte array for faster/easier transportation.
+							var byteArray = new byte[floats.Length * 4];
+							Buffer.BlockCopy(floats, 0, byteArray, 0, byteArray.Length);
+
+							return byteArray;
 						}
 
 			return null;

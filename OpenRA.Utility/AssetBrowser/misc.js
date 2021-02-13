@@ -14,66 +14,61 @@
 };
 
 function readStream(readableStream) {
-    const reader = readableStream.getReader();
-    let charsReceived = 0;
+    let reader = readableStream.getReader();
 
-    // read() returns a promise that resolves
-    // when a value has been received
+    // read() returns a promise that resolves when a value has been received.
     reader.read().then(
-        function processText({ done, value }) {
-            // Result objects contain two properties:
-            // done  - true if the stream has already given you all its data.
-            // value - some data. Always undefined when done is true.
+        function onAudioChunkRead({ done, value }) {
             if (done) {
-                // Do stuff here?
+                reader = null;
                 return;
             }
 
-            charsReceived += value.length;
-            const chunk = value;
-            startAudioStream(chunk);
+            playAudioChunk(value);
 
             // Read some more, and call this function again
-            return reader.read().then(processText);
+            return reader.read().then(onAudioChunkRead);
         }
     );
 };
 
-function startAudioStream(rawBytes, sampleRate, latency) {
-    let arrayBuffer = new ArrayBuffer(rawBytes.length);
+function playAudioChunk(byteArray, sampleRate, latency) {
+    let floatArray = byteArrayToFloat32Array(byteArray);
+
+    let audioBuffer = AUDIO_CONTEXT.createBuffer(2, floatArray.length / 2, 22050);
+
+    audioBuffer.copyToChannel(floatArray.filter((element, index) => { return index % 2 === 0; }), 0);
+    audioBuffer.copyToChannel(floatArray.filter((element, index) => { return index % 2 !== 0; }), 1);
+
+    floatArray = null;
+
+    let source = AUDIO_CONTEXT.createBufferSource();
+    source.buffer = audioBuffer;
+
+    source.connect(AUDIO_CONTEXT.destination);
+
+    if (audioChunkStartTime === 0)
+        audioChunkStartTime = AUDIO_CONTEXT.currentTime;
+
+    source.start(audioChunkStartTime);
+    audioChunkStartTime += audioBuffer.duration;
+
+    audioBuffer = null;
+};
+
+// Hacky way to initialize a Float32Array from a Uint8Array by tieing the float array
+// to a new byte array via an ArrayBuffer and filling the new byte array with data.
+function byteArrayToFloat32Array(rawByteArray) {
+    let arrayBuffer = new ArrayBuffer(rawByteArray.length);
     let floatArray = new Float32Array(arrayBuffer);
     let byteArray = new Uint8Array(arrayBuffer);
 
-    rawBytes.forEach(function (b, i) {
+    rawByteArray.forEach(function (b, i) {
         byteArray[i] = b;
     });
 
-    let AudioContext = window.AudioContext || window.webkitAudioContext;
-    let context = new AudioContext();
-    let nextTime = 0;
+    arrayBuffer = null;
+    byteArray = null;
 
-    // function update(byteArray) {
-        // buffer = context.createBuffer(1, byteArray.byteLength / 4, sampleRate);
-        let buffer = context.createBuffer(2, floatArray.length / 2, 22050);
-
-        buffer.copyToChannel(floatArray.filter((element, index) => { return index % 2 === 0; }), 0);
-        buffer.copyToChannel(floatArray.filter((element, index) => { return index % 2 !== 0; }), 1);
-
-        let source = context.createBufferSource();
-        source.buffer = buffer;
-
-        //if (nextTime == 0)
-        //    nextTime = context.currentTime + latency;
-
-        source.connect(context.destination);
-        source.start();
-        //nextTime += buffer.duration;
-    // };
-
-    // audioClient = new BinaryClient(websocketAddress);
-    // audioClient.on('stream', function(stream, meta) {
-    //     stream.on('data', function(data) {
-    //         update(new Float32Array(data));
-    //     });
-    // });
+    return floatArray;
 };

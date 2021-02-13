@@ -29,6 +29,7 @@ namespace OpenRA.Mods.Common.UtilityCommands
 		const string ListPackages = nameof(ListPackages);
 		const string GetSpriteFramesCount = nameof(GetSpriteFramesCount);
 		const string LoadAsset = nameof(LoadAsset);
+		const string SendingAsset = nameof(SendingAsset);
 
 		const int Port = 6464;
 
@@ -61,9 +62,8 @@ namespace OpenRA.Mods.Common.UtilityCommands
 			webSocketServer.Listen(Port);
 		}
 
-		void SendMessage(WebSocketSession session, string commandName, object payload)
+		void SendMessage<T>(WebSocketSession session, string commandName, T payload)
 		{
-			// payload = System.IO.File.ReadAllBytes(@"D:\Work.Personal\DiscordBots\surprise-motherfucker.mp3");
 			var message = JsonSerializer.Serialize(new
 			{
 				CommandName = commandName,
@@ -71,6 +71,11 @@ namespace OpenRA.Mods.Common.UtilityCommands
 			});
 
 			session.SendMessage(message);
+		}
+
+		void SendData(WebSocketSession session, byte[] data)
+		{
+			session.SendMessage(data, true);
 		}
 
 		void MessageHandler(WebSocketSession sender, string rawMessage)
@@ -87,9 +92,6 @@ namespace OpenRA.Mods.Common.UtilityCommands
 				case LoadAsset:
 					LoadAssetMessageHandler(sender, message);
 					break;
-				case "PlaySound":
-					SendMessage(sender, "PlaySound", File.ReadAllBytes(@"D:\Work.Personal\DiscordBots\surprise-motherfucker.mp3"));
-					break;
 			}
 		}
 
@@ -104,26 +106,54 @@ namespace OpenRA.Mods.Common.UtilityCommands
 			SendMessage(session, GetSpriteFramesCount, count);
 		}
 
-		void LoadAssetMessageHandler(WebSocketSession session, IDictionary<string, string> request)
+		void LoadAssetMessageHandler(WebSocketSession session, IDictionary<string, string> requestData)
 		{
-			var assetName = request["AssetName"];
-			var bytes = assetBrowser.LoadAsset(assetName, request);
-			if (bytes != null)
+			var assetName = requestData["AssetName"];
+			var assetType = assetBrowser.GetAssetType(assetName);
+			switch (assetType)
 			{
-				// session.SendMessage(bytes, true);
-				SendMessage(session, LoadAsset, bytes);
-			}
-			else
-			{
-				SendMessage(session, Chat, $"Unable to load asset {assetName}!");
+				case AssetBrowserLogic.AssetType.Sprite:
+					var bytes = assetBrowser.LoadSpriteAsset(assetName, requestData);
+					if (bytes != null)
+					{
+						SendMessage(session, SendingAsset, new { AssetType = assetType.ToString() });
+						SendData(session, bytes);
+					}
+
+					break;
+				case AssetBrowserLogic.AssetType.Model:
+					SendMessage(session, Chat, $"Not yet supported asset type for {assetName}!");
+					break;
+				case AssetBrowserLogic.AssetType.Audio:
+					var floats = assetBrowser.LoadAudioAsset(assetName);
+					if (floats != null)
+					{
+						SendMessage(session, SendingAsset, new { AssetType = assetType.ToString() });
+
+						var byteArray = new byte[floats.Length * 4];
+						Buffer.BlockCopy(floats, 0, byteArray, 0, byteArray.Length);
+
+						SendData(session, byteArray);
+					}
+
+					break;
+				case AssetBrowserLogic.AssetType.Video:
+					SendMessage(session, Chat, $"Not yet supported asset type for {assetName}!");
+					break;
+				case AssetBrowserLogic.AssetType.Unknown:
+					SendMessage(session, Chat, $"Unable to load asset {assetName}!");
+					break;
+				default:
+					throw new ArgumentOutOfRangeException();
 			}
 		}
 	}
 
 	class AssetBrowserLogic
 	{
+		public enum AssetType { Unknown = 0, Sprite = 1, Model = 2, Audio = 3, Video = 4 }
+
 		readonly ModData modData;
-		readonly string[] allowedExtensions;
 		readonly string[] allowedSpriteExtensions;
 		readonly string[] allowedModelExtensions;
 		readonly string[] allowedAudioExtensions;
@@ -140,11 +170,24 @@ namespace OpenRA.Mods.Common.UtilityCommands
 			allowedModelExtensions = assetBrowserModData.ModelExtensions;
 			allowedAudioExtensions = assetBrowserModData.AudioExtensions;
 			allowedVideoExtensions = assetBrowserModData.VideoExtensions;
-			allowedExtensions = allowedSpriteExtensions
-				.Union(allowedModelExtensions)
-				.Union(allowedAudioExtensions)
-				.Union(allowedVideoExtensions)
-				.ToArray();
+		}
+
+		public AssetType GetAssetType(string fileName)
+		{
+			var fileExtension = Path.GetExtension(fileName.ToLowerInvariant());
+			if (allowedSpriteExtensions.Contains(fileExtension))
+				return AssetType.Sprite;
+
+			if (allowedModelExtensions.Contains(fileExtension))
+				return AssetType.Model;
+
+			if (allowedAudioExtensions.Contains(fileExtension))
+				return AssetType.Audio;
+
+			if (allowedVideoExtensions.Contains(fileExtension))
+				return AssetType.Video;
+
+			return AssetType.Unknown;
 		}
 
 		public IDictionary<string, IEnumerable<string>> ListPackages()
@@ -166,43 +209,18 @@ namespace OpenRA.Mods.Common.UtilityCommands
 
 		public int GetSpriteFramesCount(string fileName)
 		{
-			if (TryLoadAsset(fileName, out var stream, out var fileExtension) && allowedSpriteExtensions.Contains(fileExtension))
+			if (GetAssetType(fileName) == AssetType.Sprite && TryLoadAsset(fileName, out var stream))
 				return FrameLoader.GetFrames(stream, modData.SpriteLoaders, out _).Length;
 
 			return 0;
 		}
 
-		public float[] LoadAsset(string assetFileName, IDictionary<string, string> request)
+		public byte[] LoadSpriteAsset(string assetFileName, IDictionary<string, string> requestData)
 		{
-			if (!TryLoadAsset(assetFileName, out var stream, out var fileExtension))
+			if (!TryLoadAsset(assetFileName, out var stream))
 				return null;
 
-			if (allowedSpriteExtensions.Contains(fileExtension))
-				return null; // return LoadSpriteAsset(stream, request);
-
-			if (allowedModelExtensions.Contains(fileExtension))
-				return null; // TODO: Not implemented yet.
-
-			if (allowedAudioExtensions.Contains(fileExtension))
-				return LoadAudioAsset(assetFileName); // return stream.ReadAllBytes();
-
-			if (allowedVideoExtensions.Contains(fileExtension))
-				return null; // TODO: Not implemented yet.
-
-			return null;
-		}
-
-		#region Private methods
-
-		bool TryLoadAsset(string fileName, out Stream stream, out string fileExtension)
-		{
-			fileExtension = Path.GetExtension(fileName.ToLowerInvariant());
-			return modData.DefaultFileSystem.TryOpen(fileName, out stream);
-		}
-
-		byte[] LoadSpriteAsset(Stream stream, IDictionary<string, string> request)
-		{
-			var frameNumber = int.Parse(request["FrameNumber"]);
+			var frameNumber = int.Parse(requestData["FrameNumber"]);
 			var frames = FrameLoader.GetFrames(stream, modData.SpriteLoaders, out _);
 
 			var usePadding = true; // TODO: Handle padding.
@@ -228,10 +246,12 @@ namespace OpenRA.Mods.Common.UtilityCommands
 			}
 
 			var png = new Png(pngData, SpriteFrameType.Indexed8, Math.Max(frameSize.Width, frame.Size.Width), Math.Max(frameSize.Height, frame.Size.Height), currentPaletteColors);
-			return png.Save();
+			var bytes = png.Save();
+			stream?.Dispose();
+			return bytes;
 		}
 
-		float[] LoadAudioAsset(string fileName)
+		public float[] LoadAudioAsset(string fileName)
 		{
 			using (var soundStream = modData.DefaultFileSystem.Open(fileName))
 				foreach (var modDataSoundLoader in modData.SoundLoaders)
@@ -249,10 +269,17 @@ namespace OpenRA.Mods.Common.UtilityCommands
 								floats.Add(newFloat);
 							}
 
-							return floats.Take(400000).ToArray();
+							return floats.Take(200000).ToArray();
 						}
 
 			return null;
+		}
+
+		#region Private methods
+
+		bool TryLoadAsset(string fileName, out Stream stream)
+		{
+			return modData.DefaultFileSystem.TryOpen(fileName, out stream);
 		}
 
 		#endregion

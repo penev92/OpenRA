@@ -25,11 +25,11 @@ namespace OpenRA.Mods.Common.UtilityCommands
 	{
 		const string CommandName = nameof(CommandName);
 		const string Chat = nameof(Chat);
-		const string SetPalette = nameof(SetPalette);
 		const string ListPackages = nameof(ListPackages);
 		const string GetSpriteFramesCount = nameof(GetSpriteFramesCount);
 		const string LoadAsset = nameof(LoadAsset);
 		const string SendingAsset = nameof(SendingAsset);
+		const string UpdateState = nameof(UpdateState);
 
 		const int Port = 6464;
 
@@ -83,8 +83,8 @@ namespace OpenRA.Mods.Common.UtilityCommands
 			var message = JsonSerializer.Deserialize<Dictionary<string, string>>(rawMessage);
 			switch (message[CommandName])
 			{
-				case SetPalette:
-					SetPaletteMessageHandler(message["PaletteName"]);
+				case UpdateState:
+					UpdateStateMessageHandler(sender, message);
 					break;
 				case GetSpriteFramesCount:
 					GetSpriteFramesCountMessageHandler(sender, message["AssetName"]);
@@ -95,9 +95,10 @@ namespace OpenRA.Mods.Common.UtilityCommands
 			}
 		}
 
-		void SetPaletteMessageHandler(string paletteName)
+		void UpdateStateMessageHandler(WebSocketSession session, IDictionary<string, string> requestData)
 		{
-			assetBrowser.SetPalette(paletteName);
+			if (requestData.ContainsKey("PaletteName"))
+				assetBrowser.SetPalette(requestData["PaletteName"]);
 		}
 
 		void GetSpriteFramesCountMessageHandler(WebSocketSession session, string assetName)
@@ -222,6 +223,8 @@ namespace OpenRA.Mods.Common.UtilityCommands
 
 			var frameNumber = int.Parse(requestData["FrameNumber"]);
 			var frames = FrameLoader.GetFrames(stream, modData.SpriteLoaders, out _);
+			if (frameNumber < 0 || frameNumber >= frames.Length)
+				return null;
 
 			var usePadding = true; // TODO: Handle padding.
 

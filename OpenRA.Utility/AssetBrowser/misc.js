@@ -32,6 +32,25 @@ function readStream(readableStream) {
     );
 };
 
+function readVideoStream(readableStream) {
+    let reader = readableStream.getReader();
+
+    // read() returns a promise that resolves when a value has been received.
+    reader.read().then(
+        function onVideoChunkRead({ done, value }) {
+            if (done) {
+                reader = null;
+                return;
+            }
+
+            playVideoChunk(value);
+
+            // Read some more, and call this function again
+            return reader.read().then(onVideoChunkRead);
+        }
+    );
+};
+
 function playAudioChunk(byteArray, sampleRate, latency) {
     let floatArray = byteArrayToFloat32Array(byteArray);
 
@@ -54,6 +73,10 @@ function playAudioChunk(byteArray, sampleRate, latency) {
     audioChunkStartTime += audioBuffer.duration;
 
     audioBuffer = null;
+};
+
+function drawVideoChunk(byteArray) {
+
 };
 
 // Hacky way to initialize a Float32Array from a Uint8Array by tieing the float array

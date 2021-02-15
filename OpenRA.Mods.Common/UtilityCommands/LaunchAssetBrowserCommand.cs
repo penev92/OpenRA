@@ -147,6 +147,7 @@ namespace OpenRA.Mods.Common.UtilityCommands
 
 					break;
 				case AssetBrowserLogic.AssetType.Video:
+
 					SendMessage(session, Chat, $"Not yet supported asset type for {assetName}!");
 					break;
 				case AssetBrowserLogic.AssetType.Unknown:

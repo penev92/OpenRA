@@ -1,5 +1,5 @@
 ﻿function requestAsset(selectedAsset) {
-    document.getElementById("spriteAssetPreview").style.display = "none"
+   // document.getElementById("spriteAssetPreview").style.display = "none"
     document.getElementById("spriteAssetPreview").src = null;
 
     let message = {
@@ -21,9 +21,9 @@ function requestSpriteFramesCount(selectedAsset) {
 };
 
 function updatePaletteServerState(selectedPalette) {
-    // let paletteName = "temperat.pal";
+    let paletteName = "temperat.pal";
     // let paletteName = "PALETTE.BIN";
-    let paletteName = "unittem.pal";
+    // let paletteName = "unittem.pal";
     let message = {
         CommandName: "UpdateState",
         PaletteName: paletteName

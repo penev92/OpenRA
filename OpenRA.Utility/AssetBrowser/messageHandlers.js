@@ -3,6 +3,19 @@
     let palettes = [];
     let select = document.getElementById("selectPackage");
 
+    let vid = document.getElementById("myVideoPlayer");
+    console.log(`mp4 - ${vid.canPlayType("audio/mp4")}`);
+    console.log(`avi - ${vid.canPlayType("audio/avi")}`);
+    console.log(`mkv - ${vid.canPlayType("audio/mkv")}`);
+    console.log(`mov - ${vid.canPlayType("audio/mov")}`);
+    console.log(`wmv - ${vid.canPlayType("audio/wmv")}`);
+    console.log(`mpeg - ${vid.canPlayType("audio/mpeg")}`);
+
+    //vid.src = "https://openra.kempf.dev/videos/red-alert-sizzle.webm";
+    //vid.src = "file:///D:/Work.Personal/OpenRA/red-alert-sizzle.webm";
+    vid.src = "file:///D:/Work.Personal/OpenRA/drop.avi";
+    vid.play();
+
     for (let packageName in packages) {
         let element = document.createElement("option");
         element.textContent = packageName;
@@ -35,6 +48,11 @@ function handleIncomingAudioAssetData(dataBlob) {
     let audioStream = dataBlob.stream();
     readStream(audioStream);
     dataBlob = null;
+};
+
+function handleIncomingVideoAssetData(dataBlob) {
+    // document.getElementById("spriteAssetPreview").src = URL.createObjectURL(dataBlob, "image/png");
+    // dataBlob = null;
 };
 
 function handleIncomingMessageDefault(message) {

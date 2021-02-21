@@ -121,7 +121,7 @@ namespace OpenRA.Mods.Common.FileFormats
 			var bitsPerSample = s.ReadInt16();
 			var length = s.Length * 8;
 
-			return length / (channels * sampleRate * bitsPerSample);
+			return (float)length / (channels * sampleRate * bitsPerSample);
 		}
 
 		sealed class WavStream : ReadOnlyAdapterStream

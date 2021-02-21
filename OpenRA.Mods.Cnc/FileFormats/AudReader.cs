@@ -34,6 +34,8 @@ namespace OpenRA.Mods.Cnc.FileFormats
 	{
 		public static float SoundLength(Stream s)
 		{
+			var position = s.Position;
+
 			var sampleRate = s.ReadUInt16();
 			/*var dataSize = */ s.ReadInt32();
 			var outputSize = s.ReadInt32();
@@ -45,6 +47,8 @@ namespace OpenRA.Mods.Cnc.FileFormats
 
 			if ((flags & SoundFlags._16Bit) != 0)
 				samples /= 2;
+
+			s.Seek(position, SeekOrigin.Begin);
 
 			return (float)samples / sampleRate;
 		}

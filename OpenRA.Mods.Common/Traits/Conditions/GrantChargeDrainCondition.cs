@@ -21,26 +21,28 @@ namespace OpenRA.Mods.Common.Traits
 		"by undeploying. Leftover charges are taken into account when recharging.")]
 	public class GrantChargeDrainConditionInfo : PausableConditionalTraitInfo
 	{
+		// [FieldLoader.Require]
+		// [Desc("Amount of charge points the actor can build up to.")]
+		// public readonly int MaxChargePoints = 0;
 		[FieldLoader.Require]
-		[Desc("Amount of charge points the actor can build up to.")]
-		public readonly int MaxChargePoints = 0;
+		[Desc("The amount of time in ticks it takes to fully recharge.")]
+		public readonly int ChargeTicks = 0;
 
+		// [FieldLoader.Require]
+		// [Desc("Time it takes to discharge one charge point.")]
+		// public readonly int DrainDuration = 0;
 		[FieldLoader.Require]
-		[Desc("Time it takes to charge up one charge point.")]
-		public readonly int ChargeDuration = 0;
+		[Desc("The amount of time in ticks it takes to fully discharge.")]
+		public readonly int DischargeTicks = 0;
 
-		[FieldLoader.Require]
-		[Desc("Time it takes to discharge one charge point.")]
-		public readonly int DrainDuration = 0;
+		[Desc("How charged does the actor spawn.")]
+		public readonly int StartingChargeTicks = 0;
 
-		[Desc("How many charge points does the actor spawn with.")]
-		public readonly int StartingChargePoints = 0;
-
-		[Desc("Minimum number of charge points required to activate the condition.")]
-		public readonly int MinActivationPoints = 0;
+		[Desc("Minimum charge value required to activate the condition.")]
+		public readonly int MinActivationChargeTicks = 0;
 
 		[Desc("Allow the condition to be disabled mid-discharge.")]
-		public readonly bool Interruptable = false;
+		public readonly bool Interruptible = false;
 
 		[FieldLoader.Require]
 		[GrantedConditionReference]
@@ -52,9 +54,6 @@ namespace OpenRA.Mods.Common.Traits
 
 		[Desc("Cursor to display when unable to (un)deploy the actor.")]
 		public readonly string DeployBlockedCursor = "deploy-blocked";
-
-		[Desc("Rate at which the condition discharges compared to charging.")]
-		public readonly int DischargeModifier = 100;
 
 		[VoiceReference]
 		public readonly string Voice = "Action";
@@ -76,12 +75,11 @@ namespace OpenRA.Mods.Common.Traits
 		int deployedToken = Actor.InvalidConditionToken;
 
 		[Sync]
-		int currentChargePoints;
+		int currentChargeTicks;
 
-		[Sync]
-		int ticks;
-
-		TimedDeployState deployState;
+		// [Sync]
+		// int ticks;
+		TimedDeployState deployState;  // TODO: Can we sync enums yet?
 
 		public GrantChargeDrainCondition(Actor self, GrantChargeDrainConditionInfo info)
 			: base(info)
@@ -91,10 +89,11 @@ namespace OpenRA.Mods.Common.Traits
 
 		protected override void Created(Actor self)
 		{
-			currentChargePoints = Info.StartingChargePoints;
-			deployState = currentChargePoints == Info.MaxChargePoints ? TimedDeployState.Ready : TimedDeployState.Charging;
-			ticks = deployState == TimedDeployState.Charging ? Info.ChargeDuration : Info.DrainDuration;
+			currentChargeTicks = Info.StartingChargeTicks;
+			deployState = currentChargeTicks == Info.ChargeTicks ? TimedDeployState.Ready : TimedDeployState.Charging;
 
+			// ticks = deployState == TimedDeployState.Charging ? Info.ChargeTicks : GetDischargeTicks();
+			// ticks = deployState == TimedDeployState.Charging ? currentChargeTicks * Info.ChargeTicks / 100 : GetDischargeTicks();
 			base.Created(self);
 		}
 
@@ -152,10 +151,10 @@ namespace OpenRA.Mods.Common.Traits
 			if (IsTraitPaused || IsTraitDisabled)
 				return false;
 
-			if (deployState == TimedDeployState.Charging && currentChargePoints < Info.MinActivationPoints)
+			if (deployState == TimedDeployState.Charging && currentChargeTicks < Info.MinActivationChargeTicks)
 				return false;
 
-			if (deployState == TimedDeployState.Active && !Info.Interruptable)
+			if (deployState == TimedDeployState.Active && !Info.Interruptible)
 				return false;
 
 			if (deployState == TimedDeployState.Deploying || deployState == TimedDeployState.Undeploying)
@@ -176,6 +175,8 @@ namespace OpenRA.Mods.Common.Traits
 			if (deployedToken == Actor.InvalidConditionToken)
 				deployedToken = self.GrantCondition(Info.DeployedCondition);
 
+			// currentChargeTicks = Info.DischargeTicks;
+			currentChargeTicks = Info.DischargeTicks * currentChargeTicks / Info.ChargeTicks;
 			deployState = TimedDeployState.Active;
 		}
 
@@ -191,6 +192,7 @@ namespace OpenRA.Mods.Common.Traits
 			if (deployedToken != Actor.InvalidConditionToken)
 				deployedToken = self.RevokeCondition(deployedToken);
 
+			currentChargeTicks = Info.ChargeTicks * currentChargeTicks / Info.DischargeTicks;
 			deployState = TimedDeployState.Charging;
 		}
 
@@ -202,30 +204,46 @@ namespace OpenRA.Mods.Common.Traits
 			if (deployState == TimedDeployState.Ready || deployState == TimedDeployState.Deploying || deployState == TimedDeployState.Undeploying)
 				return;
 
-			if (--ticks != 0)
-				return;
-
+			// if (--ticks != 0)
+			// 	return;
+			//
+			// if (deployState == TimedDeployState.Charging)
+			// {
+			// 	currentChargeTicks++;
+			// 	if (currentChargeTicks == 100)
+			// 	{
+			// 		deployState = TimedDeployState.Ready;
+			// 		ticks = GetDischargeTicks();
+			// 	}
+			// 	else
+			// 		ticks = Info.ChargeTicks;
+			// }
+			// else
+			// {
+			// 	currentChargeTicks = currentChargeTicks - (100 / Info.DischargeTicks);
+			// 	if (currentChargeTicks == 0)
+			// 	{
+			// 		RevokeDeploy();
+			// 		ticks = Info.ChargeTicks;
+			// 	}
+			// 	else
+			// 		ticks = GetDischargeTicks();
+			// }
+			// // ticks++;
+			// // currentChargeTicks = 100 * ticks / Info.ChargeTicks;
 			if (deployState == TimedDeployState.Charging)
 			{
-				currentChargePoints++;
-				if (currentChargePoints == Info.MaxChargePoints)
-				{
+				currentChargeTicks++;
+				if (currentChargeTicks == Info.ChargeTicks)
 					deployState = TimedDeployState.Ready;
-					ticks = Info.DrainDuration;
-				}
-				else
-					ticks = Info.ChargeDuration;
 			}
 			else
 			{
-				currentChargePoints = currentChargePoints - (100 / Info.DischargeModifier);
-				if (currentChargePoints == 0)
+				currentChargeTicks--;
+				if (currentChargeTicks == 0)
 				{
 					RevokeDeploy();
-					ticks = Info.ChargeDuration;
 				}
-				else
-					ticks = Info.DrainDuration;
 			}
 		}
 
@@ -234,11 +252,15 @@ namespace OpenRA.Mods.Common.Traits
 			if (IsTraitDisabled || !Info.ShowSelectionBar)
 				return 0f;
 
-			return (float)currentChargePoints / Info.MaxChargePoints;
+			return deployState == TimedDeployState.Active
+				? (float)currentChargeTicks / Info.DischargeTicks
+				: (float)currentChargeTicks / Info.ChargeTicks;
 		}
 
 		bool ISelectionBar.DisplayWhenEmpty => !IsTraitDisabled && Info.ShowSelectionBar;
 
 		Color ISelectionBar.GetColor() => deployState == TimedDeployState.Charging ? Info.ChargingColor : Info.DischargingColor;
+
+		// int GetDischargeTicks() => Info.ChargeTicks * 100 / Info.DischargeTicks;
 	}
 }

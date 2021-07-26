@@ -283,16 +283,21 @@ saboteur:
 		EnterBehaviour: Dispose
 	-RevealOnFire:
 	GrantChargeDrainCondition:
-		MaxChargePoints: 125
-		ChargeDuration: 10
-		DrainDuration: 3
-		MinActivationPoints: 125
+		ChargeTicks: 1250
+		DischargeTicks: 375
+		MinActivationChargeTicks: 1250
+		# ChargeDuration: 1250
+		# DischargeModifier: 333 # Just no.
+		#MaxChargePoints: 125
+		#ChargeDuration: 10
+		#DrainDuration: 3
+		#MinActivationPoints: 125
 		DeployedCondition: deployed
 	Cloak:
 		RequiresCondition: deployed
 		InitialDelay: 0
 		CloakDelay: 25
-		CloakSound: STEALTH1.WAV
+		CloakSound: STEALTH1.WAV # TODO: This is not the right sound. Also maybe add an UncloakSound? Also maybe skip them on recloak?
 		UncloakOn: Demolish, Damage
 		IsPlayerPalette: true
 		PauseOnCondition: cloak-force-disabled

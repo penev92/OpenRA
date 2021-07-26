@@ -26,20 +26,23 @@ namespace OpenRA.Mods.Common.Traits
 		// public readonly int MaxChargePoints = 0;
 		[FieldLoader.Require]
 		[Desc("The amount of time in ticks it takes to fully recharge.")]
-		public readonly int ChargeTicks = 0;
+		public readonly int ChargeInterval = 0;
 
 		// [FieldLoader.Require]
 		// [Desc("Time it takes to discharge one charge point.")]
 		// public readonly int DrainDuration = 0;
+		// [FieldLoader.Require]
+		// [Desc("The amount of time in ticks it takes to fully discharge.")]
+		// public readonly int DischargeTicks = 0;
 		[FieldLoader.Require]
 		[Desc("The amount of time in ticks it takes to fully discharge.")]
-		public readonly int DischargeTicks = 0;
+		public readonly int DischargeModifier = 0;
 
 		[Desc("How charged does the actor spawn.")]
 		public readonly int StartingChargeTicks = 0;
 
 		[Desc("Minimum charge value required to activate the condition.")]
-		public readonly int MinActivationChargeTicks = 0;
+		public readonly int MinActivationPercent = 0;
 
 		[Desc("Allow the condition to be disabled mid-discharge.")]
 		public readonly bool Interruptible = false;
@@ -71,6 +74,8 @@ namespace OpenRA.Mods.Common.Traits
 		enum TimedDeployState { Charging, Ready, Active, Deploying, Undeploying }
 
 		readonly Actor self;
+		readonly int totalDischargeTicks;
+		readonly int minActivationChargeTicks;
 
 		int deployedToken = Actor.InvalidConditionToken;
 
@@ -85,16 +90,10 @@ namespace OpenRA.Mods.Common.Traits
 			: base(info)
 		{
 			this.self = self;
-		}
-
-		protected override void Created(Actor self)
-		{
 			currentChargeTicks = Info.StartingChargeTicks;
-			deployState = currentChargeTicks == Info.ChargeTicks ? TimedDeployState.Ready : TimedDeployState.Charging;
-
-			// ticks = deployState == TimedDeployState.Charging ? Info.ChargeTicks : GetDischargeTicks();
-			// ticks = deployState == TimedDeployState.Charging ? currentChargeTicks * Info.ChargeTicks / 100 : GetDischargeTicks();
-			base.Created(self);
+			totalDischargeTicks = Info.ChargeInterval * Info.DischargeModifier / 100;
+			minActivationChargeTicks = Info.ChargeInterval * Info.MinActivationPercent / 100;
+			deployState = currentChargeTicks == Info.ChargeInterval ? TimedDeployState.Ready : TimedDeployState.Charging;
 		}
 
 		Order IIssueDeployOrder.IssueDeployOrder(Actor self, bool queued)
@@ -151,7 +150,7 @@ namespace OpenRA.Mods.Common.Traits
 			if (IsTraitPaused || IsTraitDisabled)
 				return false;
 
-			if (deployState == TimedDeployState.Charging && currentChargeTicks < Info.MinActivationChargeTicks)
+			if (deployState == TimedDeployState.Charging && currentChargeTicks < minActivationChargeTicks)
 				return false;
 
 			if (deployState == TimedDeployState.Active && !Info.Interruptible)
@@ -176,7 +175,7 @@ namespace OpenRA.Mods.Common.Traits
 				deployedToken = self.GrantCondition(Info.DeployedCondition);
 
 			// currentChargeTicks = Info.DischargeTicks;
-			currentChargeTicks = Info.DischargeTicks * currentChargeTicks / Info.ChargeTicks;
+			currentChargeTicks = totalDischargeTicks * currentChargeTicks / Info.ChargeInterval;
 			deployState = TimedDeployState.Active;
 		}
 
@@ -192,7 +191,7 @@ namespace OpenRA.Mods.Common.Traits
 			if (deployedToken != Actor.InvalidConditionToken)
 				deployedToken = self.RevokeCondition(deployedToken);
 
-			currentChargeTicks = Info.ChargeTicks * currentChargeTicks / Info.DischargeTicks;
+			currentChargeTicks = Info.ChargeInterval * currentChargeTicks / totalDischargeTicks;
 			deployState = TimedDeployState.Charging;
 		}
 
@@ -234,7 +233,7 @@ namespace OpenRA.Mods.Common.Traits
 			if (deployState == TimedDeployState.Charging)
 			{
 				currentChargeTicks++;
-				if (currentChargeTicks == Info.ChargeTicks)
+				if (currentChargeTicks == Info.ChargeInterval)
 					deployState = TimedDeployState.Ready;
 			}
 			else
@@ -253,8 +252,8 @@ namespace OpenRA.Mods.Common.Traits
 				return 0f;
 
 			return deployState == TimedDeployState.Active
-				? (float)currentChargeTicks / Info.DischargeTicks
-				: (float)currentChargeTicks / Info.ChargeTicks;
+				? (float)currentChargeTicks / totalDischargeTicks
+				: (float)currentChargeTicks / Info.ChargeInterval;
 		}
 
 		bool ISelectionBar.DisplayWhenEmpty => !IsTraitDisabled && Info.ShowSelectionBar;

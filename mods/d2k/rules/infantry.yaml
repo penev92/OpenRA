@@ -283,15 +283,17 @@ saboteur:
 		EnterBehaviour: Dispose
 	-RevealOnFire:
 	GrantChargeDrainCondition:
-		ChargeTicks: 1250
-		DischargeTicks: 375
-		MinActivationChargeTicks: 1250
-		# ChargeDuration: 1250
-		# DischargeModifier: 333 # Just no.
+		#ChargeTicks: 1250
+		#DischargeTicks: 375
+		#MinActivationChargeTicks: 1250
+		ChargeInterval: 1250
+		DischargeModifier: 30
+		MinActivationPercent: 33
 		#MaxChargePoints: 125
 		#ChargeDuration: 10
 		#DrainDuration: 3
 		#MinActivationPoints: 125
+		Interruptible: true
 		DeployedCondition: deployed
 	Cloak:
 		RequiresCondition: deployed

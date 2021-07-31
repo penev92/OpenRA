@@ -254,7 +254,7 @@ namespace OpenRA.Graphics
 
 			debugVis.Value?.UpdateDepthBuffer();
 
-			var bounds = Viewport.GetScissorBounds(World.Type != WorldType.Editor);
+			var bounds = Viewport.GetScissorBounds();
 			Game.Renderer.EnableScissor(bounds);
 
 			if (enableDepthBuffer)

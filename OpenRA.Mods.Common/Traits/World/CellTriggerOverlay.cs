@@ -72,7 +72,7 @@ namespace OpenRA.Mods.Common.Traits
 
 			var triggerPositions = wr.World.ActorMap.TriggerPositions().ToHashSet();
 
-			foreach (var uv in wr.Viewport.VisibleCellsInsideBounds.CandidateMapCoords)
+			foreach (var uv in wr.Viewport.RenderableRegion.CandidateMapCoords)
 			{
 				if (self.World.ShroudObscures(uv))
 					continue;

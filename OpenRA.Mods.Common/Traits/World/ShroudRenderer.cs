@@ -112,6 +112,8 @@ namespace OpenRA.Mods.Common.Traits
 		readonly (Edges, Edges) notVisibleEdgesPair;
 		readonly byte variantStride;
 		readonly byte[] edgesToSpriteIndexOffset;
+		readonly Rectangle renderBounds;
+		readonly PPos[] renderCells;
 
 		// PERF: Allocate once.
 		readonly Shroud.CellVisibility[] neighbors = new Shroud.CellVisibility[8];
@@ -149,6 +151,11 @@ namespace OpenRA.Mods.Common.Traits
 
 			cellsDirty = new CellLayer<bool>(map);
 			anyCellDirty = true;
+
+			renderBounds = map.Rules.Actors[SystemActors.Player].TraitInfoOrDefault<ShroudInfo>().GetRenderBounds(map);
+			var tl = new PPos(renderBounds.Left, renderBounds.Top);
+			var br = new PPos(renderBounds.Right - 1, renderBounds.Bottom - 1);
+			renderCells = new ProjectedCellRegion(map, tl, br).ToArray();
 
 			// Load sprite variants
 			var variantCount = info.ShroudVariants.Length;
@@ -200,6 +207,21 @@ namespace OpenRA.Mods.Common.Traits
 			world.RenderPlayerChanged += WorldOnRenderPlayerChanged;
 		}
 
+		bool InRenderBounds(PPos puv)
+		{
+			// Note: This is a copy of Map.ProjectedContainsInner, but for the shroud's custom renderBounds.
+			if (map.Grid.Type == MapGridType.RectangularIsometric)
+			{
+				// Odd indexed rows in the projected cell layer are offset by half a cell to the right,
+				// and therefore have one less cell within the projected bounds than even indexed rows.
+				// This line is equivalent to Bounds.Contains(pu, pv), but with an amended Bounds.Right
+				// check to account for this literal edge case.
+				return puv.U >= renderBounds.Left && puv.U < renderBounds.Right - puv.V % 2 && puv.V >= renderBounds.Top && puv.V < renderBounds.Bottom;
+			}
+
+			return renderBounds.Contains(puv.U, puv.V);
+		}
+
 		void IWorldLoaded.WorldLoaded(World w, WorldRenderer wr)
 		{
 			// Initialize tile cache
@@ -216,7 +238,7 @@ namespace OpenRA.Mods.Common.Traits
 			if (w.Type == WorldType.Editor)
 				cellVisibility = puv => map.Contains(puv) ? Shroud.CellVisibility.Visible | Shroud.CellVisibility.Explored : Shroud.CellVisibility.Explored;
 			else
-				cellVisibility = puv => map.Contains(puv) ? Shroud.CellVisibility.Visible | Shroud.CellVisibility.Explored : Shroud.CellVisibility.Hidden;
+				cellVisibility = puv => InRenderBounds(puv) ? Shroud.CellVisibility.Visible | Shroud.CellVisibility.Explored : Shroud.CellVisibility.Hidden;
 
 			var shroudBlend = shroudSprites[0].Sprite.BlendMode;
 			if (shroudSprites.Any(s => s.Sprite.BlendMode != shroudBlend))
@@ -309,7 +331,7 @@ namespace OpenRA.Mods.Common.Traits
 				else
 				{
 					// Visible under shroud: Explored. Visible under fog: Visible.
-					cellVisibility = puv => map.Contains(puv) ? Shroud.CellVisibility.Visible | Shroud.CellVisibility.Explored : Shroud.CellVisibility.Hidden;
+					cellVisibility = puv => InRenderBounds(puv) ? Shroud.CellVisibility.Visible | Shroud.CellVisibility.Explored : Shroud.CellVisibility.Hidden;
 				}
 
 				shroud = newShroud;
@@ -358,7 +380,7 @@ namespace OpenRA.Mods.Common.Traits
 
 		void IRenderShroud.RenderShroud(WorldRenderer wr)
 		{
-			UpdateShroud(map.ProjectedCells);
+			UpdateShroud(renderCells);
 			fogLayer.Draw(wr.Viewport.AllVisibleCells);
 			shroudLayer.Draw(wr.Viewport.AllVisibleCells);
 		}
@@ -370,7 +392,7 @@ namespace OpenRA.Mods.Common.Traits
 			anyCellDirty = true;
 			var cell = uv.ToCPos(map);
 			foreach (var direction in CVec.Directions)
-				if (map.Contains((PPos)(cell + direction).ToMPos(map)))
+				if (InRenderBounds((PPos)(cell + direction).ToMPos(map)))
 					cellsDirty[cell + direction] = true;
 		}
 

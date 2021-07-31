@@ -11,6 +11,8 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using OpenRA.Primitives;
 
 namespace OpenRA.Traits
 {
@@ -18,6 +20,12 @@ namespace OpenRA.Traits
 	[Desc("Required for shroud and fog visibility checks. Add this to the player actor.")]
 	public class ShroudInfo : TraitInfo, ILobbyOptions
 	{
+		[Desc("Allow visibility to extend beyond the edges of the map area.",
+			"Leave empty to disable the feature.",
+			"Define 1 value to apply an equal margin to all sides.",
+			"Define 4 values to specify the margin for left, top, right, bottom.")]
+		public readonly int[] VisibilityMargin = {};
+
 		[TranslationReference]
 		[Desc("Descriptive label for the fog checkbox in the lobby.")]
 		public readonly string FogCheckboxLabel = "checkbox-fog-of-war.label";
@@ -68,6 +76,32 @@ namespace OpenRA.Traits
 				FogCheckboxVisible, FogCheckboxDisplayOrder, FogCheckboxEnabled, FogCheckboxLocked);
 		}
 
+		public Rectangle GetRenderBounds(Map map)
+		{
+			// TODO: Add a rulesetloaded check to guarantee we have one of these cases
+			if (VisibilityMargin.Length == 4)
+			{
+				var margin = VisibilityMargin;
+				return Rectangle.FromLTRB(
+					(map.Bounds.Left - margin[0]).Clamp(0, map.MapSize.X),
+					(map.Bounds.Top - margin[1]).Clamp(0, map.MapSize.Y),
+					(map.Bounds.Right + margin[2]).Clamp(0, map.MapSize.X),
+					(map.Bounds.Bottom + margin[3]).Clamp(0, map.MapSize.Y));
+			}
+
+			if (VisibilityMargin.Length == 1)
+			{
+				var margin = VisibilityMargin[0];
+				return Rectangle.FromLTRB(
+					(map.Bounds.Left - margin).Clamp(0, map.MapSize.X),
+					(map.Bounds.Top - margin).Clamp(0, map.MapSize.Y),
+					(map.Bounds.Right + margin).Clamp(0, map.MapSize.X),
+					(map.Bounds.Bottom + margin).Clamp(0, map.MapSize.Y));
+			}
+
+			return map.Bounds;
+		}
+
 		public override object Create(ActorInitializer init) { return new Shroud(init.Self, this); }
 	}
 
@@ -96,6 +130,8 @@ namespace OpenRA.Traits
 
 		readonly ShroudInfo info;
 		readonly Map map;
+		readonly Rectangle renderBounds;
+		readonly PPos[] renderCells;
 
 		// Individual shroud modifier sources (type and area)
 		readonly Dictionary<object, ShroudSource> sources = new();
@@ -149,6 +185,11 @@ namespace OpenRA.Traits
 			explored = new ProjectedCellLayer<bool>(map);
 			touched = new ProjectedCellLayer<bool>(map);
 			anyCellTouched = true;
+
+			renderBounds = info.GetRenderBounds(map);
+			var tl = new PPos(renderBounds.Left, renderBounds.Top);
+			var br = new PPos(renderBounds.Right - 1, renderBounds.Bottom - 1);
+			renderCells = new ProjectedCellRegion(map, tl, br).ToArray();
 
 			// Defaults to 0 = Shroud
 			resolvedType = new ProjectedCellLayer<ShroudCellType>(map);
@@ -213,7 +254,7 @@ namespace OpenRA.Traits
 				{
 					resolvedType[index] = type;
 					var puv = touched.PPosFromIndex(index);
-					if (map.Contains(puv))
+					if (Contains(puv))
 						OnShroudChanged(puv);
 
 					if (!disabledChanged && (fogEnabled || !ExploreMapEnabled))
@@ -272,7 +313,7 @@ namespace OpenRA.Traits
 			foreach (var puv in projectedCells)
 			{
 				// Force cells outside the visible bounds invisible
-				if (!map.Contains(puv))
+				if (!Contains(puv))
 					continue;
 
 				var index = touched.Index(puv);
@@ -305,7 +346,7 @@ namespace OpenRA.Traits
 			foreach (var puv in state.ProjectedCells)
 			{
 				// Cells outside the visible bounds don't increment visibleCount
-				if (map.Contains(puv))
+				if (Contains(puv))
 				{
 					var index = touched.Index(puv);
 					touched[index] = true;
@@ -332,7 +373,7 @@ namespace OpenRA.Traits
 		{
 			foreach (var puv in cells)
 			{
-				if (map.Contains(puv))
+				if (Contains(puv))
 				{
 					var index = touched.Index(puv);
 					if (!explored[index])
@@ -347,7 +388,7 @@ namespace OpenRA.Traits
 
 		public void Explore(Shroud s)
 		{
-			if (map.Bounds != s.map.Bounds)
+			if (s.renderBounds != renderBounds)
 				throw new ArgumentException("The map bounds of these shrouds do not match.", nameof(s));
 
 			foreach (var puv in map.ProjectedCells)
@@ -364,7 +405,7 @@ namespace OpenRA.Traits
 
 		public void ExploreAll()
 		{
-			foreach (var puv in map.ProjectedCells)
+			foreach (var puv in renderCells)
 			{
 				var index = touched.Index(puv);
 				if (!explored[index])
@@ -378,7 +419,7 @@ namespace OpenRA.Traits
 
 		public void ResetExploration()
 		{
-			foreach (var puv in map.ProjectedCells)
+			foreach (var puv in renderCells)
 			{
 				var index = touched.Index(puv);
 				touched[index] = true;
@@ -400,7 +441,7 @@ namespace OpenRA.Traits
 
 		public bool IsExplored(MPos uv)
 		{
-			if (!map.Contains(uv))
+			if (!Contains(uv))
 				return false;
 
 			foreach (var puv in map.ProjectedCellsCovering(uv))
@@ -413,7 +454,7 @@ namespace OpenRA.Traits
 		public bool IsExplored(PPos puv)
 		{
 			if (Disabled)
-				return map.Contains(puv);
+				return Contains(puv);
 
 			return resolvedType.Contains(puv) && resolvedType[puv] > ShroudCellType.Shroud;
 		}
@@ -441,12 +482,12 @@ namespace OpenRA.Traits
 		public bool IsVisible(PPos puv)
 		{
 			if (!FogEnabled)
-				return map.Contains(puv);
+				return Contains(puv);
 
 			return resolvedType.Contains(puv) && resolvedType[puv] == ShroudCellType.Visible;
 		}
 
-		public bool Contains(PPos uv)
+		public bool IsValid(PPos uv)
 		{
 			// Check that uv is inside the map area. There is nothing special
 			// about explored here: any of the CellLayers would have been suitable.
@@ -476,7 +517,7 @@ namespace OpenRA.Traits
 							state |= CellVisibility.Visible;
 					}
 				}
-				else if (map.Contains(puv))
+				else if (Contains(puv))
 					state |= CellVisibility.Explored | CellVisibility.Visible;
 			}
 			else
@@ -504,6 +545,44 @@ namespace OpenRA.Traits
 			}
 
 			return state;
+		}
+
+		bool Contains(MPos uv)
+		{
+			// Note: This is a copy of Map.ContainsAllProjectedCellsCovering, but for the shroud's custom renderBounds
+			if (map.Grid.MaximumTerrainHeight == 0)
+				return Contains(uv.U, uv.V);
+
+			// If the cell has no valid projection, then we're off the map.
+			var projectedCells = map.ProjectedCellsCovering(uv);
+			if (projectedCells.Length == 0)
+				return false;
+
+			foreach (var puv in projectedCells)
+				if (!Contains(puv))
+					return false;
+
+			return true;
+		}
+
+		bool Contains(PPos puv)
+		{
+			return Contains(puv.U, puv.V);
+		}
+
+		bool Contains(int pu, int pv)
+		{
+			// Note: This is a copy of Map.ProjectedContainsInner, but for the shroud's custom renderBounds
+			if (map.Grid.Type == MapGridType.RectangularIsometric)
+			{
+				// Odd indexed rows in the projected cell layer are offset by half a cell to the right,
+				// and therefore have one less cell within the projected bounds than even indexed rows.
+				// This line is equivalent to Bounds.Contains(pu, pv), but with an amended Bounds.Right
+				// check to account for this literal edge case.
+				return pu >= renderBounds.Left && pu < renderBounds.Right - pv % 2 && pv >= renderBounds.Top && pv < renderBounds.Bottom;
+			}
+
+			return renderBounds.Contains(pu, pv);
 		}
 	}
 }

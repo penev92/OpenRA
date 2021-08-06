@@ -780,6 +780,7 @@
 	Inherits@selection: ^SelectableCombatUnit
 	Inherits@handicaps: ^PlayerHandicaps
 	Huntable:
+	Patrols:
 	OwnerLostAction:
 		Action: Kill
 	Mobile:

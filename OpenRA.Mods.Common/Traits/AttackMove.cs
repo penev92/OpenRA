@@ -122,7 +122,7 @@ namespace OpenRA.Mods.Common.Traits
 					self.CancelActivity();
 
 				var assaultMoving = order.OrderString == "BeginAssaultPatrol";
-				self.QueueActivity(new Patrol(self, patrolWaypoints.ToArray(), true, 0, assaultMoving));
+				self.QueueActivity(new Patrol(self, patrolWaypoints.ToArray(), false, 0, assaultMoving));
 				patrolWaypoints.Clear();
 			}
 		}

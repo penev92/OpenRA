@@ -21,12 +21,15 @@ namespace OpenRA.Mods.Common.Activities
 	public class Patrol : Activity
 	{
 		readonly IMove move;
+		readonly Patrols patrols;
 		readonly CPos[] waypoints;
 		readonly Func<bool> loopUntil;
 		readonly int wait;
 		readonly bool assaultMove;
+		readonly Color targetLineColor;
 
-		int waypoint;
+		int currentWaypoint = 0;
+		int direction = 1;
 
 		public Patrol(Actor self, CPos[] waypoints, Color targetLineColor, bool loop = true, int wait = 0, bool assaultMove = false)
 			: this(self, waypoints, targetLineColor, () => !loop, wait, assaultMove)
@@ -37,7 +40,10 @@ namespace OpenRA.Mods.Common.Activities
 		public Patrol(Actor self, CPos[] waypoints, Color targetLineColor, Func<bool> loopUntil, int wait = 0, bool assaultMove = false)
 		{
 			move = self.Trait<IMove>();
+			patrols = self.Trait<Patrols>();
+
 			this.waypoints = waypoints;
+			this.targetLineColor = targetLineColor;
 
 			this.loopUntil = loopUntil;
 			this.wait = wait;
@@ -55,15 +61,10 @@ namespace OpenRA.Mods.Common.Activities
 			if (IsCanceling)
 				return true;
 
-			if (waypoint >= waypoints.Length)
-			{
-				if (!loopUntil() && waypoints.Length > 0)
-					waypoint = 0;
-				else
-					return true;
-			}
+			if (patrols.PatrolWaypoints.Count < 2)
+				return true;
 
-			var wpt = waypoints[waypoint++];
+			var wpt = GetNextWaypoint();
 			QueueChild(new AttackMoveActivity(self, () => move.MoveTo(wpt, 2), assaultMove));
 			if (wait > 0)
 				QueueChild(new Wait(wait));
@@ -74,12 +75,19 @@ namespace OpenRA.Mods.Common.Activities
 		public override IEnumerable<TargetLineNode> TargetLineNodes(Actor self)
 		{
 			for (var wpt = 0; wpt < waypoints.Length; wpt++)
-				yield return new TargetLineNode(Target.FromCell(self.World, waypoints[wpt]), Color.Red);
+				yield return new TargetLineNode(Target.FromCell(self.World, waypoints[wpt]), targetLineColor);
 
 			if (waypoints.Length > 0 && !loopUntil())
-				yield return new TargetLineNode(Target.FromCell(self.World, waypoints[0]), Color.Red);
+				yield return new TargetLineNode(Target.FromCell(self.World, waypoints[0]), targetLineColor);
+		}
 
-			yield break;
+		CPos GetNextWaypoint()
+		{
+			if (currentWaypoint + direction < 0 || currentWaypoint + direction >= patrols.PatrolWaypoints.Count)
+				direction *= -1;
+
+			currentWaypoint += direction;
+			return patrols.PatrolWaypoints[currentWaypoint];
 		}
 	}
 }

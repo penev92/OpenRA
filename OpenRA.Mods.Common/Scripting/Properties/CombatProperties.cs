@@ -24,11 +24,13 @@ namespace OpenRA.Mods.Common.Scripting
 	public class CombatProperties : ScriptActorProperties, Requires<AttackBaseInfo>, Requires<IMoveInfo>, Requires<AttackMoveInfo>
 	{
 		readonly IMove move;
+		readonly Patrols patrols;
 
 		public CombatProperties(ScriptContext context, Actor self)
 			: base(context, self)
 		{
 			move = self.Trait<IMove>();
+			patrols = self.TraitOrDefault<Patrols>();
 		}
 
 		[ScriptActorPropertyActivity]
@@ -52,7 +54,7 @@ namespace OpenRA.Mods.Common.Scripting
 			"and the actor will wait for `wait` ticks at each waypoint.")]
 		public void Patrol(CPos[] waypoints, bool loop = true, int wait = 0)
 		{
-			Self.QueueActivity(new Patrol(Self, waypoints, loop, wait));
+			Self.QueueActivity(new Patrol(Self, waypoints, patrols.Info.TargetLineColor, loop, wait));
 		}
 
 		[ScriptActorPropertyActivity]
@@ -67,7 +69,7 @@ namespace OpenRA.Mods.Common.Scripting
 				return lf.Call(Self.ToLuaValue(Context)).First().ToBoolean();
 			});
 
-			Self.QueueActivity(new Patrol(Self, waypoints, f, wait));
+			Self.QueueActivity(new Patrol(Self, waypoints, patrols.Info.TargetLineColor, f, wait));
 			Self.QueueActivity(new CallFunc(() =>
 			{
 				if (lf != null)

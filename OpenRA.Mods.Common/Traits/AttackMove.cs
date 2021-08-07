@@ -102,29 +102,6 @@ namespace OpenRA.Mods.Common.Traits
 				self.QueueActivity(order.Queued, new AttackMoveActivity(self, () => move.MoveTo(targetLocation, 8, targetLineColor: Info.TargetLineColor), assaultMoving));
 				self.ShowTargetLines();
 			}
-			else if (order.OrderString == "InitPatrol")
-				patrolWaypoints.Clear();
-			else if (order.OrderString == "AddPatrolWaypoint")
-			{
-				var cell = self.World.Map.Clamp(self.World.Map.CellContaining(order.Target.CenterPosition));
-				if (!Info.MoveIntoShroud && !self.Owner.Shroud.IsExplored(cell))
-					return;
-
-				if (!patrolWaypoints.Remove(cell))
-					patrolWaypoints.Add(cell);
-			}
-			else if (order.OrderString == "BeginPatrol" || order.OrderString == "BeginAssaultPatrol")
-			{
-				if (patrolWaypoints.Count < 2)
-					return;
-
-				if (!order.Queued)
-					self.CancelActivity();
-
-				var assaultMoving = order.OrderString == "BeginAssaultPatrol";
-				self.QueueActivity(new Patrol(self, patrolWaypoints.ToArray(), false, 0, assaultMoving));
-				patrolWaypoints.Clear();
-			}
 		}
 	}
 

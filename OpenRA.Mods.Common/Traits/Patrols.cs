@@ -17,7 +17,7 @@ using OpenRA.Traits;
 
 namespace OpenRA.Mods.Common.Traits
 {
-	[Desc("Provides access to the Patrol command, which will make the actor automatically engage viable targets while moving to the destination.")]
+	[Desc("Provides access to the Patrol command.")]
 	public class PatrolsInfo : TraitInfo, Requires<AttackMoveInfo>
 	{
 		[VoiceReference]
@@ -26,28 +26,6 @@ namespace OpenRA.Mods.Common.Traits
 		[Desc("Color to use for the target line.")]
 		public readonly Color TargetLineColor = Color.LightYellow;
 
-		// [GrantedConditionReference]
-		// [Desc("The condition to grant to self while an attack-move is active.")]
-		// public readonly string AttackMoveCondition = null;
-		//
-		// [GrantedConditionReference]
-		// [Desc("The condition to grant to self while an assault-move is active.")]
-		// public readonly string AssaultMoveCondition = null;
-		//
-		// [Desc("Can the actor be ordered to move in to shroud?")]
-		// public readonly bool MoveIntoShroud = true;
-		//
-		// [CursorReference]
-		// public readonly string AttackMoveCursor = "attackmove";
-		//
-		// [CursorReference]
-		// public readonly string AttackMoveBlockedCursor = "attackmove-blocked";
-		//
-		// [CursorReference]
-		// public readonly string AssaultMoveCursor = "assaultmove";
-		//
-		// [CursorReference]
-		// public readonly string AssaultMoveBlockedCursor = "assaultmove-blocked";
 		public override object Create(ActorInitializer init) { return new Patrols(init.Self, this); }
 	}
 
@@ -84,20 +62,7 @@ namespace OpenRA.Mods.Common.Traits
 
 		public void ResolveOrder(Actor self, Order order)
 		{
-			if (order.OrderString == "AttackMove" || order.OrderString == "AssaultMove")
-			{
-				var cell = self.World.Map.Clamp(self.World.Map.CellContaining(order.Target.CenterPosition));
-				if (!attackMove.Info.MoveIntoShroud && !self.Owner.Shroud.IsExplored(cell))
-					return;
-
-				var targetLocation = move.NearestMoveableCell(cell);
-				var assaultMoving = order.OrderString == "AssaultMove";
-
-				// TODO: this should scale with unit selection group size.
-				self.QueueActivity(order.Queued, new AttackMoveActivity(self, () => move.MoveTo(targetLocation, 8, targetLineColor: Info.TargetLineColor), assaultMoving));
-				self.ShowTargetLines();
-			}
-			else if (order.OrderString == "InitPatrol")
+			if (order.OrderString == "InitPatrol")
 				patrolWaypoints.Clear();
 			else if (order.OrderString == "AddPatrolWaypoint")
 			{
@@ -117,7 +82,7 @@ namespace OpenRA.Mods.Common.Traits
 					self.CancelActivity();
 
 				var assaultMoving = order.OrderString == "BeginAssaultPatrol";
-				self.QueueActivity(new Patrol(self, patrolWaypoints.ToArray(), false, 0, assaultMoving));
+				self.QueueActivity(new Patrol(self, patrolWaypoints.ToArray(), Info.TargetLineColor, true, 0, assaultMoving));
 				patrolWaypoints.Clear();
 			}
 		}

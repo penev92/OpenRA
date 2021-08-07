@@ -28,13 +28,13 @@ namespace OpenRA.Mods.Common.Activities
 
 		int waypoint;
 
-		public Patrol(Actor self, CPos[] waypoints, bool loop = true, int wait = 0, bool assaultMove = false)
-			: this(self, waypoints, () => !loop, wait, assaultMove)
+		public Patrol(Actor self, CPos[] waypoints, Color targetLineColor, bool loop = true, int wait = 0, bool assaultMove = false)
+			: this(self, waypoints, targetLineColor, () => !loop, wait, assaultMove)
 		{
 			ChildHasPriority = false;
 		}
 
-		public Patrol(Actor self, CPos[] waypoints, Func<bool> loopUntil, int wait = 0, bool assaultMove = false)
+		public Patrol(Actor self, CPos[] waypoints, Color targetLineColor, Func<bool> loopUntil, int wait = 0, bool assaultMove = false)
 		{
 			move = self.Trait<IMove>();
 			this.waypoints = waypoints;

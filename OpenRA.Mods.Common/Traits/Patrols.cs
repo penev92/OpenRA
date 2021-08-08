@@ -9,7 +9,6 @@
  */
 #endregion
 
-using System;
 using System.Collections.Generic;
 using OpenRA.Graphics;
 using OpenRA.Mods.Common.Activities;
@@ -33,7 +32,6 @@ namespace OpenRA.Mods.Common.Traits
 	public class Patrols : IResolveOrder, IOrderVoice
 	{
 		public readonly PatrolsInfo Info;
-		readonly IMove move;
 		readonly AttackMove attackMove;
 		readonly List<CPos> patrolWaypoints;
 
@@ -42,7 +40,6 @@ namespace OpenRA.Mods.Common.Traits
 		public Patrols(Actor self, PatrolsInfo info)
 		{
 			Info = info;
-			move = self.Trait<IMove>();
 			attackMove = self.Trait<AttackMove>();
 
 			patrolWaypoints = new List<CPos>();
@@ -93,7 +90,7 @@ namespace OpenRA.Mods.Common.Traits
 						patrolWaypoints.Add(targetCell);
 
 					var assaultMoving = order.OrderString == "BeginAssaultPatrol";
-					self.QueueActivity(new Patrol(self, patrolWaypoints.ToArray(), Info.TargetLineColor, true, 0, assaultMoving));
+					self.QueueActivity(new PatrolActivity(self, patrolWaypoints.ToArray(), Info.TargetLineColor, true, 0, assaultMoving));
 				}
 			}
 			else if (order.OrderString == "AddPatrolWaypoint")
@@ -102,8 +99,14 @@ namespace OpenRA.Mods.Common.Traits
 				if (!attackMove.Info.MoveIntoShroud && !self.Owner.Shroud.IsExplored(cell))
 					return;
 
-				if (!patrolWaypoints.Remove(cell))
+				if (!patrolWaypoints.Contains(cell))
 					patrolWaypoints.Add(cell);
+
+				if (patrolWaypoints.Count == 1)
+				{
+					var assaultMoving = order.OrderString == "BeginAssaultPatrol";
+					self.QueueActivity(new PatrolActivity(self, patrolWaypoints.ToArray(), Info.TargetLineColor, true, 0, assaultMoving));
+				}
 			}
 			else if (order.OrderString == "BeginPatrol" || order.OrderString == "BeginAssaultPatrol")
 			{
@@ -114,18 +117,22 @@ namespace OpenRA.Mods.Common.Traits
 					self.CancelActivity();
 
 				var assaultMoving = order.OrderString == "BeginAssaultPatrol";
-				self.QueueActivity(new Patrol(self, patrolWaypoints.ToArray(), Info.TargetLineColor, true, 0, assaultMoving));
+				self.QueueActivity(new PatrolActivity(self, patrolWaypoints.ToArray(), Info.TargetLineColor, true, 0, assaultMoving));
 				patrolWaypoints.Clear();
 			}
 			else
 				patrolWaypoints.Clear();
+		}
+
+		public void AddStartingPoint(CPos start)
+		{
+			patrolWaypoints.Insert(0, start);
 		}
 	}
 
 	public class PatrolOrderGenerator : AttackMoveOrderGenerator
 	{
 		readonly List<WPos> waypoints;
-		bool started;
 
 		public PatrolOrderGenerator(IEnumerable<Actor> subjects, MouseButton button)
 			: base(subjects, button)
@@ -137,45 +144,18 @@ namespace OpenRA.Mods.Common.Traits
 		{
 			var queued = mi.Modifiers.HasModifier(Modifiers.Shift);
 
-			if (mi.Button == expectedButton && !mi.Modifiers.HasModifier(Modifiers.Alt))
+			if (mi.Button == expectedButton)
 			{
 				cell = world.Map.Clamp(cell);
 				var pos = world.Map.CenterOfCell(cell);
 				if (!waypoints.Remove(pos))
 					waypoints.Add(pos);
 
-				if (!started)
-				{
-					started = true;
-
-					foreach (var a in subjects)
-						yield return new Order("InitPatrol", a.Actor, Target.FromCell(world, cell), queued);
-				}
-
 				foreach (var a in subjects)
 					yield return new Order("AddPatrolWaypoint", a.Actor, Target.FromCell(world, cell), queued);
 			}
-			else if (mi.Button == expectedButton && mi.Modifiers.HasModifier(Modifiers.Alt))
-			{
-				world.CancelInputMode();
-				var order = mi.Modifiers.HasModifier(Modifiers.Ctrl) ? "BeginAssaultPatrol" : "BeginPatrol";
-
-				foreach (var a in subjects)
-					yield return new Order(order, a.Actor, queued);
-			}
 			else
-			{
 				world.CancelInputMode();
-				yield return new Order(order, a.Actor, queued);
-			}
-		}
-
-		public override IEnumerable<IRenderable> RenderAboveShroud(WorldRenderer wr, World world)
-		{
-			if (waypoints.Count < 2)
-				yield break;
-
-			yield return new TargetLineRenderable(waypoints, Color.Red);
 		}
 	}
 }

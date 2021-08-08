@@ -18,7 +18,7 @@ using OpenRA.Traits;
 
 namespace OpenRA.Mods.Common.Activities
 {
-	public class Patrol : Activity
+	public class PatrolActivity : Activity
 	{
 		readonly IMove move;
 		readonly Patrols patrols;
@@ -30,14 +30,15 @@ namespace OpenRA.Mods.Common.Activities
 
 		int currentWaypoint = 0;
 		int direction = 1;
+		bool hasStarted = false;
 
-		public Patrol(Actor self, CPos[] waypoints, Color targetLineColor, bool loop = true, int wait = 0, bool assaultMove = false)
+		public PatrolActivity(Actor self, CPos[] waypoints, Color targetLineColor, bool loop = true, int wait = 0, bool assaultMove = false)
 			: this(self, waypoints, targetLineColor, () => !loop, wait, assaultMove)
 		{
 			ChildHasPriority = false;
 		}
 
-		public Patrol(Actor self, CPos[] waypoints, Color targetLineColor, Func<bool> loopUntil, int wait = 0, bool assaultMove = false)
+		public PatrolActivity(Actor self, CPos[] waypoints, Color targetLineColor, Func<bool> loopUntil, int wait = 0, bool assaultMove = false)
 		{
 			move = self.Trait<IMove>();
 			patrols = self.Trait<Patrols>();
@@ -61,6 +62,12 @@ namespace OpenRA.Mods.Common.Activities
 			if (IsCanceling)
 				return true;
 
+			if (!hasStarted)
+			{
+				patrols.AddStartingPoint(self.Location);
+				hasStarted = true;
+			}
+
 			if (patrols.PatrolWaypoints.Count < 2)
 				return true;
 
@@ -74,11 +81,8 @@ namespace OpenRA.Mods.Common.Activities
 
 		public override IEnumerable<TargetLineNode> TargetLineNodes(Actor self)
 		{
-			for (var wpt = 0; wpt < waypoints.Length; wpt++)
-				yield return new TargetLineNode(Target.FromCell(self.World, waypoints[wpt]), targetLineColor);
-
-			if (waypoints.Length > 0 && !loopUntil())
-				yield return new TargetLineNode(Target.FromCell(self.World, waypoints[0]), targetLineColor);
+			for (var wpt = 0; wpt < patrols.PatrolWaypoints.Count; wpt++)
+				yield return new TargetLineNode(Target.FromCell(self.World, patrols.PatrolWaypoints[wpt]), targetLineColor);
 		}
 
 		CPos GetNextWaypoint()

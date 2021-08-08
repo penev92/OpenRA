@@ -11,7 +11,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using OpenRA.Graphics;
 using OpenRA.Mods.Common.Activities;
 using OpenRA.Mods.Common.Orders;
 using OpenRA.Primitives;
@@ -58,14 +57,11 @@ namespace OpenRA.Mods.Common.Traits
 	{
 		public readonly AttackMoveInfo Info;
 		readonly IMove move;
-		readonly List<CPos> patrolWaypoints;
 
 		public AttackMove(Actor self, AttackMoveInfo info)
 		{
 			move = self.Trait<IMove>();
 			Info = info;
-
-			patrolWaypoints = new List<CPos>();
 		}
 
 		string IOrderVoice.VoicePhraseForOrder(Actor self, Order order)
@@ -77,8 +73,7 @@ namespace OpenRA.Mods.Common.Traits
 					return null;
 			}
 
-			if (order.OrderString == "AttackMove" || order.OrderString == "AssaultMove" ||
-				order.OrderString == "BeginPatrol" || order.OrderString == "BeginAssaultPatrol")
+			if (order.OrderString == "AttackMove" || order.OrderString == "AssaultMove")
 				return Info.Voice;
 
 			return null;

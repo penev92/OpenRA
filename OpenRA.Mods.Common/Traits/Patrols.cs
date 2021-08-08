@@ -10,7 +10,6 @@
 #endregion
 
 using System.Collections.Generic;
-using OpenRA.Graphics;
 using OpenRA.Mods.Common.Activities;
 using OpenRA.Primitives;
 using OpenRA.Traits;
@@ -54,46 +53,15 @@ namespace OpenRA.Mods.Common.Traits
 					return null;
 			}
 
-			if (order.OrderString == "BeginPatrol" || order.OrderString == "BeginAssaultPatrol")
-				return Info.Voice;
+			if (order.OrderString != "AddPatrolWaypoint")
+				return null;
 
-			return null;
+			return Info.Voice;
 		}
 
 		public void ResolveOrder(Actor self, Order order)
 		{
-			if (order.OrderString == "InitPatrol")
-			{
-				if (order.Queued)
-				{
-					var cell = self.World.Map.Clamp(self.World.Map.CellContaining(order.Target.CenterPosition));
-					if (!attackMove.Info.MoveIntoShroud && !self.Owner.Shroud.IsExplored(cell))
-						return;
-
-					if (!patrolWaypoints.Remove(cell))
-						patrolWaypoints.Add(cell);
-				}
-				else
-				{
-					var startCell = self.World.Map.Clamp(self.World.Map.CellContaining(self.CenterPosition));
-					if (!attackMove.Info.MoveIntoShroud && !self.Owner.Shroud.IsExplored(startCell))
-						return;
-
-					if (!patrolWaypoints.Remove(startCell))
-						patrolWaypoints.Add(startCell);
-
-					var targetCell = self.World.Map.Clamp(self.World.Map.CellContaining(order.Target.CenterPosition));
-					if (!attackMove.Info.MoveIntoShroud && !self.Owner.Shroud.IsExplored(targetCell))
-						return;
-
-					if (!patrolWaypoints.Remove(targetCell))
-						patrolWaypoints.Add(targetCell);
-
-					var assaultMoving = order.OrderString == "BeginAssaultPatrol";
-					self.QueueActivity(new PatrolActivity(self, patrolWaypoints.ToArray(), Info.TargetLineColor, true, 0, assaultMoving));
-				}
-			}
-			else if (order.OrderString == "AddPatrolWaypoint")
+			if (order.OrderString == "AddPatrolWaypoint")
 			{
 				var cell = self.World.Map.Clamp(self.World.Map.CellContaining(order.Target.CenterPosition));
 				if (!attackMove.Info.MoveIntoShroud && !self.Owner.Shroud.IsExplored(cell))
@@ -104,21 +72,9 @@ namespace OpenRA.Mods.Common.Traits
 
 				if (patrolWaypoints.Count == 1)
 				{
-					var assaultMoving = order.OrderString == "BeginAssaultPatrol";
+					var assaultMoving = false; // TODO:
 					self.QueueActivity(new PatrolActivity(self, patrolWaypoints.ToArray(), Info.TargetLineColor, true, 0, assaultMoving));
 				}
-			}
-			else if (order.OrderString == "BeginPatrol" || order.OrderString == "BeginAssaultPatrol")
-			{
-				if (patrolWaypoints.Count < 2)
-					return;
-
-				if (!order.Queued)
-					self.CancelActivity();
-
-				var assaultMoving = order.OrderString == "BeginAssaultPatrol";
-				self.QueueActivity(new PatrolActivity(self, patrolWaypoints.ToArray(), Info.TargetLineColor, true, 0, assaultMoving));
-				patrolWaypoints.Clear();
 			}
 			else
 				patrolWaypoints.Clear();
@@ -132,13 +88,8 @@ namespace OpenRA.Mods.Common.Traits
 
 	public class PatrolOrderGenerator : AttackMoveOrderGenerator
 	{
-		readonly List<WPos> waypoints;
-
 		public PatrolOrderGenerator(IEnumerable<Actor> subjects, MouseButton button)
-			: base(subjects, button)
-		{
-			waypoints = new List<WPos>();
-		}
+			: base(subjects, button) { }
 
 		public override IEnumerable<Order> Order(World world, CPos cell, int2 worldPixel, MouseInput mi)
 		{
@@ -147,10 +98,6 @@ namespace OpenRA.Mods.Common.Traits
 			if (mi.Button == expectedButton)
 			{
 				cell = world.Map.Clamp(cell);
-				var pos = world.Map.CenterOfCell(cell);
-				if (!waypoints.Remove(pos))
-					waypoints.Add(pos);
-
 				foreach (var a in subjects)
 					yield return new Order("AddPatrolWaypoint", a.Actor, Target.FromCell(world, cell), queued);
 			}

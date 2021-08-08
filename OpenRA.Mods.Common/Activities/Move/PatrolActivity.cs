@@ -22,8 +22,6 @@ namespace OpenRA.Mods.Common.Activities
 	{
 		readonly IMove move;
 		readonly Patrols patrols;
-		readonly CPos[] waypoints;
-		readonly Func<bool> loopUntil;
 		readonly int wait;
 		readonly bool assaultMove;
 		readonly Color targetLineColor;
@@ -43,10 +41,8 @@ namespace OpenRA.Mods.Common.Activities
 			move = self.Trait<IMove>();
 			patrols = self.Trait<Patrols>();
 
-			this.waypoints = waypoints;
 			this.targetLineColor = targetLineColor;
 
-			this.loopUntil = loopUntil;
 			this.wait = wait;
 			this.assaultMove = assaultMove;
 		}

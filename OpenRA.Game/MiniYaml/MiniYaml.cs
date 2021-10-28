@@ -17,78 +17,6 @@ using OpenRA.FileSystem;
 
 namespace OpenRA
 {
-	using MiniYamlNodes = List<MiniYamlNode>;
-
-	public static class MiniYamlExts
-	{
-		public static void WriteToFile(this MiniYamlNodes y, string filename)
-		{
-			File.WriteAllLines(filename, y.ToLines().Select(x => x.TrimEnd()).ToArray());
-		}
-
-		public static string WriteToString(this MiniYamlNodes y)
-		{
-			// Remove all trailing newlines and restore the final EOF newline
-			return y.ToLines().JoinWith("\n").TrimEnd('\n') + "\n";
-		}
-
-		public static IEnumerable<string> ToLines(this MiniYamlNodes y)
-		{
-			foreach (var kv in y)
-				foreach (var line in kv.Value.ToLines(kv.Key, kv.Comment))
-					yield return line;
-		}
-	}
-
-	public class MiniYamlNode
-	{
-		public struct SourceLocation
-		{
-			public string Filename; public int Line;
-			public override string ToString() { return $"{Filename}:{Line}"; }
-		}
-
-		public SourceLocation Location;
-		public string Key;
-		public MiniYaml Value;
-		public string Comment;
-
-		public MiniYamlNode(string k, MiniYaml v, string c = null)
-		{
-			Key = k;
-			Value = v;
-			Comment = c;
-		}
-
-		public MiniYamlNode(string k, MiniYaml v, string c, SourceLocation loc)
-			: this(k, v, c)
-		{
-			Location = loc;
-		}
-
-		public MiniYamlNode(string k, string v, string c = null)
-			: this(k, v, c, null) { }
-
-		public MiniYamlNode(string k, string v, List<MiniYamlNode> n)
-			: this(k, new MiniYaml(v, n), null) { }
-
-		public MiniYamlNode(string k, string v, string c, List<MiniYamlNode> n)
-			: this(k, new MiniYaml(v, n), c) { }
-
-		public MiniYamlNode(string k, string v, string c, List<MiniYamlNode> n, SourceLocation loc)
-			: this(k, new MiniYaml(v, n), c, loc) { }
-
-		public override string ToString()
-		{
-			return $"{{YamlNode: {Key} @ {Location}}}";
-		}
-
-		public MiniYamlNode Clone()
-		{
-			return new MiniYamlNode(Key, Value.Clone());
-		}
-	}
-
 	public class MiniYaml
 	{
 		const int SpacesPerLevel = 4;
@@ -99,9 +27,10 @@ namespace OpenRA
 
 		public MiniYaml Clone()
 		{
-			var clonedNodes = new MiniYamlNodes(Nodes.Count);
+			var clonedNodes = new List<MiniYamlNode>(Nodes.Count);
 			foreach (var node in Nodes)
 				clonedNodes.Add(node.Clone());
+
 			return new MiniYaml(Value, clonedNodes);
 		}
 
@@ -490,12 +419,5 @@ namespace OpenRA
 
 			return Merge(yaml);
 		}
-	}
-
-	[Serializable]
-	public class YamlException : Exception
-	{
-		public YamlException(string s)
-			: base(s) { }
 	}
 }

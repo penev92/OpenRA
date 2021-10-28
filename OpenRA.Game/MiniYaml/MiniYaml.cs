@@ -119,7 +119,7 @@ namespace OpenRA
 			return FromLines(text.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None), fileName, discardCommentsAndWhitespace, stringPool);
 		}
 
-		public static List<MiniYamlNode> Load(IReadOnlyFileSystem fileSystem, IEnumerable<string> files, MiniYaml mapRules)
+		public static List<MiniYamlNode> FromPackage(IReadOnlyFileSystem fileSystem, IEnumerable<string> files, MiniYaml mapRules)
 		{
 			if (mapRules != null && mapRules.Value != null)
 			{

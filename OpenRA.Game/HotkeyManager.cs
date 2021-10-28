@@ -25,7 +25,7 @@ namespace OpenRA
 		{
 			this.settings = settings;
 
-			var keyDefinitions = MiniYaml.Load(fileSystem, manifest.Hotkeys, null);
+			var keyDefinitions = MiniYaml.FromPackage(fileSystem, manifest.Hotkeys, null);
 			foreach (var kd in keyDefinitions)
 			{
 				var definition = new HotkeyDefinition(kd.Key, kd.Value);

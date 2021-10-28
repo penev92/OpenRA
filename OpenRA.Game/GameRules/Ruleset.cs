@@ -109,7 +109,7 @@ namespace OpenRA
 			if (additional == null && defaults != null)
 				return defaults;
 
-			IEnumerable<MiniYamlNode> yamlNodes = MiniYaml.Load(fileSystem, files, additional);
+			IEnumerable<MiniYamlNode> yamlNodes = MiniYaml.FromPackage(fileSystem, files, additional);
 
 			// Optionally, the caller can filter out elements from the loaded set of nodes. Default behavior is unfiltered.
 			if (filterNode != null)

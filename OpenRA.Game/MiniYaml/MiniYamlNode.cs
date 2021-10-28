@@ -2,18 +2,23 @@
 
 namespace OpenRA
 {
+	// class? struct? record class? record struct?
 	public class MiniYamlNode
 	{
-		public struct SourceLocation
+		public struct SourceLocation // This is fine as a nested struct, but it needs to move to MiniYaml.
 		{
 			public string Filename;
 			public int Line;
+			// public int Character; // ?
 			public override string ToString() { return $"{Filename}:{Line}"; }
 		}
 
 		public SourceLocation Location;
 		public string Key;
-		public MiniYaml Value;
+		// public string Value;
+		// public List<MiniYamlNode> ChildNodes;
+		// public MiniYamlNode ParentNode;
+		public MiniYaml Value; // ew remove
 		public string Comment;
 
 		public MiniYamlNode(string k, MiniYaml v, string c = null)

@@ -22,8 +22,8 @@ namespace OpenRA
 		const int SpacesPerLevel = 4;
 		static readonly Func<string, string> StringIdentity = s => s;
 		static readonly Func<MiniYaml, MiniYaml> MiniYamlIdentity = my => my;
-		public string Value;
-		public List<MiniYamlNode> Nodes;
+		public string Value; // This needs to go.
+		public List<MiniYamlNode> Nodes; // This needs to go.
 
 		public MiniYaml Clone()
 		{

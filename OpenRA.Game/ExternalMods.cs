@@ -16,6 +16,7 @@ using System.IO;
 using System.Linq;
 using OpenRA.FileFormats;
 using OpenRA.Graphics;
+using OpenRA.MiniYamlParser;
 using OpenRA.Primitives;
 
 namespace OpenRA
@@ -81,7 +82,7 @@ namespace OpenRA
 				{
 					try
 					{
-						var yaml = MiniYaml.FromStream(File.OpenRead(path), path).First().Value;
+						var yaml = MiniYamlLoader.FromStream(File.OpenRead(path), path).First().Value;
 						LoadMod(yaml, path);
 					}
 					catch (Exception e)
@@ -218,7 +219,7 @@ namespace OpenRA
 					string modKey = null;
 					try
 					{
-						var yaml = MiniYaml.FromStream(File.OpenRead(path), path).First().Value;
+						var yaml = MiniYamlLoader.FromStream(File.OpenRead(path), path).First().Value;
 						var m = FieldLoader.Load<ExternalMod>(yaml);
 						modKey = ExternalMod.MakeKey(m);
 

@@ -16,6 +16,7 @@ using System.Threading.Tasks;
 using OpenRA.FileSystem;
 using OpenRA.GameRules;
 using OpenRA.Graphics;
+using OpenRA.MiniYamlParser;
 using OpenRA.Traits;
 
 namespace OpenRA
@@ -109,7 +110,7 @@ namespace OpenRA
 			if (additional == null && defaults != null)
 				return defaults;
 
-			IEnumerable<MiniYamlNode> yamlNodes = MiniYaml.FromPackage(fileSystem, files, additional);
+			IEnumerable<MiniYamlNode> yamlNodes = CustomMiniYamlLoader.FromPackage(fileSystem, files, additional);
 
 			// Optionally, the caller can filter out elements from the loaded set of nodes. Default behavior is unfiltered.
 			if (filterNode != null)
@@ -278,7 +279,7 @@ namespace OpenRA
 				{
 					var mapFiles = FieldLoader.GetValue<string[]>("value", mapRules.Value);
 					foreach (var f in mapFiles)
-						if (AnyFlaggedTraits(modData, MiniYaml.FromStream(fileSystem.Open(f), f)))
+						if (AnyFlaggedTraits(modData, MiniYamlLoader.FromStream(fileSystem.Open(f), f)))
 							return true;
 				}
 			}

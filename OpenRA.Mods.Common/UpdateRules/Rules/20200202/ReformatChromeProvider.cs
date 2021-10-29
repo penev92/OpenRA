@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using OpenRA.Graphics;
+using OpenRA.MiniYamlParser;
 
 namespace OpenRA.Mods.Common.UpdateRules.Rules
 {

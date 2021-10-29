@@ -11,6 +11,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using OpenRA.MiniYamlParser;
 using OpenRA.Server;
 using OpenRA.Traits;
 
@@ -121,7 +122,7 @@ namespace OpenRA.Network
 
 						if (!string.IsNullOrEmpty(order.TargetString))
 						{
-							var data = MiniYaml.FromString(order.TargetString);
+							var data = MiniYamlLoader.FromString(order.TargetString);
 							var saveLastOrdersFrame = data.FirstOrDefault(n => n.Key == "SaveLastOrdersFrame");
 							if (saveLastOrdersFrame != null)
 								orderManager.GameSaveLastFrame =
@@ -141,7 +142,7 @@ namespace OpenRA.Network
 
 				case "SaveTraitData":
 					{
-						var data = MiniYaml.FromString(order.TargetString)[0];
+						var data = MiniYamlLoader.FromString(order.TargetString)[0];
 						var traitIndex = int.Parse(data.Key);
 
 						world?.AddGameSaveTraitData(traitIndex, data.Value);
@@ -261,7 +262,7 @@ namespace OpenRA.Network
 				case "SyncLobbyClients":
 					{
 						var clients = new List<Session.Client>();
-						var nodes = MiniYaml.FromString(order.TargetString);
+						var nodes = MiniYamlLoader.FromString(order.TargetString);
 						foreach (var node in nodes)
 						{
 							var strings = node.Key.Split('@');
@@ -277,7 +278,7 @@ namespace OpenRA.Network
 				case "SyncLobbySlots":
 					{
 						var slots = new Dictionary<string, Session.Slot>();
-						var nodes = MiniYaml.FromString(order.TargetString);
+						var nodes = MiniYamlLoader.FromString(order.TargetString);
 						foreach (var node in nodes)
 						{
 							var strings = node.Key.Split('@');
@@ -295,7 +296,7 @@ namespace OpenRA.Network
 
 				case "SyncLobbyGlobalSettings":
 					{
-						var nodes = MiniYaml.FromString(order.TargetString);
+						var nodes = MiniYamlLoader.FromString(order.TargetString);
 						foreach (var node in nodes)
 						{
 							var strings = node.Key.Split('@');
@@ -309,7 +310,7 @@ namespace OpenRA.Network
 
 				case "SyncConnectionQuality":
 					{
-						var nodes = MiniYaml.FromString(order.TargetString);
+						var nodes = MiniYamlLoader.FromString(order.TargetString);
 						foreach (var node in nodes)
 						{
 							var strings = node.Key.Split('@');

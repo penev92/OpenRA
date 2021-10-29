@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using OpenRA.Graphics;
+using OpenRA.MiniYamlParser;
 using OpenRA.Mods.Common.Graphics;
 using OpenRA.Mods.Common.Traits.Radar;
 using OpenRA.Primitives;

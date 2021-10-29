@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.IO;
 using OpenRA.FileSystem;
 using OpenRA.Graphics;
+using OpenRA.MiniYamlParser;
 
 namespace OpenRA.Mods.Cnc.Graphics
 {

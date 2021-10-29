@@ -15,6 +15,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using OpenRA.FileSystem;
+using OpenRA.MiniYamlParser;
 using OpenRA.Mods.Common.FileFormats;
 using OpenRA.Mods.Common.Terrain;
 using OpenRA.Mods.Common.Traits;

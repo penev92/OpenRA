@@ -15,6 +15,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using OpenRA.Graphics;
+using OpenRA.MiniYamlParser;
 using OpenRA.Primitives;
 
 namespace OpenRA.Mods.Common.Graphics
@@ -60,7 +61,7 @@ namespace OpenRA.Mods.Common.Graphics
 					nodes.Remove("Defaults");
 					foreach (var n in nodes)
 					{
-						n.Value.Nodes = MiniYaml.Merge(new[] { defaults.Nodes, n.Value.Nodes });
+						n.Value.Nodes = MiniYamlMerger.Merge(new[] { defaults.Nodes, n.Value.Nodes });
 						n.Value.Value = n.Value.Value ?? defaults.Value;
 					}
 				}

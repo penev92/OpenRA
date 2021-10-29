@@ -10,6 +10,7 @@
 #endregion
 
 using System;
+using OpenRA.MiniYamlParser;
 
 namespace OpenRA.Mods.Common.UtilityCommands
 {

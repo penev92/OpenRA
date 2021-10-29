@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BeaconLib;
+using OpenRA.MiniYamlParser;
 using OpenRA.Network;
 using OpenRA.Primitives;
 using OpenRA.Server;
@@ -352,7 +353,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 
 				try
 				{
-					var yaml = MiniYaml.FromString(result);
+					var yaml = MiniYamlLoader.FromString(result);
 					foreach (var node in yaml)
 					{
 						try
@@ -381,7 +382,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 						if (string.IsNullOrEmpty(bl.Data))
 							continue;
 
-						var game = MiniYaml.FromString(bl.Data)[0].Value;
+						var game = MiniYamlLoader.FromString(bl.Data)[0].Value;
 						var idNode = game.Nodes.FirstOrDefault(n => n.Key == "Id");
 
 						// Skip beacons created by this instance and replace Id by expected int value

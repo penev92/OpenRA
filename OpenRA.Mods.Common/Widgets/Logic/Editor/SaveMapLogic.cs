@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using OpenRA.FileSystem;
+using OpenRA.MiniYamlParser;
 using OpenRA.Widgets;
 
 namespace OpenRA.Mods.Common.Widgets.Logic

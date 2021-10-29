@@ -15,6 +15,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using OpenRA.FileSystem;
+using OpenRA.MiniYamlParser;
 using OpenRA.Primitives;
 
 namespace OpenRA
@@ -104,7 +105,7 @@ namespace OpenRA
 			Id = modId;
 			Package = package;
 
-			var nodes = MiniYaml.FromStream(package.GetStream("mod.yaml"), "mod.yaml");
+			var nodes = MiniYamlLoader.FromStream(package.GetStream("mod.yaml"), "mod.yaml");
 			for (var i = nodes.Count - 1; i >= 0; i--)
 			{
 				if (nodes[i].Key != "Include")
@@ -117,11 +118,11 @@ namespace OpenRA
 					throw new YamlException($"{nodes[i].Location}: File `{filename}` not found.");
 
 				nodes.RemoveAt(i);
-				nodes.InsertRange(i, MiniYaml.FromStream(contents, filename));
+				nodes.InsertRange(i, MiniYamlLoader.FromStream(contents, filename));
 			}
 
 			// Merge inherited overrides
-			yaml = new MiniYaml(null, MiniYaml.Merge(new[] { nodes })).ToDictionary();
+			yaml = new MiniYaml(null, MiniYamlMerger.Merge(new[] { nodes })).ToDictionary();
 
 			Metadata = FieldLoader.Load<ModMetadata>(yaml["Metadata"]);
 

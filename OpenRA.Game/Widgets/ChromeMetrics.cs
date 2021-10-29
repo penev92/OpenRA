@@ -11,6 +11,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using OpenRA.MiniYamlParser;
 
 namespace OpenRA.Widgets
 {
@@ -21,8 +22,8 @@ namespace OpenRA.Widgets
 		public static void Initialize(ModData modData)
 		{
 			data = new Dictionary<string, string>();
-			var metrics = MiniYaml.Merge(modData.Manifest.ChromeMetrics.Select(
-				y => MiniYaml.FromStream(modData.DefaultFileSystem.Open(y), y)));
+			var metrics = MiniYamlMerger.Merge(modData.Manifest.ChromeMetrics.Select(
+				y => MiniYamlLoader.FromStream(modData.DefaultFileSystem.Open(y), y)));
 			foreach (var m in metrics)
 				foreach (var n in m.Value.Nodes)
 					data[n.Key] = n.Value.Value;

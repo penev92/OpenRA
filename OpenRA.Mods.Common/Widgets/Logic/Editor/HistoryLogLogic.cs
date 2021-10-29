@@ -11,6 +11,7 @@
 
 using System.Collections.Generic;
 using OpenRA.Graphics;
+using OpenRA.MiniYamlParser;
 using OpenRA.Mods.Common.Traits;
 using OpenRA.Widgets;
 

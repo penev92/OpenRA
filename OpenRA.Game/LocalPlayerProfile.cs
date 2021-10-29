@@ -15,6 +15,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using OpenRA.MiniYamlParser;
 using OpenRA.Support;
 
 namespace OpenRA
@@ -85,7 +86,7 @@ namespace OpenRA
 					var httpResponseMessage = await client.GetAsync(playerDatabase.Profile + Fingerprint);
 					var result = await httpResponseMessage.Content.ReadAsStringAsync();
 
-					var yaml = MiniYaml.FromString(result).First();
+					var yaml = MiniYamlLoader.FromString(result).First();
 					if (yaml.Key == "Player")
 					{
 						innerData = FieldLoader.Load<PlayerProfile>(yaml.Value);

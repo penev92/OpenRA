@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using OpenRA.FileFormats;
 using OpenRA.Graphics;
+using OpenRA.MiniYamlParser;
 using OpenRA.Primitives;
 using OpenRA.Support;
 

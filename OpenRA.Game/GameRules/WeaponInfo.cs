@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using OpenRA.Effects;
+using OpenRA.MiniYamlParser;
 using OpenRA.Primitives;
 using OpenRA.Traits;
 
@@ -131,7 +132,7 @@ namespace OpenRA.GameRules
 		{
 			// Resolve any weapon-level yaml inheritance or removals
 			// HACK: The "Defaults" sequence syntax prevents us from doing this generally during yaml parsing
-			content.Nodes = MiniYaml.Merge(new[] { content.Nodes });
+			content.Nodes = MiniYamlMerger.Merge(new[] { content.Nodes });
 			FieldLoader.Load(this, content);
 		}
 

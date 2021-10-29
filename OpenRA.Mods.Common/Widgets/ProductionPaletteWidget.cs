@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using OpenRA.Graphics;
+using OpenRA.MiniYamlParser;
 using OpenRA.Mods.Common.Lint;
 using OpenRA.Mods.Common.Orders;
 using OpenRA.Mods.Common.Traits;

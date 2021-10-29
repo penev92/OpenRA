@@ -12,6 +12,7 @@
 using System;
 using System.Collections.Generic;
 using OpenRA.FileSystem;
+using OpenRA.MiniYamlParser;
 
 namespace OpenRA.Mods.Common.UtilityCommands
 {
@@ -34,7 +35,7 @@ namespace OpenRA.Mods.Common.UtilityCommands
 				{
 					include |= map.Package.Contains(f);
 					if (include)
-						nodes.AddRange(MiniYaml.FromStream(map.Open(f), f, false));
+						nodes.AddRange(MiniYamlLoader.FromStream(map.Open(f), f, false));
 					else
 						includes.Add(f);
 				}

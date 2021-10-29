@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using OpenRA.FileSystem;
+using OpenRA.MiniYamlParser;
 using OpenRA.Mods.Common.UpdateRules;
 using OpenRA.Server;
 
@@ -24,7 +25,7 @@ namespace OpenRA.Mods.Common.Lint
 		{
 			var nodes = new List<MiniYamlNode>();
 			foreach (var f in modData.Manifest.Rules)
-				nodes.AddRange(MiniYaml.FromStream(modData.DefaultFileSystem.Open(f), f));
+				nodes.AddRange(MiniYamlLoader.FromStream(modData.DefaultFileSystem.Open(f), f));
 
 			Run(emitError, nodes);
 		}
@@ -53,7 +54,7 @@ namespace OpenRA.Mods.Common.Lint
 
 			var nodes = new List<MiniYamlNode>();
 			foreach (var f in files)
-				nodes.AddRange(MiniYaml.FromStream(fileSystem.Open(f), f));
+				nodes.AddRange(MiniYamlLoader.FromStream(fileSystem.Open(f), f));
 
 			nodes.AddRange(ruleDefinitions.Nodes);
 			Run(emitError, nodes);

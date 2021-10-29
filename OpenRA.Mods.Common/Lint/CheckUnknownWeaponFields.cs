@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using OpenRA.FileSystem;
 using OpenRA.GameRules;
+using OpenRA.MiniYamlParser;
 using OpenRA.Server;
 
 namespace OpenRA.Mods.Common.Lint
@@ -23,7 +24,7 @@ namespace OpenRA.Mods.Common.Lint
 		void ILintPass.Run(Action<string> emitError, Action<string> emitWarning, ModData modData)
 		{
 			foreach (var f in modData.Manifest.Weapons)
-				CheckWeapons(MiniYaml.FromStream(modData.DefaultFileSystem.Open(f), f), emitError, emitWarning, modData);
+				CheckWeapons(MiniYamlLoader.FromStream(modData.DefaultFileSystem.Open(f), f), emitError, emitWarning, modData);
 		}
 
 		void ILintMapPass.Run(Action<string> emitError, Action<string> emitWarning, ModData modData, Map map)
@@ -106,7 +107,7 @@ namespace OpenRA.Mods.Common.Lint
 
 			var mapFiles = FieldLoader.GetValue<string[]>("value", weaponDefinitions.Value);
 			foreach (var f in mapFiles)
-				CheckWeapons(MiniYaml.FromStream(fileSystem.Open(f), f), emitError, emitWarning, modData);
+				CheckWeapons(MiniYamlLoader.FromStream(fileSystem.Open(f), f), emitError, emitWarning, modData);
 
 			if (weaponDefinitions.Nodes.Any())
 				CheckWeapons(weaponDefinitions.Nodes, emitError, emitWarning, modData);

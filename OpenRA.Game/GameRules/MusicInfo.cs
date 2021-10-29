@@ -10,6 +10,7 @@
 #endregion
 
 using OpenRA.FileSystem;
+using OpenRA.MiniYamlParser;
 
 namespace OpenRA.GameRules
 {

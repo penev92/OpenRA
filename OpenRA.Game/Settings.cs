@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using OpenRA.MiniYamlParser;
 using OpenRA.Primitives;
 using OpenRA.Traits;
 
@@ -317,7 +318,7 @@ namespace OpenRA
 
 				if (File.Exists(settingsFile))
 				{
-					yamlCache = MiniYaml.FromFile(settingsFile, false);
+					yamlCache = MiniYamlLoader.FromFile(settingsFile, false);
 					foreach (var yamlSection in yamlCache)
 					{
 						if (yamlSection.Key != null && Sections.TryGetValue(yamlSection.Key, out var settingsSection))

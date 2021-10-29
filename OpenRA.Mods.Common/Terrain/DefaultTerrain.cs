@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using OpenRA.FileSystem;
+using OpenRA.MiniYamlParser;
 using OpenRA.Primitives;
 using OpenRA.Support;
 
@@ -87,7 +88,7 @@ namespace OpenRA.Mods.Common.Terrain
 
 		public DefaultTerrain(IReadOnlyFileSystem fileSystem, string filepath)
 		{
-			var yaml = MiniYaml.FromStream(fileSystem.Open(filepath), filepath)
+			var yaml = MiniYamlLoader.FromStream(fileSystem.Open(filepath), filepath)
 				.ToDictionary(x => x.Key, x => x.Value);
 
 			// General info

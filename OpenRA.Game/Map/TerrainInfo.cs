@@ -11,6 +11,7 @@
 
 using System.Collections.Generic;
 using OpenRA.FileSystem;
+using OpenRA.MiniYamlParser;
 using OpenRA.Primitives;
 using OpenRA.Support;
 using OpenRA.Traits;

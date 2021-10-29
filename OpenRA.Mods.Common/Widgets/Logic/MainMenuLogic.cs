@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using OpenRA.MiniYamlParser;
 using OpenRA.Network;
 using OpenRA.Support;
 using OpenRA.Widgets;
@@ -370,7 +371,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 
 			try
 			{
-				return MiniYaml.FromFile(path).Select(node =>
+				return MiniYamlLoader.FromFile(path).Select(node =>
 				{
 					var nodesDict = node.Value.ToDictionary();
 					return new NewsItem

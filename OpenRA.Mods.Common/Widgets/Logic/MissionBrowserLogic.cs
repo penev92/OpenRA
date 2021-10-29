@@ -15,6 +15,7 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using OpenRA.Graphics;
+using OpenRA.MiniYamlParser;
 using OpenRA.Mods.Common.Traits;
 using OpenRA.Network;
 using OpenRA.Widgets;
@@ -99,8 +100,8 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			// Add a group for each campaign
 			if (modData.Manifest.Missions.Any())
 			{
-				var yaml = MiniYaml.Merge(modData.Manifest.Missions.Select(
-					m => MiniYaml.FromStream(modData.DefaultFileSystem.Open(m), m)));
+				var yaml = MiniYamlMerger.Merge(modData.Manifest.Missions.Select(
+					m => MiniYamlLoader.FromStream(modData.DefaultFileSystem.Open(m), m)));
 
 				foreach (var kv in yaml)
 				{

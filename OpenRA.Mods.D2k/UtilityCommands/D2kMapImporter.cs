@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using OpenRA.MiniYamlParser;
 using OpenRA.Mods.Common.Terrain;
 using OpenRA.Primitives;
 

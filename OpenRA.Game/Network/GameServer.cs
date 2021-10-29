@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using OpenRA.MiniYamlParser;
 using OpenRA.Primitives;
 
 namespace OpenRA.Network

@@ -10,6 +10,7 @@
 #endregion
 
 using System.Linq;
+using OpenRA.MiniYamlParser;
 using OpenRA.Mods.Common.Effects;
 using OpenRA.Traits;
 

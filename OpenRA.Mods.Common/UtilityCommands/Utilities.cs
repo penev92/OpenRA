@@ -13,6 +13,7 @@ using System;
 using System.IO;
 using System.Linq;
 using OpenRA.FileSystem;
+using OpenRA.MiniYamlParser;
 
 namespace OpenRA.Mods.Common.UtilityCommands
 {
@@ -47,7 +48,7 @@ namespace OpenRA.Mods.Common.UtilityCommands
 				: mapPropertySelector.Invoke(map);
 
 			var fs = map ?? modData.DefaultFileSystem;
-			var topLevelNodes = MiniYaml.FromPackage(fs, manifestNodes, mapProperty);
+			var topLevelNodes = CustomMiniYamlLoader.FromPackage(fs, manifestNodes, mapProperty);
 			return topLevelNodes.FirstOrDefault(n => n.Key == key);
 		}
 	}

@@ -13,6 +13,7 @@ using System;
 using System.IO;
 using System.Linq;
 using OpenRA.FileSystem;
+using OpenRA.MiniYamlParser;
 using OpenRA.Widgets;
 using FS = OpenRA.FileSystem.FileSystem;
 
@@ -68,7 +69,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 				var modFileSystem = new FS(mod.Id, Game.Mods, modPackageLoaders);
 				modFileSystem.LoadFromManifest(mod);
 
-				var downloadYaml = MiniYaml.FromPackage(modFileSystem, content.Downloads, null);
+				var downloadYaml = CustomMiniYamlLoader.FromPackage(modFileSystem, content.Downloads, null);
 				modFileSystem.UnmountAll();
 
 				var download = downloadYaml.FirstOrDefault(n => n.Key == content.QuickDownload);

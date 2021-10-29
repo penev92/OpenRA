@@ -18,6 +18,7 @@ using System.Text;
 using OpenRA.FileFormats;
 using OpenRA.FileSystem;
 using OpenRA.Graphics;
+using OpenRA.MiniYamlParser;
 using OpenRA.Primitives;
 using OpenRA.Support;
 using OpenRA.Traits;
@@ -329,7 +330,7 @@ namespace OpenRA
 			if (!Package.Contains("map.yaml") || !Package.Contains("map.bin"))
 				throw new InvalidDataException($"Not a valid map\n File: {package.Name}");
 
-			var yaml = new MiniYaml(null, MiniYaml.FromStream(Package.GetStream("map.yaml"), package.Name));
+			var yaml = new MiniYaml(null, MiniYamlLoader.FromStream(Package.GetStream("map.yaml"), package.Name));
 			foreach (var field in YamlFields)
 				field.Deserialize(this, yaml.Nodes);
 

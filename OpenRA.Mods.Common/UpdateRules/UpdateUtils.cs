@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using OpenRA.FileSystem;
+using OpenRA.MiniYamlParser;
 
 namespace OpenRA.Mods.Common.UpdateRules
 {
@@ -35,7 +36,7 @@ namespace OpenRA.Mods.Common.UpdateRules
 					continue;
 				}
 
-				yaml.Add(((IReadWritePackage)package, name, MiniYaml.FromStream(package.GetStream(name), name, false)));
+				yaml.Add(((IReadWritePackage)package, name, MiniYamlLoader.FromStream(package.GetStream(name), name, false)));
 			}
 
 			return yaml;
@@ -68,7 +69,7 @@ namespace OpenRA.Mods.Common.UpdateRules
 			{
 				// Ignore any files that aren't in the map bundle
 				if (!filename.Contains("|") && mapPackage.Contains(filename))
-					fileSet.Add((mapPackage, filename, MiniYaml.FromStream(mapPackage.GetStream(filename), filename, false)));
+					fileSet.Add((mapPackage, filename, MiniYamlLoader.FromStream(mapPackage.GetStream(filename), filename, false)));
 				else if (modData.ModFiles.Exists(filename))
 					externalFilenames.Add(filename);
 			}
@@ -94,7 +95,7 @@ namespace OpenRA.Mods.Common.UpdateRules
 					return manualSteps;
 				}
 
-				var yaml = new MiniYaml(null, MiniYaml.FromStream(mapStream, mapPackage.Name, false));
+				var yaml = new MiniYaml(null, MiniYamlLoader.FromStream(mapStream, mapPackage.Name, false));
 				files = new YamlFileSet() { (mapPackage, "map.yaml", yaml.Nodes) };
 
 				manualSteps.AddRange(rule.BeforeUpdate(modData));
@@ -174,7 +175,7 @@ namespace OpenRA.Mods.Common.UpdateRules
 					if (mapStream == null)
 						continue;
 
-					var yaml = new MiniYaml(null, MiniYaml.FromStream(mapStream, package.Name, false));
+					var yaml = new MiniYaml(null, MiniYamlLoader.FromStream(mapStream, package.Name, false));
 					var mapRulesNode = yaml.Nodes.FirstOrDefault(n => n.Key == "Rules");
 					if (mapRulesNode != null)
 						foreach (var f in LoadExternalMapYaml(modData, mapRulesNode.Value, externalFilenames))

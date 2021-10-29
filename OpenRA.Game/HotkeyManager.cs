@@ -12,6 +12,7 @@
 using System;
 using System.Collections.Generic;
 using OpenRA.FileSystem;
+using OpenRA.MiniYamlParser;
 
 namespace OpenRA
 {
@@ -25,7 +26,7 @@ namespace OpenRA
 		{
 			this.settings = settings;
 
-			var keyDefinitions = MiniYaml.FromPackage(fileSystem, manifest.Hotkeys, null);
+			var keyDefinitions = CustomMiniYamlLoader.FromPackage(fileSystem, manifest.Hotkeys, null);
 			foreach (var kd in keyDefinitions)
 			{
 				var definition = new HotkeyDefinition(kd.Key, kd.Value);

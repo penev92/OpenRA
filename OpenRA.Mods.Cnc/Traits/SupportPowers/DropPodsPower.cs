@@ -11,6 +11,7 @@
 
 using System.Linq;
 using OpenRA.GameRules;
+using OpenRA.MiniYamlParser;
 using OpenRA.Mods.Cnc.Effects;
 using OpenRA.Mods.Common;
 using OpenRA.Mods.Common.Activities;

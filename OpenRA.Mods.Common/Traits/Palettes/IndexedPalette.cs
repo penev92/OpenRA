@@ -12,6 +12,7 @@
 using System.Collections.Generic;
 using System.IO;
 using OpenRA.Graphics;
+using OpenRA.MiniYamlParser;
 using OpenRA.Primitives;
 using OpenRA.Traits;
 

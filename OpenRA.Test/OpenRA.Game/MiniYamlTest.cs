@@ -12,6 +12,7 @@
 using System;
 using System.Linq;
 using NUnit.Framework;
+using OpenRA.MiniYamlParser;
 
 namespace OpenRA.Test
 {
@@ -47,9 +48,9 @@ Root2:
 		[TestCase(TestName = "Mixed tabs & spaces indents")]
 		public void TestIndents()
 		{
-			var tabs = MiniYaml.FromString(yamlTabStyle, "yamlTabStyle").WriteToString();
+			var tabs = MiniYamlLoader.FromString(yamlTabStyle, "yamlTabStyle").WriteToString();
 			Console.WriteLine(tabs);
-			var mixed = MiniYaml.FromString(yamlMixedStyle, "yamlMixedStyle").WriteToString();
+			var mixed = MiniYamlLoader.FromString(yamlMixedStyle, "yamlMixedStyle").WriteToString();
 			Console.WriteLine(mixed);
 			Assert.That(tabs, Is.EqualTo(mixed));
 		}
@@ -75,7 +76,7 @@ Test:
 Test:
 	Inherits@c: ^BaseC
 ";
-			var result = MiniYaml.Merge(new[] { baseYaml, extendedYaml, mapYaml }.Select(s => MiniYaml.FromString(s, "")))
+			var result = MiniYamlMerger.Merge(new[] { baseYaml, extendedYaml, mapYaml }.Select(s => MiniYamlLoader.FromString(s, "")))
 				.First(n => n.Key == "Test").Value.Nodes;
 
 			Assert.IsFalse(result.Any(n => n.Key == "MockA2"), "Node should not have the MockA2 child, but does.");
@@ -98,7 +99,7 @@ Test:
 	-MockA2
 ";
 
-			var result = MiniYaml.Merge(new[] { baseYaml, overrideYaml }.Select(s => MiniYaml.FromString(s, "")))
+			var result = MiniYamlMerger.Merge(new[] { baseYaml, overrideYaml }.Select(s => MiniYamlLoader.FromString(s, "")))
 				.First(n => n.Key == "Test").Value.Nodes;
 
 			Assert.IsFalse(result.Any(n => n.Key == "MockA2"), "Node should not have the MockA2 child, but does.");
@@ -121,7 +122,7 @@ Test:
         AString: Override
 ";
 
-			var result = MiniYaml.Merge(new[] { baseYaml, overrideYaml }.Select(s => MiniYaml.FromString(s, "")))
+			var result = MiniYamlMerger.Merge(new[] { baseYaml, overrideYaml }.Select(s => MiniYamlLoader.FromString(s, "")))
 				.First(n => n.Key == "Test").Value.Nodes;
 
 			Assert.IsTrue(result.Any(n => n.Key == "MockString"), "Node should have the MockString child, but does not.");
@@ -148,7 +149,7 @@ Test:
     	-AString:
 ";
 
-			var result = MiniYaml.Merge(new[] { baseYaml, overrideYaml }.Select(s => MiniYaml.FromString(s, "")))
+			var result = MiniYamlMerger.Merge(new[] { baseYaml, overrideYaml }.Select(s => MiniYamlLoader.FromString(s, "")))
 				.First(n => n.Key == "Test").Value.Nodes;
 			Assert.IsTrue(result.Any(n => n.Key == "MockString"), "Node should have the MockString child, but does not.");
 			Assert.IsFalse(result.First(n => n.Key == "MockString").Value.Nodes.Any(n => n.Key == "AString"),
@@ -166,7 +167,7 @@ TestB:
 	Nothing:
 ";
 
-			var result = MiniYaml.FromString(yaml).First(n => n.Key == "TestB");
+			var result = MiniYamlLoader.FromString(yaml).First(n => n.Key == "TestB");
 			Assert.AreEqual(5, result.Location.Line);
 		}
 
@@ -184,7 +185,7 @@ Test:
 	Override:
 ";
 
-			var result = MiniYaml.Merge(new[] { baseYaml }.Select(s => MiniYaml.FromString(s, "")));
+			var result = MiniYamlMerger.Merge(new[] { baseYaml }.Select(s => MiniYamlLoader.FromString(s, "")));
 			Assert.That(result.Count(n => n.Key == "Test"), Is.EqualTo(1), "Result should have exactly one Test node.");
 
 			var testNodes = result.First(n => n.Key == "Test").Value.Nodes;
@@ -199,23 +200,23 @@ Test:
 		public void TestEscapedHashInValues()
 		{
 			var trailingWhitespace = @"key: value # comment";
-			Assert.AreEqual("value", MiniYaml.FromString(trailingWhitespace, "trailingWhitespace")[0].Value.Value);
+			Assert.AreEqual("value", MiniYamlLoader.FromString(trailingWhitespace, "trailingWhitespace")[0].Value.Value);
 
 			var noWhitespace = @"key:value# comment";
-			Assert.AreEqual("value", MiniYaml.FromString(noWhitespace, "noWhitespace")[0].Value.Value);
+			Assert.AreEqual("value", MiniYamlLoader.FromString(noWhitespace, "noWhitespace")[0].Value.Value);
 
 			var escapedHashInValue = @"key: before \# after # comment";
-			Assert.AreEqual("before # after", MiniYaml.FromString(escapedHashInValue, "escapedHashInValue")[0].Value.Value);
+			Assert.AreEqual("before # after", MiniYamlLoader.FromString(escapedHashInValue, "escapedHashInValue")[0].Value.Value);
 
 			var emptyValue = @"key:# comment";
-			Assert.AreEqual(null, MiniYaml.FromString(emptyValue, "emptyValue")[0].Value.Value);
+			Assert.AreEqual(null, MiniYamlLoader.FromString(emptyValue, "emptyValue")[0].Value.Value);
 		}
 
 		[TestCase(TestName = "Leading and trailing whitespace can be guarded using a backslash")]
 		public void TestGuardedWhitespace()
 		{
 			var testYaml = @"key:   \      test value    \   ";
-			var nodes = MiniYaml.FromString(testYaml, "testYaml");
+			var nodes = MiniYamlLoader.FromString(testYaml, "testYaml");
 			Assert.AreEqual("      test value    ", nodes[0].Value.Value);
 		}
 
@@ -230,12 +231,12 @@ TestA:
 TestB:
 	Nothing:
 ";
-			var resultDiscard = MiniYaml.FromString(yaml);
+			var resultDiscard = MiniYamlLoader.FromString(yaml);
 			var resultDiscardLine = resultDiscard.First(n => n.Key == "TestB").Location.Line;
 			Assert.That(resultDiscardLine, Is.EqualTo(6), "Node TestB should report its location as line 6, but is not (discarding comments)");
 			Assert.That(resultDiscard[1].Key, Is.EqualTo("TestB"), "Node TestB should be the second child of the root node, but is not (discarding comments)");
 
-			var resultKeep = MiniYaml.FromString(yaml, discardCommentsAndWhitespace: false);
+			var resultKeep = MiniYamlLoader.FromString(yaml, discardCommentsAndWhitespace: false);
 			var resultKeepLine = resultKeep.First(n => n.Key == "TestB").Location.Line;
 			Assert.That(resultKeepLine, Is.EqualTo(6), "Node TestB should report its location as line 6, but is not (parsing comments)");
 			Assert.That(resultKeep[4].Key, Is.EqualTo("TestB"), "Node TestB should be the fifth child of the root node, but is not (parsing comments)");
@@ -255,7 +256,7 @@ Parent: # comment without value
 	Fourth: #
 ".Replace("\r\n", "\n");
 
-			var result = MiniYaml.FromString(yaml, discardCommentsAndWhitespace: false).WriteToString();
+			var result = MiniYamlLoader.FromString(yaml, discardCommentsAndWhitespace: false).WriteToString();
 			Assert.AreEqual(yaml, result);
 		}
 
@@ -275,7 +276,7 @@ Parent: # comment without value
 	Second: value
 ".Replace("\r\n", "\n");
 
-			var result = MiniYaml.FromString(yaml).WriteToString();
+			var result = MiniYamlLoader.FromString(yaml).WriteToString();
 			Assert.AreEqual(strippedYaml, result);
 		}
 	}

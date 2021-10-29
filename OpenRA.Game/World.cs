@@ -15,6 +15,7 @@ using System.Linq;
 using OpenRA.Effects;
 using OpenRA.FileFormats;
 using OpenRA.Graphics;
+using OpenRA.MiniYamlParser;
 using OpenRA.Network;
 using OpenRA.Orders;
 using OpenRA.Primitives;

@@ -13,6 +13,7 @@ using System;
 using System.Linq;
 using System.Threading.Tasks;
 using OpenRA.Graphics;
+using OpenRA.MiniYamlParser;
 using OpenRA.Network;
 using OpenRA.Support;
 using OpenRA.Widgets;
@@ -166,7 +167,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 					var httpResponseMessage = await httpClient.GetAsync(playerDatabase.Profile + client.Fingerprint);
 					var result = await httpResponseMessage.Content.ReadAsStringAsync();
 
-					var yaml = MiniYaml.FromString(result).First();
+					var yaml = MiniYamlLoader.FromString(result).First();
 					if (yaml.Key == "Player")
 					{
 						profile = FieldLoader.Load<PlayerProfile>(yaml.Value);

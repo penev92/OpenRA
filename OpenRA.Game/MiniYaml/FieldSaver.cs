@@ -15,6 +15,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using OpenRA.MiniYamlParser;
 using OpenRA.Primitives;
 
 namespace OpenRA

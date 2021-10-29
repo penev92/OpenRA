@@ -18,6 +18,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using OpenRA.FileSystem;
 using OpenRA.Graphics;
+using OpenRA.MiniYamlParser;
 using OpenRA.Primitives;
 using OpenRA.Support;
 
@@ -185,7 +186,7 @@ namespace OpenRA
 						var httpResponseMessage = await client.GetAsync(url);
 						var result = await httpResponseMessage.Content.ReadAsStringAsync();
 
-						var yaml = MiniYaml.FromString(result);
+						var yaml = MiniYamlLoader.FromString(result);
 						foreach (var kv in yaml)
 							previews[kv.Key].UpdateRemoteSearch(MapStatus.DownloadAvailable, kv.Value, mapDetailsReceived);
 

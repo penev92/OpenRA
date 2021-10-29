@@ -12,6 +12,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using OpenRA.MiniYamlParser;
 using OpenRA.Server;
 using OpenRA.Traits;
 
@@ -32,7 +33,7 @@ namespace OpenRA.Mods.Common.Lint
 		void Run(Action<string> emitError, ModData modData, Ruleset rules)
 		{
 			var fileSystem = modData.DefaultFileSystem;
-			var sequenceYaml = MiniYaml.Merge(modData.Manifest.Cursors.Select(s => MiniYaml.FromStream(fileSystem.Open(s), s)));
+			var sequenceYaml = MiniYamlMerger.Merge(modData.Manifest.Cursors.Select(s => MiniYamlLoader.FromStream(fileSystem.Open(s), s)));
 			var nodesDict = new MiniYaml(null, sequenceYaml).ToDictionary();
 
 			// Avoid using CursorProvider as it attempts to load palettes from the file system.

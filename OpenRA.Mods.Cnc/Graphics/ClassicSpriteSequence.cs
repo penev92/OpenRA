@@ -11,6 +11,7 @@
 
 using System;
 using OpenRA.Graphics;
+using OpenRA.MiniYamlParser;
 using OpenRA.Mods.Common.Graphics;
 
 namespace OpenRA.Mods.Cnc.Graphics

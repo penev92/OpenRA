@@ -13,4 +13,9 @@
     <PackageReference Include="Pfim" Version="0.9.1" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
   </ItemGroup>
+  <ItemGroup>
+    <Reference Include="OpenRA.MiniYamlParser">
+      <HintPath>..\..\OpenRA.MiniYamlParser\OpenRA.MiniYamlParser\bin\Debug\netstandard2.1\OpenRA.MiniYamlParser.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 </Project>

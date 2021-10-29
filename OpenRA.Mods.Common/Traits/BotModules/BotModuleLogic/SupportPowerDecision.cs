@@ -10,6 +10,7 @@
 #endregion
 
 using System.Collections.Generic;
+using OpenRA.MiniYamlParser;
 using OpenRA.Primitives;
 using OpenRA.Traits;
 

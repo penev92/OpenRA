@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Sockets;
+using OpenRA.MiniYamlParser;
 using OpenRA.Primitives;
 
 namespace OpenRA.Network
@@ -47,7 +48,7 @@ namespace OpenRA.Network
 			{
 				var session = new Session();
 
-				var nodes = MiniYaml.FromString(data);
+				var nodes = MiniYamlLoader.FromString(data);
 				foreach (var node in nodes)
 				{
 					var strings = node.Key.Split('@');

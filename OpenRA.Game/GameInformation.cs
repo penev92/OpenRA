@@ -12,6 +12,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using OpenRA.MiniYamlParser;
 using OpenRA.Network;
 using OpenRA.Primitives;
 
@@ -55,7 +56,7 @@ namespace OpenRA
 			{
 				var info = new GameInformation();
 
-				var nodes = MiniYaml.FromString(data);
+				var nodes = MiniYamlLoader.FromString(data);
 				foreach (var node in nodes)
 				{
 					var keyParts = node.Key.Split('@');

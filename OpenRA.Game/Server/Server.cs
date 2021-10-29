@@ -22,6 +22,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using OpenRA.FileFormats;
+using OpenRA.MiniYamlParser;
 using OpenRA.Network;
 using OpenRA.Primitives;
 using OpenRA.Support;
@@ -533,7 +534,7 @@ namespace OpenRA.Server
 
 						try
 						{
-							var yaml = MiniYaml.FromString(result).First();
+							var yaml = MiniYamlLoader.FromString(result).First();
 							if (yaml.Key == "Player")
 							{
 								profile = FieldLoader.Load<PlayerProfile>(yaml.Value);
@@ -915,7 +916,7 @@ namespace OpenRA.Server
 						{
 							if (GameSave != null)
 							{
-								var data = MiniYaml.FromString(o.TargetString)[0];
+								var data = MiniYamlLoader.FromString(o.TargetString)[0];
 								GameSave.AddTraitData(int.Parse(data.Key), data.Value);
 							}
 

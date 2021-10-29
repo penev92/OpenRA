@@ -11,6 +11,7 @@
 
 using System.Linq;
 using NUnit.Framework;
+using OpenRA.MiniYamlParser;
 using OpenRA.Traits;
 
 namespace OpenRA.Test

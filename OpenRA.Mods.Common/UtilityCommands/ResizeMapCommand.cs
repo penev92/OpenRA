@@ -12,6 +12,7 @@
 using System;
 using System.Collections.Generic;
 using OpenRA.FileSystem;
+using OpenRA.MiniYamlParser;
 
 namespace OpenRA.Mods.Common.UtilityCommands
 {

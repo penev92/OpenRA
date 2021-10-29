@@ -12,6 +12,7 @@
 using System;
 using System.Collections.Generic;
 using OpenRA.FileSystem;
+using OpenRA.MiniYamlParser;
 using OpenRA.Primitives;
 
 namespace OpenRA.Graphics
@@ -105,7 +106,7 @@ namespace OpenRA.Graphics
 
 		Sequences Load(IReadOnlyFileSystem fileSystem, MiniYaml additionalSequences)
 		{
-			var nodes = MiniYaml.FromPackage(fileSystem, modData.Manifest.Sequences, additionalSequences);
+			var nodes = CustomMiniYamlLoader.FromPackage(fileSystem, modData.Manifest.Sequences, additionalSequences);
 			var items = new Dictionary<string, UnitSequences>();
 			foreach (var node in nodes)
 			{

@@ -9,6 +9,7 @@
  */
 #endregion
 
+using OpenRA.MiniYamlParser;
 using OpenRA.Traits;
 
 namespace OpenRA.Mods.Common.Traits

@@ -10,6 +10,7 @@
 #endregion
 
 using System.Linq;
+using OpenRA.MiniYamlParser;
 
 namespace OpenRA.Graphics
 {

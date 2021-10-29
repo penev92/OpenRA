@@ -11,6 +11,7 @@
 
 using System.Linq;
 using Eluant;
+using OpenRA.MiniYamlParser;
 using OpenRA.Mods.Common.Traits;
 using OpenRA.Scripting;
 

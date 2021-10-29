@@ -12,6 +12,7 @@
 using System;
 using DiscordRPC;
 using DiscordRPC.Message;
+using OpenRA.MiniYamlParser;
 using OpenRA.Network;
 
 namespace OpenRA.Mods.Common

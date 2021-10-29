@@ -11,6 +11,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using OpenRA.MiniYamlParser;
 
 namespace OpenRA.Network
 {
@@ -23,7 +24,7 @@ namespace OpenRA.Network
 		public static HandshakeRequest Deserialize(string data)
 		{
 			var handshake = new HandshakeRequest();
-			FieldLoader.Load(handshake, MiniYaml.FromString(data).First().Value);
+			FieldLoader.Load(handshake, MiniYamlLoader.FromString(data).First().Value);
 			return handshake;
 		}
 
@@ -57,7 +58,7 @@ namespace OpenRA.Network
 			var handshake = new HandshakeResponse();
 			handshake.Client = new Session.Client();
 
-			var ys = MiniYaml.FromString(data);
+			var ys = MiniYamlLoader.FromString(data);
 			foreach (var y in ys)
 			{
 				switch (y.Key)

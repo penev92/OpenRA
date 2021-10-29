@@ -17,6 +17,7 @@ using OpenRA.Activities;
 using OpenRA.FileSystem;
 using OpenRA.GameRules;
 using OpenRA.Graphics;
+using OpenRA.MiniYamlParser;
 using OpenRA.Network;
 using OpenRA.Primitives;
 using OpenRA.Support;

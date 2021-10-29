@@ -12,6 +12,7 @@
 using System.IO;
 using System.Linq;
 using OpenRA.FileFormats;
+using OpenRA.MiniYamlParser;
 
 namespace OpenRA.Mods.Common.UtilityCommands
 {

@@ -12,6 +12,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using OpenRA.MiniYamlParser;
 using OpenRA.Traits;
 
 namespace OpenRA.Graphics
@@ -24,8 +25,8 @@ namespace OpenRA.Graphics
 		public CursorProvider(ModData modData)
 		{
 			var fileSystem = modData.DefaultFileSystem;
-			var sequenceYaml = MiniYaml.Merge(modData.Manifest.Cursors.Select(
-				s => MiniYaml.FromStream(fileSystem.Open(s), s)));
+			var sequenceYaml = MiniYamlMerger.Merge(modData.Manifest.Cursors.Select(
+				s => MiniYamlLoader.FromStream(fileSystem.Open(s), s)));
 
 			var nodesDict = new MiniYaml(null, sequenceYaml).ToDictionary();
 

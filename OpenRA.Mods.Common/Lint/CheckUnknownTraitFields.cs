@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using OpenRA.FileSystem;
+using OpenRA.MiniYamlParser;
 using OpenRA.Server;
 
 namespace OpenRA.Mods.Common.Lint
@@ -22,7 +23,7 @@ namespace OpenRA.Mods.Common.Lint
 		void ILintPass.Run(Action<string> emitError, Action<string> emitWarning, ModData modData)
 		{
 			foreach (var f in modData.Manifest.Rules)
-				CheckActors(MiniYaml.FromStream(modData.DefaultFileSystem.Open(f), f), emitError, modData);
+				CheckActors(MiniYamlLoader.FromStream(modData.DefaultFileSystem.Open(f), f), emitError, modData);
 		}
 
 		void ILintMapPass.Run(Action<string> emitError, Action<string> emitWarning, ModData modData, Map map)
@@ -89,7 +90,7 @@ namespace OpenRA.Mods.Common.Lint
 
 			var mapFiles = FieldLoader.GetValue<string[]>("value", ruleDefinitions.Value);
 			foreach (var f in mapFiles)
-				CheckActors(MiniYaml.FromStream(fileSystem.Open(f), f), emitError, modData);
+				CheckActors(MiniYamlLoader.FromStream(fileSystem.Open(f), f), emitError, modData);
 
 			if (ruleDefinitions.Nodes.Any())
 				CheckActors(ruleDefinitions.Nodes, emitError, modData);

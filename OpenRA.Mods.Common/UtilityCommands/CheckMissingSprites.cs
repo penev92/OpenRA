@@ -10,6 +10,7 @@
 #endregion
 
 using System;
+using OpenRA.MiniYamlParser;
 using OpenRA.Mods.Common.Graphics;
 using OpenRA.Mods.Common.Terrain;
 using OpenRA.Mods.Common.Traits;

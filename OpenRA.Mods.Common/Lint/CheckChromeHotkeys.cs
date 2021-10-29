@@ -12,6 +12,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using OpenRA.MiniYamlParser;
 using OpenRA.Widgets;
 
 namespace OpenRA.Mods.Common.Lint
@@ -58,7 +59,7 @@ namespace OpenRA.Mods.Common.Lint
 
 			foreach (var filename in modData.Manifest.ChromeLayout)
 			{
-				var yaml = MiniYaml.FromStream(modData.DefaultFileSystem.Open(filename), filename);
+				var yaml = MiniYamlLoader.FromStream(modData.DefaultFileSystem.Open(filename), filename);
 				CheckInner(modData, namedKeys, checkWidgetFields, customLintMethods, yaml, filename, null, emitError, emitWarning);
 			}
 		}

@@ -9,6 +9,8 @@
  */
 #endregion
 
+using OpenRA.MiniYamlParser;
+
 namespace OpenRA.Mods.Common.Traits
 {
 	public class GrantConditionOnJumpjetLayerInfo : GrantConditionOnLayerInfo

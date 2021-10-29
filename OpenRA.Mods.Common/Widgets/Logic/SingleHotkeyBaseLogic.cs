@@ -10,6 +10,7 @@
 #endregion
 
 using System.Collections.Generic;
+using OpenRA.MiniYamlParser;
 using OpenRA.Widgets;
 
 namespace OpenRA.Mods.Common.Widgets.Logic

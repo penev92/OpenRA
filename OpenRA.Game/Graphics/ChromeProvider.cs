@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using OpenRA.FileSystem;
+using OpenRA.MiniYamlParser;
 using OpenRA.Primitives;
 
 namespace OpenRA.Graphics
@@ -77,8 +78,8 @@ namespace OpenRA.Graphics
 			cachedPanelSprites = new Dictionary<string, Sprite[]>();
 			cachedCollectionSheets = new Dictionary<Collection, (Sheet, int)>();
 
-			var chrome = MiniYaml.Merge(modData.Manifest.Chrome
-				.Select(s => MiniYaml.FromStream(fileSystem.Open(s), s)));
+			var chrome = MiniYamlMerger.Merge(modData.Manifest.Chrome
+				.Select(s => MiniYamlLoader.FromStream(fileSystem.Open(s), s)));
 
 			foreach (var c in chrome)
 				if (!c.Key.StartsWith("^", StringComparison.Ordinal))

@@ -11,6 +11,7 @@
 
 using System.Linq;
 using OpenRA.GameRules;
+using OpenRA.MiniYamlParser;
 using OpenRA.Primitives;
 using OpenRA.Traits;
 

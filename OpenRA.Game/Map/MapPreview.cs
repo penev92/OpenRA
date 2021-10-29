@@ -21,6 +21,7 @@ using System.Threading.Tasks;
 using OpenRA.FileFormats;
 using OpenRA.FileSystem;
 using OpenRA.Graphics;
+using OpenRA.MiniYamlParser;
 using OpenRA.Primitives;
 using OpenRA.Support;
 
@@ -135,11 +136,11 @@ namespace OpenRA
 							files = files.Append(mapFiles);
 						}
 
-						var sources = files.Select(s => MiniYaml.FromStream(fileSystem.Open(s), s).Where(IsLoadableRuleDefinition).ToList());
+						var sources = files.Select(s => MiniYamlLoader.FromStream(fileSystem.Open(s), s).Where(IsLoadableRuleDefinition).ToList());
 						if (RuleDefinitions.Nodes.Any())
 							sources = sources.Append(RuleDefinitions.Nodes.Where(IsLoadableRuleDefinition).ToList());
 
-						var yamlNodes = MiniYaml.Merge(sources);
+						var yamlNodes = MiniYamlMerger.Merge(sources);
 						WorldActorInfo = new ActorInfo(modData.ObjectCreator, "world", yamlNodes.First(n => n.Key.ToLowerInvariant() == "world").Value);
 						PlayerActorInfo = new ActorInfo(modData.ObjectCreator, "player", yamlNodes.First(n => n.Key.ToLowerInvariant() == "player").Value);
 						return;
@@ -310,7 +311,7 @@ namespace OpenRA
 				if (yamlStream == null)
 					throw new FileNotFoundException("Required file map.yaml not present in this map");
 
-				yaml = new MiniYaml(null, MiniYaml.FromStream(yamlStream, "map.yaml", stringPool: cache.StringPool)).ToDictionary();
+				yaml = new MiniYaml(null, MiniYamlLoader.FromStream(yamlStream, "map.yaml", stringPool: cache.StringPool)).ToDictionary();
 			}
 
 			Package = p;
@@ -445,10 +446,10 @@ namespace OpenRA
 					}
 
 					var playersString = Encoding.UTF8.GetString(Convert.FromBase64String(r.players_block));
-					newData.Players = new MapPlayers(MiniYaml.FromString(playersString));
+					newData.Players = new MapPlayers(MiniYamlLoader.FromString(playersString));
 
 					var rulesString = Encoding.UTF8.GetString(Convert.FromBase64String(r.rules));
-					var rulesYaml = new MiniYaml("", MiniYaml.FromString(rulesString)).ToDictionary();
+					var rulesYaml = new MiniYaml("", MiniYamlLoader.FromString(rulesString)).ToDictionary();
 					newData.SetCustomRules(modData, this, rulesYaml);
 				}
 				catch (Exception e)

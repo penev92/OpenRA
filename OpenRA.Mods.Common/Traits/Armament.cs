@@ -159,6 +159,11 @@ namespace OpenRA.Mods.Common.Traits
 			Barrels = barrels.ToArray();
 		}
 
+		public virtual WDist MinRange()
+		{
+			return new WDist(Util.ApplyPercentageModifiers(Weapon.MinRange.Length, rangeModifiers.ToArray()));
+		}
+
 		public virtual WDist MaxRange()
 		{
 			return new WDist(Util.ApplyPercentageModifiers(Weapon.Range.Length, rangeModifiers.ToArray()));

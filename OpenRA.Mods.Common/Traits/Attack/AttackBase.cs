@@ -28,12 +28,18 @@ namespace OpenRA.Mods.Common.Traits
 		public readonly string[] Armaments = { "primary", "secondary" };
 
 		[CursorReference]
-		[Desc("Cursor to display when hovering over a valid target.")]
+		[Desc("Cursor to display when hovering over a valid target." +
+		      "If empty it will fall back to the relevant `" + nameof(ArmamentInfo.Cursor) + "`.")]
 		public readonly string Cursor = null;
 
 		[CursorReference]
-		[Desc("Cursor to display when hovering over a valid target that is outside of range.")]
+		[Desc("Cursor to display when hovering over a valid target that is outside of maximum range." +
+		      "If empty it will fall back to the relevant `" + nameof(ArmamentInfo.OutsideRangeCursor) + "`.")]
 		public readonly string OutsideRangeCursor = null;
+
+		[CursorReference]
+		[Desc("Cursor to display when hovering over a valid target that is inside the minimum range.")]
+		public readonly string InsideMinimumRangeCursor = null;
 
 		[Desc("Color to use for the target line.")]
 		public readonly Color TargetLineColor = Color.Crimson;
@@ -182,6 +188,7 @@ namespace OpenRA.Mods.Common.Traits
 				if (armament == null)
 					yield break;
 
+				// TODO: Pass positionable/mobile to allow for mobility checks.
 				yield return new AttackOrderTargeter(this, 6);
 			}
 		}
@@ -399,8 +406,14 @@ namespace OpenRA.Mods.Common.Traits
 
 		public bool IsReachableTarget(in Target target, bool allowMove)
 		{
-			return HasAnyValidWeapons(target)
-				&& (target.IsInRange(self.CenterPosition, GetMaximumRangeVersusTarget(target)) || (allowMove && self.Info.HasTraitInfo<IMoveInfo>()));
+			if (!HasAnyValidWeapons((target)))
+				return false;
+
+			if (target.IsInRange(self.CenterPosition, GetMaximumRangeVersusTarget(target)) &&
+			    !target.IsInRange(self.CenterPosition, GetMinimumRangeVersusTarget(target)))
+				return true;
+
+			return allowMove && self.Info.HasTraitInfo<IMoveInfo>();
 		}
 
 		public PlayerRelationship UnforcedAttackTargetStances()
@@ -459,13 +472,20 @@ namespace OpenRA.Mods.Common.Traits
 				if (a == null)
 					a = armaments.First();
 
-				var outOfRange = !target.IsInRange(self.CenterPosition, a.MaxRange()) ||
+				var insideMinRange = target.IsInRange(self.CenterPosition, a.MinRange());
+				var insideMaxRange = target.IsInRange(self.CenterPosition, a.MaxRange());
+				var outOfRange = insideMinRange || !insideMaxRange ||
 					(!forceAttack && target.Type == TargetType.FrozenActor && !ab.Info.TargetFrozenActors);
 
-				if (outOfRange && ab.Info.OutsideRangeRequiresForceFire && !modifiers.HasModifier(TargetModifiers.ForceAttack))
+				if (outOfRange && ab.Info.OutsideRangeRequiresForceFire && !forceAttack)
 					return false;
 
-				cursor = outOfRange ? ab.Info.OutsideRangeCursor ?? a.Info.OutsideRangeCursor : ab.Info.Cursor ?? a.Info.Cursor;
+				if (insideMinRange)
+					cursor = ab.Info.InsideMinimumRangeCursor;
+				else if (!insideMaxRange)
+					cursor = ab.Info.OutsideRangeCursor ?? a.Info.OutsideRangeCursor;
+				else
+					cursor = ab.Info.Cursor ?? a.Info.Cursor;
 
 				if (!forceAttack)
 					return true;
@@ -497,9 +517,12 @@ namespace OpenRA.Mods.Common.Traits
 				if (a == null)
 					a = armaments.First();
 
-				cursor = !target.IsInRange(self.CenterPosition, a.MaxRange())
-					? ab.Info.OutsideRangeCursor ?? a.Info.OutsideRangeCursor
-					: ab.Info.Cursor ?? a.Info.Cursor;
+				if (target.IsInRange(self.CenterPosition, a.MinRange()))
+					cursor = ab.Info.InsideMinimumRangeCursor;
+				else if (target.IsInRange(self.CenterPosition, a.MaxRange()))
+					cursor = ab.Info.Cursor ?? a.Info.Cursor;
+				else
+					cursor = ab.Info.OutsideRangeCursor ?? a.Info.OutsideRangeCursor;
 
 				OrderID = ab.forceAttackOrderName;
 				return true;

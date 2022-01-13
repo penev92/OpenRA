@@ -141,6 +141,7 @@ FTNK:
 
 airstrike.proxy:
 	AirstrikePower:
-		Squad@override:
+		-Squad:
+		Squad:
 			SquadMember:
 				UnitType: a10

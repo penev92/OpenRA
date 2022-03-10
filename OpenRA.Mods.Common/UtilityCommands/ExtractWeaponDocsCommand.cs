@@ -10,9 +10,12 @@
 #endregion
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Newtonsoft.Json;
 using OpenRA.GameRules;
+using OpenRA.Primitives;
 using OpenRA.Traits;
 
 namespace OpenRA.Mods.Common.UtilityCommands
@@ -36,6 +39,21 @@ namespace OpenRA.Mods.Common.UtilityCommands
 			if (args.Length > 1)
 				version = args[1];
 
+			var objectCreator = utility.ModData.ObjectCreator;
+			var weaponInfo = new[] { typeof(WeaponInfo) };
+			var warheads = objectCreator.GetTypesImplementing<IWarhead>().OrderBy(t => t.Namespace);
+			var projectiles = objectCreator.GetTypesImplementing<IProjectileInfo>().OrderBy(t => t.Namespace);
+
+			var weaponTypes = weaponInfo.Concat(projectiles).Concat(warheads);
+
+			if (args.Length > 2 && args[2].ToLowerInvariant() == "json")
+				GenerateJson(version, weaponTypes, objectCreator);
+			else
+				GenerateMarkdown(version, weaponTypes, objectCreator);
+		}
+
+		static void GenerateMarkdown(string version, IEnumerable<Type> weaponTypes, ObjectCreator objectCreator)
+		{
 			var doc = new StringBuilder();
 
 			doc.AppendLine(
@@ -47,12 +65,6 @@ namespace OpenRA.Mods.Common.UtilityCommands
 
 			var currentNamespace = "";
 
-			var objectCreator = utility.ModData.ObjectCreator;
-			var weaponInfo = new[] { typeof(WeaponInfo) };
-			var warheads = objectCreator.GetTypesImplementing<IWarhead>().OrderBy(t => t.Namespace);
-			var projectiles = objectCreator.GetTypesImplementing<IProjectileInfo>().OrderBy(t => t.Namespace);
-
-			var weaponTypes = weaponInfo.Concat(projectiles).Concat(warheads);
 			foreach (var t in weaponTypes)
 			{
 				// skip helpers like TraitInfo<T>
@@ -94,6 +106,53 @@ namespace OpenRA.Mods.Common.UtilityCommands
 			}
 
 			Console.Write(doc.ToString());
+		}
+
+		static void GenerateJson(string version, IEnumerable<Type> weaponTypes, ObjectCreator objectCreator)
+		{
+			var weaponTypesInfo = weaponTypes.Where(x => !x.ContainsGenericParameters && !x.IsAbstract)
+				.Select(type => new
+				{
+					Namespace = type.Namespace,
+					Name = type.Name.EndsWith("Info") ? type.Name.Substring(0, type.Name.Length - 4) : type.Name,
+					Description = string.Join(" ", type.GetCustomAttributes<DescAttribute>(false).SelectMany(d => d.Lines)),
+					InheritedTypes = type.BaseTypes()
+						.Select(y => y.Name)
+						.Where(y => y != type.Name && y != $"{type.Name}Info" && y != "Object"),
+					Properties = FieldLoader.GetTypeLoadInfo(type)
+						.Where(fi => fi.Field.IsPublic && fi.Field.IsInitOnly && !fi.Field.IsStatic)
+						.Select(fi => new
+						{
+							PropertyName = fi.YamlName,
+							DefaultValue = FieldSaver.SaveField(objectCreator.CreateBasic(type), fi.Field.Name).Value.Value,
+							InternalType = Util.InternalTypeName(fi.Field.FieldType),
+							UserFriendlyType = Util.FriendlyTypeName(fi.Field.FieldType),
+							Description = string.Join(" ", fi.Field.GetCustomAttributes<DescAttribute>(true).SelectMany(d => d.Lines)),
+							OtherAttributes = fi.Field.CustomAttributes
+								.Where(a => a.AttributeType.Name != nameof(DescAttribute) && a.AttributeType.Name != nameof(FieldLoader.LoadUsingAttribute))
+								.Select(a =>
+								{
+									var name = a.AttributeType.Name;
+									name = name.EndsWith("Attribute") ? name.Substring(0, name.Length - 9) : name;
+
+									return new
+									{
+										Name = name,
+										Value = a.ConstructorArguments.Select(b => b.Value)
+									};
+								})
+						})
+				});
+
+			var result = new
+			{
+				Version = version,
+				WeaponTypes = weaponTypesInfo
+			};
+
+			var serializedResult = JsonConvert.SerializeObject(result);
+
+			Console.WriteLine(serializedResult);
 		}
 	}
 }

@@ -12,7 +12,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Newtonsoft.Json;
 using OpenRA.GameRules;
 using OpenRA.Primitives;
@@ -29,7 +28,7 @@ namespace OpenRA.Mods.Common.UtilityCommands
 			return true;
 		}
 
-		[Desc("[VERSION]", "Generate weaponry documentation in MarkDown format.")]
+		[Desc("[VERSION]", "Generate weaponry documentation in JSON format.")]
 		void IUtilityCommand.Run(Utility utility, string[] args)
 		{
 			// HACK: The engine code assumes that Game.modData is set.
@@ -46,69 +45,11 @@ namespace OpenRA.Mods.Common.UtilityCommands
 
 			var weaponTypes = weaponInfo.Concat(projectiles).Concat(warheads);
 
-			if (args.Length > 2 && args[2].ToLowerInvariant() == "json")
-				GenerateJson(version, weaponTypes, objectCreator);
-			else
-				GenerateMarkdown(version, weaponTypes, objectCreator);
+			var json = GenerateJson(version, weaponTypes, objectCreator);
+			Console.WriteLine(json);
 		}
 
-		static void GenerateMarkdown(string version, IEnumerable<Type> weaponTypes, ObjectCreator objectCreator)
-		{
-			var doc = new StringBuilder();
-
-			doc.AppendLine(
-				"This documentation is aimed at modders. It displays a template for weapon definitions " +
-				"as well as its contained types (warheads and projectiles) with default values and developer commentary. " +
-				"Please do not edit it directly, but add new `[Desc(\"String\")]` tags to the source code. This file has been " +
-				$"automatically generated for version {version} of OpenRA.");
-			doc.AppendLine();
-
-			var currentNamespace = "";
-
-			foreach (var t in weaponTypes)
-			{
-				// skip helpers like TraitInfo<T>
-				if (t.ContainsGenericParameters || t.IsAbstract)
-					continue;
-
-				if (currentNamespace != t.Namespace)
-				{
-					currentNamespace = t.Namespace;
-					doc.AppendLine();
-					doc.AppendLine($"## {currentNamespace}");
-				}
-
-				var traitName = t.Name.EndsWith("Info") ? t.Name.Substring(0, t.Name.Length - 4) : t.Name;
-				doc.AppendLine();
-				doc.AppendLine($"### {traitName}");
-
-				var traitDescLines = t.GetCustomAttributes<DescAttribute>(false).SelectMany(d => d.Lines);
-				foreach (var line in traitDescLines)
-					doc.AppendLine(line);
-
-				var infos = FieldLoader.GetTypeLoadInfo(t);
-				if (!infos.Any())
-					continue;
-
-				doc.AppendLine();
-				doc.AppendLine("| Property | Default Value | Type | Description |");
-				doc.AppendLine("| -------- | ------------- | ---- | ----------- |");
-
-				var liveTraitInfo = objectCreator.CreateBasic(t);
-				foreach (var info in infos)
-				{
-					var defaultValue = FieldSaver.SaveField(liveTraitInfo, info.Field.Name).Value.Value;
-					var fieldType = Util.FriendlyTypeName(info.Field.FieldType);
-					var fieldDescLines = info.Field.GetCustomAttributes<DescAttribute>(true).SelectMany(d => d.Lines);
-
-					doc.AppendLine($"| {info.YamlName} | {defaultValue} | {fieldType} | {string.Join(" ", fieldDescLines)} |");
-				}
-			}
-
-			Console.Write(doc.ToString());
-		}
-
-		static void GenerateJson(string version, IEnumerable<Type> weaponTypes, ObjectCreator objectCreator)
+		static string GenerateJson(string version, IEnumerable<Type> weaponTypes, ObjectCreator objectCreator)
 		{
 			var weaponTypesInfo = weaponTypes.Where(x => !x.ContainsGenericParameters && !x.IsAbstract)
 				.Select(type => new
@@ -150,9 +91,7 @@ namespace OpenRA.Mods.Common.UtilityCommands
 				WeaponTypes = weaponTypesInfo
 			};
 
-			var serializedResult = JsonConvert.SerializeObject(result);
-
-			Console.WriteLine(serializedResult);
+			return JsonConvert.SerializeObject(result);
 		}
 	}
 }

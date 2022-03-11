@@ -94,6 +94,7 @@ jobs:
           ./utility.sh all --docs "${GIT_TAG}" | ./packaging/format-docs.py > "docs/api/playtest/traits.md"
           ./utility.sh all --weapon-docs "${GIT_TAG}" | ./packaging/format-docs.py > "docs/api/playtest/weapons.md"
           ./utility.sh all --lua-docs "${GIT_TAG}" > "docs/api/playtest/lua.md"
+          ./utility.sh all --sequence-docs "${GIT_TAG}" > "docs/api/playtest/sequences.json" && python3 ./packaging/generate-docs.py "docs/api/playtest/sequences.json" "docs/api/playtest/sequences.md"
 
       - name: Update docs.openra.net (Release)
         if: startsWith(github.event.inputs.tag, 'release-')
@@ -103,6 +104,7 @@ jobs:
           ./utility.sh all --docs "${GIT_TAG}" | ./packaging/format-docs.py > "docs/api/release/traits.md"
           ./utility.sh all --weapon-docs "${GIT_TAG}" | ./packaging/format-docs.py > "docs/api/release/weapons.md"
           ./utility.sh all --lua-docs "${GIT_TAG}" > "docs/api/release/lua.md"
+          ./utility.sh all --sequence-docs "${GIT_TAG}" > "docs/api/release/sequences.json" && python3 ./packaging/generate-docs.py "docs/api/release/sequences.json" "docs/api/release/sequences.md"
 
       - name: Push docs.openra.net
         env:

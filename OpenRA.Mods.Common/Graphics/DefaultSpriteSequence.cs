@@ -176,10 +176,10 @@ namespace OpenRA.Mods.Common.Graphics
 
 		// These need to be public properties for the documentation generation to work.
 		[Desc("Play the sprite sequence back and forth.")]
-		public static bool Reverses => false;
+		public bool Reverses => false;
 
 		[Desc("Support a frame order where each animation step is split per each direction.")]
-		public static bool Transpose => false;
+		public bool Transpose => false;
 
 		[Desc("Mirror on the X axis.")]
 		public bool FlipX { get; }
@@ -196,25 +196,25 @@ namespace OpenRA.Mods.Common.Graphics
 
 		[Desc("Allows to append multiple sequence definitions which are indented below this node " +
 		      "like when offsets differ per frame or a sequence is spread across individual files.")]
-		public static object Combine => null;
+		public object Combine => null;
 
 		[Desc("Sets transparency - use one value to set for all frames or provide a value for each frame.")]
 		public float[] Alpha { get; }
 
 		[Desc("Plays a fade out effect.")]
-		public static bool AlphaFade => false;
+		public bool AlphaFade => false;
 
 		[Desc("Name of the file containing the depth data sprite.")]
 		public string DepthSprite { get; }
 
 		[Desc("Frame index containing the depth data.")]
-		public static int DepthSpriteFrame => 0;
+		public int DepthSpriteFrame => 0;
 
 		[Desc("")]
-		public static float2 DepthSpriteOffset => float2.Zero;
+		public float2 DepthSpriteOffset => float2.Zero;
 
 		[Desc("Use the palette embedded in the defined sprite. (Note: The name given here is actually irrelevant)")]
-		public static string EmbeddedPalette => null;
+		public string EmbeddedPalette => null;
 
 		public readonly uint[] EmbeddedPaletteData;
 
@@ -240,6 +240,11 @@ namespace OpenRA.Mods.Common.Graphics
 
 			return Rectangle.FromLTRB(left, top, right, bottom);
 		}
+
+		/// <summary>
+		/// This constructor is used solely for documentation generation!
+		/// </summary>
+		public DefaultSpriteSequence() { }
 
 		public DefaultSpriteSequence(ModData modData, string tileSet, SpriteCache cache, ISpriteSequenceLoader loader, string sequence, string animation, MiniYaml info)
 		{

@@ -34,6 +34,11 @@ namespace OpenRA.Mods.Cnc.Graphics
 		      "when it tried to render 45% angles which was used by Westwood Studios at that time.")]
 		public bool UseClassicFacings { get; }
 
+		/// <summary>
+		/// This constructor is used solely for documentation generation!
+		/// </summary>
+		public ClassicSpriteSequence() { }
+
 		public ClassicSpriteSequence(ModData modData, string tileSet, SpriteCache cache, ISpriteSequenceLoader loader, string sequence, string animation, MiniYaml info)
 			: base(modData, tileSet, cache, loader, sequence, animation, info)
 		{

@@ -46,19 +46,24 @@ namespace OpenRA.Mods.Common.Graphics
 	{
 		// These need to be public properties for the documentation generation to work.
 		[Desc("Dictionary of <string: string> with tileset name to override -> tileset name to use instead.")]
-		public static Dictionary<string, string> TilesetOverrides => null;
+		public Dictionary<string, string> TilesetOverrides => null;
 
 		[Desc("Use `TilesetCodes` as defined in `mod.yaml` to add a letter as a second character " +
 		      "into the sprite filename like the Westwood 2.5D titles did for tileset-specific variants.")]
-		public static bool UseTilesetCode => false;
+		public bool UseTilesetCode => false;
 
 		[Desc("Append a tileset-specific extension to the file name " +
 			  "- either as defined in `mod.yaml`'s `TilesetExtensions` (if `UseTilesetExtension` is used) " +
 		      "or the default hardcoded one for this sequence type (.shp).")]
-		public static bool AddExtension => true;
+		public bool AddExtension => true;
 
 		[Desc("Whether `mod.yaml`'s `TilesetExtensions` should be used with the sequence's file name.")]
-		public static bool UseTilesetExtension { get; private set; }
+		public bool UseTilesetExtension { get; private set; }
+
+		/// <summary>
+		/// This constructor is used solely for documentation generation!
+		/// </summary>
+		public TilesetSpecificSpriteSequence() { }
 
 		public TilesetSpecificSpriteSequence(ModData modData, string tileSet, SpriteCache cache, ISpriteSequenceLoader loader, string sequence, string animation, MiniYaml info)
 			: base(modData, tileSet, cache, loader, sequence, animation, info) { }

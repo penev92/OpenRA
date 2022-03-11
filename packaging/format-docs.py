@@ -32,7 +32,7 @@ def format_docs(version, collectionName, types):
     elif collectionName == "WeaponTypes":
         explanation = "a template for weapon definitions as well as its contained types (warheads and projectiles) with default values and developer commentary"
     elif collectionName == "SequenceTypes":
-        explanation = "all sequence types with their properties and their default values plus developer commentary"
+        explanation = "all sprite sequence types with their properties and their default values plus developer commentary"
 
     print(f"This documentation is aimed at modders and has been automatically generated for version `{version}` of OpenRA. " +
 				"Please do not edit it directly, but instead add new `[Desc(\"String\")]` tags to the source code.\n")

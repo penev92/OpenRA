@@ -868,6 +868,7 @@ GUN:
 		MuzzleSequence: muzzle
 	AttackTurreted:
 		PauseOnCondition: build-incomplete
+		OutsideRangeCursor: attackmove-blocked
 	WithMuzzleOverlay:
 	-WithDeathAnimation:
 	DetectCloaked:
@@ -919,6 +920,8 @@ SAM:
 		MuzzleSequence: muzzle
 	AttackPopupTurreted:
 		PauseOnCondition: lowpower || build-incomplete
+		OutsideRangeCursor: attackmove-blocked
+		InsideMinimumRangeCursor: attackmove-blocked
 	WithMuzzleOverlay:
 	-RenderDetectionCircle:
 	Power:
@@ -965,6 +968,7 @@ OBLI:
 		PauseOnCondition: lowpower || build-incomplete
 		ChargeLevel: 50
 		ChargingCondition: charging
+		OutsideRangeCursor: attackmove-blocked
 	AmbientSound:
 		RequiresCondition: charging
 		SoundFiles: obelpowr.aud
@@ -1004,6 +1008,7 @@ GTWR:
 		MuzzleSequence: muzzle
 	AttackTurreted:
 		PauseOnCondition: build-incomplete
+		OutsideRangeCursor: attackmove-blocked
 	BodyOrientation:
 		QuantizedFacings: 8
 	DetectCloaked:
@@ -1056,6 +1061,8 @@ ATWR:
 		LocalYaw: -100,100
 	AttackTurreted:
 		PauseOnCondition: lowpower || build-incomplete
+		OutsideRangeCursor: attackmove-blocked
+		InsideMinimumRangeCursor: attackmove-blocked
 	BodyOrientation:
 		QuantizedFacings: 8
 	DetectCloaked:

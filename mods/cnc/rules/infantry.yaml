@@ -97,6 +97,7 @@ E3:
 		FireDelay: 5
 	AttackFrontal:
 		Voice: Attack
+		InsideMinimumRangeCursor: attackoutsiderange
 	AttackMove:
 		Voice: Attack
 	TakeCover:

@@ -95,6 +95,7 @@ HELI:
 		PersistentTargeting: false
 		AttackType: Hover
 		Voice: Attack
+		InsideMinimumRangeCursor: attackoutsiderange
 	AmmoPool:
 		Ammo: 10
 		AmmoCondition: ammo
@@ -163,6 +164,7 @@ ORCA:
 		PersistentTargeting: false
 		AttackType: Hover
 		Voice: Attack
+		InsideMinimumRangeCursor: attackoutsiderange
 	AmmoPool:
 		Ammo: 6
 		AmmoCondition: ammo

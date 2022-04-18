@@ -1,6 +1,6 @@
 #region Copyright & License Information
 /*
- * Copyright 2007-2021 The OpenRA Developers (see AUTHORS)
+ * Copyright 2007-2022 The OpenRA Developers (see AUTHORS)
  * This file is part of OpenRA, which is free software. It is made
  * available to you under the terms of the GNU General Public License
  * as published by the Free Software Foundation, either version 3 of
@@ -59,9 +59,14 @@ namespace OpenRA.Mods.Common.Pathfinder
 			bool laneBias = true,
 			bool inReverse = false,
 			Func<CPos, int> heuristic = null,
-			int heuristicWeightPercentage = DefaultHeuristicWeightPercentage)
+			int heuristicWeightPercentage = DefaultHeuristicWeightPercentage,
+			Grid? grid = null)
 		{
-			var graph = new MapPathGraph(LayerPoolForWorld(world), locomotor, self, world, check, customCost, ignoreActor, laneBias, inReverse);
+			IPathGraph graph;
+			if (grid != null)
+				graph = new GridPathGraph(locomotor, self, world, check, customCost, ignoreActor, laneBias, inReverse, grid.Value);
+			else
+				graph = new MapPathGraph(LayerPoolForWorld(world), locomotor, self, world, check, customCost, ignoreActor, laneBias, inReverse);
 
 			heuristic = heuristic ?? DefaultCostEstimator(locomotor, target);
 			var search = new PathSearch(graph, heuristic, heuristicWeightPercentage, loc => loc == target);
@@ -69,6 +74,16 @@ namespace OpenRA.Mods.Common.Pathfinder
 			foreach (var sl in froms)
 				if (world.Map.Contains(sl))
 					search.AddInitialCell(sl);
+
+			return search;
+		}
+
+		public static PathSearch ToTargetCellOverGraph(Func<CPos, List<GraphConnection>> edges, Locomotor locomotor, CPos from, CPos target, int estimatedSearchSize = 0)
+		{
+			var graph = new SparsePathGraph(edges, estimatedSearchSize);
+			var search = new PathSearch(graph, DefaultCostEstimator(locomotor, target), 100, loc => loc == target);
+
+			search.AddInitialCell(from);
 
 			return search;
 		}
@@ -197,6 +212,30 @@ namespace OpenRA.Mods.Common.Pathfinder
 			}
 
 			return currentMinNode;
+		}
+
+		/// <summary>
+		/// Expands the path search until a path is found, and returns whether a path is found successfully.
+		/// </summary>
+		public bool ExpandToTarget()
+		{
+			while (CanExpand)
+				if (TargetPredicate(Expand()))
+					return true;
+
+			return false;
+		}
+
+		/// <summary>
+		/// Expands the path search over the whole search space.
+		/// Returns the cells that were visited during the search.
+		/// </summary>
+		public List<CPos> ExpandAll()
+		{
+			var consideredCells = new List<CPos>();
+			while (CanExpand)
+				consideredCells.Add(Expand());
+			return consideredCells;
 		}
 
 		/// <summary>

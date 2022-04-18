@@ -1,6 +1,6 @@
 ﻿#region Copyright & License Information
 /*
- * Copyright 2007-2021 The OpenRA Developers (see AUTHORS)
+ * Copyright 2007-2022 The OpenRA Developers (see AUTHORS)
  * This file is part of OpenRA, which is free software. It is made
  * available to you under the terms of the GNU General Public License
  * as published by the Free Software Foundation, either version 3 of
@@ -39,6 +39,37 @@ namespace OpenRA.Mods.Common.Pathfinder
 	}
 
 	/// <summary>
+	/// Represents a full edge in a graph, giving the cost to traverse between two nodes.
+	/// </summary>
+	public readonly struct GraphEdge
+	{
+		public readonly CPos Source;
+		public readonly CPos Destination;
+		public readonly int Cost;
+
+		public GraphEdge(CPos source, CPos destination, int cost)
+		{
+			if (source == destination)
+				throw new ArgumentException($"{nameof(source)} and {nameof(destination)} must refer to different cells");
+			if (cost < 0)
+				throw new ArgumentOutOfRangeException(nameof(cost), $"{nameof(cost)} cannot be negative");
+			if (cost == PathGraph.PathCostForInvalidPath)
+				throw new ArgumentOutOfRangeException(nameof(cost), $"{nameof(cost)} cannot be used for an unreachable path");
+
+			Source = source;
+			Destination = destination;
+			Cost = cost;
+		}
+
+		public GraphConnection ToConnection()
+		{
+			return new GraphConnection(Destination, Cost);
+		}
+
+		public override string ToString() => $"{Source} -> {Destination} = {Cost}";
+	}
+
+	/// <summary>
 	/// Represents part of an edge in a graph, giving the cost to traverse to a node.
 	/// </summary>
 	public readonly struct GraphConnection
@@ -67,6 +98,11 @@ namespace OpenRA.Mods.Common.Pathfinder
 
 			Destination = destination;
 			Cost = cost;
+		}
+
+		public GraphEdge ToEdge(CPos source)
+		{
+			return new GraphEdge(source, Destination, Cost);
 		}
 
 		public override string ToString() => $"-> {Destination} = {Cost}";

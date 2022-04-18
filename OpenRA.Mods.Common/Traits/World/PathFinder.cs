@@ -40,7 +40,9 @@ namespace OpenRA.Mods.Common.Traits
 			world = self.World;
 		}
 
-		public IReadOnlyDictionary<CPos, List<GraphConnection>> GetOverlayDataForLocomotor(Locomotor locomotor)
+		public (
+			IReadOnlyDictionary<CPos, List<GraphConnection>> AbstractGraph,
+			IReadOnlyDictionary<CPos, uint> AbstractDomains) GetOverlayDataForLocomotor(Locomotor locomotor)
 		{
 			return hierarchicalPathFindersByLocomotor[locomotor].GetOverlayData();
 		}

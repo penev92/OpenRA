@@ -111,6 +111,14 @@ namespace OpenRA.Mods.Common.Traits
 		Dictionary<CPos, List<GraphConnection>> abstractGraph;
 
 		/// <summary>
+		/// The abstract domains are represented here.
+		/// An abstract node is the key, and a domain index is given.
+		/// If the domain index of two nodes is equal, a path exists between them (ignoring all blocking actors).
+		/// If unequal, no path is possible.
+		/// </summary>
+		readonly Dictionary<CPos, uint> abstractDomains;
+
+		/// <summary>
 		/// Knows about the abstract nodes within a grid. Can map a local cell to its abstract node.
 		/// </summary>
 		readonly struct GridInfo
@@ -213,20 +221,27 @@ namespace OpenRA.Mods.Common.Traits
 
 			BuildGrids();
 			BuildCostTable();
+			abstractDomains = new Dictionary<CPos, uint>(gridXs * gridYs);
+			RebuildDomains();
 
 			// When we build the cost table, it depends on the movement costs of the cells at that time.
 			// When this changes, we must update the cost table.
 			locomotor.CellCostChanged += RequireCostRefreshInCell;
 		}
 
-		public IReadOnlyDictionary<CPos, List<GraphConnection>> GetOverlayData()
+		public (
+			IReadOnlyDictionary<CPos, List<GraphConnection>> AbstractGraph,
+			IReadOnlyDictionary<CPos, uint> AbstractDomains) GetOverlayData()
 		{
 			if (costEstimator == null)
 				return default;
 
-			// Ensure the abstract graph is up to date when using the overlay.
+			// Ensure the abstract graph and domains are up to date when using the overlay.
 			RebuildDirtyGrids();
-			return new ReadOnlyDictionary<CPos, List<GraphConnection>>(abstractGraph);
+			RebuildDomains();
+			return (
+				new ReadOnlyDictionary<CPos, List<GraphConnection>>(abstractGraph),
+				new ReadOnlyDictionary<CPos, uint>(abstractDomains));
 		}
 
 		/// <summary>
@@ -628,6 +643,31 @@ namespace OpenRA.Mods.Common.Traits
 		}
 
 		/// <summary>
+		/// Determines if a path exists between source and target.
+		/// Only terrain is taken into account, i.e. as if <see cref="BlockedByActor.None"/> was given.
+		/// This would apply for any actor using the same <see cref="Locomotor"/> as this <see cref="HierarchicalPathFinder"/>.
+		/// </summary>
+		public bool PathExists(CPos source, CPos target)
+		{
+			if (costEstimator == null)
+				return false;
+
+			RebuildDomains();
+
+			var sourceGridInfo = gridInfos[GridIndex(source)];
+			var targetGridInfo = gridInfos[GridIndex(target)];
+			var abstractSource = sourceGridInfo.AbstractCellForLocalCell(source);
+			if (abstractSource == null)
+				return false;
+			var abstractTarget = targetGridInfo.AbstractCellForLocalCell(target);
+			if (abstractTarget == null)
+				return false;
+			var sourceDomain = abstractDomains[abstractSource.Value];
+			var targetDomain = abstractDomains[abstractTarget.Value];
+			return sourceDomain == targetDomain;
+		}
+
+		/// <summary>
 		/// The abstract graph can become out of date when reachability costs for terrain change.
 		/// When this occurs, we must rebuild any affected parts of the abstract graph so it remains correct.
 		/// </summary>
@@ -635,6 +675,9 @@ namespace OpenRA.Mods.Common.Traits
 		{
 			if (dirtyGridIndexes.Count == 0)
 				return;
+
+			// An empty domain indicates it is out of date and will require rebuilding when next accessed.
+			abstractDomains.Clear();
 
 			var customMovementLayers = world.GetCustomMovementLayers();
 			foreach (var gridIndex in dirtyGridIndexes)
@@ -684,6 +727,46 @@ namespace OpenRA.Mods.Common.Traits
 				// If any nodes were left over they have no connections now, so we can remove them from the graph.
 				foreach (var unconnectedNode in abstractNodes)
 					abstractGraph.Remove(unconnectedNode);
+			}
+		}
+
+		/// <summary>
+		/// The abstract domains can become out of date when the abstract graph changes.
+		/// When this occurs, we must rebuild the domain cache.
+		/// </summary>
+		void RebuildDomains()
+		{
+			// First, rebuild the abstract graph if it is out of date.
+			RebuildDirtyGrids();
+
+			// Check if our domain cache is empty, if so this indicates it is out-of-date and needs rebuilding.
+			if (abstractDomains.Count != 0)
+				return;
+
+			List<GraphConnection> AbstractEdge(CPos abstractCell)
+			{
+				if (abstractGraph.TryGetValue(abstractCell, out var abstractEdge))
+					return abstractEdge;
+				return null;
+			}
+
+			// As in BuildGrid, flood fill the search graph until all disjoint domains are discovered.
+			var domain = 0u;
+			var abstractCells = abstractGraph.Keys.ToHashSet();
+			while (abstractCells.Count > 0)
+			{
+				var searchCell = abstractCells.First();
+				var search = PathSearch.ToTargetCellOverGraph(
+					AbstractEdge,
+					locomotor,
+					searchCell,
+					searchCell,
+					abstractGraph.Count / 8);
+				var searched = search.ExpandAll();
+				foreach (var abstractCell in searched)
+					abstractDomains.Add(abstractCell, domain);
+				abstractCells.ExceptWith(searched);
+				domain++;
 			}
 		}
 

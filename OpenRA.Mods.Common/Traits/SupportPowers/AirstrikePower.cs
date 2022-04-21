@@ -67,11 +67,9 @@ namespace OpenRA.Mods.Common.Traits
 		{
 			var ret = new List<AirstrikePowerSquadMember>();
 
-			// A less than great workaround for the YamlParser merging nodes and not supporting a way to remove nodes that are not "traits".
-			var squadNode = yaml.Nodes.FirstOrDefault(n => n.Key == "Squad@override") ?? yaml.Nodes.FirstOrDefault(n => n.Key == "Squad");
-			if (squadNode != null)
-				foreach (var d in squadNode.Value.Nodes)
-					ret.Add(new AirstrikePowerSquadMember(d));
+			var squadNode = yaml.Nodes.Single(n => n.Key == "Squad");
+			foreach (var d in squadNode.Value.Nodes)
+				ret.Add(new AirstrikePowerSquadMember(d));
 
 			return ret;
 		}

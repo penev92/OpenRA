@@ -13,7 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Fluent.Net;
+using Linguini.Shared.Types.Bundle;
 
 namespace OpenRA.Network
 {
@@ -41,18 +41,9 @@ namespace OpenRA.Network
 
 		static FluentArgumentType GetFluentArgumentType(object value)
 		{
-			switch (value)
+			switch (value.ToFluentType())
 			{
-				case byte _:
-				case sbyte _:
-				case short _:
-				case uint _:
-				case int _:
-				case long _:
-				case ulong _:
-				case float _:
-				case double _:
-				case decimal _:
+				case FluentNumber _:
 					return FluentArgumentType.Number;
 				default:
 					return FluentArgumentType.String;
@@ -124,12 +115,17 @@ namespace OpenRA.Network
 			foreach (var argument in Arguments)
 			{
 				if (argument.Type == FluentArgument.FluentArgumentType.Number)
-					argumentDictionary.Add(argument.Key, new FluentNumber(argument.Value));
+				{
+					if (!int.TryParse(argument.Value, out var number))
+						Log.Write("debug", $"Failed to parse {argument.Value}");
+
+					argumentDictionary.Add(argument.Key, number);
+				}
 				else
-					argumentDictionary.Add(argument.Key, new FluentString(argument.Value));
+					argumentDictionary.Add(argument.Key, argument.Value);
 			}
 
-			return modData.Translation.GetFormattedMessage(Key, argumentDictionary);
+			return modData.Translation.GetString(Key, argumentDictionary);
 		}
 	}
 }

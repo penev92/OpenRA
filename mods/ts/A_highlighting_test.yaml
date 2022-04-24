@@ -1,0 +1,160 @@
+Misc:
+	Version: {DEV_VERSION}
+	Website: https://www.openra.net
+	MyFailedTrait
+	MyProperTrait:
+		FailedProperty
+		JustAnEmptyProp:
+	~^SupportDir|Content/ts
+	~^SupportDir|Content/ts/firestorm
+	^EngineDir
+	$ts: ts
+	^EngineDir|mods/common: common
+	~local.mix
+	~sidec01.mix: sidebar-gdi
+	ts|maps: System
+	~^SupportDir|maps/ts/{DEV_VERSION}: User
+	ts|rules/ai.yaml
+	common|chrome/multiplayer-directconnect.yaml
+	Text: Updating EVA installation..., Changing perspective...
+
+ConditionTests:
+	MyTraitWithConditions:
+		RequiresCondition: asdfghj
+		RequiresCondition: asdfghj || qwerty
+		RequiresCondition: asdfghj && qwerty
+		RequiresCondition: !asdfghj
+		RequiresCondition: !asdfghj || qwerty
+		RequiresCondition: !asdfghj && qwerty
+		RequiresCondition: !asdfghj || !qwerty
+		RequiresCondition: !asdfghj && !qwerty
+		RequiresCondition: !empdisable && !disabled && (tower.vulcan || tower.rocket && asdf)
+		RequiresCondition: rank-veteran > 3
+		RequiresCondition: rank-veteran == 1
+		Description:  asdfaj: sdlfihadslfihf, dfasdjfh dfsdfiehfew efe! asdfasdfwef !
+		Description: @asdfaj: sdlfihadslfihf, dfasdjfh dfsdfiehfew efe! asdfasdfwef !
+		Description:  asdfaj sdlfihadslfihf, dfasdjfh dfsdfiehfew efe! asdfasdfwef !
+		Description: @asdfaj sdlfihadslfihf, dfasdjfh dfsdfiehfew efe! asdfasdfwef !
+		Description: %asdfaj sdlfihadslfihf, dfasdjfh dfsdfiehfew efe! asdfasdfwef !
+		Description: >asdfaj sdlfihadslfihf, dfasdjfh dfsdfiehfew efe! asdfasdfwef !
+		Description: <asdfaj sdlfihadslfihf, dfasdjfh dfsdfiehfew efe! asdfasdfwef !
+		Description: ^asdfaj sdlfihadslfihf, dfasdjfh dfsdfiehfew efe! asdfasdfwef !
+		Description: |asdfaj sdlfihadslfihf, dfasdjfh dfsdfiehfew efe! asdfasdfwef !
+		Description: &asdfaj sdlfihadslfihf, dfasdjfh dfsdfiehfew efe! asdfasdfwef !
+		Description: *asdfaj sdlfihadslfihf, dfasdjfh dfsdfiehfew efe! asdfasdfwef !
+		Description: !asdfaj sdlfihadslfihf, dfasdjfh dfsdfiehfew efe! asdfasdfwef !
+		Description: ?asdfaj sdlfihadslfihf, dfasdjfh dfsdfiehfew efe! asdfasdfwef !
+		Description: ;asdfaj sdlfihadslfihf, dfasdjfh dfsdfiehfew efe! asdfasdfwef !
+		Description: [asdfaj sdlfihadslfihf, dfasdjfh dfsdfiehfew efe! asdfasdfwef !
+		Description: ]asdfaj sdlfihadslfihf, dfasdjfh dfsdfiehfew efe! asdfasdfwef !
+		Description: {asdfaj sdlfihadslfihf, dfasdjfh dfsdfiehfew efe! asdfasdfwef !
+		Description: }asdfaj sdlfihadslfihf, dfasdjfh dfsdfiehfew efe! asdfasdfwef !
+		Description: ,asdfaj sdlfihadslfihf, dfasdjfh dfsdfiehfew efe! asdfasdfwef !
+		Description: .asdfaj sdlfihadslfihf, dfasdjfh dfsdfiehfew efe! asdfasdfwef !
+		Description: ;asdfaj sdlfihadslfihf, dfasdjfh dfsdfiehfew efe! asdfasdfwef !
+		Description: :asdfaj sdlfihadslfihf, dfasdjfh dfsdfiehfew efe! asdfasdfwef !
+		Description: -asdfaj sdlfihadslfihf, dfasdjfh dfsdfiehfew efe! asdfasdfwef !
+		Description: #asdfaj sdlfihadslfihf, dfasdjfh dfsdfiehfew efe! asdfasdfwef !
+		Description: "asdfaj sdlfihadslfihf, dfasdjfh dfsdfiehfew efe! asdfasdfwef !
+		DummyNode: asdfasdf"
+		Description: 'asdfaj sdlfihadslfihf, dfasdjfh dfsdfiehfew efe! asdfasdfwef !
+		DummyNode: asdfasdf'
+		Description: `asdfajs sdlfihadslfihf, dfasdjfh dfsdfiehfew efe! asdfasdfwef !
+		DummyNode: asdfasdf`
+
+IdentifierColoringTests@Dummy:
+	IdentifierTest@THIS_IS_IT_0
+	IdentifierTest@THIS_IS_IT_1: SomeNameHere
+	IdentifierTest@THIS_IS_IT_2:
+		IdentifierTest@THIS_IS_IT_3:
+		IdentifierTest@THIS_IS_IT_4: SomeNameHere
+		IdentifierTest@THIS_IS_IT_5
+		IdentifierTest@:
+
+WeGoDeepTest:
+	Inherits: ^ValueScalarsTestsAndComments
+	JustAnEmptyTrait:
+		WithAProperty:
+		AndAProperty:
+			WithItsOwnThingy:
+			AndAnotherThingy:
+				WeGoEvenDeeper:
+				AndThisTimeWeStay:
+				And What if we did this: some Value (for indentation 2 nodes and onwards this is valid)
+	JustAnEmptyTrait2:
+
+^ValueScalarsTestsAndComments:
+	LuaScript:
+		Scripts: campaign.lua, util3.2s.lua, gdi06.lua
+		Units: 1tnk
+	TileSize: 48,24
+	EnableDepthBuffer: True
+	Type: RectangularIsometric
+	MaximumTerrainHeight: 16
+	SubCellOffsets: 0,0,0, -362,0,0, 0,362,0, 362,0,0
+	ListOfFloats: 1.3, 3.5, 2.4, 8.3, 0.2, 2.0, 6.6
+	MixedNumbers: 1.3, 3, 2.4, 8, 0.2 , 2.2 , 11 , 12 ,2,4,6, 6.6, 0, 7
+	TraitWithValues:
+		StringValue: adsfgfhjkj%
+		StringValue: -adsfgfhjkj
+		PercentValue: 0.5%
+		PercentValue: +0.5%
+		PercentValue: -0.5%
+		PercentValue: 3%
+		PercentValue: +3%
+		PercentValue: -3%
+		NonPercentValue: B04074%
+		NonPercentValue: true%
+		NumberValue: -123123123
+		NumberValue: 123123123
+		RangeValue: 3c512
+		RangeValues: 0c0, 0c512, 3c256, 4c768, 8c0
+		ColorValues1: 304074, 28386C, 202C60, 182C54
+		ColorValues2: B04074, 28386C, 202C60, 182C54
+		BooleanValues: True, False, False, True, True
+		BooleanValue: False
+		NonBooleanValue: Yes
+		QuotedValue1: 'ASDASDASD'
+		QuotedValue2: "ASDASDASD"
+		QuotedValue3: `ASDASDASD`
+		BrokenValue1:ASDASDASD     # This entire line's highlighting should be broken because of no space after ':'
+		BrokenValue2:	ASDASDASD  # This entire line's highlighting should be broken because of no space after ':' (it's a tab)
+		SomeValue: asdf#asdf
+		SomeValue: asdf# asdf
+		SomeValue: asdf#	asdf
+		SomeValue: asdf #asdf
+		SomeValue: asdf #asdf
+		SomeValue: asdf # asdf
+		SomeValue: asdf #	asdf
+		#SomeComment
+		# SomeComment
+		#	SomeComment
+#SomeShit
+# SomeShit
+#	SomeShit # Some more
+ # AAAA
+	#	BBBB
+#truk: # TODO: unused
+#	idle:
+#mrj: # TODO: unused
+#	idle:
+#	turret: mrjtur
+
+TraitRemovalTests:
+	SomeTrait:
+	-TraitRemoval:
+	-OtherTraitRemoval:
+	-TraitRemoval@WithIdentifier:
+	AndAnotherNormalTrait:
+		WithAProperty:
+		-ButWhatIfWeRemoveAProperty:
+		-AndWhatIfItHas@AnIdentifier:
+		OhWell:
+
+MixedIndantationTests:
+    ThisIsIndentedWithSpaces:
+  	ThisHasATabInTheBack:
+	  	ThisHasTwoTabsEven:
+		AndThisIsProperlyIndented:
+  	  	-ThisIsABorkedTraitRemoval:
+ 	 	AndABorkedOne@WithAnIdentifier:

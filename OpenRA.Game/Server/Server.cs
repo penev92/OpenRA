@@ -935,7 +935,7 @@ namespace OpenRA.Server
 
 		public void SendLocalizedMessage(string key, Dictionary<string, object> arguments = null)
 		{
-			var text = new LocalizedMessage(key, arguments).Serialize();
+			var text = LocalizedMessage.Serialize(key, arguments);
 			DispatchServerOrdersToClients(Order.FromTargetString("LocalizedMessage", text, true));
 
 			if (Type == ServerType.Dedicated)
@@ -944,7 +944,7 @@ namespace OpenRA.Server
 
 		public void SendLocalizedMessageTo(Connection conn, string key, Dictionary<string, object> arguments = null)
 		{
-			var text = new LocalizedMessage(key, arguments).Serialize();
+			var text = LocalizedMessage.Serialize(key, arguments);
 			DispatchOrdersToClient(conn, 0, 0, Order.FromTargetString("LocalizedMessage", text, true).Serialize());
 		}
 

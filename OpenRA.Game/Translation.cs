@@ -56,10 +56,11 @@ namespace OpenRA
 
 		void ParseTranslations(string language, string[] translations, IReadOnlyFileSystem fileSystem)
 		{
-			// Always load english strings to provide a fallback for missing translations
-			var paths = translations.Where(t => t.EndsWith("en.ftl")).ToList();
+			// Always load english strings to provide a fallback for missing translations.
+			// It is important to load the english files first so the chosen language's files can override them.
+			var paths = translations.Where(t => t.EndsWith("en.ftl")).ToHashSet();
 			foreach (var t in translations)
-				if (t.EndsWith(language + ".ftl") && !paths.Contains(t))
+				if (t.EndsWith($"{language}.ftl"))
 					paths.Add(t);
 
 			foreach (var path in paths)
@@ -85,35 +86,30 @@ namespace OpenRA
 			return message;
 		}
 
-		public bool TryGetString(string messageId, out string value)
-		{
-			return TryGetString(messageId, out value, null);
-		}
-
 		public bool TryGetString(string key, out string value, IDictionary<string, object> arguments = null)
 		{
-			var fluentArguments = new Dictionary<string, IFluentType>();
-			if (arguments != null)
-				foreach (var (k, v) in arguments)
-					fluentArguments.Add(k, v.ToFluentType());
-
 			if (!HasMessage(key))
 			{
 				value = null;
 				return false;
 			}
 
+			var fluentArguments = new Dictionary<string, IFluentType>();
+			if (arguments != null)
+				foreach (var (k, v) in arguments)
+					fluentArguments.Add(k, v.ToFluentType());
+
 			try
 			{
 				var result = bundle.TryGetAttrMsg(key, fluentArguments, out var errors, out value);
 				foreach (var error in errors)
-					Log.Write("debug", $"{key}: {error}");
+					Log.Write("debug", $"Translation of {key}: {error}");
 
 				return result;
 			}
 			catch (Exception e)
 			{
-				Log.Write("debug", $"{key}: {e}");
+				Log.Write("debug", $"Translation of {key}: {e}");
 				value = null;
 				return false;
 			}

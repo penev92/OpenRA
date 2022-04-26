@@ -1368,10 +1368,10 @@ namespace OpenRA
 
 		public string Translate(string key, IDictionary<string, object> args = null)
 		{
-			if (!Translation.TryGetString(key, out var message, args))
-				return modData.Translation.GetString(key, args);
+			if (Translation.TryGetString(key, out var message, args))
+				return message;
 
-			return message;
+			return modData.Translation.GetString(key, args);
 		}
 	}
 }

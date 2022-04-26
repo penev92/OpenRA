@@ -17,6 +17,9 @@ Misc:
 	ts|rules/ai.yaml
 	common|chrome/multiplayer-directconnect.yaml
 	Text: Updating EVA installation..., Changing perspective...
+	10: TenMinutesRemaining
+	5: WarningFiveMinutesRemaining
+	_: asdf
 
 ConditionTests:
 	MyTraitWithConditions:

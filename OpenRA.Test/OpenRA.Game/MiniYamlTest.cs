@@ -104,6 +104,35 @@ Test:
 			Assert.IsFalse(result.Any(n => n.Key == "MockA2"), "Node should not have the MockA2 child, but does.");
 		}
 
+		[TestCase(TestName = "Child collection subnode can be inherited, removed and immediately overridden")]
+		public void ChildSubNodeCanBeRemovedAndImmediatelyOverridden()
+		{
+			var baseYaml = @"
+^BaseA:
+	MockString:
+		CollectionOfStrings:
+			StringA: A
+			StringB: B
+Test:
+    Inherits: ^BaseA
+    MockString:
+		-CollectionOfStrings:
+		CollectionOfStrings:
+			StringC: C
+";
+
+			var merged = MiniYaml.Merge(new[] { baseYaml }.Select(s => MiniYaml.FromString(s, "")))
+				.First(n => n.Key == "Test");
+
+			var traitNode = merged.Value.Nodes.Single();
+			var fieldNodes = traitNode.Value.Nodes;
+			var fieldSubNodes = fieldNodes.Single().Value.Nodes;
+
+			Assert.IsTrue(fieldSubNodes.Count == 1, "Collection of strings should only contain the overriding subnode.");
+			Assert.IsTrue(fieldSubNodes.Single(n => n.Key == "StringC").Value.Value == "C",
+				"Collection of string should only contain the single subsubsubnode that is added and not the two that are inherited.");
+		}
+
 		[TestCase(TestName = "Child can be removed and later overridden")]
 		public void ChildCanBeRemovedAndLaterOverridden()
 		{

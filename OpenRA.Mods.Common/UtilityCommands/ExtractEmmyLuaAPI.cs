@@ -72,7 +72,7 @@ namespace OpenRA.Mods.Common.UtilityCommands
 			WriteScriptProperties(typeof(Player), playerProperties);
 		}
 
-		void WriteManual()
+		static void WriteManual()
 		{
 			Console.WriteLine("--- This function is triggered once, after the map is loaded.");
 			Console.WriteLine("function WorldLoaded() end");
@@ -138,7 +138,7 @@ namespace OpenRA.Mods.Common.UtilityCommands
 			Console.WriteLine();
 		}
 
-		void WriteGlobals(IEnumerable<Type> globalTables)
+		static void WriteGlobals(IEnumerable<Type> globalTables)
 		{
 			foreach (var t in globalTables)
 			{
@@ -158,6 +158,7 @@ namespace OpenRA.Mods.Common.UtilityCommands
 				{
 					Console.WriteLine();
 
+					var body = "";
 					var parameterString = "";
 
 					var propertyInfo = member as PropertyInfo;
@@ -166,6 +167,9 @@ namespace OpenRA.Mods.Common.UtilityCommands
 						var attributes = propertyInfo.GetCustomAttributes(false);
 						foreach (var obsolete in attributes.OfType<ObsoleteAttribute>())
 							Console.WriteLine($"    ---@deprecated {obsolete.Message}");
+
+						Console.WriteLine($"    ---@type {propertyInfo.PropertyType.EmmyLuaString()}");
+						body = propertyInfo.Name + " = {};";
 					}
 
 					var methodInfo = member as MethodInfo;
@@ -184,6 +188,8 @@ namespace OpenRA.Mods.Common.UtilityCommands
 						var returnType = methodInfo.ReturnType.EmmyLuaString();
 						if (returnType != "Void")
 							Console.WriteLine($"    ---@return {returnType}");
+
+						body = member.Name + $" = function({parameterString}) end;";
 					}
 
 					if (member.HasAttribute<DescAttribute>())
@@ -193,7 +199,7 @@ namespace OpenRA.Mods.Common.UtilityCommands
 							Console.WriteLine($"    --- {line}");
 					}
 
-					Console.WriteLine($"    {member.Name} = function({parameterString}) end;");
+					Console.WriteLine($"    {body}");
 				}
 
 				Console.WriteLine("}");
@@ -292,15 +298,17 @@ namespace OpenRA.Mods.Common.UtilityCommands
 			{ "LuaValue", "any" },
 			{ "LuaValue[]", "table" },
 			{ "LuaFunction", "function" },
-			{ "Actor", "actor" },
-			{ "Actor[]", "actor[]" },
-			{ "Player", "player" },
 			{ "WVec", "wvec" },
 			{ "CVec", "cvec" },
 			{ "CPos", "cpos" },
+			{ "CPos[]", "cpos[]" },
 			{ "WPos", "wpos" },
 			{ "WAngle", "wangle" },
+			{ "WAngle[]", "wangle[]" },
 			{ "WDist", "wdist" },
+			{ "Actor", "actor" },
+			{ "Actor[]", "actor[]" },
+			{ "Player", "player" },
 			{ "Player[]", "player[]" },
 		};
 

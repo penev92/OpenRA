@@ -573,6 +573,9 @@ namespace OpenRA.Mods.Common.Traits
 			if (costEstimator == null)
 				return PathFinder.NoPath;
 
+			var pfOverlay = self.World.WorldActor.Trait<PathfindingOverlay>();
+			pfOverlay.Start(source, target);
+
 			// If the source and target are close, see if they can be reached locally.
 			// This avoids the cost of an abstract search unless we need one.
 			const int CloseGridDistance = 2;
@@ -625,19 +628,24 @@ namespace OpenRA.Mods.Common.Traits
 			var targetEdge = EdgeFromLocalToAbstract(target, targetAbstractCell.Value);
 			var fullGraph = new AbstractGraphWithInsertedEdges(abstractGraph, sourceEdge, targetEdge);
 
+			pfOverlay.AbstractEdges.Clear();
+			pfOverlay.AbstractNodes.Clear();
+
 			// Determine an abstract path in both directions, for use in a bidirectional search.
 			var estimatedSearchSize = (abstractGraph.Count + 2) / 8;
 			using (var abstractSearch = PathSearch.ToTargetCellOverGraph(
-				fullGraph.GetConnections, locomotor, source, target, estimatedSearchSize))
+				fullGraph.GetConnections, locomotor, source, target, estimatedSearchSize, pfOverlay))
 			{
 				if (!abstractSearch.ExpandToTarget())
 					return PathFinder.NoPath;
 
+				pfOverlay.IsAbstractSearch = false;
+
 				using (var reversedAbstractSearch = PathSearch.ToTargetCellOverGraph(
-					fullGraph.GetConnections, locomotor, target, source, estimatedSearchSize))
+					fullGraph.GetConnections, locomotor, target, source, estimatedSearchSize, pfOverlay))
 				{
 					reversedAbstractSearch.ExpandToTarget();
-					return NavigatePathWithAbstractPathAsHeuristic(self, source, target, check, customCost, ignoreActor, laneBias, abstractSearch, reversedAbstractSearch);
+					return NavigatePathWithAbstractPathAsHeuristic(self, source, target, check, customCost, ignoreActor, laneBias, abstractSearch, reversedAbstractSearch, pfOverlay);
 				}
 			}
 		}
@@ -775,13 +783,14 @@ namespace OpenRA.Mods.Common.Traits
 		/// </summary>
 		List<CPos> NavigatePathWithAbstractPathAsHeuristic(
 			Actor self, CPos source, CPos target, BlockedByActor check, Func<CPos, int> customCost, Actor ignoreActor, bool laneBias,
-			PathSearch abstractSearch, PathSearch reversedAbstractSearch)
+			PathSearch abstractSearch, PathSearch reversedAbstractSearch, PathfindingOverlay pfOverlay)
 		{
 			Func<CPos, int> Heuristic(PathSearch search)
 			{
 				var graph = (SparsePathGraph)search.Graph;
 				return cell =>
 				{
+					pfOverlay.Cells.Add(cell);
 					// The search only explores accessible cells, so local cell is guaranteed reachable.
 					var gridInfo = gridInfos[GridIndex(cell)];
 					var abstractCell = gridInfo.AbstractCellForLocalCell(cell).Value;
@@ -820,7 +829,7 @@ namespace OpenRA.Mods.Common.Traits
 			Actor self, CPos src, CPos dst, Func<CPos, int> customCost, Actor ignoreActor, BlockedByActor check, bool laneBias, Grid? grid,
 			Func<CPos, int> heuristic = null,
 			int heuristicWeightPercentage = PathSearch.DefaultHeuristicWeightPercentage,
-			bool inReverse = false)
+			bool inReverse = false, PathfindingOverlay pfOverlay = null)
 		{
 			return PathSearch.ToTargetCell(
 				world, locomotor, self, new[] { src }, dst, check,
@@ -830,7 +839,8 @@ namespace OpenRA.Mods.Common.Traits
 				inReverse: inReverse,
 				heuristic: heuristic,
 				heuristicWeightPercentage: heuristicWeightPercentage,
-				grid: grid);
+				grid: grid,
+				pfOverlay);
 		}
 	}
 }

@@ -60,7 +60,8 @@ namespace OpenRA.Mods.Common.Pathfinder
 			bool inReverse = false,
 			Func<CPos, int> heuristic = null,
 			int heuristicWeightPercentage = DefaultHeuristicWeightPercentage,
-			Grid? grid = null)
+			Grid? grid = null,
+			PathfindingOverlay pfOverlay = null)
 		{
 			IPathGraph graph;
 			if (grid != null)
@@ -69,7 +70,7 @@ namespace OpenRA.Mods.Common.Pathfinder
 				graph = new MapPathGraph(LayerPoolForWorld(world), locomotor, self, world, check, customCost, ignoreActor, laneBias, inReverse);
 
 			heuristic = heuristic ?? DefaultCostEstimator(locomotor, target);
-			var search = new PathSearch(graph, heuristic, heuristicWeightPercentage, loc => loc == target);
+			var search = new PathSearch(graph, heuristic, heuristicWeightPercentage, loc => loc == target, pfOverlay);
 
 			foreach (var sl in froms)
 				if (world.Map.Contains(sl))
@@ -78,10 +79,11 @@ namespace OpenRA.Mods.Common.Pathfinder
 			return search;
 		}
 
-		public static PathSearch ToTargetCellOverGraph(Func<CPos, List<GraphConnection>> edges, Locomotor locomotor, CPos from, CPos target, int estimatedSearchSize = 0)
+		public static PathSearch ToTargetCellOverGraph(Func<CPos, List<GraphConnection>> edges, Locomotor locomotor, CPos from, CPos target
+			, int estimatedSearchSize = 0, PathfindingOverlay pfOverlay = null)
 		{
 			var graph = new SparsePathGraph(edges, estimatedSearchSize);
-			var search = new PathSearch(graph, DefaultCostEstimator(locomotor, target), 100, loc => loc == target);
+			var search = new PathSearch(graph, DefaultCostEstimator(locomotor, target), 100, loc => loc == target, pfOverlay);
 
 			search.AddInitialCell(from);
 
@@ -130,6 +132,7 @@ namespace OpenRA.Mods.Common.Pathfinder
 		public IPathGraph Graph { get; }
 		readonly Func<CPos, int> heuristic;
 		readonly int heuristicWeightPercentage;
+		private readonly PathfindingOverlay pfOverlay;
 		public Func<CPos, bool> TargetPredicate { get; set; }
 		readonly IPriorityQueue<GraphConnection> openQueue;
 
@@ -147,11 +150,12 @@ namespace OpenRA.Mods.Common.Pathfinder
 		/// The search can skip some areas of the search space, meaning it has less work to do.
 		/// </param>
 		/// <param name="targetPredicate">Determines if the given cell is the target.</param>
-		PathSearch(IPathGraph graph, Func<CPos, int> heuristic, int heuristicWeightPercentage, Func<CPos, bool> targetPredicate)
+		PathSearch(IPathGraph graph, Func<CPos, int> heuristic, int heuristicWeightPercentage, Func<CPos, bool> targetPredicate, PathfindingOverlay pfOverlay = null)
 		{
 			Graph = graph;
 			this.heuristic = heuristic;
 			this.heuristicWeightPercentage = heuristicWeightPercentage;
+			this.pfOverlay = pfOverlay;
 			TargetPredicate = targetPredicate;
 			openQueue = new PriorityQueue<GraphConnection>(GraphConnection.ConnectionCostComparer);
 		}
@@ -184,6 +188,20 @@ namespace OpenRA.Mods.Common.Pathfinder
 
 			foreach (var connection in Graph.GetConnections(currentMinNode))
 			{
+				if (pfOverlay != null)
+				{
+					if (pfOverlay.IsAbstractSearch)
+					{
+						pfOverlay.AbstractNodes.Add(connection.Destination);
+						pfOverlay.AbstractEdges.Add(connection.ToEdge(currentMinNode));
+					}
+					else
+					{
+						pfOverlay.Cells.Add(connection.Destination);
+						pfOverlay.Edges.Add(connection.ToEdge(currentMinNode));
+					}
+				}
+
 				// Calculate the cost up to that point
 				var costSoFarToNeighbor = currentInfo.CostSoFar + connection.Cost;
 

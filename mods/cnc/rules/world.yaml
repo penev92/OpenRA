@@ -153,6 +153,7 @@ World:
 	ChatCommands:
 	DevCommands:
 	DebugVisualizationCommands:
+	PathfindingOverlay:
 	HierarchicalPathFinderOverlay:
 	PlayerCommands:
 	HelpCommand:

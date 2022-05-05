@@ -25,13 +25,13 @@ namespace OpenRA.Mods.Cnc.Graphics
 			: base(modData)
 		{
 			var metadata = modData.Manifest.Get<SpriteSequenceFormat>().Metadata;
-			if (metadata.TryGetValue("DefaultSpriteExtension", out var yaml))
+			if (metadata.TryGetValue(nameof(DefaultSpriteExtension), out var yaml))
 				DefaultSpriteExtension = yaml.Value;
 
-			if (metadata.TryGetValue("TilesetExtensions", out yaml))
+			if (metadata.TryGetValue(nameof(TilesetExtensions), out yaml))
 				TilesetExtensions = yaml.ToDictionary(kv => kv.Value);
 
-			if (metadata.TryGetValue("TilesetCodes", out yaml))
+			if (metadata.TryGetValue(nameof(TilesetCodes), out yaml))
 				TilesetCodes = yaml.ToDictionary(kv => kv.Value);
 		}
 

@@ -18,20 +18,24 @@ namespace OpenRA.Mods.Common.Graphics
 	public class TilesetSpecificSpriteSequenceLoader : DefaultSpriteSequenceLoader
 	{
 		public readonly string DefaultSpriteExtension = ".shp";
+
+		[Desc("A dictionary of <tileset_name>: <file_extension> when using separate sequence files per tileset.")]
 		public readonly Dictionary<string, string> TilesetExtensions = new Dictionary<string, string>();
+
+		[Desc("A dictionary of <tileset_name>: <tileset_code> when using separate sequence files per tileset.")]
 		public readonly Dictionary<string, string> TilesetCodes = new Dictionary<string, string>();
 
 		public TilesetSpecificSpriteSequenceLoader(ModData modData)
 			: base(modData)
 		{
 			var metadata = modData.Manifest.Get<SpriteSequenceFormat>().Metadata;
-			if (metadata.TryGetValue("DefaultSpriteExtension", out var yaml))
+			if (metadata.TryGetValue(nameof(DefaultSpriteExtension), out var yaml))
 				DefaultSpriteExtension = yaml.Value;
 
-			if (metadata.TryGetValue("TilesetExtensions", out yaml))
+			if (metadata.TryGetValue(nameof(TilesetExtensions), out yaml))
 				TilesetExtensions = yaml.ToDictionary(kv => kv.Value);
 
-			if (metadata.TryGetValue("TilesetCodes", out yaml))
+			if (metadata.TryGetValue(nameof(TilesetCodes), out yaml))
 				TilesetCodes = yaml.ToDictionary(kv => kv.Value);
 		}
 

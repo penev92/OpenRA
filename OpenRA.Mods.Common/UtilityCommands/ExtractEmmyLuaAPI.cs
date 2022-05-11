@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using OpenRA.Scripting;
+using OpenRA.Traits;
 
 namespace OpenRA.Mods.Common.UtilityCommands
 {
@@ -39,12 +40,53 @@ namespace OpenRA.Mods.Common.UtilityCommands
 			Console.WriteLine("-- See https://docs.openra.net/en/latest/release/lua/ for human readable documentation.");
 
 			Console.WriteLine();
+			Console.WriteLine();
+			Console.WriteLine("--");
+			Console.WriteLine("-- SECTION Manually added:");
+			Console.WriteLine("--");
+			Console.WriteLine();
+			Console.WriteLine();
+
 			WriteManual();
+
+			Console.WriteLine();
+			Console.WriteLine();
+			Console.WriteLine("--");
+			Console.WriteLine("-- SECTION ActorInits:");
+			Console.WriteLine("--");
+			Console.WriteLine();
+			Console.WriteLine();
+
+			var actorInits = Game.ModData.ObjectCreator.GetTypesImplementing<ActorInit>()
+				.Where(x => !x.IsAbstract && !x.GetInterfaces().Contains(typeof(ISuppressInitExport)));
+
+			WriteActorInits(actorInits, out var usedEnums);
+
+			Console.WriteLine();
+			Console.WriteLine();
+			Console.WriteLine("--");
+			Console.WriteLine("-- SECTION Enums:");
+			Console.WriteLine("--");
+			Console.WriteLine();
+			Console.WriteLine();
+
+			WriteEnums(usedEnums);
+
+			Console.WriteLine();
+			Console.WriteLine("--");
+			Console.WriteLine("-- SECTION Script API global methods:");
+			Console.WriteLine("--");
+			Console.WriteLine();
 			Console.WriteLine();
 
 			var globalTables = Game.ModData.ObjectCreator.GetTypesImplementing<ScriptGlobal>().OrderBy(t => t.Name);
 			WriteGlobals(globalTables);
 
+			Console.WriteLine();
+			Console.WriteLine("--");
+			Console.WriteLine("-- SECTION Script API object properties:");
+			Console.WriteLine("--");
+			Console.WriteLine();
 			Console.WriteLine();
 
 			var actorProperties = Game.ModData.ObjectCreator.GetTypesImplementing<ScriptActorProperties>();
@@ -63,7 +105,7 @@ namespace OpenRA.Mods.Common.UtilityCommands
 			Console.WriteLine("function Tick() end");
 			Console.WriteLine();
 			Console.WriteLine();
-			Console.WriteLine("--- These are engine base types.");
+			Console.WriteLine("--- Base engine types.");
 			Console.WriteLine("---@class cpos");
 			Console.WriteLine("---@field X integer");
 			Console.WriteLine("---@field Y integer");
@@ -90,7 +132,55 @@ namespace OpenRA.Mods.Common.UtilityCommands
 			Console.WriteLine();
 			Console.WriteLine("---@class color");
 			Console.WriteLine("local color = { };");
-			Console.WriteLine();
+		}
+
+		static void WriteActorInits(IEnumerable<Type> actorInits, out IEnumerable<Type> usedEnums)
+		{
+			var inits = actorInits.Select(x =>
+				(x.Name.Substring(0, x.Name.Length - 4), x.GetConstructors()));
+
+			Console.WriteLine("---A list of ActorInit implementations that can be used by Lua scripts.");
+			Console.WriteLine("---@class initTable");
+
+			var localEnums = new List<Type>();
+			foreach (var (name, constructorInfos) in inits)
+			{
+				var parameters = constructorInfos.Select(ci => ci.GetParameters());
+				var parameterString = string.Join(" | ",
+					parameters
+						.Select(cp => string.Join(", ",
+							cp
+								.Where(p => !p.HasDefaultValue)
+								.Where(p => p.ParameterType != typeof(TraitInfo) && p.ParameterType.Name != typeof(Func<int>).Name)
+								.Select(p =>
+								{
+									if (p.ParameterType.IsEnum)
+										localEnums.Add(p.ParameterType);
+
+									return p.ParameterType.EmmyLuaString();
+								})))
+						.Where(s => !s.Contains(", "))
+						.Distinct());
+
+				if (!string.IsNullOrEmpty(parameterString))
+					Console.WriteLine($"---@field {name} {parameterString}");
+			}
+
+			usedEnums = localEnums.Distinct();
+		}
+
+		static void WriteEnums(IEnumerable<Type> enumTypes)
+		{
+			foreach (var enumType in enumTypes)
+			{
+				Console.WriteLine(enumType.Name + " = {");
+
+				foreach (var value in Enum.GetValues(enumType))
+					Console.WriteLine($"    {value} = {Convert.ChangeType(value, typeof(int))},");
+
+				Console.WriteLine("}");
+				Console.WriteLine();
+			}
 		}
 
 		static void WriteGlobals(IEnumerable<Type> globalTables)
@@ -235,6 +325,7 @@ namespace OpenRA.Mods.Common.UtilityCommands
 	{
 		static readonly Dictionary<string, string> LuaTypeNameReplacements = new Dictionary<string, string>()
 		{
+			{ "UInt32", "integer" },
 			{ "Int32", "integer" },
 			{ "String", "string" },
 			{ "String[]", "string[]" },

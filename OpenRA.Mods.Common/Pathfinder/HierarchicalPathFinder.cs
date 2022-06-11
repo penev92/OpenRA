@@ -655,6 +655,24 @@ namespace OpenRA.Mods.Common.Pathfinder
 			if (costEstimator == null)
 				return PathFinder.NoPath;
 
+			// Try and see if we can just walk in a straight line by doing a line-of-sight check.
+			// This could potentially save us the effort of doing actual pathfinding.
+			// THIS DOES NOT CONSIDER PATHING COSTS OUTSIDE OF THE PREDEFINED CELLS and can easily miss an adjacent path that is much cheaper!!!
+			if (source.Layer == target.Layer)
+			{
+				var cells = self.World.FindCellsOnLine(world.Map.CenterOfCell(source), world.Map.CenterOfCell(target)).ToArray();
+				using (var search = GetLocalPathSearch(self, new[] { source }, target, customCost, ignoreActor, check, laneBias,
+					       grid: null,
+					       predefinedCells: cells,
+					       heuristic: pos => cells.Contains(pos) ? cells.Length - cells.IndexOf(pos) : int.MaxValue))
+				{
+					var localPath = search.FindPath();
+
+					if (localPath.Count > 0 && localPath.Count <= cells.Length * PathSearch.DefaultHeuristicWeightPercentage / 100)
+						return localPath;
+				}
+			}
+
 			// If the source and target are close, see if they can be reached locally.
 			// This avoids the cost of an abstract search unless we need one.
 			const int CloseGridDistance = 2;
@@ -908,6 +926,7 @@ namespace OpenRA.Mods.Common.Pathfinder
 
 		PathSearch GetLocalPathSearch(
 			Actor self, IEnumerable<CPos> srcs, CPos dst, Func<CPos, int> customCost, Actor ignoreActor, BlockedByActor check, bool laneBias, Grid? grid,
+			CPos[] predefinedCells = null,
 			Func<CPos, int> heuristic = null,
 			int heuristicWeightPercentage = PathSearch.DefaultHeuristicWeightPercentage,
 			bool inReverse = false,
@@ -915,7 +934,7 @@ namespace OpenRA.Mods.Common.Pathfinder
 		{
 			return PathSearch.ToTargetCell(
 				world, locomotor, self, srcs, dst, check,
-				customCost, ignoreActor, laneBias, inReverse, heuristic, heuristicWeightPercentage, grid, recorder);
+				customCost, ignoreActor, laneBias, inReverse, heuristic, heuristicWeightPercentage, grid, predefinedCells, recorder);
 		}
 	}
 }

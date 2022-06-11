@@ -67,11 +67,14 @@ namespace OpenRA.Mods.Common.Pathfinder
 			Func<CPos, int> heuristic = null,
 			int heuristicWeightPercentage = DefaultHeuristicWeightPercentage,
 			Grid? grid = null,
+			CPos[] predefinedCells = null,
 			IRecorder recorder = null)
 		{
 			IPathGraph graph;
 			if (grid != null)
 				graph = new GridPathGraph(locomotor, self, world, check, customCost, ignoreActor, laneBias, inReverse, grid.Value);
+			else if (predefinedCells != null)
+				graph = new LinePathGraph(locomotor, self, world, check, customCost, ignoreActor, laneBias, inReverse, predefinedCells);
 			else
 				graph = new MapPathGraph(LayerPoolForWorld(world), locomotor, self, world, check, customCost, ignoreActor, laneBias, inReverse);
 

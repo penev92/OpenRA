@@ -9,9 +9,12 @@
  */
 #endregion
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using OpenRA.Mods.Common.Activities;
 using OpenRA.Mods.Common.Traits;
+using OpenRA.Mods.Common.UtilityCommands;
 
 namespace OpenRA.Mods.Common
 {
@@ -112,6 +115,53 @@ namespace OpenRA.Mods.Common
 
 			// Projection falls on the segment
 			return WPos.Lerp(lineEnd, lineStart, t, squaredLength);
+		}
+
+		public static IEnumerable<CPos> FindCellsOnLine(this World world, WPos lineStart, WPos lineEnd)
+		{
+			// TODO: Think about elevation differences!
+			// TODO: Consider searches that aren't center-to-center.
+
+			var start = world.Map.CellContaining(lineStart);
+			var end = world.Map.CellContaining(lineEnd);
+
+			var dx = end.X - start.X;
+			var dy = end.Y - start.Y;
+			var directionX = Math.Sign(dx);
+			var directionY = Math.Sign(dy);
+			var directionModifierX = directionX < 0 ? 0 : directionX;
+			var directionModifierY = directionY < 0 ? 0 : directionY;
+
+			var currentX = start.X;
+			var currentY = start.Y;
+
+			float CalcIntersectionDistanceX() => Math.Abs(dy * (currentX + directionModifierX - start.X - 0.5f));
+			float CalcIntersectionDistanceY() => Math.Abs(dx * (currentY + directionModifierY - start.Y - 0.5f));
+
+			var intersectionDistanceX = dx == 0 ? int.MaxValue : CalcIntersectionDistanceX();
+			var intersectionDistanceY = dy == 0 ? int.MaxValue : CalcIntersectionDistanceY();
+
+			yield return start;
+
+			while (currentX != end.X || currentY != end.Y)
+			{
+				var moveX = intersectionDistanceX <= intersectionDistanceY;
+				var moveY = intersectionDistanceY <= intersectionDistanceX;
+
+				if (moveX)
+				{
+					currentX += directionX;
+					intersectionDistanceX = CalcIntersectionDistanceX();
+				}
+
+				if (moveY)
+				{
+					currentY += directionY;
+					intersectionDistanceY = CalcIntersectionDistanceY();
+				}
+
+				yield return new CPos(currentX, currentY);
+			}
 		}
 	}
 }

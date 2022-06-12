@@ -18,13 +18,17 @@ def format_type_name(typeName):
 
     return f'[`{name}`](#{name.lower()})'
 
-def format_docs(version, collectionName, types):
+def format_docs(version, collectionName, types, relatedEnums):
+
     typesByNamespace = OrderedDict()
     for currentType in types:
         if currentType["Namespace"] in typesByNamespace:
             typesByNamespace[currentType["Namespace"]].append(currentType)
         else:
             typesByNamespace[currentType["Namespace"]] = [currentType]
+
+    # Map the `relatedEnums` collection to a list of strings.
+    enumNames = [enum['Name'] for enum in relatedEnums]
 
     explanation = ""
     if collectionName == "TraitInfos":
@@ -37,7 +41,7 @@ def format_docs(version, collectionName, types):
     print(f"This documentation is aimed at modders and has been automatically generated for version `{version}` of OpenRA. " +
 				"Please do not edit it directly, but instead add new `[Desc(\"String\")]` tags to the source code.\n")
 
-    print(f"Listed below are {explanation}:\n")
+    print(f"Listed below are {explanation} and related enums ([at the bottom](#related-enums)):\n")
 
     for namespace in typesByNamespace:
         print(f'## {namespace}\n')
@@ -60,6 +64,13 @@ def format_docs(version, collectionName, types):
                 print(f'| -------- | ------------- | ---- |{" ---------- |" if hasAttributes else ""} ----------- |')
 
                 for prop in currentType["Properties"]:
+
+                    # Use the user-friendly type name unless we're certain this is a known enum,
+                    # in which case get a link to the enum's definition.
+                    typeName = prop["UserFriendlyType"]
+                    if prop["InternalType"] in enumNames:
+                        typeName = format_type_name(prop["InternalType"])
+
                     if "OtherAttributes" in prop:
                         attributesList = [f'{x["Name"]}{"(" + str(x["Value"][0]) + ")" if x["Value"] else ""}' for x in prop["OtherAttributes"] if x["Name"]]
                         if not attributesList:
@@ -67,16 +78,24 @@ def format_docs(version, collectionName, types):
                         else:
                             attributes = ", ".join(attributesList)
 
-                        print(f'| {prop["PropertyName"]} | {prop["DefaultValue"]} | {prop["UserFriendlyType"]} | {attributes} | {prop["Description"]} |')
+                        print(f'| {prop["PropertyName"]} | {prop["DefaultValue"]} | {typeName} | {attributes} | {prop["Description"]} |')
                     else:
-                        print(f'| {prop["PropertyName"]} | {prop["DefaultValue"]} | {prop["UserFriendlyType"]} | {prop["Description"]} |')
+                        print(f'| {prop["PropertyName"]} | {prop["DefaultValue"]} | {typeName} | {prop["Description"]} |')
 
             print('\n#\n')
+
+    print('\n#\n# Related enums:\n\n')
+
+    for relatedEnum in relatedEnums:
+        values = [f"{value['Key']}: {value['Value']}" for value in relatedEnum["Values"]]
+        print(f"#### {relatedEnum['Name']}")
+        print(f"{{ {', '.join(values)} }}")
+        print("\n#\n")
 
 if __name__ == "__main__":
     input_stream = io.TextIOWrapper(sys.stdin.buffer, encoding='utf-8-sig')
     jsonInfo = json.load(input_stream)
 
     keys = list(jsonInfo)
-    if len(keys) == 2 and keys[0] == 'Version':
-        format_docs(jsonInfo[keys[0]], keys[1], jsonInfo[keys[1]])
+    if len(keys) == 3 and keys[0] == 'Version':
+        format_docs(jsonInfo[keys[0]], keys[1], jsonInfo[keys[1]], jsonInfo[keys[2]])

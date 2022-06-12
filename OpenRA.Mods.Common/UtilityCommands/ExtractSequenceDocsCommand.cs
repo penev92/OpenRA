@@ -34,6 +34,8 @@ namespace OpenRA.Mods.Common.UtilityCommands
 
 		static string GenerateJson(string version, IEnumerable<Type> sequenceTypes)
 		{
+			var relatedEnumTypes = new HashSet<Type>();
+
 			var sequenceTypesInfo = sequenceTypes
 				.Where(x => x.GetCustomAttributes<DescAttribute>(false).Length > 0)
 				.Select(type => new
@@ -46,21 +48,39 @@ namespace OpenRA.Mods.Common.UtilityCommands
 						.Where(y => y != type.Name && y != "Object"),
 					Properties = type.GetProperties()
 						.Where(propInfo => propInfo.GetCustomAttributes<DescAttribute>(false).Length > 0)
-						.Select(propInfo => new
+						.Select(propInfo =>
 						{
-							PropertyName = propInfo.Name,
-							DefaultValue = propInfo.GetValue(Activator.CreateInstance(type))?.ToString(),
-							Type = Util.FriendlyTypeName(propInfo.PropertyType),
-							InternalType = Util.InternalTypeName(propInfo.PropertyType),
-							UserFriendlyType = Util.FriendlyTypeName(propInfo.PropertyType),
-							Description = string.Join(" ", propInfo.GetCustomAttributes<DescAttribute>(false).SelectMany(d => d.Lines))
+							if (propInfo.PropertyType.IsEnum)
+								relatedEnumTypes.Add(propInfo.PropertyType);
+
+							return new
+							{
+								PropertyName = propInfo.Name,
+								DefaultValue = propInfo.GetValue(Activator.CreateInstance(type))?.ToString(),
+								Type = Util.FriendlyTypeName(propInfo.PropertyType),
+								InternalType = Util.InternalTypeName(propInfo.PropertyType),
+								UserFriendlyType = Util.FriendlyTypeName(propInfo.PropertyType),
+								Description = string.Join(" ", propInfo.GetCustomAttributes<DescAttribute>(false).SelectMany(d => d.Lines))
+							};
 						})
 				});
+
+			var relatedEnums = relatedEnumTypes.Select(type => new
+			{
+				Namespace = type.Namespace,
+				Name = type.Name,
+				Values = Enum.GetNames(type).Select(x => new
+				{
+					Key = x,
+					Value = Convert.ToInt32(Enum.Parse(type, x))
+				})
+			});
 
 			var result = new
 			{
 				Version = version,
-				SequenceTypes = sequenceTypesInfo
+				SequenceTypes = sequenceTypesInfo,
+				RelatedEnums = relatedEnums
 			};
 
 			return Newtonsoft.Json.JsonConvert.SerializeObject(result);

@@ -68,7 +68,10 @@ namespace OpenRA
 		static void AddTextNotification(TextNotificationPool pool, string prefix, string text, Color? prefixColor = null, Color? textColor = null)
 		{
 			if (IsPoolEnabled(pool))
-				Game.OrderManager.AddTextNotification(new TextNotification(pool, prefix, text, prefixColor, textColor));
+			{
+				var sanitizedText = GetSanitizedString(text);
+				Game.OrderManager.AddTextNotification(new TextNotification(pool, prefix, sanitizedText, prefixColor, textColor));
+			}
 		}
 
 		static bool IsPoolEnabled(TextNotificationPool pool)
@@ -80,6 +83,11 @@ namespace OpenRA
 				pool == TextNotificationPool.Mission ||
 				(pool == TextNotificationPool.Transients && filters.HasFlag(TextNotificationPoolFilters.Transients)) ||
 				(pool == TextNotificationPool.Feedback && filters.HasFlag(TextNotificationPoolFilters.Feedback));
+		}
+
+		static string GetSanitizedString(string text)
+		{
+			return Game.ModData.ProfanityFilter.GetSanitizedString(text);
 		}
 	}
 }

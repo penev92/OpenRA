@@ -37,6 +37,8 @@ namespace OpenRA
 		public readonly IVideoLoader[] VideoLoaders;
 		public readonly HotkeyManager Hotkeys;
 		public readonly Translation Translation;
+		public readonly ProfanityFilter ProfanityFilter;
+
 		public ILoadScreen LoadScreen { get; }
 		public CursorProvider CursorProvider { get; private set; }
 		public FS ModFiles;
@@ -106,6 +108,8 @@ namespace OpenRA
 			Hotkeys = new HotkeyManager(ModFiles, Game.Settings.Keys, Manifest);
 
 			Translation = new Translation(Game.Settings.Player.Language, Manifest.Translations, DefaultFileSystem);
+
+			ProfanityFilter = new ProfanityFilter(Manifest.Profanities, DefaultFileSystem);
 
 			defaultRules = Exts.Lazy(() => Ruleset.LoadDefaults(this));
 			defaultTerrainInfo = Exts.Lazy(() =>

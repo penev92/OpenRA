@@ -141,6 +141,10 @@ ChromeLayout:
 Translations:
 	common|languages/en.ftl
 
+Profanities:
+	common|profanities/en.txt
+	common|profanities/ru.txt
+
 Weapons:
 	ra|weapons/explosions.yaml
 	ra|weapons/ballistics.yaml

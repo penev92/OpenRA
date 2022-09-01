@@ -68,6 +68,7 @@ namespace OpenRA
 		public IEffectiveOwner EffectiveOwner { get; }
 		public IOccupySpace OccupiesSpace { get; }
 		public ITargetable[] Targetables { get; }
+		public IEnumerable<ITargetablePositions> EnabledTargetablePositions => targetablePositions.Where(Exts.IsTraitEnabled);
 
 		public bool IsIdle => CurrentActivity == null;
 		public bool IsDead => Disposed || (health != null && health.IsDead);
@@ -114,8 +115,7 @@ namespace OpenRA
 		readonly IDefaultVisibility defaultVisibility;
 		readonly INotifyBecomingIdle[] becomingIdles;
 		readonly INotifyIdle[] tickIdles;
-		readonly IEnumerable<ITargetablePositions> enabledTargetablePositions;
-		readonly IEnumerable<WPos> enabledTargetableWorldPositions;
+		readonly IList<ITargetablePositions> targetablePositions = new List<ITargetablePositions>();
 		bool created;
 
 		internal Actor(World world, string name, TypeDictionary initDict)
@@ -153,7 +153,6 @@ namespace OpenRA
 				var becomingIdlesList = new List<INotifyBecomingIdle>();
 				var tickIdlesList = new List<INotifyIdle>();
 				var targetablesList = new List<ITargetable>();
-				var targetablePositionsList = new List<ITargetablePositions>();
 				var syncHashesList = new List<SyncHash>();
 
 				foreach (var traitInfo in Info.TraitsInConstructOrder())
@@ -179,7 +178,7 @@ namespace OpenRA
 					{ if (trait is INotifyBecomingIdle t) becomingIdlesList.Add(t); }
 					{ if (trait is INotifyIdle t) tickIdlesList.Add(t); }
 					{ if (trait is ITargetable t) targetablesList.Add(t); }
-					{ if (trait is ITargetablePositions t) targetablePositionsList.Add(t); }
+					{ if (trait is ITargetablePositions t) targetablePositions.Add(t); }
 					{ if (trait is ISync t) syncHashesList.Add(new SyncHash(t)); }
 				}
 
@@ -191,9 +190,6 @@ namespace OpenRA
 				becomingIdles = becomingIdlesList.ToArray();
 				tickIdles = tickIdlesList.ToArray();
 				Targetables = targetablesList.ToArray();
-				var targetablePositions = targetablePositionsList.ToArray();
-				enabledTargetablePositions = targetablePositions.Where(Exts.IsTraitEnabled);
-				enabledTargetableWorldPositions = enabledTargetablePositions.SelectMany(tp => tp.TargetablePositions(this));
 				SyncHashes = syncHashesList.ToArray();
 			}
 		}
@@ -530,8 +526,8 @@ namespace OpenRA
 
 		public IEnumerable<WPos> GetTargetablePositions()
 		{
-			if (enabledTargetablePositions.Any())
-				return enabledTargetableWorldPositions;
+			if (EnabledTargetablePositions.Any())
+				return EnabledTargetablePositions.SelectMany(tp => tp.TargetablePositions(this));
 
 			return new[] { CenterPosition };
 		}

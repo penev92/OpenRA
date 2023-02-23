@@ -1,0 +1,7 @@
+ContentPackage:
+	Title: Aftermath Expansion Files
+	Identifier: aftermath-base
+	TestFiles: ^SupportDir|Content/ra/v2/expand/expand2.mix, ^SupportDir|Content/ra/v2/expand/hires1.mix, ^SupportDir|Content/ra/v2/expand/lores1.mix, ^SupportDir|Content/ra/v2/expand/chrotnk1.aud, ^SupportDir|Content/ra/v2/expand/fixit1.aud, ^SupportDir|Content/ra/v2/expand/jburn1.aud, ^SupportDir|Content/ra/v2/expand/jchrge1.aud, ^SupportDir|Content/ra/v2/expand/jcrisp1.aud, ^SupportDir|Content/ra/v2/expand/jdance1.aud, ^SupportDir|Content/ra/v2/expand/jjuice1.aud, ^SupportDir|Content/ra/v2/expand/jjump1.aud, ^SupportDir|Content/ra/v2/expand/jlight1.aud, ^SupportDir|Content/ra/v2/expand/jpower1.aud, ^SupportDir|Content/ra/v2/expand/jshock1.aud, ^SupportDir|Content/ra/v2/expand/jyes1.aud, ^SupportDir|Content/ra/v2/expand/madchrg2.aud, ^SupportDir|Content/ra/v2/expand/madexplo.aud, ^SupportDir|Content/ra/v2/expand/mboss1.aud, ^SupportDir|Content/ra/v2/expand/mhear1.aud, ^SupportDir|Content/ra/v2/expand/mhotdig1.aud, ^SupportDir|Content/ra/v2/expand/mhowdy1.aud, ^SupportDir|Content/ra/v2/expand/mhuh1.aud, ^SupportDir|Content/ra/v2/expand/mlaff1.aud, ^SupportDir|Content/ra/v2/expand/mrise1.aud, ^SupportDir|Content/ra/v2/expand/mwrench1.aud, ^SupportDir|Content/ra/v2/expand/myeehaw1.aud, ^SupportDir|Content/ra/v2/expand/myes1.aud
+	Sources: aftermath, tfd, ra-origin, cncr-steam, cncr-origin
+	Required: true
+	Download: aftermath

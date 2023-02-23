@@ -1,0 +1,5 @@
+ContentPackage:
+	Title: Base Game Music
+	Identifier: base-music
+	TestFiles: ^SupportDir|Content/ra/v2/scores.mix
+	Sources: allied, soviet, tfd, ra-origin, cncr-steam, cncr-origin

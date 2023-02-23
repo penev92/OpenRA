@@ -46,7 +46,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			var modFileSystem = new FS(mod.Id, Game.Mods, modPackageLoaders);
 			modFileSystem.LoadFromManifest(mod);
 
-			var sourceYaml = MiniYaml.Load(modFileSystem, content.Sources, null);
+			var sourceYaml = MiniYaml.Load(modFileSystem, content.InstallSources, null);
 			foreach (var s in sourceYaml)
 				sources.Add(s.Key, new ModContent.ModSource(s.Value, modObjectCreator));
 

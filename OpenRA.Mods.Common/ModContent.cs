@@ -110,7 +110,7 @@ namespace OpenRA
 		static object LoadPackages(MiniYaml yaml)
 		{
 			var packages = new Dictionary<string, ModPackage>();
-			var packageNode = yaml.Nodes.FirstOrDefault(n => n.Key == "Packages");
+			var packageNode = yaml.Nodes.FirstOrDefault(n => n.Key == "ContentPackages");
 			if (packageNode != null)
 				foreach (var node in packageNode.Value.Nodes)
 					packages.Add(node.Key, new ModPackage(node.Value));
@@ -128,11 +128,11 @@ namespace OpenRA
 		}
 
 		[FieldLoader.LoadUsing(nameof(LoadSources))]
-		public readonly string[] Sources = Array.Empty<string>();
+		public readonly string[] InstallSources = Array.Empty<string>();
 
 		static object LoadSources(MiniYaml yaml)
 		{
-			var sourceNode = yaml.Nodes.FirstOrDefault(n => n.Key == "Sources");
+			var sourceNode = yaml.Nodes.FirstOrDefault(n => n.Key == "InstallSources");
 			return sourceNode != null ? sourceNode.Value.Nodes.Select(n => n.Key).ToArray() : Array.Empty<string>();
 		}
 	}

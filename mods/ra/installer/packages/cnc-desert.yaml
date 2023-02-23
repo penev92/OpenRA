@@ -1,0 +1,7 @@
+ContentPackage:
+	Title: C&C Desert Tileset
+	Identifier: cnc-desert
+	TestFiles: ^SupportDir|Content/ra/v2/cnc/desert.mix
+	Sources: tfd, cnc-origin, cnc95, cncr-steam, cncr-origin
+	Required: true
+	Download: cncdesert

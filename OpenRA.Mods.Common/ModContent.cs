@@ -99,9 +99,9 @@ namespace OpenRA
 			}
 		}
 
-		public readonly string InstallPromptMessage;
+		public readonly string InstallPromptMessage = "missing-content-prompt";
+		public readonly string HeaderMessage = "installer-header";
 		public readonly string QuickDownload;
-		public readonly string HeaderMessage;
 		public readonly string ContentInstallerMod = "modcontent";
 
 		[FieldLoader.LoadUsing(nameof(LoadPackages))]

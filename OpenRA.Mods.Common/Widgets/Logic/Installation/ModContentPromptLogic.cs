@@ -26,21 +26,23 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 		[TranslationReference]
 		const string Quit = "button-quit";
 
+		readonly Manifest mod;
 		readonly ModContent content;
 		bool requiredContentInstalled;
 
 		[ObjectCreator.UseCtor]
 		public ModContentPromptLogic(ModData modData, Widget widget, Manifest mod, ModContent content, Action continueLoading)
 		{
+			this.mod = mod;
 			this.content = content;
 			CheckRequiredContentInstalled();
 
 			var continueMessage = modData.Translation.GetString(Continue);
 			var quitMessage = modData.Translation.GetString(Quit);
+			var installPromptMessage = modData.Translation.GetString(content.InstallPromptMessage);
 
 			var panel = widget.Get("CONTENT_PROMPT_PANEL");
 			var headerTemplate = panel.Get<LabelWidget>("HEADER_TEMPLATE");
-			var installPromptMessage = modData.Translation.GetString(content.InstallPromptMessage);
 			var headerLines = !string.IsNullOrEmpty(installPromptMessage) ? installPromptMessage.Replace("\\n", "\n").Split('\n') : Array.Empty<string>();
 			var headerHeight = 0;
 			foreach (var l in headerLines)
@@ -108,9 +110,20 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 
 		void CheckRequiredContentInstalled()
 		{
-			requiredContentInstalled = content.Packages
-				.Where(p => p.Value.Required)
-				.All(p => p.Value.TestFiles.All(f => File.Exists(Platform.ResolvePath(f))));
+			var modObjectCreator = new ObjectCreator(mod, Game.Mods);
+			var modPackageLoaders = modObjectCreator.GetLoaders<IPackageLoader>(mod.PackageFormats, "package");
+			var modFileSystem = new FS(mod.Id, Game.Mods, modPackageLoaders);
+			modFileSystem.LoadFromManifest(mod);
+
+			var contentPackages = content.Packages
+				.SelectMany(x => MiniYaml.Load(modFileSystem, new[] { x }, null))
+				.Select(x => new ModContent.ModPackage(x.Value));
+
+			modFileSystem.UnmountAll();
+
+			requiredContentInstalled = contentPackages
+				.Where(p => p.Required)
+				.All(p => p.TestFiles.All(f => File.Exists(Platform.ResolvePath(f))));
 		}
 	}
 }

@@ -165,6 +165,13 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 
 			new Task(() =>
 			{
+				var contentPackagesNodes = MiniYaml.Load(modData.DefaultFileSystem, content.Packages, null);
+				var contentPackages = new List<ModContent.ModPackage>();
+				foreach (var contentPackagesNode in contentPackagesNodes)
+				{
+					//contentPackages.Add();
+				}
+
 				foreach (var kv in sources)
 				{
 					message = modData.Translation.GetString(SearchingSourceFor, Translation.Arguments("title", kv.Value.Title));
@@ -176,7 +183,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 					{
 						Log.Write("install", $"Using installer `{kv.Key}: {kv.Value.Title}` of type `{kv.Value.Type.Value}`:");
 
-						availablePackages = content.Packages.Values
+						availablePackages = contentPackages
 							.Where(p => p.Sources.Contains(kv.Key) && !p.IsInstalled())
 							.ToArray();
 
@@ -196,7 +203,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 					}
 				}
 
-				var missingSources = content.Packages.Values
+				var missingSources = contentPackages
 					.Where(p => !p.IsInstalled())
 					.SelectMany(p => p.Sources)
 					.Select(d => sources[d]);

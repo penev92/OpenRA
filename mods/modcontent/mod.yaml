@@ -37,6 +37,7 @@ ChromeMetrics:
 
 Translations:
 	common|languages/en.ftl
+	modcontent|en.ftl
 
 Fonts:
 	Tiny:

@@ -11,9 +11,11 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using OpenRA.FileFormats;
+using OpenRA.FileSystem;
 using OpenRA.Mods.Common.Widgets.Logic;
 using OpenRA.Widgets;
 
@@ -132,15 +134,42 @@ namespace OpenRA.Mods.Common.LoadScreens
 				return true;
 
 			var content = ModData.Manifest.Get<ModContent>();
-			var contentInstalled = content.Packages
-				.Where(p => p.Value.Required)
-				.All(p => p.Value.TestFiles.All(f => File.Exists(Platform.ResolvePath(f))));
+			var isContentInstalled = IsModContentInstalled(ModData.Manifest, content);
 
-			if (contentInstalled)
+			if (isContentInstalled)
 				return true;
 
 			Game.InitializeMod(content.ContentInstallerMod, new Arguments(new[] { "Content.Mod=" + ModData.Manifest.Id }));
 			return false;
+		}
+
+		protected bool IsModContentInstalled(Manifest mod, ModContent content)
+		{
+			var isContentInstalled = GetContentPackages(mod, content)
+				.Where(p => p.Value.Required)
+				.All(p => p.Value.TestFiles.All(f => File.Exists(Platform.ResolvePath(f))));
+
+			return isContentInstalled;
+		}
+
+		IReadOnlyDictionary<string, ModContent.ModPackage> GetContentPackages(Manifest mod, ModContent content)
+		{
+			if (content.ContentPackages == null)
+			{
+				var modObjectCreator = new ObjectCreator(mod, Game.Mods);
+				var modPackageLoaders = modObjectCreator.GetLoaders<IPackageLoader>(ModData.Manifest.PackageFormats, "package");
+				var modFileSystem = new OpenRA.FileSystem.FileSystem(mod.Id, Game.Mods, modPackageLoaders);
+				modFileSystem.LoadFromManifest(mod);
+
+				content.ContentPackages = content.Packages
+					.SelectMany(x => MiniYaml.Load(modFileSystem, new[] { x }, null))
+					.ToDictionary(x => x.Value.Nodes.FirstOrDefault(n => n.Key == nameof(ModContent.ModPackage.Identifier))?.Value.Value,
+						y => new ModContent.ModPackage(y.Value));
+
+				modFileSystem.UnmountAll();
+			}
+
+			return content.ContentPackages;
 		}
 	}
 }

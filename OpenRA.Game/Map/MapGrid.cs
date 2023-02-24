@@ -191,6 +191,7 @@ namespace OpenRA
 			TilesByDistance = CreateTilesByDistance();
 		}
 
+
 		CVec[][] CreateTilesByDistance()
 		{
 			var ts = new List<CVec>[MaximumTileSearchRange + 1];

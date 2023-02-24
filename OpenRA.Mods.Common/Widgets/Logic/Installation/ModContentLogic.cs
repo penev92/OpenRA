@@ -46,8 +46,8 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			var modFileSystem = new FS(mod.Id, Game.Mods, modPackageLoaders);
 			modFileSystem.LoadFromManifest(mod);
 
-			var sourceYaml = MiniYaml.Load(modFileSystem, content.InstallSources, null);
-			foreach (var s in sourceYaml)
+			var installSourcesYaml = MiniYaml.Load(modFileSystem, content.InstallSources, null);
+			foreach (var s in installSourcesYaml)
 				sources.Add(s.Key, new ModContent.ModSource(s.Value, modObjectCreator));
 
 			var downloadYaml = MiniYaml.Load(modFileSystem, content.Downloads, null);
@@ -104,7 +104,8 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 		{
 			scrollPanel.RemoveChildren();
 
-			foreach (var p in content.Packages)
+			// We rely on ModContentLoadScreen loading the content packages before we get here so we don't have to copy the horrible code that does.
+			foreach (var p in content.ContentPackages.OrderBy(x => x.Value.Required))
 			{
 				var container = template.Clone();
 				var titleWidget = container.Get<LabelWidget>("TITLE");
@@ -151,7 +152,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 				scrollPanel.AddChild(container);
 			}
 
-			sourceAvailable = content.Packages.Values.Any(p => p.Sources.Length > 0 && !p.IsInstalled());
+			sourceAvailable = content.ContentPackages.Values.Any(p => p.Sources.Length > 0 && !p.IsInstalled());
 		}
 	}
 }

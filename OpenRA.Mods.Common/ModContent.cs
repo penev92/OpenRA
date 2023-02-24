@@ -104,18 +104,29 @@ namespace OpenRA
 		public readonly string QuickDownload;
 		public readonly string ContentInstallerMod = "modcontent";
 
+		[FieldLoader.Ignore]
+		public IReadOnlyDictionary<string, ModPackage> ContentPackages;
+
 		[FieldLoader.LoadUsing(nameof(LoadPackages))]
-		public readonly Dictionary<string, ModPackage> Packages = new Dictionary<string, ModPackage>();
+		//public readonly Dictionary<string, ModPackage> Packages = new Dictionary<string, ModPackage>();
+		public readonly string[] Packages = Array.Empty<string>();
 
 		static object LoadPackages(MiniYaml yaml)
 		{
-			var packages = new Dictionary<string, ModPackage>();
-			var packageNode = yaml.Nodes.FirstOrDefault(n => n.Key == "ContentPackages");
-			if (packageNode != null)
-				foreach (var node in packageNode.Value.Nodes)
-					packages.Add(node.Key, new ModPackage(node.Value));
+			//var packages = new Dictionary<string, ModPackage>();
+			//var packageNode = yaml.Nodes.FirstOrDefault(n => n.Key == "ContentPackages");
+			//if (packageNode != null)
+			//{
+			//	var packageFiles = packageNode.Value.Nodes.Select(x => x.Key);
+			//	var packagesYaml = MiniYaml.FromFile()
+			//	foreach (var node in packageNode.Value.Nodes)
+			//		packages.Add(node.Key, new ModPackage(node.Value));
+			//}
 
-			return packages;
+			//return packages;
+
+			var packagesNode = yaml.Nodes.FirstOrDefault(n => n.Key == "ContentPackages");
+			return packagesNode != null ? packagesNode.Value.Nodes.Select(n => n.Key).ToArray() : Array.Empty<string>();
 		}
 
 		[FieldLoader.LoadUsing(nameof(LoadDownloads))]
@@ -132,8 +143,8 @@ namespace OpenRA
 
 		static object LoadSources(MiniYaml yaml)
 		{
-			var sourceNode = yaml.Nodes.FirstOrDefault(n => n.Key == "InstallSources");
-			return sourceNode != null ? sourceNode.Value.Nodes.Select(n => n.Key).ToArray() : Array.Empty<string>();
+			var sourcesNode = yaml.Nodes.FirstOrDefault(n => n.Key == "InstallSources");
+			return sourcesNode != null ? sourcesNode.Value.Nodes.Select(n => n.Key).ToArray() : Array.Empty<string>();
 		}
 	}
 }

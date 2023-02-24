@@ -19,5 +19,6 @@ namespace OpenRA
 		public readonly string[] ModelExtensions = Array.Empty<string>();
 		public readonly string[] AudioExtensions = Array.Empty<string>();
 		public readonly string[] VideoExtensions = Array.Empty<string>();
+
 	}
 }

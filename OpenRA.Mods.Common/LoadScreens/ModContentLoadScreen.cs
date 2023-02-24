@@ -12,6 +12,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using OpenRA.FileSystem;
 using OpenRA.Graphics;
 using OpenRA.Mods.Common.Widgets;
 using OpenRA.Primitives;
@@ -56,7 +57,7 @@ namespace OpenRA.Mods.Common.LoadScreens
 
 			Ui.LoadWidget("MODCONTENT_BACKGROUND", Ui.Root, new WidgetArgs());
 
-			if (!IsModInstalled(content))
+			if (!IsModContentInstalled(selectedMod, content))
 			{
 				var widgetArgs = new WidgetArgs
 				{
@@ -78,13 +79,6 @@ namespace OpenRA.Mods.Common.LoadScreens
 
 				Ui.OpenWindow("CONTENT_PANEL", widgetArgs);
 			}
-		}
-
-		bool IsModInstalled(ModContent content)
-		{
-			return content.Packages
-				.Where(p => p.Value.Required)
-				.All(p => p.Value.TestFiles.All(f => File.Exists(Platform.ResolvePath(f))));
 		}
 
 		public override bool BeforeLoad()

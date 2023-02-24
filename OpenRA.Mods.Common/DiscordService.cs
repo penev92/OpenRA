@@ -85,6 +85,7 @@ namespace OpenRA.Mods.Common
 			client.SetPresence(new RichPresence());
 		}
 
+
 		void OnJoinRequested(object sender, JoinRequestMessage args)
 		{
 			var client = (DiscordRpcClient)sender;

@@ -63,6 +63,7 @@ namespace OpenRA.Mods.Cnc.Traits
 				throw new InvalidDataException(nameof(PavementRenderer) + " requires a template-based tileset.");
 
 			templatedTerrainInfo = terrainInfo;
+			borderIndices = BorderIndicesPerTilesetId[templatedTerrainInfo.Id];
 
 			pavementLayer.Occupied.CellEntryChanged += Add;
 		}
@@ -85,25 +86,55 @@ namespace OpenRA.Mods.Cnc.Traits
 			PlusX = 0x8,
 		}
 
-		// 596 is unused (pavement sides with a clear hole in the middle).
-		static readonly Dictionary<Adjacency, ushort> BorderIndices = new Dictionary<Adjacency, ushort>()
+		IReadOnlyDictionary<Adjacency, ushort> borderIndices;
+
+		// 596(TEMPERATE)/1046(SNOW) is unused (pavement sides with a clear hole in the middle).
+		static readonly IReadOnlyDictionary<string, IReadOnlyDictionary<Adjacency, ushort>> BorderIndicesPerTilesetId = new Dictionary<string, IReadOnlyDictionary<Adjacency, ushort>>
 		{
-			{ Adjacency.None, 671 },
-			{ Adjacency.MinusY, 597 },
-			{ Adjacency.PlusX, 598 },
-			{ Adjacency.MinusY | Adjacency.PlusX, 599 },
-			{ Adjacency.PlusY, 600 },
-			{ Adjacency.PlusY | Adjacency.MinusY, 601 },
-			{ Adjacency.PlusY | Adjacency.PlusX, 602 },
-			{ Adjacency.PlusY | Adjacency.MinusY | Adjacency.PlusX, 603 },
-			{ Adjacency.MinusX, 604 },
-			{ Adjacency.MinusX | Adjacency.MinusY, 605 },
-			{ Adjacency.MinusX | Adjacency.PlusX, 606 },
-			{ Adjacency.MinusX | Adjacency.MinusY | Adjacency.PlusX, 607 },
-			{ Adjacency.MinusX | Adjacency.PlusY, 608 },
-			{ Adjacency.MinusX | Adjacency.MinusY | Adjacency.PlusY, 609 },
-			{ Adjacency.MinusX | Adjacency.PlusY | Adjacency.PlusX, 609 },
-			{ Adjacency.PlusY | Adjacency.MinusX | Adjacency.MinusY | Adjacency.PlusX, 611 },
+			{
+				"TEMPERATE",
+				new Dictionary<Adjacency, ushort>
+				{
+					{ Adjacency.None, 671 },
+					{ Adjacency.MinusY, 597 },
+					{ Adjacency.PlusX, 598 },
+					{ Adjacency.MinusY | Adjacency.PlusX, 599 },
+					{ Adjacency.PlusY, 600 },
+					{ Adjacency.PlusY | Adjacency.MinusY, 601 },
+					{ Adjacency.PlusY | Adjacency.PlusX, 602 },
+					{ Adjacency.PlusY | Adjacency.MinusY | Adjacency.PlusX, 603 },
+					{ Adjacency.MinusX, 604 },
+					{ Adjacency.MinusX | Adjacency.MinusY, 605 },
+					{ Adjacency.MinusX | Adjacency.PlusX, 606 },
+					{ Adjacency.MinusX | Adjacency.MinusY | Adjacency.PlusX, 607 },
+					{ Adjacency.MinusX | Adjacency.PlusY, 608 },
+					{ Adjacency.MinusX | Adjacency.MinusY | Adjacency.PlusY, 609 },
+					{ Adjacency.MinusX | Adjacency.PlusY | Adjacency.PlusX, 609 },
+					{ Adjacency.PlusY | Adjacency.MinusX | Adjacency.MinusY | Adjacency.PlusX, 611 },
+				}
+			},
+			{
+				"SNOW",
+				new Dictionary<Adjacency, ushort>
+				{
+					{ Adjacency.None, 1031 },
+					{ Adjacency.MinusY, 1047 },
+					{ Adjacency.PlusX, 1048 },
+					{ Adjacency.MinusY | Adjacency.PlusX, 1049 },
+					{ Adjacency.PlusY, 1050 },
+					{ Adjacency.PlusY | Adjacency.MinusY, 1051 },
+					{ Adjacency.PlusY | Adjacency.PlusX, 1052 },
+					{ Adjacency.PlusY | Adjacency.MinusY | Adjacency.PlusX, 1053 },
+					{ Adjacency.MinusX, 1054 },
+					{ Adjacency.MinusX | Adjacency.MinusY, 1055 },
+					{ Adjacency.MinusX | Adjacency.PlusX, 1056 },
+					{ Adjacency.MinusX | Adjacency.MinusY | Adjacency.PlusX, 1057 },
+					{ Adjacency.MinusX | Adjacency.PlusY, 1058 },
+					{ Adjacency.MinusX | Adjacency.MinusY | Adjacency.PlusY, 1059 },
+					{ Adjacency.MinusX | Adjacency.PlusY | Adjacency.PlusX, 1059 },
+					{ Adjacency.PlusY | Adjacency.MinusX | Adjacency.MinusY | Adjacency.PlusX, 1061 },
+				}
+			},
 		};
 
 		Adjacency FindClearSides(CPos cell)
@@ -144,7 +175,7 @@ namespace OpenRA.Mods.Cnc.Traits
 				return;
 
 			var clearSides = FindClearSides(cell);
-			BorderIndices.TryGetValue(clearSides, out var tileTemplateId);
+			borderIndices.TryGetValue(clearSides, out var tileTemplateId);
 
 			var template = templatedTerrainInfo.Templates[tileTemplateId];
 			var index = Game.CosmeticRandom.Next(template.TilesCount);

@@ -71,48 +71,59 @@ namespace OpenRA.Mods.Cnc.Traits
 		enum Adjacency : byte
 		{
 			None = 0x0,
-			Left = 0x1,
-			Top = 0x2,
-			Right = 0x4,
-			Bottom = 0x8,
 
-			All = 0xFF
+			/// <summary> Depending on the map grid type: Rectangular - Bottom; Isometric - BottomLeft. </summary>
+			PlusY = 0x1,
+
+			/// <summary> Depending on the map grid type: Rectangular - Left; Isometric - TopLeft. </summary>
+			MinusX = 0x2,
+
+			/// <summary> Depending on the map grid type: Rectangular - Top; Isometric - TopRight. </summary>
+			MinusY = 0x4,
+
+			/// <summary> Depending on the map grid type: Rectangular - Right; Isometric - BottomRight. </summary>
+			PlusX = 0x8,
 		}
 
-		static readonly Dictionary<Adjacency, ushort> SpriteMap = new Dictionary<Adjacency, ushort>()
+		// 596 is unused (pavement sides with a clear hole in the middle).
+		static readonly Dictionary<Adjacency, ushort> BorderIndices = new Dictionary<Adjacency, ushort>()
 		{
 			{ Adjacency.None, 671 },
-			{ Adjacency.Right, 597 },
-			{ Adjacency.Bottom, 598 },
-			{ Adjacency.Right | Adjacency.Bottom, 599 },
-			{ Adjacency.Left, 600 },
-			{ Adjacency.Left | Adjacency.Right, 601 },
-			{ Adjacency.Left | Adjacency.Bottom, 602 },
-			{ Adjacency.Left | Adjacency.Right | Adjacency.Bottom, 603 },
-			{ Adjacency.Top, 604 },
-			{ Adjacency.Top | Adjacency.Right, 605 },
-			{ Adjacency.Top | Adjacency.Bottom, 606 },
-			{ Adjacency.Top | Adjacency.Right | Adjacency.Bottom, 607 },
-			{ Adjacency.Top | Adjacency.Left, 608 },
-			{ Adjacency.Top | Adjacency.Right | Adjacency.Left, 609 },
-			{ Adjacency.Top | Adjacency.Left | Adjacency.Bottom, 609 },
-			{ Adjacency.All, 611 },
+			{ Adjacency.MinusY, 597 },
+			{ Adjacency.PlusX, 598 },
+			{ Adjacency.MinusY | Adjacency.PlusX, 599 },
+			{ Adjacency.PlusY, 600 },
+			{ Adjacency.PlusY | Adjacency.MinusY, 601 },
+			{ Adjacency.PlusY | Adjacency.PlusX, 602 },
+			{ Adjacency.PlusY | Adjacency.MinusY | Adjacency.PlusX, 603 },
+			{ Adjacency.MinusX, 604 },
+			{ Adjacency.MinusX | Adjacency.MinusY, 605 },
+			{ Adjacency.MinusX | Adjacency.PlusX, 606 },
+			{ Adjacency.MinusX | Adjacency.MinusY | Adjacency.PlusX, 607 },
+			{ Adjacency.MinusX | Adjacency.PlusY, 608 },
+			{ Adjacency.MinusX | Adjacency.MinusY | Adjacency.PlusY, 609 },
+			{ Adjacency.MinusX | Adjacency.PlusY | Adjacency.PlusX, 609 },
+			{ Adjacency.PlusY | Adjacency.MinusX | Adjacency.MinusY | Adjacency.PlusX, 611 },
 		};
 
 		Adjacency FindClearSides(CPos cell)
 		{
+			// Borders are only valid on flat cells
+			if (world.Map.Ramp[cell] != 0)
+				return Adjacency.None;
+
 			var clearSides = Adjacency.None;
 			if (!pavementLayer.Occupied[cell + new CVec(0, -1)])
-				clearSides |= Adjacency.Right;
+				clearSides |= Adjacency.MinusY;
 
 			if (!pavementLayer.Occupied[cell + new CVec(-1, 0)])
-				clearSides |= Adjacency.Top;
+				clearSides |= Adjacency.MinusX;
 
 			if (!pavementLayer.Occupied[cell + new CVec(1, 0)])
-				clearSides |= Adjacency.Bottom;
+				clearSides |= Adjacency.PlusX;
 
 			if (!pavementLayer.Occupied[cell + new CVec(0, 1)])
-				clearSides |= Adjacency.Left;
+				clearSides |= Adjacency.PlusY;
 
 			return clearSides;
 		}
@@ -132,10 +143,10 @@ namespace OpenRA.Mods.Cnc.Traits
 			if (!pavementLayer.Occupied[cell])
 				return;
 
-			var clear = FindClearSides(cell);
-			SpriteMap.TryGetValue(clear, out var tile);
+			var clearSides = FindClearSides(cell);
+			BorderIndices.TryGetValue(clearSides, out var tileTemplateId);
 
-			var template = templatedTerrainInfo.Templates[tile];
+			var template = templatedTerrainInfo.Templates[tileTemplateId];
 			var index = Game.CosmeticRandom.Next(template.TilesCount);
 			var terrainTile = new TerrainTile(template.Id, (byte)index);
 

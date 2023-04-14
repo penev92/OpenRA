@@ -32,16 +32,15 @@ namespace OpenRA.Mods.Common.Traits
 	{
 		public readonly PatrolsInfo Info;
 		readonly AttackMove attackMove;
-		readonly List<CPos> patrolWaypoints;
 
-		public List<CPos> PatrolWaypoints => patrolWaypoints;
+		public List<CPos> PatrolWaypoints { get; private set; }
 
 		public Patrols(Actor self, PatrolsInfo info)
 		{
 			Info = info;
 			attackMove = self.Trait<AttackMove>();
 
-			patrolWaypoints = new List<CPos>();
+			PatrolWaypoints = new List<CPos>();
 		}
 
 		string IOrderVoice.VoicePhraseForOrder(Actor self, Order order)
@@ -68,22 +67,22 @@ namespace OpenRA.Mods.Common.Traits
 				if (!attackMove.Info.MoveIntoShroud && !self.Owner.Shroud.IsExplored(cell))
 					return;
 
-				if (!patrolWaypoints.Contains(cell))
-					patrolWaypoints.Add(cell);
+				if (!PatrolWaypoints.Contains(cell))
+					PatrolWaypoints.Add(cell);
 
-				if (patrolWaypoints.Count == 1)
+				if (PatrolWaypoints.Count == 1)
 				{
 					var assaultMoving = false; // TODO:
-					self.QueueActivity(new PatrolActivity(self, patrolWaypoints.ToArray(), Info.TargetLineColor, true, 0, assaultMoving));
+					self.QueueActivity(new PatrolActivity(self, PatrolWaypoints.ToArray(), Info.TargetLineColor, true, 0, assaultMoving));
 				}
 			}
 			else
-				patrolWaypoints.Clear();
+				PatrolWaypoints.Clear();
 		}
 
 		public void AddStartingPoint(CPos start)
 		{
-			patrolWaypoints.Insert(0, start);
+			PatrolWaypoints.Insert(0, start);
 		}
 	}
 
@@ -96,7 +95,7 @@ namespace OpenRA.Mods.Common.Traits
 		{
 			var queued = mi.Modifiers.HasModifier(Modifiers.Shift);
 
-			if (mi.Button == expectedButton)
+			if (mi.Button == ExpectedButton)
 			{
 				cell = world.Map.Clamp(cell);
 				foreach (var a in subjects)

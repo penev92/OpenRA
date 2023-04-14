@@ -55,7 +55,7 @@ namespace OpenRA.Mods.Common.Widgets
 				WidgetUtils.BindButtonIcon(attackMoveButton);
 
 				attackMoveButton.IsDisabled = () => { UpdateStateIfNecessary(); return attackMoveDisabled; };
-				attackMoveButton.IsHighlighted = () => world.OrderGenerator is AttackMoveOrderGenerator && !(world.OrderGenerator is PatrolOrderGenerator);
+				attackMoveButton.IsHighlighted = () => world.OrderGenerator is AttackMoveOrderGenerator && world.OrderGenerator is not PatrolOrderGenerator;
 
 				void Toggle(bool allowCancel)
 				{

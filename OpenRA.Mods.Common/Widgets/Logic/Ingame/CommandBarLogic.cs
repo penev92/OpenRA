@@ -277,9 +277,9 @@ namespace OpenRA.Mods.Common.Widgets
 					}
 
 					// HACK: Patrol can be triggered if shift (queue order modifier) is pressed.
-					var eNoShift = e;
-					eNoShift.Modifiers &= ~Modifiers.Shift;
-					if (patrolButton != null && !patrolModeDisabled && patrolButton.Key.IsActivatedBy(eNoShift))
+					var eventNoShift = e;
+					eventNoShift.Modifiers &= ~Modifiers.Shift;
+					if (patrolButton != null && !patrolModeDisabled && patrolButton.Key.IsActivatedBy(eventNoShift))
 					{
 						patrolButton.OnKeyPress(e);
 						return true;

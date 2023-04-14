@@ -47,8 +47,8 @@ function makelauncher()
 	MOD_ID="${3}"
 	PLATFORM="${4}"
 
-	TAG_TYPE="${TAG}" | cut -d'-' -f1
-	TAG_VERSION="${TAG}" | cut -d'-' -f2
+	TAG_TYPE="${TAG%%-*}"
+	TAG_VERSION="${TAG#*-}"
 	BACKWARDS_TAG="${TAG_VERSION}-${TAG_TYPE}"
 	echo "BACKWARDS!"
 	echo "${BACKWARDS_TAG}"

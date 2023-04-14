@@ -217,14 +217,20 @@ namespace OpenRA.Mods.Common.Widgets
 
 				patrolButton.IsDisabled = () => { UpdateStateIfNecessary(); return patrolModeDisabled; };
 				patrolButton.IsHighlighted = () => world.OrderGenerator is PatrolOrderGenerator;
-				patrolButton.OnClick = () =>
+
+				void Toggle(bool allowCancel)
 				{
 					if (patrolButton.IsHighlighted())
-						world.CancelInputMode();
+					{
+						if (allowCancel)
+							world.CancelInputMode();
+					}
 					else
 						world.OrderGenerator = new PatrolOrderGenerator(selectedActors, Game.Settings.Game.MouseButtonPreference.Action);
-				};
-				patrolButton.OnKeyPress = _ => patrolButton.OnClick();
+				}
+
+				patrolButton.OnClick = () => Toggle(true);
+				patrolButton.OnKeyPress = _ => Toggle(false);
 			}
 
 			var keyOverrides = widget.GetOrNull<LogicKeyListenerWidget>("MODIFIER_OVERRIDES");

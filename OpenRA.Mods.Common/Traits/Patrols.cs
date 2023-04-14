@@ -10,6 +10,7 @@
 #endregion
 
 using System.Collections.Generic;
+using System.Linq;
 using OpenRA.Mods.Common.Activities;
 using OpenRA.Primitives;
 using OpenRA.Traits;
@@ -33,7 +34,7 @@ namespace OpenRA.Mods.Common.Traits
 		public readonly PatrolsInfo Info;
 		readonly AttackMove attackMove;
 
-		public List<CPos> PatrolWaypoints { get; private set; }
+		public List<CPos> PatrolWaypoints { get; }
 
 		public Patrols(Actor self, PatrolsInfo info)
 		{
@@ -45,22 +46,12 @@ namespace OpenRA.Mods.Common.Traits
 
 		string IOrderVoice.VoicePhraseForOrder(Actor self, Order order)
 		{
-			if (!attackMove.Info.MoveIntoShroud && order.Target.Type != TargetType.Invalid)
-			{
-				var cell = self.World.Map.CellContaining(order.Target.CenterPosition);
-				if (!self.Owner.Shroud.IsExplored(cell))
-					return null;
-			}
-
-			if (order.OrderString != "AddPatrolWaypoint")
-				return null;
-
-			return Info.Voice;
+			return order.OrderString == "DoPatrol" ? Info.Voice : null;
 		}
 
 		public void ResolveOrder(Actor self, Order order)
 		{
-			if (order.OrderString == "AddPatrolWaypoint")
+			if (order.OrderString == "DoPatrol")
 			{
 				var cell = self.World.Map.Clamp(self.World.Map.CellContaining(order.Target.CenterPosition));
 				if (!attackMove.Info.MoveIntoShroud && !self.Owner.Shroud.IsExplored(cell))
@@ -75,6 +66,8 @@ namespace OpenRA.Mods.Common.Traits
 					self.QueueActivity(new PatrolActivity(self, PatrolWaypoints.ToArray(), Info.TargetLineColor, true, 0, assaultMoving));
 				}
 			}
+
+			// Explicitly also clearing/cancelling on queued orders as well as non-queued because otherwise they won't ever be executed.
 			else
 				PatrolWaypoints.Clear();
 		}
@@ -90,18 +83,20 @@ namespace OpenRA.Mods.Common.Traits
 		public PatrolOrderGenerator(IEnumerable<Actor> subjects, MouseButton button)
 			: base(subjects, button) { }
 
-		public override IEnumerable<Order> Order(World world, CPos cell, int2 worldPixel, MouseInput mi)
+		protected override IEnumerable<Order> OrderInner(World world, CPos cell, MouseInput mi)
 		{
-			var queued = mi.Modifiers.HasModifier(Modifiers.Shift);
-
 			if (mi.Button == ExpectedButton)
 			{
+				var queued = mi.Modifiers.HasModifier(Modifiers.Shift);
+				if (!queued)
+					world.CancelInputMode();
+
+				var orderName = "DoPatrol";
+
+				// Cells outside the playable area should be clamped to the edge for consistency with move orders.
 				cell = world.Map.Clamp(cell);
-				foreach (var a in subjects)
-					yield return new Order("AddPatrolWaypoint", a.Actor, Target.FromCell(world, cell), queued);
+				yield return new Order(orderName, null, Target.FromCell(world, cell), queued, null, subjects.Select(s => s.Actor).ToArray());
 			}
-			else
-				world.CancelInputMode();
 		}
 	}
 }

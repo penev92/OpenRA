@@ -76,6 +76,7 @@ AttackMove: A
 Patrol: P
 	Description: Patrol
 	Types: Unit
+	Contexts: Player
 
 Stop: S
 	Description: Stop

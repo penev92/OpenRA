@@ -236,7 +236,7 @@ namespace OpenRA.Mods.Common.Widgets
 			var keyOverrides = widget.GetOrNull<LogicKeyListenerWidget>("MODIFIER_OVERRIDES");
 			if (keyOverrides != null)
 			{
-				var noShiftButtons = new[] { guardButton, deployButton, scatterButton, attackMoveButton };
+				var noShiftButtons = new[] { guardButton, deployButton, scatterButton, attackMoveButton, patrolButton };
 				var keyUpButtons = new[] { guardButton, attackMoveButton };
 				keyOverrides.AddHandler(e =>
 				{
@@ -273,6 +273,15 @@ namespace OpenRA.Mods.Common.Widgets
 					if (attackMoveButton != null && !attackMoveDisabled && attackMoveButton.Key.IsActivatedBy(eNoMods))
 					{
 						attackMoveButton.OnKeyPress(e);
+						return true;
+					}
+
+					// HACK: Patrol can be triggered if shift (queue order modifier) is pressed.
+					var eNoShift = e;
+					eNoShift.Modifiers &= ~Modifiers.Shift;
+					if (patrolButton != null && !patrolModeDisabled && patrolButton.Key.IsActivatedBy(eNoShift))
+					{
+						patrolButton.OnKeyPress(e);
 						return true;
 					}
 

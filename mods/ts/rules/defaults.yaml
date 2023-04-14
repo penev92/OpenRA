@@ -781,6 +781,7 @@
 	Inherits@handicaps: ^PlayerHandicaps
 	Huntable:
 	Patrols:
+		Voice: Move
 	OwnerLostAction:
 		Action: Kill
 	Mobile:

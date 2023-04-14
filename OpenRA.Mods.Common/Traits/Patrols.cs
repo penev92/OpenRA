@@ -55,8 +55,7 @@ namespace OpenRA.Mods.Common.Traits
 			if (order.OrderString != "AddPatrolWaypoint")
 				return null;
 
-			// return Info.Voice;
-			return null;
+			return Info.Voice;
 		}
 
 		public void ResolveOrder(Actor self, Order order)

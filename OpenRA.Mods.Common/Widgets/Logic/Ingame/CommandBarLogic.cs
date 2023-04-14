@@ -31,6 +31,7 @@ namespace OpenRA.Mods.Common.Widgets
 		bool forceAttackDisabled = true;
 		bool guardDisabled = true;
 		bool scatterDisabled = true;
+		bool patrolModeDisabled = true;
 		bool stopDisabled = true;
 		bool waypointModeDisabled = true;
 
@@ -55,7 +56,7 @@ namespace OpenRA.Mods.Common.Widgets
 				WidgetUtils.BindButtonIcon(attackMoveButton);
 
 				attackMoveButton.IsDisabled = () => { UpdateStateIfNecessary(); return attackMoveDisabled; };
-				attackMoveButton.IsHighlighted = () => world.OrderGenerator is AttackMoveOrderGenerator && world.OrderGenerator is not PatrolOrderGenerator;
+				attackMoveButton.IsHighlighted = () => world.OrderGenerator is AttackMoveOrderGenerator and not PatrolOrderGenerator;
 
 				void Toggle(bool allowCancel)
 				{
@@ -214,7 +215,7 @@ namespace OpenRA.Mods.Common.Widgets
 			{
 				WidgetUtils.BindButtonIcon(patrolButton);
 
-				patrolButton.IsDisabled = () => { UpdateStateIfNecessary(); return attackMoveDisabled; };
+				patrolButton.IsDisabled = () => { UpdateStateIfNecessary(); return patrolModeDisabled; };
 				patrolButton.IsHighlighted = () => world.OrderGenerator is PatrolOrderGenerator;
 				patrolButton.OnClick = () =>
 				{
@@ -310,6 +311,7 @@ namespace OpenRA.Mods.Common.Widgets
 			forceMoveDisabled = !selectedActors.Any(a => a.Info.HasTraitInfo<MobileInfo>() || a.Info.HasTraitInfo<AircraftInfo>());
 			forceAttackDisabled = !selectedActors.Any(a => a.Info.HasTraitInfo<AttackBaseInfo>());
 			scatterDisabled = !selectedActors.Any(a => a.Info.HasTraitInfo<IMoveInfo>());
+			patrolModeDisabled = !selectedActors.Any(a => a.Info.HasTraitInfo<PatrolsInfo>());
 
 			selectedDeploys = selectedActors
 				.SelectMany(a => a.TraitsImplementing<IIssueDeployOrder>()

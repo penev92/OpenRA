@@ -41,24 +41,24 @@ jobs:
         with:
           ref: ${{ env.GIT_TAG }}
 
-#      - name: Install .NET 6
-#        uses: actions/setup-dotnet@v3
-#        with:
-#          dotnet-version: '6.0.x'
-#
-#      - name: Prepare Environment
-#        run: |
-#          make all
-#
-#      - name: Clone docs.openra.net (Playtest)
-#        if: startsWith(env.GIT_TAG, 'playtest-')
-#        uses: actions/checkout@v3
-#        with:
-#          repository: openra/docs
-#          token: ${{ secrets.DOCS_TOKEN }}
-#          path: docs
-#          ref: playtest
-#
+      - name: Install .NET 6
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '6.0.x'
+
+      - name: Prepare Environment
+        run: |
+          make all
+
+      # VERSION is release/playtest/bleed.
+      - name: Clone docs.openra.net (${{ env.VERSION }})
+        uses: actions/checkout@v3
+        with:
+          repository: openra/docs
+          token: ${{ secrets.DOCS_TOKEN }}
+          path: docs
+          ref: ${{ env.VERSION }}
+
 #      - name: Clone docs.openra.net (Release)
 #        if: startsWith(env.GIT_TAG, 'release-')
 #        uses: actions/checkout@v3

@@ -2,6 +2,7 @@ name: Deploy Documentation
 
 on:
   push:
+#    branches: [ bleed ]
     tags: [ 'release-*', 'playtest-*' ]
   workflow_dispatch:
     inputs:
@@ -70,76 +71,78 @@ jobs:
     if: github.repository == 'openra/openra'
     runs-on: ubuntu-22.04
     steps:
+      - name: Prepare environment variables
+        run: |
+          if [ "${{ github.event_name }}" = "push" ]; then
+              echo "GIT_TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+          else
+              echo "GIT_TAG=${{ github.event.inputs.tag }}" >> $GITHUB_ENV
+          fi
+
       - name: Clone Repository
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.event.inputs.tag }}
+          ref: ${{ env.GIT_TAG }}
 
-      - name: Install .NET 6
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '6.0.x'
-
-      - name: Prepare Environment
-        run: |
-          make all
-
-      - name: Clone docs.openra.net (Playtest)
-        if: startsWith(github.event.inputs.tag, 'playtest-')
-        uses: actions/checkout@v3
-        with:
-          repository: openra/docs
-          token: ${{ secrets.DOCS_TOKEN }}
-          path: docs
-          ref: playtest
-
-      - name: Clone docs.openra.net (Release)
-        if: startsWith(github.event.inputs.tag, 'release-')
-        uses: actions/checkout@v3
-        with:
-          repository: openra/docs
-          token: ${{ secrets.DOCS_TOKEN }}
-          path: docs
-          ref: release
-
-      - name: Update docs.openra.net (Playtest)
-        if: startsWith(github.event.inputs.tag, 'playtest-')
-        env:
-          GIT_TAG: ${{ github.event.inputs.tag }}
-        run: |
-          ./utility.sh all --docs "${GIT_TAG}" | python3 ./packaging/format-docs.py > "docs/api/traits.md"
-          ./utility.sh all --weapon-docs "${GIT_TAG}" | python3 ./packaging/format-docs.py > "docs/api/weapons.md"
-          ./utility.sh all --sprite-sequence-docs "${GIT_TAG}" | python3 ./packaging/format-docs.py > "docs/api/sprite-sequences.md"
-          ./utility.sh all --lua-docs "${GIT_TAG}" > "docs/api/lua.md"
-
-      - name: Update docs.openra.net (Release)
-        if: startsWith(github.event.inputs.tag, 'release-')
-        env:
-          GIT_TAG: ${{ github.event.inputs.tag }}
-        run: |
-          ./utility.sh all --docs "${GIT_TAG}" | python3 ./packaging/format-docs.py > "docs/api/traits.md"
-          ./utility.sh all --weapon-docs "${GIT_TAG}" | python3 ./packaging/format-docs.py > "docs/api/weapons.md"
-          ./utility.sh all --sprite-sequence-docs "${GIT_TAG}" | python3 ./packaging/format-docs.py > "docs/api/sprite-sequences.md"
-          ./utility.sh all --lua-docs "${GIT_TAG}" > "docs/api/lua.md"
-
-      - name: Commit docs.openra.net
-        env:
-          GIT_TAG: ${{ github.event.inputs.tag }}
-        run: |
-          cd docs
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
-          git add api/*.md
-          git commit -m "Update auto-generated documentation for ${GIT_TAG}"
-
-      - name: Push docs.openra.net (Release)
-        if: startsWith(github.event.inputs.tag, 'release-')
-        run: |
-          cd docs
-          git push origin release
-
-      - name: Push docs.openra.net (Playtest)
-        if: startsWith(github.event.inputs.tag, 'playtest-')
-        run: |
-          cd docs
-          git push origin playtest
+#      - name: Install .NET 6
+#        uses: actions/setup-dotnet@v3
+#        with:
+#          dotnet-version: '6.0.x'
+#
+#      - name: Prepare Environment
+#        run: |
+#          make all
+#
+#      - name: Clone docs.openra.net (Playtest)
+#        if: startsWith(env.GIT_TAG, 'playtest-')
+#        uses: actions/checkout@v3
+#        with:
+#          repository: openra/docs
+#          token: ${{ secrets.DOCS_TOKEN }}
+#          path: docs
+#          ref: playtest
+#
+#      - name: Clone docs.openra.net (Release)
+#        if: startsWith(env.GIT_TAG, 'release-')
+#        uses: actions/checkout@v3
+#        with:
+#          repository: openra/docs
+#          token: ${{ secrets.DOCS_TOKEN }}
+#          path: docs
+#          ref: release
+#
+#      - name: Update docs.openra.net (Playtest)
+#        if: startsWith(env.GIT_TAG, 'playtest-')
+#        run: |
+#          ./utility.sh all --docs "${{ env.GIT_TAG }}" | python3 ./packaging/format-docs.py > "docs/api/traits.md"
+#          ./utility.sh all --weapon-docs "${{ env.GIT_TAG }}" | python3 ./packaging/format-docs.py > "docs/api/weapons.md"
+#          ./utility.sh all --sprite-sequence-docs "${{ env.GIT_TAG }}" | python3 ./packaging/format-docs.py > "docs/api/sprite-sequences.md"
+#          ./utility.sh all --lua-docs "${{ env.GIT_TAG }}" > "docs/api/lua.md"
+#
+#      - name: Update docs.openra.net (Release)
+#        if: startsWith(env.GIT_TAG, 'release-')
+#        run: |
+#          ./utility.sh all --docs "${{ env.GIT_TAG }}" | python3 ./packaging/format-docs.py > "docs/api/traits.md"
+#          ./utility.sh all --weapon-docs "${{ env.GIT_TAG }}" | python3 ./packaging/format-docs.py > "docs/api/weapons.md"
+#          ./utility.sh all --sprite-sequence-docs "${{ env.GIT_TAG }}" | python3 ./packaging/format-docs.py > "docs/api/sprite-sequences.md"
+#          ./utility.sh all --lua-docs "${{ env.GIT_TAG }}" > "docs/api/lua.md"
+#
+#      - name: Commit docs.openra.net
+#        run: |
+#          cd docs
+#          git config --local user.email "actions@github.com"
+#          git config --local user.name "GitHub Actions"
+#          git add api/*.md
+#          git commit -m "Update auto-generated documentation for ${{ env.GIT_TAG }}"
+#
+#      - name: Push docs.openra.net (Release)
+#        if: startsWith(env.GIT_TAG, 'release-')
+#        run: |
+#          cd docs
+#          git push origin release
+#
+#      - name: Push docs.openra.net (Playtest)
+#        if: startsWith(env.GIT_TAG, 'playtest-')
+#        run: |
+#          cd docs
+#          git push origin playtest

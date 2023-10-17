@@ -29,7 +29,7 @@ jobs:
           if [ "${{ env.GIT_TAG }}" == "release-"* ] | [ "${{ env.GIT_TAG }}" == "playtest-"* ]; then
             echo "GIT_VERSION=${{ env.GIT_TAG }}" >> $GITHUB_ENV
           else
-            echo "GIT_VERSION=bleed >> $GITHUB_ENV
+            echo "GIT_VERSION=bleed" >> $GITHUB_ENV
           fi
 
       - name: Clone Repository

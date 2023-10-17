@@ -1,6 +1,9 @@
 name: Deploy Documentation
 
 on:
+  push:
+    branches: [ bleed ]
+    tags: [ 'release-*', 'playtest-*' ]
   workflow_dispatch:
     inputs:
       tag:

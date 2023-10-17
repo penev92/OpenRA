@@ -22,7 +22,7 @@ jobs:
       - name: Prepare environment variables
         run: |
           if [ "${{ github.event_name }}" = "push" ]; then
-            if [ "${{ github.ref_type }}" == "tag"]; then
+            if [ "${{ github.ref_type }}" = "tag"]; then
               VERSION=`echo "${GITHUB_REF#refs/tags/}" | cut -d"-" -f1`
               echo "GIT_TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
               echo "VERSION=$VERSION" >> $GITHUB_ENV

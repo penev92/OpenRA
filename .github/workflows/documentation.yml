@@ -51,7 +51,7 @@ jobs:
           make all
 
       # VERSION is release/playtest/bleed.
-      - name: Clone docs.openra.net (${{ env.VERSION }})
+      - name: Clone docs.openra.net
         uses: actions/checkout@v3
         with:
           repository: openra/docs

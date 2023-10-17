@@ -23,7 +23,7 @@ jobs:
         run: |
           if [ "${{ github.event_name }}" = "push" ]; then
             if [ "${{ github.ref_type }}" == "tag"]; then
-              VERSION=`echo "${GITHUB_REF#refs/tags/}" | cut -d"-" -f2`
+              VERSION=`echo "${GITHUB_REF#refs/tags/}" | cut -d"-" -f1`
               echo "GIT_TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
               echo "VERSION=$VERSION" >> $GITHUB_ENV
             else
@@ -39,7 +39,7 @@ jobs:
       - name: Clone Repository
         uses: actions/checkout@v3
         with:
-          ref: ${{ env.GIT_TAG }}
+          ref: ${{ env.VERSION }}
 
 #      - name: Install .NET 6
 #        uses: actions/setup-dotnet@v3

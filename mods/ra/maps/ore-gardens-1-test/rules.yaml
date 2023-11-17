@@ -1,0 +1,4 @@
+World:
+	-ShroudRenderer:
+	LuaScript:
+		Scripts: script.lua

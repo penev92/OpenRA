@@ -10,8 +10,10 @@
 #endregion
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using OpenRA.Graphics;
 using OpenRA.Mods.Common.Pathfinder;
 using OpenRA.Traits;
@@ -28,7 +30,7 @@ namespace OpenRA.Mods.Common.Traits
 		}
 	}
 
-	public class PathFinder : IPathFinder, IWorldLoaded
+	public class PathFinder : IPathFinder, IWorldLoaded, ITick
 	{
 		public static readonly List<CPos> NoPath = new(0);
 
@@ -37,6 +39,10 @@ namespace OpenRA.Mods.Common.Traits
 		/// computation effort - even if this means paths may be sub-optimal.
 		/// </summary>
 		const int DefaultHeuristicWeightPercentage = 125;
+
+		readonly ConcurrentQueue<(uint Token, Actor Subject, List<CPos> Sources, CPos Target, BlockedByActor Check, Func<CPos, int> CustomCost, Actor IgnoreActor, bool LaneBias)> pathQueryRequests = new();
+		readonly ConcurrentDictionary<uint, (bool IsCompleted, List<CPos> Path)> pathQueryResults = new();
+		uint nextPathQueryToken = 0;
 
 		readonly World world;
 		PathFinderOverlay pathFinderOverlay;
@@ -263,6 +269,55 @@ namespace OpenRA.Mods.Common.Traits
 			// PERF: This PathFinder trait requires the use of Mobile, so we can be sure that is in use.
 			// We can save some performance by avoiding querying for the Locomotor trait and retrieving it from Mobile.
 			return ((Mobile)self.OccupiesSpace).Locomotor;
+		}
+
+		uint currentTick = 0;
+
+		public void Tick(Actor self)
+		{
+			// Parallel.ForEach(
+			// 	Partitioner.Create(pathQueryRequests),
+			// 	new ParallelOptions { MaxDegreeOfParallelism = 40 },
+			// 	request =>
+			// 	{
+			// 		// Process the request (replace with your processing logic)
+			// 		// Console.WriteLine($"Processing request: {request}");
+			// 		var res = FindPathToTarget(request.Subject, request.Sources, request.Target, request.Check, request.CustomCost, request.IgnoreActor, request.LaneBias);
+			// 		pathQueryResults.TryAdd(request.Token, (true, res));
+			// 	});
+
+			if (currentTick++ % 120 == 0)
+			{
+				Console.WriteLine($"{pathQueryRequests.Count} requests queued. {pathQueryResults.Count} solutions.");
+				return;
+			}
+
+			Parallel.For(0, 1, i =>
+			{
+				while (pathQueryRequests.TryDequeue(out var request))
+				{
+					var res = FindPathToTarget(request.Subject, request.Sources, request.Target, request.Check, request.CustomCost, request.IgnoreActor, request.LaneBias);
+					pathQueryResults.TryAdd(request.Token, (true, res));
+				}
+			});
+		}
+
+		public uint QueueFindPathToTargetCell(
+			Actor self, IEnumerable<CPos> sources, CPos target, BlockedByActor check,
+			Func<CPos, int> customCost = null,
+			Actor ignoreActor = null,
+			bool laneBias = true)
+		{
+			pathQueryRequests.Enqueue((nextPathQueryToken, self, sources.ToList(), target, check, customCost, ignoreActor, laneBias));
+			return nextPathQueryToken++;
+		}
+
+		public List<CPos> TryGetDelayedPath(uint token)
+		{
+			if (pathQueryResults.Remove(token, out var path) && path.IsCompleted)
+				return path.Path;
+
+			return NoPath;
 		}
 	}
 }

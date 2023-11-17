@@ -59,14 +59,18 @@ namespace OpenRA.Mods.Common.Activities
 
 			getPath = check =>
 			{
-				return mobile.PathFinder.FindPathToTargetCell(
+				pendingPathSearchToken = mobile.PathFinder.QueueFindPathToTargetCell(
 					self, new[] { mobile.ToCell }, destination, check, laneBias: false);
+
+				return PathFinder.NoPath;
 			};
 
 			this.destination = destination;
 			this.targetLineColor = targetLineColor;
 			nearEnough = WDist.Zero;
 		}
+
+		uint? pendingPathSearchToken;
 
 		public Move(Actor self, CPos destination, WDist nearEnough, Actor ignoreActor = null, bool evaluateNearestMovableCell = false,
 			Color? targetLineColor = null)
@@ -79,8 +83,10 @@ namespace OpenRA.Mods.Common.Activities
 				if (!this.destination.HasValue)
 					return PathFinder.NoPath;
 
-				return mobile.PathFinder.FindPathToTargetCell(
+				pendingPathSearchToken = mobile.PathFinder.QueueFindPathToTargetCell(
 					self, new[] { mobile.ToCell }, this.destination.Value, check, ignoreActor: ignoreActor);
+
+				return PathFinder.NoPath;
 			};
 
 			// Note: Will be recalculated from OnFirstRun if evaluateNearestMovableCell is true
@@ -107,6 +113,9 @@ namespace OpenRA.Mods.Common.Activities
 		List<CPos> EvalPath(BlockedByActor check)
 		{
 			var path = getPath(check).TakeWhile(a => a != mobile.ToCell).ToList();
+			if (path.Count > 0)
+				Console.WriteLine("lol this got past us!");
+
 			return path;
 		}
 
@@ -121,9 +130,9 @@ namespace OpenRA.Mods.Common.Activities
 			}
 
 			// TODO: Change this to BlockedByActor.Stationary after improving the local avoidance behaviour
-			foreach (var check in PathSearchOrder)
+			// foreach (var check in PathSearchOrder)
 			{
-				path = EvalPath(check);
+				path = EvalPath(BlockedByActor.Stationary);
 				if (path.Count > 0)
 					return;
 			}
@@ -145,6 +154,17 @@ namespace OpenRA.Mods.Common.Activities
 
 			if (destination == mobile.ToCell)
 				return true;
+
+			if (path.Count == 0 && pendingPathSearchToken.HasValue)
+			{
+				// TODO: Handle the case where the path isn't SYNCED between clients yet!
+				path = mobile.PathFinder.TryGetDelayedPath(pendingPathSearchToken.Value);
+
+				if (path.Count == 0)
+					return false;
+
+				pendingPathSearchToken = null;
+			}
 
 			if (path.Count == 0)
 			{

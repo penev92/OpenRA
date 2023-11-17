@@ -937,5 +937,13 @@ namespace OpenRA.Mods.Common.Traits
 		/// <remarks>Path searches are not guaranteed to by symmetric,
 		/// the source and target locations cannot be swapped.</remarks>
 		bool PathExistsForLocomotor(Locomotor locomotor, CPos source, CPos target);
+
+		uint QueueFindPathToTargetCell(
+			Actor self, IEnumerable<CPos> sources, CPos target, BlockedByActor check,
+			Func<CPos, int> customCost = null,
+			Actor ignoreActor = null,
+			bool laneBias = true);
+
+		List<CPos> TryGetDelayedPath(uint token);
 	}
 }

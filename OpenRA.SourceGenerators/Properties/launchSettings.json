@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Profile 1": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\OpenRA.Mods.Common\\OpenRA.Mods.Common.csproj"
+    }
+  }
+}

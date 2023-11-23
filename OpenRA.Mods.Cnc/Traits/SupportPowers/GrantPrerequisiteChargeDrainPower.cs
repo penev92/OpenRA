@@ -40,7 +40,7 @@ namespace OpenRA.Mods.Cnc.Traits
 		public override object Create(ActorInitializer init) { return new GrantPrerequisiteChargeDrainPower(init.Self, this); }
 	}
 
-	public class GrantPrerequisiteChargeDrainPower : SupportPower, ITechTreePrerequisite, INotifyOwnerChanged
+	public partial class GrantPrerequisiteChargeDrainPower : SupportPower, ITechTreePrerequisite, INotifyOwnerChanged
 	{
 		readonly GrantPrerequisiteChargeDrainPowerInfo info;
 		readonly string[] prerequisites;

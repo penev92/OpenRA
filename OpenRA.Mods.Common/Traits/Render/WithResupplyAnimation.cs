@@ -30,7 +30,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		public override object Create(ActorInitializer init) { return new WithResupplyAnimation(init.Self, this); }
 	}
 
-	public class WithResupplyAnimation : ConditionalTrait<WithResupplyAnimationInfo>, INotifyResupply, ITick
+	public partial class WithResupplyAnimation : ConditionalTrait<WithResupplyAnimationInfo>, INotifyResupply, ITick
 	{
 		readonly WithSpriteBody wsb;
 		bool animPlaying;

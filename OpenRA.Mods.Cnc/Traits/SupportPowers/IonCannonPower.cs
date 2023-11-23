@@ -62,7 +62,7 @@ namespace OpenRA.Mods.Cnc.Traits
 		}
 	}
 
-	sealed class IonCannonPower : SupportPower
+	sealed partial class IonCannonPower : SupportPower
 	{
 		readonly IonCannonPowerInfo info;
 

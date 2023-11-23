@@ -47,7 +47,7 @@ namespace OpenRA.Mods.Common.Traits
 		}
 	}
 
-	public class ExplosionOnDamageTransition : ConditionalTrait<ExplosionOnDamageTransitionInfo>, INotifyDamageStateChanged
+	public partial class ExplosionOnDamageTransition : ConditionalTrait<ExplosionOnDamageTransitionInfo>, INotifyDamageStateChanged
 	{
 		bool triggered;
 

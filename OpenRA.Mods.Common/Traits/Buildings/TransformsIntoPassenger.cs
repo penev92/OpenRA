@@ -44,7 +44,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new TransformsIntoPassenger(init.Self, this); }
 	}
 
-	public class TransformsIntoPassenger : ConditionalTrait<TransformsIntoPassengerInfo>, IIssueOrder, IResolveOrder, IOrderVoice
+	public partial class TransformsIntoPassenger : ConditionalTrait<TransformsIntoPassengerInfo>, IIssueOrder, IResolveOrder, IOrderVoice
 	{
 		readonly Actor self;
 		Transforms[] transforms;

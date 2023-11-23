@@ -28,7 +28,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new Crushable(init.Self, this); }
 	}
 
-	sealed class Crushable : ConditionalTrait<CrushableInfo>, ICrushable, INotifyCrushed
+	sealed partial class Crushable : ConditionalTrait<CrushableInfo>, ICrushable, INotifyCrushed
 	{
 		readonly Actor self;
 

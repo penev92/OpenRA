@@ -25,7 +25,7 @@ namespace OpenRA.Mods.Cnc.Traits
 		public override object Create(ActorInitializer init) { return new DisguiseTooltip(init.Self, this); }
 	}
 
-	sealed class DisguiseTooltip : ConditionalTrait<DisguiseTooltipInfo>, ITooltip
+	sealed partial class DisguiseTooltip : ConditionalTrait<DisguiseTooltipInfo>, ITooltip
 	{
 		readonly Actor self;
 		readonly Disguise disguise;

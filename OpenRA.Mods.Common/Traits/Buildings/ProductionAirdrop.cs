@@ -51,7 +51,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new ProductionAirdrop(init, this); }
 	}
 
-	sealed class ProductionAirdrop : Production
+	sealed partial class ProductionAirdrop : Production
 	{
 		public ProductionAirdrop(ActorInitializer init, ProductionAirdropInfo info)
 			: base(init, info) { }

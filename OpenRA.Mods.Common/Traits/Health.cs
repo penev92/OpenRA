@@ -49,7 +49,7 @@ namespace OpenRA.Mods.Common.Traits
 		}
 	}
 
-	public class Health : IHealth, ISync, ITick, INotifyCreated, INotifyOwnerChanged
+	public partial class Health : IHealth, ISync, ITick, INotifyCreated, INotifyOwnerChanged
 	{
 		public readonly HealthInfo Info;
 		INotifyDamageStateChanged[] notifyDamageStateChanged;

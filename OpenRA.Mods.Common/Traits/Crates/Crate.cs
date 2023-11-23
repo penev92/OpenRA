@@ -70,7 +70,7 @@ namespace OpenRA.Mods.Common.Traits
 		}
 	}
 
-	public class Crate : ITick, IPositionable, ICrushable, ISync, INotifyCreated,
+	public partial class Crate : ITick, IPositionable, ICrushable, ISync, INotifyCreated,
 		INotifyParachute, INotifyAddedToWorld, INotifyRemovedFromWorld, INotifyCrushed
 	{
 		readonly Actor self;

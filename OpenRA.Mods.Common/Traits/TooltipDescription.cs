@@ -25,7 +25,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new TooltipDescription(init.Self, this); }
 	}
 
-	public class TooltipDescription : ConditionalTrait<TooltipDescriptionInfo>, IProvideTooltipInfo
+	public partial class TooltipDescription : ConditionalTrait<TooltipDescriptionInfo>, IProvideTooltipInfo
 	{
 		readonly Actor self;
 

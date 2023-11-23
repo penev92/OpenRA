@@ -69,7 +69,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new ParatroopersPower(init.Self, this); }
 	}
 
-	public class ParatroopersPower : SupportPower
+	public partial class ParatroopersPower : SupportPower
 	{
 		readonly ParatroopersPowerInfo info;
 

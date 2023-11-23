@@ -38,7 +38,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new Exit(this); }
 	}
 
-	public class Exit : ConditionalTrait<ExitInfo>
+	public partial class Exit : ConditionalTrait<ExitInfo>
 	{
 		public Exit(ExitInfo info)
 			: base(info) { }

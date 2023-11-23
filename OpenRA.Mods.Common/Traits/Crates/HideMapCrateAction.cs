@@ -22,7 +22,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new HideMapCrateAction(init.Self, this); }
 	}
 
-	sealed class HideMapCrateAction : CrateAction
+	sealed partial class HideMapCrateAction : CrateAction
 	{
 		readonly HideMapCrateActionInfo info;
 

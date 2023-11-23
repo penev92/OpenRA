@@ -57,7 +57,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new Demolition(this); }
 	}
 
-	sealed class Demolition : ConditionalTrait<DemolitionInfo>, IIssueOrder, IResolveOrder, IOrderVoice
+	sealed partial class Demolition : ConditionalTrait<DemolitionInfo>, IIssueOrder, IResolveOrder, IOrderVoice
 	{
 		public Demolition(DemolitionInfo info)
 			: base(info) { }

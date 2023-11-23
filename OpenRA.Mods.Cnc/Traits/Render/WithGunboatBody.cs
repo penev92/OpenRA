@@ -38,7 +38,7 @@ namespace OpenRA.Mods.Cnc.Traits.Render
 		public override object Create(ActorInitializer init) { return new WithGunboatBody(init, this); }
 	}
 
-	sealed class WithGunboatBody : WithSpriteBody, ITick
+	sealed partial class WithGunboatBody : WithSpriteBody, ITick
 	{
 		readonly WithGunboatBodyInfo info;
 		readonly Animation wake;

@@ -78,7 +78,7 @@ namespace OpenRA.Mods.Cnc.Traits
 		}
 	}
 
-	public class DropPodsPower : SupportPower
+	public partial class DropPodsPower : SupportPower
 	{
 		readonly DropPodsPowerInfo info;
 		readonly string[] unitTypes;

@@ -47,7 +47,7 @@ namespace OpenRA.Mods.Common.Traits
 		}
 	}
 
-	sealed class ThrowsShrapnel : ConditionalTrait<ThrowsShrapnelInfo>, INotifyKilled
+	sealed partial class ThrowsShrapnel : ConditionalTrait<ThrowsShrapnelInfo>, INotifyKilled
 	{
 		public ThrowsShrapnel(ThrowsShrapnelInfo info)
 			: base(info) { }

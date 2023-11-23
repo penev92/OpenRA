@@ -33,7 +33,7 @@ namespace OpenRA.Mods.D2k.Traits.Render
 		public override object Create(ActorInitializer init) { return new WithCrumbleOverlay(init, this); }
 	}
 
-	public class WithCrumbleOverlay : ConditionalTrait<WithCrumbleOverlayInfo>
+	public partial class WithCrumbleOverlay : ConditionalTrait<WithCrumbleOverlayInfo>
 	{
 		readonly WithCrumbleOverlayInfo info;
 		readonly RenderSprites renderSprites;

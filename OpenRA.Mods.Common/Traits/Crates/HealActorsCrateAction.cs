@@ -24,7 +24,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new HealActorsCrateAction(init.Self, this); }
 	}
 
-	sealed class HealActorsCrateAction : CrateAction
+	sealed partial class HealActorsCrateAction : CrateAction
 	{
 		readonly HealActorsCrateActionInfo info;
 

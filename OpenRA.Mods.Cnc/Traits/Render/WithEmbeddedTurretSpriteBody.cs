@@ -44,7 +44,7 @@ namespace OpenRA.Mods.Cnc.Traits.Render
 		}
 	}
 
-	public class WithEmbeddedTurretSpriteBody : WithSpriteBody
+	public partial class WithEmbeddedTurretSpriteBody : WithSpriteBody
 	{
 		readonly WithEmbeddedTurretSpriteBodyInfo info;
 		readonly Turreted turreted;

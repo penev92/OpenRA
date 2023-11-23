@@ -26,7 +26,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new Production(init, this); }
 	}
 
-	public class Production : PausableConditionalTrait<ProductionInfo>
+	public partial class Production : PausableConditionalTrait<ProductionInfo>
 	{
 		RallyPoint rp;
 

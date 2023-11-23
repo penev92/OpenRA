@@ -34,7 +34,7 @@ namespace OpenRA.Mods.D2k.Traits
 		public override object Create(ActorInitializer init) { return new Sandworm(init.Self, this); }
 	}
 
-	sealed class Sandworm : Wanders, ITick, INotifyActorDisposing
+	sealed partial class Sandworm : Wanders, ITick, INotifyActorDisposing
 	{
 		public readonly SandwormInfo WormInfo;
 

@@ -32,7 +32,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		}
 	}
 
-	public class WithFacingSpriteBody : WithSpriteBody
+	public partial class WithFacingSpriteBody : WithSpriteBody
 	{
 		public WithFacingSpriteBody(ActorInitializer init, WithFacingSpriteBodyInfo info)
 			: base(init, info, RenderSprites.MakeFacingFunc(init.Self)) { }

@@ -22,7 +22,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new Replaceable(this); }
 	}
 
-	public class Replaceable : ConditionalTrait<ReplaceableInfo>
+	public partial class Replaceable : ConditionalTrait<ReplaceableInfo>
 	{
 		public Replaceable(ReplaceableInfo info)
 			: base(info) { }

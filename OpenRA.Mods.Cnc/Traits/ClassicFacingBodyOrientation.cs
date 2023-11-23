@@ -24,7 +24,7 @@ namespace OpenRA.Mods.Cnc.Traits
 		public override object Create(ActorInitializer init) { return new ClassicFacingBodyOrientation(init, this); }
 	}
 
-	public class ClassicFacingBodyOrientation : BodyOrientation
+	public partial class ClassicFacingBodyOrientation : BodyOrientation
 	{
 		public ClassicFacingBodyOrientation(ActorInitializer init, ClassicFacingBodyOrientationInfo info)
 			: base(init, info) { }

@@ -39,7 +39,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new ProductionParadrop(init, this); }
 	}
 
-	sealed class ProductionParadrop : Production
+	sealed partial class ProductionParadrop : Production
 	{
 		readonly Lazy<RallyPoint> rp;
 

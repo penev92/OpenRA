@@ -42,7 +42,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new BaseProvider(init.Self, this); }
 	}
 
-	public class BaseProvider : PausableConditionalTrait<BaseProviderInfo>, ITick, IRenderAnnotationsWhenSelected, ISelectionBar
+	public partial class BaseProvider : PausableConditionalTrait<BaseProviderInfo>, ITick, IRenderAnnotationsWhenSelected, ISelectionBar
 	{
 		readonly DeveloperMode devMode;
 		readonly Actor self;

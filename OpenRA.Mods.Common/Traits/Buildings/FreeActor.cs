@@ -53,7 +53,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new FreeActor(init, this); }
 	}
 
-	public class FreeActor : ConditionalTrait<FreeActorInfo>
+	public partial class FreeActor : ConditionalTrait<FreeActorInfo>
 	{
 		protected bool allowSpawn;
 

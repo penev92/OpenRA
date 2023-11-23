@@ -20,7 +20,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new RevealMapCrateAction(init.Self, this); }
 	}
 
-	sealed class RevealMapCrateAction : CrateAction
+	sealed partial class RevealMapCrateAction : CrateAction
 	{
 		readonly RevealMapCrateActionInfo info;
 

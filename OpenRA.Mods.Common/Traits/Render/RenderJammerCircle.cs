@@ -59,7 +59,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new RenderJammerCircle(this); }
 	}
 
-	sealed class RenderJammerCircle : ConditionalTrait<RenderJammerCircleInfo>, IRenderAnnotationsWhenSelected
+	sealed partial class RenderJammerCircle : ConditionalTrait<RenderJammerCircleInfo>, IRenderAnnotationsWhenSelected
 	{
 		readonly RenderJammerCircleInfo info;
 

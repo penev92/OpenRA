@@ -21,7 +21,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new FirepowerMultiplier(this); }
 	}
 
-	public class FirepowerMultiplier : ConditionalTrait<FirepowerMultiplierInfo>, IFirepowerModifier
+	public partial class FirepowerMultiplier : ConditionalTrait<FirepowerMultiplierInfo>, IFirepowerModifier
 	{
 		public FirepowerMultiplier(FirepowerMultiplierInfo info)
 			: base(info) { }

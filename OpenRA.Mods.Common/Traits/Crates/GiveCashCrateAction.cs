@@ -25,7 +25,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new GiveCashCrateAction(init.Self, this); }
 	}
 
-	sealed class GiveCashCrateAction : CrateAction
+	sealed partial class GiveCashCrateAction : CrateAction
 	{
 		readonly GiveCashCrateActionInfo info;
 		public GiveCashCrateAction(Actor self, GiveCashCrateActionInfo info)

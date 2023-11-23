@@ -24,7 +24,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new SeedsResource(init.Self, this); }
 	}
 
-	sealed class SeedsResource : ConditionalTrait<SeedsResourceInfo>, ITick, ISeedableResource
+	sealed partial class SeedsResource : ConditionalTrait<SeedsResourceInfo>, ITick, ISeedableResource
 	{
 		readonly SeedsResourceInfo info;
 		readonly IResourceLayer resourceLayer;

@@ -25,7 +25,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new RevealsMap(this); }
 	}
 
-	public class RevealsMap : ConditionalTrait<RevealsMapInfo>, INotifyKilled, INotifyActorDisposing, INotifyOwnerChanged
+	public partial class RevealsMap : ConditionalTrait<RevealsMapInfo>, INotifyKilled, INotifyActorDisposing, INotifyOwnerChanged
 	{
 		readonly Shroud.SourceType type;
 

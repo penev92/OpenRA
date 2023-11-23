@@ -20,7 +20,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		public override object Create(ActorInitializer init) { return new WithBuildingRepairDecoration(init.Self, this); }
 	}
 
-	public class WithBuildingRepairDecoration : WithDecoration
+	public partial class WithBuildingRepairDecoration : WithDecoration
 	{
 		readonly RepairableBuilding rb;
 		readonly WithBuildingRepairDecorationInfo info;

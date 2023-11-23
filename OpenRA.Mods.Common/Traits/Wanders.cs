@@ -34,7 +34,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new Wanders(init.Self, this); }
 	}
 
-	public class Wanders : ConditionalTrait<WandersInfo>, INotifyIdle, INotifyBecomingIdle
+	public partial class Wanders : ConditionalTrait<WandersInfo>, INotifyIdle, INotifyBecomingIdle
 	{
 		readonly WandersInfo info;
 		readonly IMoveInfo moveInfo;

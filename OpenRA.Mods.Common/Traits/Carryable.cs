@@ -42,7 +42,7 @@ namespace OpenRA.Mods.Common.Traits
 		bool TryLockForPickup(Actor self, Actor carrier);
 	}
 
-	public class Carryable : ConditionalTrait<CarryableInfo>
+	public partial class Carryable : ConditionalTrait<CarryableInfo>
 	{
 		int reservedToken = Actor.InvalidConditionToken;
 		int carriedToken = Actor.InvalidConditionToken;

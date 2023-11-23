@@ -45,7 +45,7 @@ namespace OpenRA.Mods.Cnc.Traits
 		public override object Create(ActorInitializer init) { return new AttackOrderPower(init.Self, this); }
 	}
 
-	sealed class AttackOrderPower : SupportPower, INotifyCreated, INotifyBurstComplete, INotifyBecomingIdle
+	sealed partial class AttackOrderPower : SupportPower, INotifyCreated, INotifyBurstComplete, INotifyBecomingIdle
 	{
 		readonly AttackOrderPowerInfo info;
 		AttackBase attack;

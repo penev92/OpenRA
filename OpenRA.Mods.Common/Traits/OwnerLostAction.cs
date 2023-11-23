@@ -34,7 +34,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new OwnerLostAction(this); }
 	}
 
-	public class OwnerLostAction : ConditionalTrait<OwnerLostActionInfo>, INotifyOwnerLost
+	public partial class OwnerLostAction : ConditionalTrait<OwnerLostActionInfo>, INotifyOwnerLost
 	{
 		public OwnerLostAction(OwnerLostActionInfo info)
 			: base(info) { }

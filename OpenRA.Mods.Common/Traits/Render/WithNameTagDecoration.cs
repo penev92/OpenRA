@@ -42,7 +42,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		}
 	}
 
-	public class WithNameTagDecoration : WithDecorationBase<WithNameTagDecorationInfo>, INotifyOwnerChanged
+	public partial class WithNameTagDecoration : WithDecorationBase<WithNameTagDecorationInfo>, INotifyOwnerChanged
 	{
 		readonly SpriteFont font;
 		string name;

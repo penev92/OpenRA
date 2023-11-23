@@ -22,7 +22,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new PlayerExperience(); }
 	}
 
-	public class PlayerExperience : ISync
+	public partial class PlayerExperience : ISync
 	{
 		[Sync]
 		public int Experience { get; private set; }

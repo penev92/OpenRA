@@ -45,7 +45,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new DockClientManager(init.Self, this); }
 	}
 
-	public class DockClientManager : ConditionalTrait<DockClientManagerInfo>, IResolveOrder, IOrderVoice, IIssueOrder, INotifyKilled, INotifyActorDisposing
+	public partial class DockClientManager : ConditionalTrait<DockClientManagerInfo>, IResolveOrder, IOrderVoice, IIssueOrder, INotifyKilled, INotifyActorDisposing
 	{
 		readonly Actor self;
 		protected IDockClient[] dockClients;

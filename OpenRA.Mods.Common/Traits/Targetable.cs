@@ -28,7 +28,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new Targetable(this); }
 	}
 
-	public class Targetable : ConditionalTrait<TargetableInfo>, ITargetable
+	public partial class Targetable : ConditionalTrait<TargetableInfo>, ITargetable
 	{
 		protected static readonly string[] None = Array.Empty<string>();
 		protected Cloak[] cloaks;

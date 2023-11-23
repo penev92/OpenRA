@@ -22,7 +22,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new AutoCarryable(this); }
 	}
 
-	public class AutoCarryable : Carryable, ICallForTransport
+	public partial class AutoCarryable : Carryable, ICallForTransport
 	{
 		readonly AutoCarryableInfo info;
 		bool autoReserved = false;

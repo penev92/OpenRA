@@ -50,7 +50,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new Sellable(init.Self, this); }
 	}
 
-	public class Sellable : ConditionalTrait<SellableInfo>, IResolveOrder, IProvideTooltipInfo
+	public partial class Sellable : ConditionalTrait<SellableInfo>, IResolveOrder, IProvideTooltipInfo
 	{
 		readonly Actor self;
 		readonly Lazy<IHealth> health;

@@ -41,7 +41,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		public override object Create(ActorInitializer init) { return new ProductionBar(init.Self, this); }
 	}
 
-	sealed class ProductionBar : ConditionalTrait<ProductionBarInfo>, ISelectionBar, ITick, INotifyOwnerChanged
+	sealed partial class ProductionBar : ConditionalTrait<ProductionBarInfo>, ISelectionBar, ITick, INotifyOwnerChanged
 	{
 		readonly Actor self;
 		ProductionQueue queue;

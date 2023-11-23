@@ -151,7 +151,7 @@ namespace OpenRA.Mods.Common.Traits
 		protected SupportPowerInfo() { OrderName = GetType().Name + "Order"; }
 	}
 
-	public class SupportPower : PausableConditionalTrait<SupportPowerInfo>
+	public partial class SupportPower : PausableConditionalTrait<SupportPowerInfo>
 	{
 		public readonly Actor Self;
 		readonly SupportPowerInfo info;

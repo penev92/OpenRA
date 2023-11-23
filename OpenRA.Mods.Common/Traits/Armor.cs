@@ -22,7 +22,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new Armor(this); }
 	}
 
-	public class Armor : ConditionalTrait<ArmorInfo>
+	public partial class Armor : ConditionalTrait<ArmorInfo>
 	{
 		public Armor(ArmorInfo info)
 			: base(info) { }

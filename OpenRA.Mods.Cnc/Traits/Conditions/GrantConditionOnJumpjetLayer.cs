@@ -27,7 +27,7 @@ namespace OpenRA.Mods.Cnc.Traits
 		}
 	}
 
-	public class GrantConditionOnJumpjetLayer : GrantConditionOnLayer<GrantConditionOnJumpjetLayerInfo>, INotifyFinishedMoving
+	public partial class GrantConditionOnJumpjetLayer : GrantConditionOnLayer<GrantConditionOnJumpjetLayerInfo>, INotifyFinishedMoving
 	{
 		bool jumpjetInAir;
 

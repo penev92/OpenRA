@@ -28,7 +28,7 @@ namespace OpenRA.Mods.Cnc.Traits.Render
 		public override object Create(ActorInitializer init) { return new WithSplitAttackPaletteInfantryBody(init, this); }
 	}
 
-	sealed class WithSplitAttackPaletteInfantryBody : WithInfantryBody
+	sealed partial class WithSplitAttackPaletteInfantryBody : WithInfantryBody
 	{
 		readonly WithSplitAttackPaletteInfantryBodyInfo info;
 		readonly Animation splitAnimation;

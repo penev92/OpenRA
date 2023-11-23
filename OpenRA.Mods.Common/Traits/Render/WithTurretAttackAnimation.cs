@@ -35,7 +35,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		public override object Create(ActorInitializer init) { return new WithTurretAttackAnimation(init, this); }
 	}
 
-	public class WithTurretAttackAnimation : ConditionalTrait<WithTurretAttackAnimationInfo>, ITick, INotifyAttack
+	public partial class WithTurretAttackAnimation : ConditionalTrait<WithTurretAttackAnimationInfo>, ITick, INotifyAttack
 	{
 		readonly WithSpriteTurret wst;
 		readonly Armament armament;

@@ -21,7 +21,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new ResourceValueMultiplier(this); }
 	}
 
-	public class ResourceValueMultiplier : ConditionalTrait<ResourceValueMultiplierInfo>, IResourceValueModifier
+	public partial class ResourceValueMultiplier : ConditionalTrait<ResourceValueMultiplierInfo>, IResourceValueModifier
 	{
 		public ResourceValueMultiplier(ResourceValueMultiplierInfo info)
 			: base(info) { }

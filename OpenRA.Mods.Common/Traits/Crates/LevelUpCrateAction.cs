@@ -28,7 +28,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new LevelUpCrateAction(init.Self, this); }
 	}
 
-	sealed class LevelUpCrateAction : CrateAction
+	sealed partial class LevelUpCrateAction : CrateAction
 	{
 		readonly Actor self;
 		readonly LevelUpCrateActionInfo info;

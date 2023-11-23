@@ -31,7 +31,7 @@ namespace OpenRA.Mods.D2k.Traits
 		public override object Create(ActorInitializer init) { return new AttractsWorms(init, this); }
 	}
 
-	public class AttractsWorms : ConditionalTrait<AttractsWormsInfo>
+	public partial class AttractsWorms : ConditionalTrait<AttractsWormsInfo>
 	{
 		readonly Actor self;
 		readonly WDist[] effectiveRange;

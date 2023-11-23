@@ -43,7 +43,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		public override object Create(ActorInitializer init) { return new WithRepairOverlay(init.Self, this); }
 	}
 
-	public class WithRepairOverlay : PausableConditionalTrait<WithRepairOverlayInfo>, INotifyDamageStateChanged, INotifyResupply
+	public partial class WithRepairOverlay : PausableConditionalTrait<WithRepairOverlayInfo>, INotifyDamageStateChanged, INotifyResupply
 	{
 		readonly Animation overlay;
 		bool visible;

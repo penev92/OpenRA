@@ -38,7 +38,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new ProvidesPrerequisite(init, this); }
 	}
 
-	public class ProvidesPrerequisite : ConditionalTrait<ProvidesPrerequisiteInfo>, ITechTreePrerequisite, INotifyOwnerChanged, INotifyCreated
+	public partial class ProvidesPrerequisite : ConditionalTrait<ProvidesPrerequisiteInfo>, ITechTreePrerequisite, INotifyOwnerChanged, INotifyCreated
 	{
 		readonly string[] prerequisites;
 

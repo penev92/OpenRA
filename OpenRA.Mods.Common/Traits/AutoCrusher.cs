@@ -36,7 +36,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new AutoCrusher(init.Self, this); }
 	}
 
-	sealed class AutoCrusher : ConditionalTrait<AutoCrusherInfo>, INotifyIdle
+	sealed partial class AutoCrusher : ConditionalTrait<AutoCrusherInfo>, INotifyIdle
 	{
 		int nextScanTime;
 		readonly IMoveInfo moveInfo;

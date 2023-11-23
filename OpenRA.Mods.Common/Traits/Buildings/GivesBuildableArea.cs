@@ -23,7 +23,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new GivesBuildableArea(this); }
 	}
 
-	public class GivesBuildableArea : ConditionalTrait<GivesBuildableAreaInfo>
+	public partial class GivesBuildableArea : ConditionalTrait<GivesBuildableAreaInfo>
 	{
 		public GivesBuildableArea(GivesBuildableAreaInfo info)
 			: base(info) { }

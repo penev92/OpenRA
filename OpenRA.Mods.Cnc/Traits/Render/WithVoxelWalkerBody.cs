@@ -43,7 +43,7 @@ namespace OpenRA.Mods.Cnc.Traits.Render
 		}
 	}
 
-	public class WithVoxelWalkerBody : PausableConditionalTrait<WithVoxelWalkerBodyInfo>, ITick, IActorPreviewInitModifier, IAutoMouseBounds
+	public partial class WithVoxelWalkerBody : PausableConditionalTrait<WithVoxelWalkerBodyInfo>, ITick, IActorPreviewInitModifier, IAutoMouseBounds
 	{
 		readonly IMove movement;
 		readonly ModelAnimation modelAnimation;

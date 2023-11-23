@@ -39,7 +39,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new SpawnActorsOnSell(init.Self, this); }
 	}
 
-	public class SpawnActorsOnSell : ConditionalTrait<SpawnActorsOnSellInfo>, INotifySold
+	public partial class SpawnActorsOnSell : ConditionalTrait<SpawnActorsOnSellInfo>, INotifySold
 	{
 		readonly bool correctFaction;
 

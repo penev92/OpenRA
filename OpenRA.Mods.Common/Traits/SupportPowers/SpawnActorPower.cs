@@ -52,7 +52,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new SpawnActorPower(init.Self, this); }
 	}
 
-	public class SpawnActorPower : SupportPower
+	public partial class SpawnActorPower : SupportPower
 	{
 		public SpawnActorPower(Actor self, SpawnActorPowerInfo info)
 			: base(self, info) { }

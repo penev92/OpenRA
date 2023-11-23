@@ -61,7 +61,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		}
 	}
 
-	public class WithSpriteBarrel : ConditionalTrait<WithSpriteBarrelInfo>
+	public partial class WithSpriteBarrel : ConditionalTrait<WithSpriteBarrelInfo>
 	{
 		public readonly Animation DefaultAnimation;
 		readonly RenderSprites rs;

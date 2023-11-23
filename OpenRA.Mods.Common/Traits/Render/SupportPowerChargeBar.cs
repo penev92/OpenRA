@@ -26,7 +26,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		public override object Create(ActorInitializer init) { return new SupportPowerChargeBar(init.Self, this); }
 	}
 
-	sealed class SupportPowerChargeBar : ConditionalTrait<SupportPowerChargeBarInfo>, ISelectionBar, INotifyOwnerChanged
+	sealed partial class SupportPowerChargeBar : ConditionalTrait<SupportPowerChargeBarInfo>, ISelectionBar, INotifyOwnerChanged
 	{
 		readonly Actor self;
 		SupportPowerManager spm;

@@ -41,7 +41,7 @@ namespace OpenRA.Mods.Cnc.Traits.Render
 		}
 	}
 
-	public class WithVoxelBody : ConditionalTrait<WithVoxelBodyInfo>, IAutoMouseBounds
+	public partial class WithVoxelBody : ConditionalTrait<WithVoxelBodyInfo>, IAutoMouseBounds
 	{
 		readonly ModelAnimation modelAnimation;
 		readonly RenderVoxels rv;

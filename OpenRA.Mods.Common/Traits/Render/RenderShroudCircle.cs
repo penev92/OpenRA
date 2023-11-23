@@ -61,7 +61,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new RenderShroudCircle(this); }
 	}
 
-	sealed class RenderShroudCircle : ConditionalTrait<RenderShroudCircleInfo>, INotifyCreated, IRenderAnnotationsWhenSelected
+	sealed partial class RenderShroudCircle : ConditionalTrait<RenderShroudCircleInfo>, INotifyCreated, IRenderAnnotationsWhenSelected
 	{
 		readonly RenderShroudCircleInfo info;
 		WDist range;

@@ -36,7 +36,7 @@ namespace OpenRA.Mods.D2k.Traits.Render
 		public override object Create(ActorInitializer init) { return new WithDeliveryOverlay(init.Self, this); }
 	}
 
-	public class WithDeliveryOverlay : PausableConditionalTrait<WithDeliveryOverlayInfo>, INotifyDelivery
+	public partial class WithDeliveryOverlay : PausableConditionalTrait<WithDeliveryOverlayInfo>, INotifyDelivery
 	{
 		readonly AnimationWithOffset anim;
 		bool delivering;

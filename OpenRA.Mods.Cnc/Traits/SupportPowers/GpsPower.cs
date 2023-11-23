@@ -53,7 +53,7 @@ namespace OpenRA.Mods.Cnc.Traits
 		public override object Create(ActorInitializer init) { return new GpsPower(init.Self, this); }
 	}
 
-	sealed class GpsPower : SupportPower, INotifyKilled, INotifySold, INotifyOwnerChanged, ITick
+	sealed partial class GpsPower : SupportPower, INotifyKilled, INotifySold, INotifyOwnerChanged, ITick
 	{
 		readonly Actor self;
 		readonly GpsPowerInfo info;

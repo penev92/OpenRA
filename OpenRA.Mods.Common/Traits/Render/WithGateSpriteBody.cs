@@ -50,7 +50,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		}
 	}
 
-	sealed class WithGateSpriteBody : WithSpriteBody, INotifyRemovedFromWorld, IWallConnector, ITick
+	sealed partial class WithGateSpriteBody : WithSpriteBody, INotifyRemovedFromWorld, IWallConnector, ITick
 	{
 		readonly WithGateSpriteBodyInfo gateBodyInfo;
 		readonly Gate gate;

@@ -41,10 +41,10 @@ namespace OpenRA.Mods.Common.Traits
 		readonly HashSet<PPos> footprint;
 
 		[Sync]
-		CPos cachedLocation;
+		protected CPos CachedLocation { get; private set; }
 
 		[Sync]
-		WDist cachedRange;
+		protected WDist CachedRange { get; private set; }
 
 		[Sync]
 		protected bool CachedTraitDisabled { get; private set; }
@@ -98,10 +98,10 @@ namespace OpenRA.Mods.Common.Traits
 			var pos = self.CenterPosition;
 
 			var dirty = Info.MoveRecalculationThreshold.Length > 0 && (pos - cachedPos).LengthSquared > Info.MoveRecalculationThreshold.LengthSquared;
-			if (!dirty && cachedLocation == projectedLocation)
+			if (!dirty && CachedLocation == projectedLocation)
 				return;
 
-			cachedLocation = projectedLocation;
+			CachedLocation = projectedLocation;
 			cachedPos = pos;
 
 			UpdateShroudCells(self);
@@ -115,10 +115,10 @@ namespace OpenRA.Mods.Common.Traits
 			var traitDisabled = IsTraitDisabled;
 			var range = Range;
 
-			if (cachedRange == range && traitDisabled == CachedTraitDisabled)
+			if (CachedRange == range && traitDisabled == CachedTraitDisabled)
 				return;
 
-			cachedRange = range;
+			CachedRange = range;
 			CachedTraitDisabled = traitDisabled;
 
 			UpdateShroudCells(self);
@@ -138,7 +138,7 @@ namespace OpenRA.Mods.Common.Traits
 		{
 			var centerPosition = self.CenterPosition;
 			var projectedPos = centerPosition - new WVec(0, centerPosition.Z, centerPosition.Z);
-			cachedLocation = self.World.Map.CellContaining(projectedPos);
+			CachedLocation = self.World.Map.CellContaining(projectedPos);
 			cachedPos = centerPosition;
 			CachedTraitDisabled = IsTraitDisabled;
 			var cells = ProjectedCells(self);
@@ -165,7 +165,7 @@ namespace OpenRA.Mods.Common.Traits
 				var projectedLocation = self.World.Map.CellContaining(projectedPos);
 				var pos = self.CenterPosition;
 
-				cachedLocation = projectedLocation;
+				CachedLocation = projectedLocation;
 				cachedPos = pos;
 
 				UpdateShroudCells(self);

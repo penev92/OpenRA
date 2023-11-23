@@ -88,7 +88,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new Cargo(init, this); }
 	}
 
-	public class Cargo : ConditionalTrait<CargoInfo>, IIssueOrder, IResolveOrder, IOrderVoice,
+	public partial class Cargo : ConditionalTrait<CargoInfo>, IIssueOrder, IResolveOrder, IOrderVoice,
 		INotifyOwnerChanged, INotifySold, INotifyActorDisposing, IIssueDeployOrder,
 		INotifyCreated, INotifyKilled, ITransformActorInitModifier
 	{

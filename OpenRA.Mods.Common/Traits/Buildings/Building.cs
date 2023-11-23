@@ -263,13 +263,10 @@ namespace OpenRA.Mods.Common.Traits
 		}
 	}
 
-	public class Building : IOccupySpace, ITargetableCells, INotifySold, INotifyTransform, ISync,
+	public partial class Building : IOccupySpace, ITargetableCells, INotifySold, INotifyTransform, ISync,
 		INotifyAddedToWorld, INotifyRemovedFromWorld
 	{
 		public readonly BuildingInfo Info;
-
-		[Sync]
-		readonly CPos topLeft;
 
 		readonly Actor self;
 		readonly BuildingInfluence influence;
@@ -278,13 +275,15 @@ namespace OpenRA.Mods.Common.Traits
 		readonly (CPos, SubCell)[] targetableCells;
 		readonly CPos[] transitOnlyCells;
 
-		public CPos TopLeft => topLeft;
+		[Sync]
+		public CPos TopLeft { get; }
+
 		public WPos CenterPosition { get; }
 
 		public Building(ActorInitializer init, BuildingInfo info)
 		{
 			self = init.Self;
-			topLeft = init.GetValue<LocationInit, CPos>();
+			TopLeft = init.GetValue<LocationInit, CPos>();
 			Info = info;
 			influence = self.World.WorldActor.Trait<BuildingInfluence>();
 
@@ -296,7 +295,7 @@ namespace OpenRA.Mods.Common.Traits
 
 			transitOnlyCells = Info.TransitOnlyTiles(TopLeft).ToArray();
 
-			CenterPosition = init.World.Map.CenterOfCell(topLeft) + Info.CenterOffset(init.World);
+			CenterPosition = init.World.Map.CenterOfCell(TopLeft) + Info.CenterOffset(init.World);
 		}
 
 		public (CPos, SubCell)[] OccupiedCells() { return occupiedCells; }

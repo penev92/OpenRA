@@ -21,7 +21,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new AttackWander(init.Self, this); }
 	}
 
-	sealed class AttackWander : Wanders
+	sealed partial class AttackWander : Wanders
 	{
 		readonly AttackMove attackMove;
 

@@ -59,7 +59,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new GrantExternalConditionPower(init.Self, this); }
 	}
 
-	public class GrantExternalConditionPower : SupportPower
+	public partial class GrantExternalConditionPower : SupportPower
 	{
 		readonly GrantExternalConditionPowerInfo info;
 		readonly char[] footprint;

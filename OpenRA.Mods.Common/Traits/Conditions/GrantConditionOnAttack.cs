@@ -46,7 +46,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new GrantConditionOnAttack(this); }
 	}
 
-	public class GrantConditionOnAttack : PausableConditionalTrait<GrantConditionOnAttackInfo>, INotifyCreated, ITick, INotifyAttack
+	public partial class GrantConditionOnAttack : PausableConditionalTrait<GrantConditionOnAttackInfo>, INotifyCreated, ITick, INotifyAttack
 	{
 		readonly Stack<int> tokens = new();
 

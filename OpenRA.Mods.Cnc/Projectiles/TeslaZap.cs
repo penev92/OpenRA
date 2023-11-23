@@ -52,7 +52,7 @@ namespace OpenRA.Mods.Cnc.Projectiles
 		public IProjectile Create(ProjectileArgs args) { return new TeslaZap(this, args); }
 	}
 
-	public class TeslaZap : IProjectile, ISync
+	public partial class TeslaZap : IProjectile, ISync
 	{
 		readonly ProjectileArgs args;
 		readonly TeslaZapInfo info;

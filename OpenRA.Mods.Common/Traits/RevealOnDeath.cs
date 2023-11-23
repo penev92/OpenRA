@@ -37,7 +37,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new RevealOnDeath(this); }
 	}
 
-	public class RevealOnDeath : ConditionalTrait<RevealOnDeathInfo>, INotifyKilled
+	public partial class RevealOnDeath : ConditionalTrait<RevealOnDeathInfo>, INotifyKilled
 	{
 		readonly RevealOnDeathInfo info;
 

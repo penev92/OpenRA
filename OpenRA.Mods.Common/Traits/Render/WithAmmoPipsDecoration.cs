@@ -45,7 +45,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		public override object Create(ActorInitializer init) { return new WithAmmoPipsDecoration(init.Self, this); }
 	}
 
-	public class WithAmmoPipsDecoration : WithDecorationBase<WithAmmoPipsDecorationInfo>
+	public partial class WithAmmoPipsDecoration : WithDecorationBase<WithAmmoPipsDecorationInfo>
 	{
 		readonly AmmoPool[] ammo;
 		readonly Animation pips;

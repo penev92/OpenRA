@@ -26,7 +26,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new GrantExternalConditionToProduced(this); }
 	}
 
-	public class GrantExternalConditionToProduced : ConditionalTrait<GrantExternalConditionToProducedInfo>, INotifyProduction
+	public partial class GrantExternalConditionToProduced : ConditionalTrait<GrantExternalConditionToProducedInfo>, INotifyProduction
 	{
 		public GrantExternalConditionToProduced(GrantExternalConditionToProducedInfo info)
 			: base(info) { }

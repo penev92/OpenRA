@@ -51,7 +51,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new AirstrikePower(init.Self, this); }
 	}
 
-	public class AirstrikePower : SupportPower
+	public partial class AirstrikePower : SupportPower
 	{
 		readonly AirstrikePowerInfo info;
 

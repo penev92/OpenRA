@@ -80,7 +80,7 @@ namespace OpenRA.Mods.Common.Traits
 		public bool IsOwnerRowVisible => ShowOwnerRow;
 	}
 
-	public class Tooltip : ConditionalTrait<TooltipInfo>, ITooltip
+	public partial class Tooltip : ConditionalTrait<TooltipInfo>, ITooltip
 	{
 		readonly Actor self;
 		readonly TooltipInfo info;

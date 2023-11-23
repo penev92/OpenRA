@@ -44,7 +44,7 @@ namespace OpenRA.Mods.Cnc.Traits
 		}
 	}
 
-	public class EnergyWall : Building, IObservesVariables, ITick, ITemporaryBlocker
+	public partial class EnergyWall : Building, IObservesVariables, ITick, ITemporaryBlocker
 	{
 		readonly EnergyWallInfo info;
 		IEnumerable<CPos> blockedPositions;

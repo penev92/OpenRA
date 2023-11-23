@@ -39,7 +39,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new EjectOnDeath(this); }
 	}
 
-	public class EjectOnDeath : ConditionalTrait<EjectOnDeathInfo>, INotifyKilled
+	public partial class EjectOnDeath : ConditionalTrait<EjectOnDeathInfo>, INotifyKilled
 	{
 		public EjectOnDeath(EjectOnDeathInfo info)
 			: base(info) { }

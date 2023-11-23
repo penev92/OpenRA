@@ -507,7 +507,7 @@ namespace OpenRA
 
 				// Hash game state relevant effects such as projectiles.
 				foreach (var sync in SyncedEffects)
-					ret += n++ * Sync.Hash(sync);
+					ret += n++ * sync.GetSyncHash();
 
 				// Hash the shared random number generator.
 				ret += SharedRandom.Last;

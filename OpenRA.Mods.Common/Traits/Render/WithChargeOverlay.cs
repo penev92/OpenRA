@@ -31,7 +31,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		public override object Create(ActorInitializer init) { return new WithChargeOverlay(init.Self, this); }
 	}
 
-	sealed class WithChargeOverlay : PausableConditionalTrait<WithChargeOverlayInfo>, INotifyDamageStateChanged
+	sealed partial class WithChargeOverlay : PausableConditionalTrait<WithChargeOverlayInfo>, INotifyDamageStateChanged
 	{
 		readonly Animation overlay;
 

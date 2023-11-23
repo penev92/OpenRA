@@ -70,7 +70,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new Captures(init.Self, this); }
 	}
 
-	public class Captures : ConditionalTrait<CapturesInfo>, IIssueOrder, IResolveOrder, IOrderVoice
+	public partial class Captures : ConditionalTrait<CapturesInfo>, IIssueOrder, IResolveOrder, IOrderVoice
 	{
 		public readonly CaptureManager CaptureManager;
 

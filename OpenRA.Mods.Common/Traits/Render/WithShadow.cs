@@ -32,7 +32,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		public override object Create(ActorInitializer init) { return new WithShadow(this); }
 	}
 
-	public class WithShadow : ConditionalTrait<WithShadowInfo>, IRenderModifier
+	public partial class WithShadow : ConditionalTrait<WithShadowInfo>, IRenderModifier
 	{
 		readonly WithShadowInfo info;
 		readonly float3 shadowColor;

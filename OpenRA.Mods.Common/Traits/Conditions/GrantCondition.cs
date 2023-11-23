@@ -27,7 +27,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new GrantCondition(this); }
 	}
 
-	sealed class GrantCondition : ConditionalTrait<GrantConditionInfo>
+	sealed partial class GrantCondition : ConditionalTrait<GrantConditionInfo>
 	{
 		int conditionToken = Actor.InvalidConditionToken;
 

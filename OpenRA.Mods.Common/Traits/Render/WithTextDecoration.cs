@@ -43,7 +43,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		}
 	}
 
-	public class WithTextDecoration : WithDecorationBase<WithTextDecorationInfo>, INotifyOwnerChanged
+	public partial class WithTextDecoration : WithDecorationBase<WithTextDecorationInfo>, INotifyOwnerChanged
 	{
 		readonly SpriteFont font;
 		Color color;

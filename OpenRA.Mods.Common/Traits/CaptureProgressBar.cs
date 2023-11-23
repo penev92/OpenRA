@@ -22,7 +22,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new CaptureProgressBar(this); }
 	}
 
-	sealed class CaptureProgressBar : ConditionalTrait<CaptureProgressBarInfo>, ISelectionBar, ICaptureProgressWatcher
+	sealed partial class CaptureProgressBar : ConditionalTrait<CaptureProgressBarInfo>, ISelectionBar, ICaptureProgressWatcher
 	{
 		int current;
 		int total;

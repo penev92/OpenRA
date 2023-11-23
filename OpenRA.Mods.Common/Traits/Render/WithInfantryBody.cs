@@ -66,7 +66,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		}
 	}
 
-	public class WithInfantryBody : ConditionalTrait<WithInfantryBodyInfo>, ITick, INotifyAttack, INotifyIdle
+	public partial class WithInfantryBody : ConditionalTrait<WithInfantryBodyInfo>, ITick, INotifyAttack, INotifyIdle
 	{
 		readonly IMove move;
 		protected readonly Animation DefaultAnimation;

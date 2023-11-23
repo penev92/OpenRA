@@ -36,7 +36,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new FreeActorWithDelivery(init, this); }
 	}
 
-	public class FreeActorWithDelivery : FreeActor
+	public partial class FreeActorWithDelivery : FreeActor
 	{
 		readonly FreeActorWithDeliveryInfo info;
 		readonly Actor self;

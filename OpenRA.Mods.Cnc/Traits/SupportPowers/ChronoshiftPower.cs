@@ -63,7 +63,7 @@ namespace OpenRA.Mods.Cnc.Traits
 		public override object Create(ActorInitializer init) { return new ChronoshiftPower(init.Self, this); }
 	}
 
-	sealed class ChronoshiftPower : SupportPower
+	sealed partial class ChronoshiftPower : SupportPower
 	{
 		readonly char[] footprint;
 		readonly CVec dimensions;

@@ -27,7 +27,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		public override object Create(ActorInitializer init) { return new WithAcceptDeliveredCashAnimation(init.Self, this); }
 	}
 
-	public class WithAcceptDeliveredCashAnimation : ConditionalTrait<WithAcceptDeliveredCashAnimationInfo>, INotifyCashTransfer
+	public partial class WithAcceptDeliveredCashAnimation : ConditionalTrait<WithAcceptDeliveredCashAnimationInfo>, INotifyCashTransfer
 	{
 		readonly WithSpriteBody wsb;
 

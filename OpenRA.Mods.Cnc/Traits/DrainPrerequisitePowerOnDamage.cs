@@ -29,7 +29,7 @@ namespace OpenRA.Mods.Cnc.Traits
 		public override object Create(ActorInitializer init) { return new DrainPrerequisitePowerOnDamage(this); }
 	}
 
-	public class DrainPrerequisitePowerOnDamage : ConditionalTrait<DrainPrerequisitePowerOnDamageInfo>, INotifyOwnerChanged, IDamageModifier
+	public partial class DrainPrerequisitePowerOnDamage : ConditionalTrait<DrainPrerequisitePowerOnDamageInfo>, INotifyOwnerChanged, IDamageModifier
 	{
 		SupportPowerManager spm;
 

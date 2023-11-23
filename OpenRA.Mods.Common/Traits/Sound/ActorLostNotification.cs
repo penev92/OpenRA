@@ -28,7 +28,7 @@ namespace OpenRA.Mods.Common.Traits.Sound
 		public override object Create(ActorInitializer init) { return new ActorLostNotification(this); }
 	}
 
-	sealed class ActorLostNotification : ConditionalTrait<ActorLostNotificationInfo>, INotifyKilled
+	sealed partial class ActorLostNotification : ConditionalTrait<ActorLostNotificationInfo>, INotifyKilled
 	{
 		public ActorLostNotification(ActorLostNotificationInfo info)
 			: base(info) { }

@@ -25,7 +25,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new TurnOnIdle(init, this); }
 	}
 
-	sealed class TurnOnIdle : ConditionalTrait<TurnOnIdleInfo>, INotifyIdle
+	sealed partial class TurnOnIdle : ConditionalTrait<TurnOnIdleInfo>, INotifyIdle
 	{
 		int currentDelay;
 		WAngle targetFacing;

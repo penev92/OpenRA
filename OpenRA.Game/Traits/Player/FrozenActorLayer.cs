@@ -236,7 +236,7 @@ namespace OpenRA.Traits
 		}
 	}
 
-	public class FrozenActorLayer : IRender, ITick, ISync
+	public partial class FrozenActorLayer : IRender, ITick, ISync
 	{
 		[Sync]
 		public int VisibilityHash;

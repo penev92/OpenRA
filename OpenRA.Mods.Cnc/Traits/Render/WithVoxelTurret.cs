@@ -48,7 +48,7 @@ namespace OpenRA.Mods.Cnc.Traits.Render
 		}
 	}
 
-	public class WithVoxelTurret : ConditionalTrait<WithVoxelTurretInfo>
+	public partial class WithVoxelTurret : ConditionalTrait<WithVoxelTurretInfo>
 	{
 		readonly Turreted turreted;
 

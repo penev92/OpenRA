@@ -126,7 +126,7 @@ namespace OpenRA.Mods.Common.Traits
 		}
 	}
 
-	public class AutoTarget : ConditionalTrait<AutoTargetInfo>, INotifyIdle, INotifyDamage, ITick, IResolveOrder, ISync, INotifyOwnerChanged
+	public partial class AutoTarget : ConditionalTrait<AutoTargetInfo>, INotifyIdle, INotifyDamage, ITick, IResolveOrder, ISync, INotifyOwnerChanged
 	{
 		public readonly IEnumerable<AttackBase> ActiveAttackBases;
 

@@ -26,7 +26,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new FrozenUnderFog(init, this); }
 	}
 
-	public class FrozenUnderFog : ICreatesFrozenActors, IRenderModifier, IDefaultVisibility, ITickRender, ISync, INotifyCreated, INotifyOwnerChanged, INotifyActorDisposing
+	public partial class FrozenUnderFog : ICreatesFrozenActors, IRenderModifier, IDefaultVisibility, ITickRender, ISync, INotifyCreated, INotifyOwnerChanged, INotifyActorDisposing
 	{
 		[Sync]
 		public int VisibilityHash;

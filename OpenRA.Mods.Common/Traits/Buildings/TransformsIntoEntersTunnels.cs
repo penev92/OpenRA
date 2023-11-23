@@ -40,7 +40,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new TransformsIntoEntersTunnels(init.Self, this); }
 	}
 
-	public class TransformsIntoEntersTunnels : ConditionalTrait<TransformsIntoEntersTunnelsInfo>, IIssueOrder, IResolveOrder, IOrderVoice
+	public partial class TransformsIntoEntersTunnels : ConditionalTrait<TransformsIntoEntersTunnelsInfo>, IIssueOrder, IResolveOrder, IOrderVoice
 	{
 		readonly Actor self;
 		Transforms[] transforms;

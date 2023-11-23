@@ -34,7 +34,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new ClassicProductionQueue(init, this); }
 	}
 
-	public class ClassicProductionQueue : ProductionQueue
+	public partial class ClassicProductionQueue : ProductionQueue
 	{
 		static readonly ActorInfo[] NoItems = Array.Empty<ActorInfo>();
 

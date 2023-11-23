@@ -28,7 +28,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new AutoCarryall(init.Self, this); }
 	}
 
-	public class AutoCarryall : Carryall, INotifyBecomingIdle, IObservesVariables
+	public partial class AutoCarryall : Carryall, INotifyBecomingIdle, IObservesVariables
 	{
 		readonly AutoCarryallInfo info;
 

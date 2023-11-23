@@ -61,7 +61,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		}
 	}
 
-	sealed class WithDeadBridgeSpriteBody : WithSpriteBody
+	sealed partial class WithDeadBridgeSpriteBody : WithSpriteBody
 	{
 		readonly WithDeadBridgeSpriteBodyInfo bridgeInfo;
 		readonly BridgeLayer bridgeLayer;

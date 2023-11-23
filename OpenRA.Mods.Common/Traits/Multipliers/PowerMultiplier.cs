@@ -23,7 +23,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new PowerMultiplier(init.Self, this); }
 	}
 
-	public class PowerMultiplier : ConditionalTrait<PowerMultiplierInfo>, IPowerModifier, INotifyOwnerChanged
+	public partial class PowerMultiplier : ConditionalTrait<PowerMultiplierInfo>, IPowerModifier, INotifyOwnerChanged
 	{
 		PowerManager power;
 

@@ -89,7 +89,7 @@ namespace OpenRA.Mods.Common.Traits
 
 	public enum DeployState { Undeployed, Deploying, Deployed, Undeploying }
 
-	public class GrantConditionOnDeploy : PausableConditionalTrait<GrantConditionOnDeployInfo>, IResolveOrder, IIssueOrder,
+	public partial class GrantConditionOnDeploy : PausableConditionalTrait<GrantConditionOnDeployInfo>, IResolveOrder, IIssueOrder,
 		INotifyDeployComplete, IIssueDeployOrder, IOrderVoice, IWrapMove, IDelayCarryallPickup
 	{
 		readonly Actor self;

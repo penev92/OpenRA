@@ -49,7 +49,7 @@ namespace OpenRA.Mods.D2k.Traits.Buildings
 		public override object Create(ActorInitializer init) { return new D2kBuilding(init, this); }
 	}
 
-	public class D2kBuilding : Building, ITick, INotifyCreated
+	public partial class D2kBuilding : Building, ITick, INotifyCreated
 	{
 		readonly D2kBuildingInfo info;
 

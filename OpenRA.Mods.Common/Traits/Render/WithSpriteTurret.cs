@@ -72,7 +72,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		}
 	}
 
-	public class WithSpriteTurret : ConditionalTrait<WithSpriteTurretInfo>, INotifyDamageStateChanged
+	public partial class WithSpriteTurret : ConditionalTrait<WithSpriteTurretInfo>, INotifyDamageStateChanged
 	{
 		public readonly Animation DefaultAnimation;
 		readonly RenderSprites rs;

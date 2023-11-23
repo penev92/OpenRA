@@ -39,7 +39,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		}
 	}
 
-	public class WithTurretAimAnimation : ConditionalTrait<WithTurretAimAnimationInfo>, INotifyAiming
+	public partial class WithTurretAimAnimation : ConditionalTrait<WithTurretAimAnimationInfo>, INotifyAiming
 	{
 		readonly AttackBase[] attackBases;
 		readonly WithSpriteTurret wst;

@@ -31,7 +31,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new GrantConditionOnFaction(init, this); }
 	}
 
-	sealed class GrantConditionOnFaction : ConditionalTrait<GrantConditionOnFactionInfo>, INotifyOwnerChanged
+	sealed partial class GrantConditionOnFaction : ConditionalTrait<GrantConditionOnFactionInfo>, INotifyOwnerChanged
 	{
 		int conditionToken = Actor.InvalidConditionToken;
 		string faction;

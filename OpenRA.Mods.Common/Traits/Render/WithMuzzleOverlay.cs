@@ -27,7 +27,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		public override object Create(ActorInitializer init) { return new WithMuzzleOverlay(init.Self, this); }
 	}
 
-	sealed class WithMuzzleOverlay : ConditionalTrait<WithMuzzleOverlayInfo>, INotifyAttack, IRender, ITick
+	sealed partial class WithMuzzleOverlay : ConditionalTrait<WithMuzzleOverlayInfo>, INotifyAttack, IRender, ITick
 	{
 		readonly Dictionary<Barrel, bool> visible = new();
 		readonly Dictionary<Barrel, AnimationWithOffset> anims = new();

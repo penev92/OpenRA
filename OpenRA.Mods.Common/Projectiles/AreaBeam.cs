@@ -82,7 +82,7 @@ namespace OpenRA.Mods.Common.Projectiles
 		}
 	}
 
-	public class AreaBeam : IProjectile, ISync
+	public partial class AreaBeam : IProjectile, ISync
 	{
 		readonly AreaBeamInfo info;
 		readonly ProjectileArgs args;

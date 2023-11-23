@@ -32,7 +32,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new AutoTargetPriority(this); }
 	}
 
-	public class AutoTargetPriority : ConditionalTrait<AutoTargetPriorityInfo>
+	public partial class AutoTargetPriority : ConditionalTrait<AutoTargetPriorityInfo>
 	{
 		public AutoTargetPriority(AutoTargetPriorityInfo info)
 			: base(info) { }

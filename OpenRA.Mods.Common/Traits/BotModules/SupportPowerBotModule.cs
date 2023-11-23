@@ -37,7 +37,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new SupportPowerBotModule(init.Self, this); }
 	}
 
-	public class SupportPowerBotModule : ConditionalTrait<SupportPowerBotModuleInfo>, IBotTick, IGameSaveTraitData
+	public partial class SupportPowerBotModule : ConditionalTrait<SupportPowerBotModuleInfo>, IBotTick, IGameSaveTraitData
 	{
 		readonly World world;
 		readonly Player player;

@@ -22,7 +22,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new ActorSpawner(this); }
 	}
 
-	public class ActorSpawner : ConditionalTrait<ActorSpawnerInfo>
+	public partial class ActorSpawner : ConditionalTrait<ActorSpawnerInfo>
 	{
 		public ActorSpawner(ActorSpawnerInfo info)
 			: base(info) { }

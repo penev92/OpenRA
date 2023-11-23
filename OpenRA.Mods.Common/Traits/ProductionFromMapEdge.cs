@@ -22,7 +22,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new ProductionFromMapEdge(init, this); }
 	}
 
-	sealed class ProductionFromMapEdge : Production
+	sealed partial class ProductionFromMapEdge : Production
 	{
 		readonly CPos? spawnLocation;
 		readonly IPathFinder pathFinder;

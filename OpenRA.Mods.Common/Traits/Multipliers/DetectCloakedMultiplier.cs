@@ -21,7 +21,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new DetectCloakedMultiplier(this); }
 	}
 
-	public class DetectCloakedMultiplier : ConditionalTrait<DetectCloakedMultiplierInfo>, IDetectCloakedModifier
+	public partial class DetectCloakedMultiplier : ConditionalTrait<DetectCloakedMultiplierInfo>, IDetectCloakedModifier
 	{
 		public DetectCloakedMultiplier(DetectCloakedMultiplierInfo info)
 			: base(info) { }

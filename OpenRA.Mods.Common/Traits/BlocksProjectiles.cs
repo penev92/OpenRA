@@ -25,7 +25,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new BlocksProjectiles(this); }
 	}
 
-	public class BlocksProjectiles : ConditionalTrait<BlocksProjectilesInfo>, IBlocksProjectiles
+	public partial class BlocksProjectiles : ConditionalTrait<BlocksProjectilesInfo>, IBlocksProjectiles
 	{
 		public BlocksProjectiles(BlocksProjectilesInfo info)
 			: base(info) { }

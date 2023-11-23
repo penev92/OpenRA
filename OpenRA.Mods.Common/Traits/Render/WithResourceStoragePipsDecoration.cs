@@ -41,7 +41,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		public override object Create(ActorInitializer init) { return new WithResourceStoragePipsDecoration(init.Self, this); }
 	}
 
-	public class WithResourceStoragePipsDecoration : WithDecorationBase<WithResourceStoragePipsDecorationInfo>, INotifyOwnerChanged
+	public partial class WithResourceStoragePipsDecoration : WithDecorationBase<WithResourceStoragePipsDecorationInfo>, INotifyOwnerChanged
 	{
 		readonly Animation pips;
 		PlayerResources player;

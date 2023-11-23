@@ -21,7 +21,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new SpeedMultiplier(this); }
 	}
 
-	public class SpeedMultiplier : ConditionalTrait<SpeedMultiplierInfo>, ISpeedModifier
+	public partial class SpeedMultiplier : ConditionalTrait<SpeedMultiplierInfo>, ISpeedModifier
 	{
 		public SpeedMultiplier(SpeedMultiplierInfo info)
 			: base(info) { }

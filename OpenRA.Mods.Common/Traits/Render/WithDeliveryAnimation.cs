@@ -26,7 +26,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		public override object Create(ActorInitializer init) { return new WithDeliveryAnimation(init.Self, this); }
 	}
 
-	public class WithDeliveryAnimation : ConditionalTrait<WithDeliveryAnimationInfo>, INotifyDelivery
+	public partial class WithDeliveryAnimation : ConditionalTrait<WithDeliveryAnimationInfo>, INotifyDelivery
 	{
 		readonly WithSpriteBody wsb;
 

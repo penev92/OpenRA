@@ -34,7 +34,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		public override object Create(ActorInitializer init) { return new WithDockingOverlay(init.Self, this); }
 	}
 
-	public class WithDockingOverlay : PausableConditionalTrait<WithDockingOverlayInfo>
+	public partial class WithDockingOverlay : PausableConditionalTrait<WithDockingOverlayInfo>
 	{
 		public readonly AnimationWithOffset WithOffset;
 

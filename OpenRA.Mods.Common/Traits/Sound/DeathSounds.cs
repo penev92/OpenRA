@@ -31,7 +31,7 @@ namespace OpenRA.Mods.Common.Traits.Sound
 		public override object Create(ActorInitializer init) { return new DeathSounds(this); }
 	}
 
-	public class DeathSounds : ConditionalTrait<DeathSoundsInfo>, INotifyKilled
+	public partial class DeathSounds : ConditionalTrait<DeathSoundsInfo>, INotifyKilled
 	{
 		public DeathSounds(DeathSoundsInfo info)
 			: base(info) { }

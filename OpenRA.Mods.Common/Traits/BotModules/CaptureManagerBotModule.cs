@@ -44,7 +44,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new CaptureManagerBotModule(init.Self, this); }
 	}
 
-	public class CaptureManagerBotModule : ConditionalTrait<CaptureManagerBotModuleInfo>, IBotTick
+	public partial class CaptureManagerBotModule : ConditionalTrait<CaptureManagerBotModuleInfo>, IBotTick
 	{
 		readonly World world;
 		readonly Player player;

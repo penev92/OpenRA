@@ -81,7 +81,7 @@ namespace OpenRA.Mods.Common.Traits
 		}
 	}
 
-	public class Explodes : ConditionalTrait<ExplodesInfo>, INotifyKilled, INotifyDamage
+	public partial class Explodes : ConditionalTrait<ExplodesInfo>, INotifyKilled, INotifyDamage
 	{
 		readonly IHealth health;
 		BuildingInfo buildingInfo;

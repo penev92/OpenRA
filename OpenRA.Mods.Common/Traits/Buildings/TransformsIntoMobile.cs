@@ -67,7 +67,7 @@ namespace OpenRA.Mods.Common.Traits
 		}
 	}
 
-	public class TransformsIntoMobile : ConditionalTrait<TransformsIntoMobileInfo>, IIssueOrder, IResolveOrder, IOrderVoice
+	public partial class TransformsIntoMobile : ConditionalTrait<TransformsIntoMobileInfo>, IIssueOrder, IResolveOrder, IOrderVoice
 	{
 		readonly Actor self;
 		Transforms[] transforms;

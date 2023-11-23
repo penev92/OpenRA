@@ -42,7 +42,7 @@ namespace OpenRA.Mods.Common.Traits
 		}
 	}
 
-	public class GrantConditionOnSubterraneanLayer : GrantConditionOnLayer<GrantConditionOnSubterraneanLayerInfo>, INotifyCenterPositionChanged
+	public partial class GrantConditionOnSubterraneanLayer : GrantConditionOnLayer<GrantConditionOnSubterraneanLayerInfo>, INotifyCenterPositionChanged
 	{
 		WDist transitionDepth;
 

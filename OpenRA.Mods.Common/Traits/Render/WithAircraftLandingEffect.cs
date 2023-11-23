@@ -40,7 +40,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		public override object Create(ActorInitializer init) { return new WithAircraftLandingEffect(this); }
 	}
 
-	public class WithAircraftLandingEffect : ConditionalTrait<WithAircraftLandingEffectInfo>, INotifyLanding, ITick
+	public partial class WithAircraftLandingEffect : ConditionalTrait<WithAircraftLandingEffectInfo>, INotifyLanding, ITick
 	{
 		bool shouldAddEffect;
 

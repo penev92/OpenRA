@@ -21,7 +21,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new RevealsShroudMultiplier(this); }
 	}
 
-	public class RevealsShroudMultiplier : ConditionalTrait<RevealsShroudMultiplierInfo>, IRevealsShroudModifier
+	public partial class RevealsShroudMultiplier : ConditionalTrait<RevealsShroudMultiplierInfo>, IRevealsShroudModifier
 	{
 		public RevealsShroudMultiplier(RevealsShroudMultiplierInfo info)
 			: base(info) { }

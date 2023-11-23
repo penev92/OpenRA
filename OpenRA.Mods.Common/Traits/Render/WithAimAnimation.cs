@@ -39,7 +39,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		}
 	}
 
-	public class WithAimAnimation : ConditionalTrait<WithAimAnimationInfo>, INotifyAiming
+	public partial class WithAimAnimation : ConditionalTrait<WithAimAnimationInfo>, INotifyAiming
 	{
 		readonly AttackBase[] attackBases;
 		readonly WithSpriteBody wsb;

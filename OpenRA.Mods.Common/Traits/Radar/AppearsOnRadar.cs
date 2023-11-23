@@ -28,7 +28,7 @@ namespace OpenRA.Mods.Common.Traits.Radar
 		public override object Create(ActorInitializer init) { return new AppearsOnRadar(this); }
 	}
 
-	public class AppearsOnRadar : ConditionalTrait<AppearsOnRadarInfo>, IRadarSignature
+	public partial class AppearsOnRadar : ConditionalTrait<AppearsOnRadarInfo>, IRadarSignature
 	{
 		IRadarColorModifier modifier;
 

@@ -15,7 +15,7 @@ namespace OpenRA.Mods.Common.Traits
 		}
 	}
 
-	public class GrantConditionOnMinelaying : ConditionalTrait<GrantConditionOnMinelayingInfo>, INotifyMineLaying
+	public partial class GrantConditionOnMinelaying : ConditionalTrait<GrantConditionOnMinelayingInfo>, INotifyMineLaying
 	{
 		int conditionToken = Actor.InvalidConditionToken;
 

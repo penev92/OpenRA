@@ -82,7 +82,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		}
 	}
 
-	sealed class WithWallSpriteBody : WithSpriteBody, INotifyRemovedFromWorld, IWallConnector, ITick
+	sealed partial class WithWallSpriteBody : WithSpriteBody, INotifyRemovedFromWorld, IWallConnector, ITick
 	{
 		readonly WithWallSpriteBodyInfo wallInfo;
 		int adjacent = 0;

@@ -21,7 +21,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new GainsExperienceMultiplier(this); }
 	}
 
-	public class GainsExperienceMultiplier : ConditionalTrait<GainsExperienceMultiplierInfo>, IGainsExperienceModifier
+	public partial class GainsExperienceMultiplier : ConditionalTrait<GainsExperienceMultiplierInfo>, IGainsExperienceModifier
 	{
 		public GainsExperienceMultiplier(GainsExperienceMultiplierInfo info)
 			: base(info) { }

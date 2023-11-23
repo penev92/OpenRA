@@ -44,7 +44,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		}
 	}
 
-	public class WithAttackAnimation : ConditionalTrait<WithAttackAnimationInfo>, ITick, INotifyAttack
+	public partial class WithAttackAnimation : ConditionalTrait<WithAttackAnimationInfo>, ITick, INotifyAttack
 	{
 		readonly Armament armament;
 		readonly WithSpriteBody wsb;

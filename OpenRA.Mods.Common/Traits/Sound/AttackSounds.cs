@@ -29,7 +29,7 @@ namespace OpenRA.Mods.Common.Traits.Sound
 		public override object Create(ActorInitializer init) { return new AttackSounds(this); }
 	}
 
-	public class AttackSounds : ConditionalTrait<AttackSoundsInfo>, INotifyAttack, ITick
+	public partial class AttackSounds : ConditionalTrait<AttackSoundsInfo>, INotifyAttack, ITick
 	{
 		readonly AttackSoundsInfo info;
 		int tick;

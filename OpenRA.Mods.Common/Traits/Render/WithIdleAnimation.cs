@@ -30,7 +30,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		public override object Create(ActorInitializer init) { return new WithIdleAnimation(init.Self, this); }
 	}
 
-	public class WithIdleAnimation : ConditionalTrait<WithIdleAnimationInfo>, ITick
+	public partial class WithIdleAnimation : ConditionalTrait<WithIdleAnimationInfo>, ITick
 	{
 		readonly WithSpriteBody wsb;
 		int ticks;

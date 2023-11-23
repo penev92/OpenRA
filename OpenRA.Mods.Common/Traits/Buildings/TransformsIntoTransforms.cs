@@ -23,7 +23,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new TransformsIntoTransforms(this); }
 	}
 
-	public class TransformsIntoTransforms : ConditionalTrait<TransformsIntoTransformsInfo>, IResolveOrder, IOrderVoice, IIssueDeployOrder
+	public partial class TransformsIntoTransforms : ConditionalTrait<TransformsIntoTransformsInfo>, IResolveOrder, IOrderVoice, IIssueDeployOrder
 	{
 		public TransformsIntoTransforms(TransformsIntoTransformsInfo info)
 			: base(info) { }

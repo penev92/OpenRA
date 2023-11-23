@@ -24,7 +24,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new DamageMultiplier(this); }
 	}
 
-	public class DamageMultiplier : ConditionalTrait<DamageMultiplierInfo>, IDamageModifier
+	public partial class DamageMultiplier : ConditionalTrait<DamageMultiplierInfo>, IDamageModifier
 	{
 		public DamageMultiplier(DamageMultiplierInfo info)
 			: base(info) { }

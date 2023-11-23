@@ -50,7 +50,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new InstantlyRepairs(this); }
 	}
 
-	public class InstantlyRepairs : ConditionalTrait<InstantlyRepairsInfo>, IIssueOrder, IResolveOrder, IOrderVoice
+	public partial class InstantlyRepairs : ConditionalTrait<InstantlyRepairsInfo>, IIssueOrder, IResolveOrder, IOrderVoice
 	{
 		public InstantlyRepairs(InstantlyRepairsInfo info)
 			: base(info) { }

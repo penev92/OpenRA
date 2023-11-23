@@ -33,7 +33,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new SpreadsCondition(this); }
 	}
 
-	public class SpreadsCondition : ConditionalTrait<SpreadsConditionInfo>, ITick
+	public partial class SpreadsCondition : ConditionalTrait<SpreadsConditionInfo>, ITick
 	{
 		readonly SpreadsConditionInfo info;
 

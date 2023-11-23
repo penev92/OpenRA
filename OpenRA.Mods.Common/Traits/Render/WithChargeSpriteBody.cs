@@ -33,7 +33,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		}
 	}
 
-	public class WithChargeSpriteBody : WithSpriteBody
+	public partial class WithChargeSpriteBody : WithSpriteBody
 	{
 		readonly AttackCharges attackCharges;
 

@@ -23,7 +23,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new CashTricklerMultiplier(this); }
 	}
 
-	public class CashTricklerMultiplier : ConditionalTrait<CashTricklerMultiplierInfo>, ICashTricklerModifier
+	public partial class CashTricklerMultiplier : ConditionalTrait<CashTricklerMultiplierInfo>, ICashTricklerModifier
 	{
 		public CashTricklerMultiplier(CashTricklerMultiplierInfo info)
 			: base(info) { }

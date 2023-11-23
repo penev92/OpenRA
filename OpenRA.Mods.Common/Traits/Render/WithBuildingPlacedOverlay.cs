@@ -34,7 +34,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		public override object Create(ActorInitializer init) { return new WithBuildingPlacedOverlay(init.Self, this); }
 	}
 
-	public class WithBuildingPlacedOverlay : ConditionalTrait<WithBuildingPlacedOverlayInfo>, INotifyDamageStateChanged, INotifyBuildingPlaced
+	public partial class WithBuildingPlacedOverlay : ConditionalTrait<WithBuildingPlacedOverlayInfo>, INotifyDamageStateChanged, INotifyBuildingPlaced
 	{
 		readonly Animation overlay;
 		bool visible;

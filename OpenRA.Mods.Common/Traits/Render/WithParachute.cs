@@ -102,7 +102,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		}
 	}
 
-	public class WithParachute : ConditionalTrait<WithParachuteInfo>, ITick, IRender
+	public partial class WithParachute : ConditionalTrait<WithParachuteInfo>, ITick, IRender
 	{
 		readonly Animation shadow;
 		readonly AnimationWithOffset anim;

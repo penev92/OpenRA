@@ -28,7 +28,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new Demolishable(this); }
 	}
 
-	public class Demolishable : ConditionalTrait<DemolishableInfo>, IDemolishable, ITick, INotifyOwnerChanged
+	public partial class Demolishable : ConditionalTrait<DemolishableInfo>, IDemolishable, ITick, INotifyOwnerChanged
 	{
 		sealed class DemolishAction
 		{

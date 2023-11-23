@@ -31,7 +31,7 @@ namespace OpenRA.Mods.Common.Traits.Sound
 		public override object Create(ActorInitializer init) { return new AmbientSound(init.Self, this); }
 	}
 
-	sealed class AmbientSound : ConditionalTrait<AmbientSoundInfo>, ITick, INotifyRemovedFromWorld
+	sealed partial class AmbientSound : ConditionalTrait<AmbientSoundInfo>, ITick, INotifyRemovedFromWorld
 	{
 		readonly bool loop;
 		readonly HashSet<ISound> currentSounds = new();

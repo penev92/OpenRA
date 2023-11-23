@@ -25,7 +25,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new CapturableProgressBlink(this); }
 	}
 
-	sealed class CapturableProgressBlink : ConditionalTrait<CapturableProgressBlinkInfo>, ITick, ICaptureProgressWatcher
+	sealed partial class CapturableProgressBlink : ConditionalTrait<CapturableProgressBlinkInfo>, ITick, ICaptureProgressWatcher
 	{
 		readonly List<Player> captorOwners = new();
 		readonly HashSet<Actor> captors = new();

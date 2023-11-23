@@ -20,7 +20,7 @@ namespace OpenRA.Mods.Cnc.Traits.Render
 		public override object Create(ActorInitializer init) { return new WithDisguisingInfantryBody(init, this); }
 	}
 
-	sealed class WithDisguisingInfantryBody : WithInfantryBody
+	sealed partial class WithDisguisingInfantryBody : WithInfantryBody
 	{
 		readonly Disguise disguise;
 		readonly RenderSprites rs;

@@ -23,7 +23,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new Power(init.Self, this); }
 	}
 
-	public class Power : ConditionalTrait<PowerInfo>, INotifyAddedToWorld, INotifyRemovedFromWorld, INotifyOwnerChanged
+	public partial class Power : ConditionalTrait<PowerInfo>, INotifyAddedToWorld, INotifyRemovedFromWorld, INotifyOwnerChanged
 	{
 		readonly Lazy<IPowerModifier[]> powerModifiers;
 

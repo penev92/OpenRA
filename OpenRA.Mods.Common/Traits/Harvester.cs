@@ -87,7 +87,7 @@ namespace OpenRA.Mods.Common.Traits
 		}
 	}
 
-	public class Harvester : DockClientBase<HarvesterInfo>, IIssueOrder, IResolveOrder, IOrderVoice,
+	public partial class Harvester : DockClientBase<HarvesterInfo>, IIssueOrder, IResolveOrder, IOrderVoice,
 		ISpeedModifier, ISync, INotifyCreated
 	{
 		readonly Mobile mobile;

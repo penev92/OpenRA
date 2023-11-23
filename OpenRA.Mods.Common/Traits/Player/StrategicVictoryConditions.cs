@@ -44,7 +44,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new StrategicVictoryConditions(init.Self, this); }
 	}
 
-	public class StrategicVictoryConditions : ITick, ISync, INotifyWinStateChanged, INotifyTimeLimit
+	public partial class StrategicVictoryConditions : ITick, ISync, INotifyWinStateChanged, INotifyTimeLimit
 	{
 		[TranslationReference("player")]
 		const string PlayerIsVictorious = "notification-player-is-victorious";

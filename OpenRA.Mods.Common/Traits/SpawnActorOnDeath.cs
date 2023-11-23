@@ -61,7 +61,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new SpawnActorOnDeath(init, this); }
 	}
 
-	public class SpawnActorOnDeath : ConditionalTrait<SpawnActorOnDeathInfo>, INotifyKilled, INotifyRemovedFromWorld
+	public partial class SpawnActorOnDeath : ConditionalTrait<SpawnActorOnDeathInfo>, INotifyKilled, INotifyRemovedFromWorld
 	{
 		readonly string faction;
 		readonly bool enabled;

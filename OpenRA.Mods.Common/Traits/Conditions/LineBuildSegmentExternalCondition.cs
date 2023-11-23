@@ -25,7 +25,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new LineBuildSegmentExternalCondition(this); }
 	}
 
-	public class LineBuildSegmentExternalCondition : ConditionalTrait<LineBuildSegmentExternalConditionInfo>, INotifyLineBuildSegmentsChanged
+	public partial class LineBuildSegmentExternalCondition : ConditionalTrait<LineBuildSegmentExternalConditionInfo>, INotifyLineBuildSegmentsChanged
 	{
 		readonly HashSet<Actor> segments = new();
 		readonly Dictionary<Actor, int> tokens = new();

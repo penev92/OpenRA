@@ -54,7 +54,7 @@ namespace OpenRA.Mods.Cnc.Traits
 		public override object Create(ActorInitializer init) { return new ConyardChronoReturn(init, this); }
 	}
 
-	public class ConyardChronoReturn : ITick, ISync, IObservesVariables, ISelectionBar, INotifySold,
+	public partial class ConyardChronoReturn : ITick, ISync, IObservesVariables, ISelectionBar, INotifySold,
 		IDeathActorInitModifier, ITransformActorInitModifier
 	{
 		readonly ConyardChronoReturnInfo info;

@@ -28,7 +28,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new Capturable(init.Self, this); }
 	}
 
-	public class Capturable : ConditionalTrait<CapturableInfo>, INotifyCapture
+	public partial class Capturable : ConditionalTrait<CapturableInfo>, INotifyCapture
 	{
 		readonly CaptureManager captureManager;
 

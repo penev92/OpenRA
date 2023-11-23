@@ -58,7 +58,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new ActorSpawnManager(this); }
 	}
 
-	public class ActorSpawnManager : ConditionalTrait<ActorSpawnManagerInfo>, ITick
+	public partial class ActorSpawnManager : ConditionalTrait<ActorSpawnManagerInfo>, ITick
 	{
 		readonly ActorSpawnManagerInfo info;
 

@@ -18,7 +18,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new ParallelProductionQueue(init, this); }
 	}
 
-	public class ParallelProductionQueue : ProductionQueue
+	public partial class ParallelProductionQueue : ProductionQueue
 	{
 		public ParallelProductionQueue(ActorInitializer init, ParallelProductionQueueInfo info)
 			: base(init, info) { }

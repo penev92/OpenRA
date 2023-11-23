@@ -44,7 +44,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		public override object Create(ActorInitializer init) { return new WithCargoPipsDecoration(init.Self, this); }
 	}
 
-	public class WithCargoPipsDecoration : WithDecorationBase<WithCargoPipsDecorationInfo>
+	public partial class WithCargoPipsDecoration : WithDecorationBase<WithCargoPipsDecorationInfo>
 	{
 		readonly Cargo cargo;
 		readonly Animation pips;

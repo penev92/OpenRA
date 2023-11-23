@@ -40,7 +40,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		public override object Create(ActorInitializer init) { return new WithProductionOverlay(init.Self, this); }
 	}
 
-	public class WithProductionOverlay : PausableConditionalTrait<WithProductionOverlayInfo>, INotifyDamageStateChanged, INotifyCreated, INotifyOwnerChanged
+	public partial class WithProductionOverlay : PausableConditionalTrait<WithProductionOverlayInfo>, INotifyDamageStateChanged, INotifyCreated, INotifyOwnerChanged
 	{
 		readonly Actor self;
 		readonly Animation overlay;

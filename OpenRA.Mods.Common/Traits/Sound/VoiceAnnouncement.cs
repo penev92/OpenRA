@@ -33,7 +33,7 @@ namespace OpenRA.Mods.Common.Traits.Sound
 		public override object Create(ActorInitializer init) { return new VoiceAnnouncement(this); }
 	}
 
-	public class VoiceAnnouncement : ConditionalTrait<VoiceAnnouncementInfo>
+	public partial class VoiceAnnouncement : ConditionalTrait<VoiceAnnouncementInfo>
 	{
 		bool triggered;
 

@@ -36,7 +36,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new GivesBounty(this); }
 	}
 
-	sealed class GivesBounty : ConditionalTrait<GivesBountyInfo>, INotifyKilled, INotifyPassengerEntered, INotifyPassengerExited
+	sealed partial class GivesBounty : ConditionalTrait<GivesBountyInfo>, INotifyKilled, INotifyPassengerEntered, INotifyPassengerExited
 	{
 		readonly Dictionary<Actor, GivesBounty[]> passengerBounties = new();
 

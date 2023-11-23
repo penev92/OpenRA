@@ -59,7 +59,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		public override object Create(ActorInitializer init) { return new WithDeathAnimation(init.Self, this); }
 	}
 
-	public class WithDeathAnimation : ConditionalTrait<WithDeathAnimationInfo>, INotifyKilled, INotifyCrushed
+	public partial class WithDeathAnimation : ConditionalTrait<WithDeathAnimationInfo>, INotifyKilled, INotifyCrushed
 	{
 		readonly RenderSprites rs;
 		bool crushed;

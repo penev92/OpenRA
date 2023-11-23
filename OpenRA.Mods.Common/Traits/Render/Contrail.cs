@@ -60,7 +60,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new Contrail(init.Self, this); }
 	}
 
-	public class Contrail : ConditionalTrait<ContrailInfo>, ITick, IRender, INotifyAddedToWorld
+	public partial class Contrail : ConditionalTrait<ContrailInfo>, ITick, IRender, INotifyAddedToWorld
 	{
 		readonly ContrailInfo info;
 		readonly BodyOrientation body;

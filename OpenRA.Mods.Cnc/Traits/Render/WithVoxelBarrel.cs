@@ -60,7 +60,7 @@ namespace OpenRA.Mods.Cnc.Traits.Render
 		}
 	}
 
-	public class WithVoxelBarrel : ConditionalTrait<WithVoxelBarrelInfo>
+	public partial class WithVoxelBarrel : ConditionalTrait<WithVoxelBarrelInfo>
 	{
 		readonly Actor self;
 		readonly Armament armament;

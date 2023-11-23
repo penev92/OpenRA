@@ -52,7 +52,7 @@ namespace OpenRA.Mods.Cnc.Traits
 		public override object Create(ActorInitializer init) { return new Infiltrates(this); }
 	}
 
-	public class Infiltrates : ConditionalTrait<InfiltratesInfo>, IIssueOrder, IResolveOrder, IOrderVoice
+	public partial class Infiltrates : ConditionalTrait<InfiltratesInfo>, IIssueOrder, IResolveOrder, IOrderVoice
 	{
 		public Infiltrates(InfiltratesInfo info)
 			: base(info) { }

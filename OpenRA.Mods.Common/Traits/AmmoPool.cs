@@ -47,7 +47,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new AmmoPool(this); }
 	}
 
-	public class AmmoPool : INotifyCreated, INotifyAttack, ISync
+	public partial class AmmoPool : INotifyCreated, INotifyAttack, ISync
 	{
 		public readonly AmmoPoolInfo Info;
 		readonly Stack<int> tokens = new();

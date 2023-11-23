@@ -24,7 +24,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new InstantlyRepairable(this); }
 	}
 
-	public class InstantlyRepairable : ConditionalTrait<InstantlyRepairableInfo>
+	public partial class InstantlyRepairable : ConditionalTrait<InstantlyRepairableInfo>
 	{
 		public InstantlyRepairable(InstantlyRepairableInfo info)
 			: base(info) { }

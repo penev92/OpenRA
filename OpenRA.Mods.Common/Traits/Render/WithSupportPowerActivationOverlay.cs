@@ -34,7 +34,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		public override object Create(ActorInitializer init) { return new WithSupportPowerActivationOverlay(init.Self, this); }
 	}
 
-	public class WithSupportPowerActivationOverlay : ConditionalTrait<WithSupportPowerActivationOverlayInfo>, INotifySupportPower
+	public partial class WithSupportPowerActivationOverlay : ConditionalTrait<WithSupportPowerActivationOverlayInfo>, INotifySupportPower
 	{
 		readonly Animation overlay;
 		bool visible;

@@ -27,7 +27,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new Voiced(this); }
 	}
 
-	public class Voiced : ConditionalTrait<VoicedInfo>, IVoiced
+	public partial class Voiced : ConditionalTrait<VoicedInfo>, IVoiced
 	{
 		public Voiced(VoicedInfo info)
 			: base(info) { }

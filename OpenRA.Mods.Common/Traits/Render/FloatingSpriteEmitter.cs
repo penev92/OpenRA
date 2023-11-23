@@ -62,7 +62,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new FloatingSpriteEmitter(init.Self, this); }
 	}
 
-	public class FloatingSpriteEmitter : ConditionalTrait<FloatingSpriteEmitterInfo>, ITick
+	public partial class FloatingSpriteEmitter : ConditionalTrait<FloatingSpriteEmitterInfo>, ITick
 	{
 		readonly WVec offset;
 

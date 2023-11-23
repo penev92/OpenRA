@@ -32,7 +32,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new GivesCashOnCapture(this); }
 	}
 
-	public class GivesCashOnCapture : ConditionalTrait<GivesCashOnCaptureInfo>, INotifyCapture
+	public partial class GivesCashOnCapture : ConditionalTrait<GivesCashOnCaptureInfo>, INotifyCapture
 	{
 		readonly GivesCashOnCaptureInfo info;
 

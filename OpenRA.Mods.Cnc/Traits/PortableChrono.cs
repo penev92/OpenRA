@@ -78,7 +78,7 @@ namespace OpenRA.Mods.Cnc.Traits
 		public override object Create(ActorInitializer init) { return new PortableChrono(init.Self, this); }
 	}
 
-	sealed class PortableChrono : PausableConditionalTrait<PortableChronoInfo>, IIssueOrder, IResolveOrder, ITick, ISelectionBar, IOrderVoice, ISync
+	sealed partial class PortableChrono : PausableConditionalTrait<PortableChronoInfo>, IIssueOrder, IResolveOrder, ITick, ISelectionBar, IOrderVoice, ISync
 	{
 		readonly IMove move;
 		[Sync]

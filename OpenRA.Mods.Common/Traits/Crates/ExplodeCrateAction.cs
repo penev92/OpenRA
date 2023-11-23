@@ -24,7 +24,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new ExplodeCrateAction(init.Self, this); }
 	}
 
-	sealed class ExplodeCrateAction : CrateAction
+	sealed partial class ExplodeCrateAction : CrateAction
 	{
 		readonly ExplodeCrateActionInfo info;
 

@@ -27,7 +27,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new RejectsOrders(this); }
 	}
 
-	public class RejectsOrders : ConditionalTrait<RejectsOrdersInfo>
+	public partial class RejectsOrders : ConditionalTrait<RejectsOrdersInfo>
 	{
 		public HashSet<string> Reject => Info.Reject;
 		public HashSet<string> Except => Info.Except;

@@ -25,7 +25,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new WithColoredOverlay(this); }
 	}
 
-	public class WithColoredOverlay : ConditionalTrait<WithColoredOverlayInfo>, IRenderModifier
+	public partial class WithColoredOverlay : ConditionalTrait<WithColoredOverlayInfo>, IRenderModifier
 	{
 		readonly float3 tint;
 		readonly float alpha;

@@ -22,7 +22,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new GiveBaseBuilderCrateAction(init.Self, this); }
 	}
 
-	sealed class GiveBaseBuilderCrateAction : GiveUnitCrateAction
+	sealed partial class GiveBaseBuilderCrateAction : GiveUnitCrateAction
 	{
 		readonly GiveBaseBuilderCrateActionInfo info;
 		public GiveBaseBuilderCrateAction(Actor self, GiveBaseBuilderCrateActionInfo info)

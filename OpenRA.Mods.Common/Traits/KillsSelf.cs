@@ -32,7 +32,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new KillsSelf(init.Self, this); }
 	}
 
-	sealed class KillsSelf : ConditionalTrait<KillsSelfInfo>, INotifyAddedToWorld, ITick
+	sealed partial class KillsSelf : ConditionalTrait<KillsSelfInfo>, INotifyAddedToWorld, ITick
 	{
 		int lifetime;
 

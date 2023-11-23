@@ -30,7 +30,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new GrantConditionOnHostDock(this); }
 	}
 
-	public sealed class GrantConditionOnHostDock : INotifyDockHost, ITick, ISync
+	public sealed partial class GrantConditionOnHostDock : INotifyDockHost, ITick, ISync
 	{
 		readonly GrantConditionOnHostDockInfo info;
 		int token;

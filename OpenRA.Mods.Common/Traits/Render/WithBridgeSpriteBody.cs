@@ -53,7 +53,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		}
 	}
 
-	sealed class WithBridgeSpriteBody : WithSpriteBody, INotifyRemovedFromWorld
+	sealed partial class WithBridgeSpriteBody : WithSpriteBody, INotifyRemovedFromWorld
 	{
 		readonly WithBridgeSpriteBodyInfo bridgeInfo;
 		readonly BridgeLayer bridgeLayer;

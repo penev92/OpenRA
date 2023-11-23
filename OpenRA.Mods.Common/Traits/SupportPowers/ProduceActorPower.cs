@@ -48,7 +48,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new ProduceActorPower(init, this); }
 	}
 
-	public class ProduceActorPower : SupportPower
+	public partial class ProduceActorPower : SupportPower
 	{
 		readonly string faction;
 

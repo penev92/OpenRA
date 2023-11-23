@@ -28,7 +28,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new JamsMissiles(this); }
 	}
 
-	public class JamsMissiles : ConditionalTrait<JamsMissilesInfo>
+	public partial class JamsMissiles : ConditionalTrait<JamsMissilesInfo>
 	{
 		public WDist Range => IsTraitDisabled ? WDist.Zero : Info.Range;
 		public PlayerRelationship DeflectionStances => Info.DeflectionRelationships;

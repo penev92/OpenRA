@@ -60,7 +60,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new MinelayerBotModule(init.Self, this); }
 	}
 
-	public class MinelayerBotModule : ConditionalTrait<MinelayerBotModuleInfo>, IBotTick, IBotRespondToAttack
+	public partial class MinelayerBotModule : ConditionalTrait<MinelayerBotModuleInfo>, IBotTick, IBotRespondToAttack
 	{
 		const int MaxPositionCacheLength = 5;
 		const int RepeatedAltertTicks = 40;

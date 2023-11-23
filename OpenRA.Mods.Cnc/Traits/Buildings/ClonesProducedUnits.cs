@@ -31,7 +31,7 @@ namespace OpenRA.Mods.Cnc.Traits
 		public override object Create(ActorInitializer init) { return new ClonesProducedUnits(init, this); }
 	}
 
-	public class ClonesProducedUnits : ConditionalTrait<ClonesProducedUnitsInfo>, INotifyOtherProduction
+	public partial class ClonesProducedUnits : ConditionalTrait<ClonesProducedUnitsInfo>, INotifyOtherProduction
 	{
 		readonly Production[] productionTraits;
 

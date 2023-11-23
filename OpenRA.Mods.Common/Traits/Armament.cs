@@ -108,7 +108,7 @@ namespace OpenRA.Mods.Common.Traits
 		}
 	}
 
-	public class Armament : PausableConditionalTrait<ArmamentInfo>, ITick
+	public partial class Armament : PausableConditionalTrait<ArmamentInfo>, ITick
 	{
 		public readonly WeaponInfo Weapon;
 		public readonly Barrel[] Barrels;

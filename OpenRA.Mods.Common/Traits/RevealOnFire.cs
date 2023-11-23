@@ -36,7 +36,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new RevealOnFire(this); }
 	}
 
-	public class RevealOnFire : ConditionalTrait<RevealOnFireInfo>, INotifyAttack
+	public partial class RevealOnFire : ConditionalTrait<RevealOnFireInfo>, INotifyAttack
 	{
 		readonly RevealOnFireInfo info;
 

@@ -35,7 +35,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new GrantExternalConditionCrateAction(init.Self, this); }
 	}
 
-	public class GrantExternalConditionCrateAction : CrateAction
+	public partial class GrantExternalConditionCrateAction : CrateAction
 	{
 		readonly Actor self;
 		readonly GrantExternalConditionCrateActionInfo info;

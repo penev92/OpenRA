@@ -16,7 +16,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new GrantConditionOnTunnelLayer(this); }
 	}
 
-	public class GrantConditionOnTunnelLayer : GrantConditionOnLayer<GrantConditionOnTunnelLayerInfo>
+	public partial class GrantConditionOnTunnelLayer : GrantConditionOnLayer<GrantConditionOnTunnelLayerInfo>
 	{
 		public GrantConditionOnTunnelLayer(GrantConditionOnTunnelLayerInfo info)
 			: base(info, CustomMovementLayerType.Tunnel) { }

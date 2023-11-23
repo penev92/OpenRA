@@ -21,7 +21,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new ReloadAmmoDelayMultiplier(this); }
 	}
 
-	public class ReloadAmmoDelayMultiplier : ConditionalTrait<ReloadAmmoDelayMultiplierInfo>, IReloadAmmoModifier
+	public partial class ReloadAmmoDelayMultiplier : ConditionalTrait<ReloadAmmoDelayMultiplierInfo>, IReloadAmmoModifier
 	{
 		public ReloadAmmoDelayMultiplier(ReloadAmmoDelayMultiplierInfo info)
 			: base(info) { }

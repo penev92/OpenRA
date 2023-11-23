@@ -17,7 +17,7 @@ namespace OpenRA.Mods.Common.Traits.Radar
 		public override object Create(ActorInitializer init) { return new ProvidesRadar(this); }
 	}
 
-	public class ProvidesRadar : ConditionalTrait<ProvidesRadarInfo>
+	public partial class ProvidesRadar : ConditionalTrait<ProvidesRadarInfo>
 	{
 		public ProvidesRadar(ProvidesRadarInfo info)
 			: base(info) { }

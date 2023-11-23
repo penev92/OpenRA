@@ -223,7 +223,7 @@ namespace OpenRA.Mods.Common.Traits
 		}
 	}
 
-	public class Aircraft : PausableConditionalTrait<AircraftInfo>, ITick, ISync, IFacing, IPositionable, IMove,
+	public partial class Aircraft : PausableConditionalTrait<AircraftInfo>, ITick, ISync, IFacing, IPositionable, IMove,
 		INotifyAddedToWorld, INotifyRemovedFromWorld, INotifyActorDisposing, INotifyBecomingIdle, ICreationActivity,
 		IActorPreviewInitModifier, IDeathActorInitModifier, IIssueDeployOrder, IIssueOrder, IResolveOrder, IOrderVoice
 	{

@@ -43,7 +43,7 @@ namespace OpenRA.Mods.Common.Traits
 		}
 	}
 
-	public class ReloadAmmoPool : PausableConditionalTrait<ReloadAmmoPoolInfo>, ITick, INotifyAttack, ISync
+	public partial class ReloadAmmoPool : PausableConditionalTrait<ReloadAmmoPoolInfo>, ITick, INotifyAttack, ISync
 	{
 		AmmoPool ammoPool;
 		IReloadAmmoModifier[] modifiers;

@@ -36,7 +36,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		}
 	}
 
-	public class WithResourceLevelSpriteBody : WithSpriteBody, INotifyOwnerChanged
+	public partial class WithResourceLevelSpriteBody : WithSpriteBody, INotifyOwnerChanged
 	{
 		readonly WithResourceLevelSpriteBodyInfo info;
 		PlayerResources playerResources;

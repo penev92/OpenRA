@@ -51,7 +51,7 @@ namespace OpenRA.Mods.Common.Traits
 		}
 	}
 
-	public class TakeCover : Turreted, INotifyDamage, IDamageModifier, ISpeedModifier, ISync, IRenderInfantrySequenceModifier
+	public partial class TakeCover : Turreted, INotifyDamage, IDamageModifier, ISpeedModifier, ISync, IRenderInfantrySequenceModifier
 	{
 		readonly TakeCoverInfo info;
 

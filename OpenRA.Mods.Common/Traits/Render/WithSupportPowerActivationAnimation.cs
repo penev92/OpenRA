@@ -27,7 +27,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		public override object Create(ActorInitializer init) { return new WithSupportPowerActivationAnimation(init.Self, this); }
 	}
 
-	public class WithSupportPowerActivationAnimation : ConditionalTrait<WithSupportPowerActivationAnimationInfo>, INotifySupportPower
+	public partial class WithSupportPowerActivationAnimation : ConditionalTrait<WithSupportPowerActivationAnimationInfo>, INotifySupportPower
 	{
 		readonly WithSpriteBody wsb;
 

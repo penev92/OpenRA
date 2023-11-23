@@ -24,7 +24,7 @@ namespace OpenRA.Mods.Cnc.Traits.Render
 		public override object Create(ActorInitializer init) { return new WithHarvesterSpriteBody(init, this); }
 	}
 
-	public class WithHarvesterSpriteBody : WithFacingSpriteBody, ITick
+	public partial class WithHarvesterSpriteBody : WithFacingSpriteBody, ITick
 	{
 		readonly WithHarvesterSpriteBodyInfo info;
 		readonly Harvester harv;

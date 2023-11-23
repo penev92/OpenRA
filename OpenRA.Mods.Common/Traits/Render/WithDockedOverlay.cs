@@ -34,7 +34,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		public override object Create(ActorInitializer init) { return new WithDockedOverlay(init.Self, this); }
 	}
 
-	public class WithDockedOverlay : PausableConditionalTrait<WithDockedOverlayInfo>, INotifyDockHost
+	public partial class WithDockedOverlay : PausableConditionalTrait<WithDockedOverlayInfo>, INotifyDockHost
 	{
 		readonly AnimationWithOffset anim;
 		bool docked;

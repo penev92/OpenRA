@@ -44,7 +44,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new DuplicateUnitCrateAction(init.Self, this); }
 	}
 
-	sealed class DuplicateUnitCrateAction : CrateAction
+	sealed partial class DuplicateUnitCrateAction : CrateAction
 	{
 		readonly DuplicateUnitCrateActionInfo info;
 

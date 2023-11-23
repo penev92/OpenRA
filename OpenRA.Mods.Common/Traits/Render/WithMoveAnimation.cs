@@ -38,7 +38,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		}
 	}
 
-	public class WithMoveAnimation : ConditionalTrait<WithMoveAnimationInfo>, INotifyMoving
+	public partial class WithMoveAnimation : ConditionalTrait<WithMoveAnimationInfo>, INotifyMoving
 	{
 		readonly IMove movement;
 		readonly WithSpriteBody wsb;

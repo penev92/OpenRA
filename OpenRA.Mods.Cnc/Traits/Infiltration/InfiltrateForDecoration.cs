@@ -30,7 +30,7 @@ namespace OpenRA.Mods.Cnc.Traits
 		public override object Create(ActorInitializer init) { return new InfiltrateForDecoration(init.Self, this); }
 	}
 
-	sealed class InfiltrateForDecoration : WithDecoration, INotifyInfiltrated
+	sealed partial class InfiltrateForDecoration : WithDecoration, INotifyInfiltrated
 	{
 		readonly HashSet<Player> infiltrators = new();
 		readonly InfiltrateForDecorationInfo info;

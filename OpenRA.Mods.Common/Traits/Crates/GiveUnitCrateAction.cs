@@ -18,7 +18,7 @@ using OpenRA.Traits;
 namespace OpenRA.Mods.Common.Traits
 {
 	[Desc("Spawns units when collected.")]
-	class GiveUnitCrateActionInfo : CrateActionInfo
+	public class GiveUnitCrateActionInfo : CrateActionInfo
 	{
 		[ActorReference]
 		[FieldLoader.Require]
@@ -34,7 +34,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new GiveUnitCrateAction(init.Self, this); }
 	}
 
-	class GiveUnitCrateAction : CrateAction
+	public partial class GiveUnitCrateAction : CrateAction
 	{
 		readonly Actor self;
 		readonly GiveUnitCrateActionInfo info;

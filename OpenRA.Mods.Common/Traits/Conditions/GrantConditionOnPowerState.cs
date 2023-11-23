@@ -28,7 +28,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new GrantConditionOnPowerState(this); }
 	}
 
-	public class GrantConditionOnPowerState : ConditionalTrait<GrantConditionOnPowerStateInfo>, INotifyOwnerChanged, INotifyPowerLevelChanged
+	public partial class GrantConditionOnPowerState : ConditionalTrait<GrantConditionOnPowerStateInfo>, INotifyOwnerChanged, INotifyPowerLevelChanged
 	{
 		PowerManager playerPower;
 		int conditionToken = Actor.InvalidConditionToken;

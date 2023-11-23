@@ -31,7 +31,7 @@ namespace OpenRA.Mods.Common.Traits.Render
 		public override object Create(ActorInitializer init) { return new WithResourceLevelOverlay(init.Self, this); }
 	}
 
-	sealed class WithResourceLevelOverlay : ConditionalTrait<WithResourceLevelOverlayInfo>, INotifyOwnerChanged, INotifyDamageStateChanged
+	sealed partial class WithResourceLevelOverlay : ConditionalTrait<WithResourceLevelOverlayInfo>, INotifyOwnerChanged, INotifyDamageStateChanged
 	{
 		readonly AnimationWithOffset anim;
 		readonly RenderSprites rs;

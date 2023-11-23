@@ -58,7 +58,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new BodyOrientation(init, this); }
 	}
 
-	public class BodyOrientation : ISync
+	public partial class BodyOrientation : ISync
 	{
 		readonly BodyOrientationInfo info;
 		readonly Lazy<int> quantizedFacings;

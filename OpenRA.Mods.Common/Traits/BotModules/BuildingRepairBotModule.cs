@@ -20,7 +20,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new BuildingRepairBotModule(this); }
 	}
 
-	public class BuildingRepairBotModule : ConditionalTrait<BuildingRepairBotModuleInfo>, IBotRespondToAttack
+	public partial class BuildingRepairBotModule : ConditionalTrait<BuildingRepairBotModuleInfo>, IBotRespondToAttack
 	{
 		public BuildingRepairBotModule(BuildingRepairBotModuleInfo info)
 			: base(info) { }

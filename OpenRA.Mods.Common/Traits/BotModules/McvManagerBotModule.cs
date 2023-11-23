@@ -47,7 +47,7 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new McvManagerBotModule(init.Self, this); }
 	}
 
-	public class McvManagerBotModule : ConditionalTrait<McvManagerBotModuleInfo>, IBotTick, IBotPositionsUpdated, IGameSaveTraitData
+	public partial class McvManagerBotModule : ConditionalTrait<McvManagerBotModuleInfo>, IBotTick, IBotPositionsUpdated, IGameSaveTraitData
 	{
 		public CPos GetRandomBaseCenter()
 		{

@@ -38,11 +38,6 @@ namespace OpenRA
 			return HashFunctions[sync.GetType()];
 		}
 
-		internal static int Hash(ISync sync)
-		{
-			return GetHashFunction(sync)(sync);
-		}
-
 		static readonly Dictionary<Type, MethodInfo> CustomHashFunctions = new()
 		{
 			{ typeof(int2), ((Func<int2, int>)HashInt2).Method },

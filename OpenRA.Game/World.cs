@@ -502,8 +502,8 @@ namespace OpenRA
 
 				// Hash fields marked with the ISync interface.
 				foreach (var actor in ActorsHavingTrait<ISync>())
-					foreach (var syncHash in actor.SyncHashes)
-						ret += n++ * (int)(1 + actor.ActorID) * syncHash.Hash();
+					foreach (var syncTrait in actor.SyncTraits)
+						ret += n++ * (int)(1 + actor.ActorID) * syncTrait.GetSyncHash();
 
 				// Hash game state relevant effects such as projectiles.
 				foreach (var sync in SyncedEffects)

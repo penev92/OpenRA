@@ -89,7 +89,7 @@ namespace OpenRA.Mods.Common.Traits
 			{
 				var hash = 0;
 				foreach (var objective in objectives)
-					hash ^= Sync.HashUsingHashCode(objective.State);
+					hash ^= objective.State.GetHashCode();
 				return hash;
 			}
 		}

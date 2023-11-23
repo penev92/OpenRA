@@ -498,7 +498,7 @@ namespace OpenRA
 
 				// Hash all the actors.
 				foreach (var a in Actors)
-					ret += n++ * (int)(1 + a.ActorID) * Sync.HashActor(a);
+					ret += n++ * (int)(1 + a.ActorID) * a.GetSyncHash();
 
 				// Hash fields marked with the ISync interface.
 				foreach (var actor in ActorsHavingTrait<ISync>())
@@ -515,7 +515,7 @@ namespace OpenRA
 				// Hash player RenderPlayer status
 				foreach (var p in Players)
 					if (p.UnlockedRenderPlayer)
-						ret += Sync.HashPlayer(p);
+						ret += p == null ? 0 : p.GetSyncHash();
 
 				return ret;
 			}

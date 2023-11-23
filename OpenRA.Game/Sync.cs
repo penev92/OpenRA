@@ -22,8 +22,11 @@ namespace OpenRA
 	[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
 	public sealed class SyncAttribute : Attribute { }
 
-	// Marker interface
-	public interface ISync { }
+	[RequireExplicitImplementation]
+	public interface ISync
+	{
+		int GetSyncHash() => throw new NotImplementedException();
+	}
 
 	public static class Sync
 	{

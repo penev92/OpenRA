@@ -88,7 +88,7 @@ namespace OpenRA.Mods.Common.Traits
 			{
 				var hash = 0;
 				foreach (var player in Repairers)
-					hash ^= Sync.HashPlayer(player);
+					hash ^= player == null ? 0 : player.GetSyncHash();
 
 				return hash;
 			}

@@ -353,10 +353,9 @@ namespace OpenRA
 			CurrentActivity?.Cancel(this);
 		}
 
-		public override int GetHashCode()
-		{
-			return (int)ActorID;
-		}
+		public int GetSyncHash() => (int)(ActorID << 16);
+
+		public override int GetHashCode() => (int)ActorID;
 
 		public override bool Equals(object obj)
 		{

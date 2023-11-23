@@ -317,5 +317,7 @@ namespace OpenRA
 		}
 
 		#endregion
+
+		public int GetSyncHash() => (int)(PlayerActor.ActorID << 16) * 0x567;
 	}
 }

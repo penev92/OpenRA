@@ -15,6 +15,8 @@
     <Nullable>disable</Nullable>
     <Product>OpenRA</Product>
     <Copyright>Copyright (c) The OpenRA Developers and Contributors</Copyright>
+    <!-- <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+    <GeneratedFolder>Generated</GeneratedFolder> -->
   </PropertyGroup>
 
   <PropertyGroup>

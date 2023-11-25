@@ -8,8 +8,9 @@ namespace OpenRA.SourceGenerators
 {
 	static class SourceGeneratorHelpers
 	{
-		public static bool IsPartial(this ClassDeclarationSyntax classDeclaration)
-			=> classDeclaration.Modifiers.Any(x => x.IsKind(Microsoft.CodeAnalysis.CSharp.SyntaxKind.PartialKeyword));
+		public static bool IsPartialClass(this SyntaxNode node)
+			=> node is ClassDeclarationSyntax classDeclaration
+				&& classDeclaration.Modifiers.Any(x => x.IsKind(Microsoft.CodeAnalysis.CSharp.SyntaxKind.PartialKeyword));
 
 		public static bool IsSealed(this ClassDeclarationSyntax classDeclaration)
 			=> classDeclaration.Modifiers.Any(x => x.IsKind(Microsoft.CodeAnalysis.CSharp.SyntaxKind.SealedKeyword));

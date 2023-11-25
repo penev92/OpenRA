@@ -14,7 +14,7 @@ namespace OpenRA.SourceGenerators.Sync
 			isTarget = typeName == "Target";
 			return typeName switch
 			{
-				"Boolean" => $"({objectName} ? 1 : 0)",
+				"Boolean" => $"({objectName} ? 0xaaa : 0x555)",  // What are these values though?!
 				"Int32" => objectName,
 				"int2" => $"((({objectName}.X * 5) ^ ({objectName}.Y * 3)) / 4)",
 				"CPos" => $"{objectName}.Bits",

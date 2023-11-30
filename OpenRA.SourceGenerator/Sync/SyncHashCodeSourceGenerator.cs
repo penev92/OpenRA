@@ -54,12 +54,12 @@ public static class GeneratedCode
 
 				var isSealed = classDeclaration.IsSealed();
 				Console.WriteLine(isSealed);
-				var sourceCode = GenerateClassCode(namespaceDeclaration.Name, classDeclaration.Identifier.Text, hashCodeStrings, isSealed, syncsTargets);
+				var sourceCode = GenerateClassCode(namespaceDeclaration.Name.ToString(), classDeclaration.Identifier.Text, hashCodeStrings, isSealed, syncsTargets);
 				context.AddSource($"{classDeclaration.Identifier.Text}.g.cs", sourceCode);
 			}
 		}
 
-		string GenerateClassCode(NameSyntax namespaceName, string className, IEnumerable<string> syncMembersAsHashCodeStrings, bool isSealed, bool syncsTargets)
+		string GenerateClassCode(string namespaceName, string className, IEnumerable<string> syncMembersAsHashCodeStrings, bool isSealed, bool syncsTargets)
 		{
 			Console.WriteLine(string.Join(", ", syncMembersAsHashCodeStrings));
 			Console.WriteLine(syncsTargets);

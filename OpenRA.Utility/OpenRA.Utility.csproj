@@ -5,6 +5,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OpenRA.Game\OpenRA.Game.csproj" />
+	<ProjectReference Include="..\OpenRA.SourceGenerator\OpenRA.SourceGenerator.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
   </ItemGroup>
   <ItemGroup>
     <TrimmerRootAssembly Include="mscorlib" />

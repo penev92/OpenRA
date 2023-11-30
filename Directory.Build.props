@@ -49,7 +49,7 @@
     <!-- Then add back the source generators (which are analyzers) because those need to run regardless of build profile. -->
     <ItemGroup>
       <Analyzer Remove="@(Analyzer)" />
-      <Analyzer Condition="'$(MSBuildProjectName)' != 'OpenRA.SourceGenerators'" Include="$(EngineRootPath)/bin/OpenRA.SourceGenerators.dll" />
+      <Analyzer Condition="'$(MSBuildProjectName)' != 'OpenRA.SourceGenerator'" Include="$(EngineRootPath)/bin/OpenRA.SourceGenerator.dll" />
     </ItemGroup>
   </Target>
 

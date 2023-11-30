@@ -1,12 +1,18 @@
 ﻿using System.Text;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
+using OpenRA.SourceGenerator;
 
 namespace OpenRA.SourceGenerators
 {
 	[Generator]
 	public class HelloWorldGenerator : ISourceGenerator
 	{
+		public void Initialize(GeneratorInitializationContext context)
+		{
+			context.RegisterForSyntaxNotifications(() => new HelloWorldSyntaxContextReceiver());
+		}
+
 		public void Execute(GeneratorExecutionContext context)
 		{
 			// begin creating the source we'll inject into the users compilation
@@ -21,10 +27,6 @@ public static class GeneratedCode
 ", Encoding.UTF8);
 
 			context.AddSource("GeneratedCode.g.cs", sourceCode);
-		}
-
-		public void Initialize(GeneratorInitializationContext context)
-		{
 		}
 	}
 }

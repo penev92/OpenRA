@@ -54,7 +54,7 @@ public static class GeneratedCode
 
 				var isSealed = classDeclaration.IsSealed();
 
-				var sourceCode = GenerateClassCode("Namespa", "DebugPauseState", hashCodeStrings, isSealed, syncsTargets);
+				var sourceCode = GenerateClassCode("OpenRA.Traits", "DebugPauseState", hashCodeStrings, isSealed, syncsTargets);
 				context.AddSource("DebugPauseState.g.cs", sourceCode);
 				Console.WriteLine(isSealed);
 				break;

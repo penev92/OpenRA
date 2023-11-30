@@ -423,6 +423,7 @@ namespace OpenRA
 		public void Tick()
 		{
 			Console.WriteLine(GeneratedCode.GeneratedMessage);
+			Console.WriteLine(GeneratedCode2.GeneratedMessage);
 
 			if (wasLoadingGameSave && !IsLoadingGameSave)
 			{

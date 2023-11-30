@@ -7,7 +7,6 @@ namespace OpenRA.SourceGenerator
 {
 	class HelloWorldSyntaxContextReceiver : ISyntaxContextReceiver
 	{
-		public const string SyncAttributeName = "SyncAttribute";
 		public const string SyncInterfaceName = "OpenRA.ISync";
 
 		public List<ClassDeclarationSyntax> ClassDeclarations = new();
@@ -22,8 +21,6 @@ namespace OpenRA.SourceGenerator
 		}
 
 		public static bool ImplementsISync(INamedTypeSymbol type) => type.AllInterfaces.Any(y => y.ToDisplayString() == SyncInterfaceName);
-
-		public static bool HasSyncAttribute(ISymbol symbol) => symbol.GetAttributes().Any(x => x.AttributeClass.Name == SyncAttributeName);
 
 		public static bool IsPartial(ClassDeclarationSyntax classDeclaration)
 			=> classDeclaration.Modifiers.Any(x => x.IsKind(Microsoft.CodeAnalysis.CSharp.SyntaxKind.PartialKeyword));

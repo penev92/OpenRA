@@ -55,8 +55,10 @@
 
   <!-- StyleCop/Roslynator -->
   <ItemGroup>
-    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435" PrivateAssets="All" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.435" PrivateAssets="All" Condition="'$(MSBuildRuntimeType)'!='Mono'" />
     <!-- Roslynator analyzers fail to run under Mono (AD0001) -->
-    <PackageReference Include="Roslynator.Analyzers" Version="4.6.4" PrivateAssets="All" />
+    <PackageReference Include="Roslynator.Analyzers" Version="4.6.4" PrivateAssets="All" Condition="'$(MSBuildRuntimeType)'!='Mono'" />
+    <!-- When building with Mono, add to all the projects! -->
+    <PackageReference Include="Microsoft.CodeAnalysis" Version="4.8.0" Condition="'$(MSBuildRuntimeType)'=='Mono'" />
   </ItemGroup>
 </Project>

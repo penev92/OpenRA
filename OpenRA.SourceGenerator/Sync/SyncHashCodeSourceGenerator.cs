@@ -17,6 +17,18 @@ namespace OpenRA.SourceGenerators.Sync
 
 		public void Execute(GeneratorExecutionContext context)
 		{
+			var sourceCode2 = SourceText.From(@"
+#pragma warning disable 1591
+namespace OpenRA {
+public static class GeneratedCode
+{
+    public static string GeneratedMessage = ""Hello from Generated Code"";
+}}
+#pragma warning restore 1591 
+", Encoding.UTF8);
+
+			context.AddSource("GeneratedCode.g.cs", sourceCode2);
+
 			foreach (var classDeclaration in ((SyncHashCodeSyntaxContextReceiver)context.SyntaxContextReceiver).ClassDeclarations)
 			{
 				if (classDeclaration.Parent is not NamespaceDeclarationSyntax namespaceDeclaration)
@@ -43,18 +55,6 @@ namespace OpenRA.SourceGenerators.Sync
 				var sourceCode = GenerateClassCode(namespaceDeclaration.Name, classDeclaration.Identifier.Text, hashCodeStrings, isSealed, syncsTargets);
 				context.AddSource($"{classDeclaration.Identifier.Text}.g.cs", sourceCode);
 			}
-
-			var sourceCode2 = SourceText.From(@"
-#pragma warning disable 1591
-namespace OpenRA {
-public static class GeneratedCode
-{
-    public static string GeneratedMessage = ""Hello from Generated Code"";
-}}
-#pragma warning restore 1591 
-", Encoding.UTF8);
-
-			context.AddSource("GeneratedCode.g.cs", sourceCode2);
 		}
 
 		string GenerateClassCode(NameSyntax namespaceName, string className, IEnumerable<string> syncMembersAsHashCodeStrings, bool isSealed, bool syncsTargets)

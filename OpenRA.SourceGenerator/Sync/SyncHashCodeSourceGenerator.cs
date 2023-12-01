@@ -52,10 +52,10 @@ public static class GeneratedCode
 					syncsTargets |= isTarget;
 				}
 
-				var comment = namespaceDeclaration.NamespaceKeyword;
-				var isSealed = classDeclaration.IsSealed();
+				var namespaceName = ((CompilationUnitSyntax)classDeclaration.Parent.Parent).Members[0].ChildNodes().First().ToString();
 				var className = classDeclaration.Identifier.Text;
-				var sourceCode = GenerateClassCode("OpenRA.Traits", className, hashCodeStrings, isSealed, syncsTargets, comment.Text);
+				var isSealed = classDeclaration.IsSealed();
+				var sourceCode = GenerateClassCode(namespaceName, className, hashCodeStrings, isSealed, syncsTargets, namespaceName);
 				var fileName = string.IsNullOrWhiteSpace(className) ? "OpenRA.Traits.DUMMY.g.cs" : "OpenRA.Traits." + className + ".g.cs";
 				context.AddSource(fileName, sourceCode);
 			}

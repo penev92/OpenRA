@@ -51,10 +51,9 @@ public static class GeneratedCode
 					syncsTargets |= isTarget;
 				}
 
-				var namespaceName = namespaceDeclaration?.Name?.ToString() ?? "OpenRA.Traits";
 				var isSealed = classDeclaration.IsSealed();
 				var className = classDeclaration.Identifier.Text;
-				var sourceCode = GenerateClassCode(namespaceName, className, hashCodeStrings, isSealed, syncsTargets);
+				var sourceCode = GenerateClassCode("OpenRA.Traits", className, hashCodeStrings, isSealed, syncsTargets);
 				var fileName = string.IsNullOrWhiteSpace(className) ? "OpenRA.Traits.DUMMY.g.cs" : "OpenRA.Traits." + className + ".g.cs";
 				context.AddSource(fileName, sourceCode);
 			}

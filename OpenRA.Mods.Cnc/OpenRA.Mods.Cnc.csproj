@@ -10,5 +10,8 @@
     <ProjectReference Include="..\OpenRA.Mods.Common\OpenRA.Mods.Common.csproj">
       <Private>False</Private>
     </ProjectReference>
+	<ProjectReference Include="..\OpenRA.SourceGenerator\OpenRA.SourceGenerator.csproj"
+					  OutputItemType="Analyzer"
+					  ReferenceOutputAssembly="false" />
   </ItemGroup>
 </Project>

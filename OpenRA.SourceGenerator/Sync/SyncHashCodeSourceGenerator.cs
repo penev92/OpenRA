@@ -52,7 +52,7 @@ public static class GeneratedCode
 					syncsTargets |= isTarget;
 				}
 
-				var comment = namespaceDeclaration.OpenBraceToken;
+				var comment = namespaceDeclaration.NamespaceKeyword;
 				var isSealed = classDeclaration.IsSealed();
 				var className = classDeclaration.Identifier.Text;
 				var sourceCode = GenerateClassCode("OpenRA.Traits", className, hashCodeStrings, isSealed, syncsTargets, comment.Text);

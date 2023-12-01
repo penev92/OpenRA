@@ -7,6 +7,7 @@ using Microsoft.CodeAnalysis.Text;
 
 namespace OpenRA.SourceGenerators.Sync
 {
+#error version
 	[Generator]
 	public class SyncHashCodeSourceGenerator : ISourceGenerator
 	{

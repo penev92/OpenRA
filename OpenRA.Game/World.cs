@@ -422,8 +422,6 @@ namespace OpenRA
 
 		public void Tick()
 		{
-			Console.WriteLine(GeneratedCode.GeneratedMessage);
-
 			if (wasLoadingGameSave && !IsLoadingGameSave)
 			{
 				foreach (var kv in gameSaveTraitData)

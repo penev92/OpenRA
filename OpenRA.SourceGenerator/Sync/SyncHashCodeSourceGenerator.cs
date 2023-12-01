@@ -51,7 +51,7 @@ public static class GeneratedCode
 					syncsTargets |= isTarget;
 				}
 
-				var namespaceName = ((CompilationUnitSyntax)classDeclaration.Parent.Parent).Members[0].ChildNodes().First().ToString();
+				var namespaceName = namespaceDeclaration.Name.ToString();
 				var className = classDeclaration.Identifier.Text;
 				var isSealed = classDeclaration.IsSealed();
 				var sourceCode = GenerateClassCode(namespaceName, className, hashCodeStrings, isSealed, syncsTargets, namespaceName);

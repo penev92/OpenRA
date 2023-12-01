@@ -1,4 +1,15 @@
-﻿using System;
+﻿#region Copyright & License Information
+/*
+ * Copyright (c) The OpenRA Developers and Contributors
+ * This file is part of OpenRA, which is free software. It is made
+ * available to you under the terms of the GNU General Public License
+ * as published by the Free Software Foundation, either version 3 of
+ * the License, or (at your option) any later version. For more
+ * information, see COPYING.
+ */
+#endregion
+
+using System;
 using System.Linq;
 using Microsoft.CodeAnalysis;
 
@@ -14,7 +25,7 @@ namespace OpenRA.SourceGenerators.Sync
 			isTarget = typeName == "Target";
 			return typeName switch
 			{
-				"Boolean" => $"({objectName} ? 1 : 0)",
+				"Boolean" => $"({objectName} ? 0xaaa : 0x555)",  // What are these values though?!
 				"Int32" => objectName,
 				"int2" => $"((({objectName}.X * 5) ^ ({objectName}.Y * 3)) / 4)",
 				"CPos" => $"{objectName}.Bits",
@@ -42,17 +53,13 @@ namespace OpenRA.SourceGenerators.Sync
 			{{
 				case TargetType.Actor:
 					return {GetHashCodeString("Actor", "t.Actor", out _)};
-
 				case TargetType.FrozenActor:
 					var actor = t.FrozenActor.Actor;
 					if (actor == null)
 						return 0;
-
 					return {GetHashCodeString("Actor", "actor", out _)};
-
 				case TargetType.Terrain:
 					return {GetHashCodeString("WPos", "t.CenterPosition", out _)};
-
 				case TargetType.Invalid:
 				default:
 					return 0;

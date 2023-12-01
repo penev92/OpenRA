@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Microsoft.CodeAnalysis;
@@ -51,6 +52,7 @@ public static class GeneratedCode
 					syncsTargets |= isTarget;
 				}
 
+				Console.WriteLine(namespaceDeclaration.OpenBraceToken);
 				var isSealed = classDeclaration.IsSealed();
 				var className = classDeclaration.Identifier.Text;
 				var sourceCode = GenerateClassCode("OpenRA.Traits", className, hashCodeStrings, isSealed, syncsTargets);

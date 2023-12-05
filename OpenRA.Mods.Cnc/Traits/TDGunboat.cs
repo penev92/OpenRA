@@ -65,7 +65,7 @@ namespace OpenRA.Mods.Cnc.Traits
 		IEnumerable<int> speedModifiers;
 		INotifyCenterPositionChanged[] notifyCenterPositionChanged;
 
-		[Sync]
+		[SyncMember]
 		public WAngle Facing
 		{
 			get => Orientation.Yaw;
@@ -74,7 +74,7 @@ namespace OpenRA.Mods.Cnc.Traits
 
 		public WRot Orientation { get; private set; }
 
-		[Sync]
+		[SyncMember]
 		public WPos CenterPosition { get; private set; }
 
 		public CPos TopLeft => self.World.Map.CellContaining(CenterPosition);

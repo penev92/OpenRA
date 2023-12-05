@@ -61,10 +61,10 @@ namespace OpenRA.Mods.Common.Traits
 
 		public WPos DockPosition => self.CenterPosition + Info.DockOffset;
 
-		[Sync]
+		[SyncMember]
 		bool preventDock = false;
 
-		[Sync]
+		[SyncMember]
 		protected Actor dockedClientActor = null;
 		protected DockClientManager dockedClient = null;
 

@@ -44,9 +44,9 @@ namespace OpenRA.Mods.Common.Traits
 				occupied = Array.Empty<(CPos, SubCell)>();
 		}
 
-		[Sync]
+		[SyncMember]
 		public CPos TopLeft { get; }
-		[Sync]
+		[SyncMember]
 		public WPos CenterPosition { get; }
 		public (CPos, SubCell)[] OccupiedCells() { return occupied; }
 

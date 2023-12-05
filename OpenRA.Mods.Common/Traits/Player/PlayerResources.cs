@@ -93,13 +93,13 @@ namespace OpenRA.Mods.Common.Traits
 			lastNotificationTime = -Info.InsufficientFundsNotificationInterval;
 		}
 
-		[Sync]
+		[SyncMember]
 		public int Cash;
 
-		[Sync]
+		[SyncMember]
 		public int Resources;
 
-		[Sync]
+		[SyncMember]
 		public int ResourceCapacity;
 
 		public int Earned;

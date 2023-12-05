@@ -267,6 +267,7 @@ namespace OpenRA.Mods.Common.Traits
 		INotifyAddedToWorld, INotifyRemovedFromWorld
 	{
 		public readonly BuildingInfo Info;
+
 		readonly Actor self;
 		readonly BuildingInfluence influence;
 
@@ -274,13 +275,15 @@ namespace OpenRA.Mods.Common.Traits
 		readonly (CPos, SubCell)[] targetableCells;
 		readonly CPos[] transitOnlyCells;
 
-		[Sync]
+		[SyncMember]
 		public CPos TopLeft { get; }
+
 		public WPos CenterPosition { get; }
 
 		public Building(ActorInitializer init, BuildingInfo info)
 		{
 			self = init.Self;
+			TopLeft = init.GetValue<LocationInit, CPos>();
 			TopLeft = init.GetValue<LocationInit, CPos>();
 			Info = info;
 			influence = self.World.WorldActor.Trait<BuildingInfluence>();

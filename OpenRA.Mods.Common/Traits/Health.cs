@@ -75,7 +75,7 @@ namespace OpenRA.Mods.Common.Traits
 			DisplayHP = HP;
 		}
 
-		[Sync]
+		[SyncMember]
 		public int HP { get; private set; }
 		public int MaxHP { get; }
 

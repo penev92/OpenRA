@@ -110,7 +110,8 @@ namespace OpenRA.Mods.Common.Traits
 		public override object Create(ActorInitializer init) { return new Cloak(this); }
 	}
 
-	public class Cloak : PausableConditionalTrait<CloakInfo>,
+	[GenerateSyncCode]
+	public partial class Cloak : PausableConditionalTrait<CloakInfo>,
 		IRenderModifier, INotifyDamage, INotifyUnloadCargo, INotifyLoadCargo, INotifyDemolition, INotifyInfiltration,
 		INotifyAttack, ITick, IVisibilityModifier, IRadarColorModifier, INotifyDockClient, INotifyDockHost, INotifySupportPower
 	{

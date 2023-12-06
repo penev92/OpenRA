@@ -89,7 +89,8 @@ namespace OpenRA.Mods.Common.Traits
 		}
 	}
 
-	public class GrantChargedConditionOnToggle : PausableConditionalTrait<GrantChargedConditionOnToggleInfo>,
+	[GenerateSyncCode]
+	public partial class GrantChargedConditionOnToggle : PausableConditionalTrait<GrantChargedConditionOnToggleInfo>,
 		IIssueOrder, IResolveOrder, ITick, ISelectionBar, IOrderVoice, ISync, IIssueDeployOrder
 	{
 		[SyncMember]

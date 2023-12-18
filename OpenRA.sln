@@ -23,7 +23,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenRA.Launcher", "OpenRA.L
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenRA.WindowsLauncher", "OpenRA.WindowsLauncher\OpenRA.WindowsLauncher.csproj", "{912B578E-0BC0-4987-807B-1E294A87DA37}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenRA.SourceGenerators", "OpenRA.SourceGenerators\OpenRA.SourceGenerators.csproj", "{B289A0F3-024F-4C6C-BBFC-7095C8BE3601}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OpenRA.Roslyn", "OpenRA.Roslyn\OpenRA.Roslyn.csproj", "{B289A0F3-024F-4C6C-BBFC-7095C8BE3601}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

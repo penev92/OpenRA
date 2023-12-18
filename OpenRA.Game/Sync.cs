@@ -20,6 +20,9 @@ namespace OpenRA
 	[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
 	public sealed class SyncMemberAttribute : Attribute { }
 
+	/// <summary>
+	///
+	/// </summary>
 	public interface ISync
 	{
 		int GetSyncHash();

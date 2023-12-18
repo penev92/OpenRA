@@ -28,7 +28,7 @@ namespace OpenRA.SourceGenerators.Sync
 				.CreateSyntaxProvider(
 					predicate: static (syntaxNode, _) => syntaxNode.IsPartialClass(),
 					transform: static (generatorContext, _) => GetClassDeclarationSymbol(generatorContext))
-				.Where(x => x != null)
+				.Where(static x => x != null)
 				.Collect();
 
 			var compilationAndClasses = context.CompilationProvider.Combine(classDeclarationsProvider);

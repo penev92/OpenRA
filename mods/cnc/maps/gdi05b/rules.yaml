@@ -141,6 +141,10 @@ FTNK:
 
 airstrike.proxy:
 	AirstrikePower:
+		-Squad:
 		Squad:
-			SquadMember:
-				UnitType: a10
+			UnitType: a10
+
+
+airstrike.proxy2:
+	Inherits: airstrike.proxy

@@ -203,7 +203,8 @@ Test:
 	-MockA2
 ";
 
-			var result = MiniYaml.Merge(new[] { BaseYaml, OverrideYaml }.Select(s => MiniYaml.FromString(s, "")))
+			var kor = MiniYaml.Merge(new[] { BaseYaml, OverrideYaml }.Select(s => MiniYaml.FromString(s, "")));
+			var result = kor
 				.First(n => n.Key == "Test").Value.Nodes;
 
 			Assert.IsFalse(result.Any(n => n.Key == "MockA2"), "Node should not have the MockA2 child, but does.");
@@ -304,6 +305,34 @@ Test:
 
 		[TestCase(TestName = "Child subnode can be removed and immediately overridden")]
 		public void ChildSubNodeCanBeRemovedAndImmediatelyOverridden()
+		{
+			const string BaseYaml = @"
+Test:
+	MockString:
+		CollectionOfStrings:
+			StringA: A
+			StringB: B
+Test:
+    MockString:
+		-CollectionOfStrings:
+		CollectionOfStrings:
+			StringC: C
+";
+
+			var merged = MiniYaml.Merge(new[] { BaseYaml }.Select(s => MiniYaml.FromString(s, "")))
+				.First(n => n.Key == "Test");
+
+			var traitNode = merged.Value.Nodes.Single();
+			var fieldNodes = traitNode.Value.Nodes;
+			var fieldSubNodes = fieldNodes.Single().Value.Nodes;
+
+			Assert.IsTrue(fieldSubNodes.Length == 1, "Collection of strings should only contain the overriding subnode.");
+			Assert.IsTrue(fieldSubNodes.Single(n => n.Key == "StringC").Value.Value == "C",
+				"CollectionOfStrings value has not been set with the correct override value for StringC.");
+		}
+
+		[TestCase(TestName = "Inherited child subnode can be removed and immediately overridden")]
+		public void InheritedChildSubNodeCanBeRemovedAndImmediatelyOverridden()
 		{
 			const string BaseYaml = @"
 ^BaseA:

@@ -397,12 +397,15 @@ namespace OpenRA
 			if (sourcesList.Count == 0)
 				return new List<MiniYamlNode>();
 
+			var t = sourcesList.Select(MergeSelfPartial).Aggregate(MergePartial);
 			var tree = sourcesList
 				.Where(s => s != null)
 				.Select(MergeSelfPartial)
 				.Aggregate(MergePartial)
 				.Where(n => n.Key != null)
 				.ToDictionary(n => n.Key, n => n.Value);
+
+			// At this point nodes are merged with their overriding selves across files, but inheritance is not yet resolved.
 
 			var resolved = new Dictionary<string, MiniYaml>(tree.Count);
 			foreach (var kv in tree)
@@ -415,7 +418,9 @@ namespace OpenRA
 
 			// Resolve any top-level removals (e.g. removing whole actor blocks)
 			var nodes = new MiniYaml("", resolved.Select(kv => new MiniYamlNode(kv.Key, kv.Value)));
-			return ResolveInherits(nodes, tree, ImmutableDictionary<string, MiniYamlNode.SourceLocation>.Empty);
+			var resolvedInherits = ResolveInherits(nodes, tree, ImmutableDictionary<string, MiniYamlNode.SourceLocation>.Empty);
+
+			return ResolveRemovals(resolvedInherits).ToList();
 		}
 
 		static void MergeIntoResolved(MiniYamlNode overrideNode, List<MiniYamlNode> existingNodes, HashSet<string> existingNodeKeys,
@@ -464,6 +469,10 @@ namespace OpenRA
 				else if (n.Key.StartsWith('-'))
 				{
 					var removed = n.Key[1..];
+					if (removed == "Squad")
+					{
+						Console.WriteLine("tesT");
+					}
 					if (resolved.RemoveAll(r => r.Key == removed) == 0)
 						throw new YamlException($"{n.Location}: There are no elements with key `{removed}` to remove");
 					resolvedKeys.Remove(removed);
@@ -473,6 +482,32 @@ namespace OpenRA
 			}
 
 			return resolved;
+		}
+
+		static IEnumerable<MiniYamlNode> ResolveRemovals(List<MiniYamlNode> nodes)
+		{
+			var skipIndices = new HashSet<int>();
+			for (var i = 0; i < nodes.Count; i++)
+			{
+				if (nodes[i].Key.StartsWith('-') && skipIndices.Contains(i))
+					continue;
+
+				var isToBeRemoved = false;
+				var removalKey = $"-{nodes[i].Key}";
+				for (var j = i + 1; j < nodes.Count; j++)
+				{
+					if (nodes[j].Key == removalKey)
+					{
+						isToBeRemoved = true;
+						skipIndices.Add(j);
+					}
+				}
+
+				if (isToBeRemoved)
+					continue;
+
+				yield return nodes[i];
+			}
 		}
 
 		/// <summary>

@@ -21,11 +21,11 @@ namespace OpenRA.Mods.Common.UpdateRules.Rules
 
 		public override string Description => "Add squadron configuration to AirstrikePower for each individual aircraft.";
 
-		public override IEnumerable<string> UpdateActorNode(ModData modData, MiniYamlNode actorNode)
+		public override IEnumerable<string> UpdateActorNode(ModData modData, MiniYamlNodeBuilder actorNode)
 		{
 			foreach (var airstrike in actorNode.ChildrenMatching("AirstrikePower"))
 			{
-				if (airstrike.Key.StartsWith("-"))
+				if (airstrike.Key.StartsWith('-'))
 					continue;
 
 				var prerequisites = airstrike.ChildrenMatching("Prerequisites").FirstOrDefault();
@@ -40,21 +40,21 @@ namespace OpenRA.Mods.Common.UpdateRules.Rules
 				var squadSize = countNode?.NodeValue<int>() ?? 1;
 				var offset = offsetNode?.NodeValue<WVec>() ?? new WVec(-1536, 1536, 0);
 
-				var squadNode = new MiniYamlNode("Squad", "");
+				var squadNode = new MiniYamlNodeBuilder("Squad", "");
 				for (var i = -squadSize / 2; i <= squadSize / 2; i++)
 				{
 					// Even-sized squads skip the lead plane
 					if (i == 0 && (squadSize & 1) == 0)
 						continue;
 
-					var squadMemberNodeKey = squadSize == 1 ? "SquadMember" : "SquadMember@{0}".F(i + squadSize / 2);
-					var squadMemberNode = new MiniYamlNode(squadMemberNodeKey, "");
-					squadMemberNode.AddNode(new MiniYamlNode("UnitType", FieldSaver.FormatValue(unitType)));
+					var squadMemberNodeKey = squadSize == 1 ? "SquadMember" : $"SquadMember@{i + squadSize / 2}";
+					var squadMemberNode = new MiniYamlNodeBuilder(squadMemberNodeKey, "");
+					squadMemberNode.AddNode(new MiniYamlNodeBuilder("UnitType", FieldSaver.FormatValue(unitType)));
 
 					if (i != 0)
 					{
-						squadMemberNode.AddNode(new MiniYamlNode("SpawnOffset", FieldSaver.FormatValue(new WVec(Math.Abs(i) * offset.X, i * offset.Y, 0))));
-						squadMemberNode.AddNode(new MiniYamlNode("TargetOffset", FieldSaver.FormatValue(new WVec(0, i * offset.Y, 0))));
+						squadMemberNode.AddNode(new MiniYamlNodeBuilder("SpawnOffset", FieldSaver.FormatValue(new WVec(Math.Abs(i) * offset.X, i * offset.Y, 0))));
+						squadMemberNode.AddNode(new MiniYamlNodeBuilder("TargetOffset", FieldSaver.FormatValue(new WVec(0, i * offset.Y, 0))));
 					}
 
 					squadNode.AddNode(squadMemberNode);

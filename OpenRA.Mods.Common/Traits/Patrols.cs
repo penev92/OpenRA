@@ -57,13 +57,16 @@ namespace OpenRA.Mods.Common.Traits
 				if (!attackMove.Info.MoveIntoShroud && !self.Owner.Shroud.IsExplored(cell))
 					return;
 
+				if (!order.Queued)
+					PatrolWaypoints.Clear();
+
 				if (!PatrolWaypoints.Contains(cell))
 					PatrolWaypoints.Add(cell);
 
 				if (PatrolWaypoints.Count == 1)
 				{
 					var assaultMoving = false; // TODO:
-					self.QueueActivity(new PatrolActivity(self, PatrolWaypoints.ToArray(), Info.TargetLineColor, true, 0, assaultMoving));
+					self.QueueActivity(order.Queued, new PatrolActivity(self, PatrolWaypoints.ToArray(), Info.TargetLineColor, true, 0, assaultMoving));
 				}
 			}
 

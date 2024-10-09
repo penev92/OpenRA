@@ -40,8 +40,12 @@ namespace OpenRA.SourceGenerators.Sync
 			if (classes.IsDefaultOrEmpty)
 				return;
 
-			//var distinctClasses = classes.Distinct();
-
+			var distinctClasses = classes.Distinct();
+			foreach (var classDeclaration in distinctClasses)
+			{
+				var a = 3;
+				var semanticModel = context..GetSemanticModel(classDeclaration.SyntaxTree);
+			}
 		}
 
 		static (string FileName, string Content) GenerateClass(NameSyntax namespaceName, string className, IEnumerable<string> syncMembersAsHashCodeStrings, bool isSealed, bool syncsTargets)

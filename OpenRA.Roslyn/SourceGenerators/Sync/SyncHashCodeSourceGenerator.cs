@@ -16,7 +16,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace OpenRA.SourceGenerators.Sync
+namespace OpenRA.Roslyn.SourceGenerators.Sync
 {
 	// https://andrewlock.net/exploring-dotnet-6-part-9-source-generator-updates-incremental-generators/
 	[Generator]

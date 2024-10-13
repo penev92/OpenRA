@@ -3,7 +3,7 @@
     <ProjectReference Include="..\OpenRA.Game\OpenRA.Game.csproj">
       <Private>False</Private>
     </ProjectReference>
-    <ProjectReference Include="..\OpenRA.SourceGenerators\OpenRA.SourceGenerators.csproj"
+    <ProjectReference Include="..\OpenRA.Roslyn\OpenRA.Roslyn.csproj"
 					  OutputItemType="Analyzer"
 					  ReferenceOutputAssembly="false" />
     <PackageReference Include="Microsoft.Win32.Registry" Version="5.0.0" />

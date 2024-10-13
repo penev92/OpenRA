@@ -14,9 +14,15 @@ using OpenRA.Traits;
 
 namespace OpenRA
 {
+	/// <summary>
+	///
+	/// </summary>
 	[AttributeUsage(AttributeTargets.Class)]
 	public sealed class GenerateSyncCodeAttribute : Attribute { }
 
+	/// <summary>
+	///
+	/// </summary>
 	[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
 	public sealed class SyncMemberAttribute : Attribute { }
 
@@ -50,7 +56,7 @@ namespace OpenRA
 
 		public static int Hash(WAngle a) => a.Angle;
 
-		public static int Hash(WRot a) => Hash(a.Roll) ^ Hash(a.Pitch.Angle) ^ Hash(a.Yaw.Angle);
+		public static int Hash(WRot a) => a.Roll.Angle ^ a.Pitch.Angle ^ a.Yaw.Angle;
 
 		public static int Hash(Actor a) => a == null ? 0 : (int)(a.ActorID << 16);
 

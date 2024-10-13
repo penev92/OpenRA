@@ -12,7 +12,7 @@
 using System.Linq;
 using Microsoft.CodeAnalysis;
 
-namespace OpenRA.SourceGenerators.Sync
+namespace OpenRA.Roslyn.SourceGenerators.Sync
 {
 	static class SyncHelpers
 	{

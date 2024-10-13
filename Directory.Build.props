@@ -49,7 +49,7 @@
     <!-- Then add back the source generators (which are analyzers) because those need to run regardless of build profile. -->
     <ItemGroup>
       <Analyzer Remove="@(Analyzer)" />
-      <Analyzer Condition="'$(MSBuildProjectName)' != 'OpenRA.SourceGenerators'" Include="$(EngineRootPath)/bin/OpenRA.SourceGenerators.dll" />
+      <Analyzer Condition="'$(MSBuildProjectName)' != 'OpenRA.Roslyn'" Include="$(EngineRootPath)/bin/OpenRA.Roslyn.dll" />
     </ItemGroup>
   </Target>
 
@@ -63,7 +63,7 @@
 
   <!-- Ensure everything is compiled with a specific version of Roslyn. -->
   <!-- But just for Mono so we don't risk making local development experience worse. -->
-  <!-- Target the same version as OpenRA.SourceGenerators for consistency. -->
+  <!-- Target the same version as OpenRA.Roslyn for consistency. -->
   <ItemGroup Condition="'$(MSBuildRuntimeType)' == 'Mono'">
     <PackageReference Include="Microsoft.Net.Compilers.Toolset" Version="4.7.0" />
   </ItemGroup>

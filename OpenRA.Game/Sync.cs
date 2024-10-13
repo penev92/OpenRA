@@ -21,7 +21,9 @@ namespace OpenRA
 	public sealed class SyncMemberAttribute : Attribute { }
 
 	/// <summary>
-	///
+	/// Part of the game state synchronization mechanism.
+	/// Traits/projectiles can either implement directly or be made partial and be tagged with the <see cref="GenerateSyncCodeAttribute"/>,
+	/// which will cause an implementation to be automatically generated using all type members that have the <see cref="SyncMemberAttribute"/>.
 	/// </summary>
 	public interface ISync
 	{

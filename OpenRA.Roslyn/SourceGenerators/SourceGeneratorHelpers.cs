@@ -13,7 +13,7 @@ using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace OpenRA.SourceGenerators
+namespace OpenRA.Roslyn.SourceGenerators
 {
 	static class SourceGeneratorHelpers
 	{

@@ -10,7 +10,7 @@
 # Arguments:
 #   SRC_PATH: Path to the root OpenRA directory
 #   DEST_PATH: Path to the root of the install destination (will be created if necessary)
-#   TARGETPLATFORM: Platform type (win-x86, win-x64, osx-x64, osx-arm64, linux-x64, linux-arm64, unix-generic)
+#   TARGETPLATFORM: Platform type (win-x64, osx-x64, osx-arm64, linux-x64, linux-arm64, unix-generic)
 #   COPY_GENERIC_LAUNCHER: If set to True the OpenRA.exe will also be copied (True, False)
 #   COPY_CNC_DLL: If set to True the OpenRA.Mods.Cnc.dll will also be copied (True, False)
 #   COPY_D2K_DLL: If set to True the OpenRA.Mods.D2k.dll will also be copied (True, False)
@@ -89,7 +89,6 @@ install_data() (
 # Arguments:
 #   SRC_PATH: Path to the root OpenRA directory
 #   DEST_PATH: Path to the root of the install destination (will be created if necessary)
-#   TARGETPLATFORM: Platform type (win-x86, win-x64)
 #   MOD_ID: Mod id to launch (e.g. "ra")
 #   LAUNCHER_NAME: Filename (without the .exe extension) for the launcher
 #   MOD_NAME: Human-readable mod name to show in the crash dialog (e.g. "Red Alert")
@@ -103,12 +102,11 @@ install_windows_launcher() (
 
 	SRC_PATH="${1}"
 	DEST_PATH="${2}"
-	TARGETPLATFORM="${3}"
-	MOD_ID="${4}"
-	LAUNCHER_NAME="${5}"
-	MOD_NAME="${6}"
-	FAQ_URL="${7}"
-	VERSION="${8}"
+	MOD_ID="${3}"
+	LAUNCHER_NAME="${4}"
+	MOD_NAME="${5}"
+	FAQ_URL="${6}"
+	VERSION="${7}"
 
 	rm -rf "${SRC_PATH}/OpenRA.WindowsLauncher/obj" || :
 
@@ -117,7 +115,7 @@ install_windows_launcher() (
 	# -p:Product sets the "Product name" field.
 	# -p:InformationalVersion seems to set the "Product version" field.
 	# -p:DisplayName doesn't seem to have a visible effect?
-	dotnet publish "${SRC_PATH}/OpenRA.WindowsLauncher/OpenRA.WindowsLauncher.csproj" -c Release -r "${TARGETPLATFORM}" -p:LauncherName="${LAUNCHER_NAME}",TargetPlatform="${TARGETPLATFORM}",ModID="${MOD_ID}",PublishDir="${DEST_PATH}",FaqUrl="${FAQ_URL}",InformationalVersion="${VERSION}" --self-contained true
+	dotnet publish "${SRC_PATH}/OpenRA.WindowsLauncher/OpenRA.WindowsLauncher.csproj" -c Release -r "win-x64" -p:LauncherName="${LAUNCHER_NAME}",TargetPlatform="win-x64",ModID="${MOD_ID}",PublishDir="${DEST_PATH}",FaqUrl="${FAQ_URL}",InformationalVersion="${VERSION}" --self-contained true
 
 	# NET 6 is unable to customize the application host for windows when compiling from Linux,
 	# so we must patch the properties we need in the PE header.

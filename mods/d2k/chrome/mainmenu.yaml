@@ -95,23 +95,30 @@ Container@MAINMENU:
 							Height: 30
 							Text: button-singleplayer-menu-skirmish
 							Font: Bold
-						Button@MISSIONS_BUTTON:
+						Button@CAMPAIGN_BUTTON:
 							X: PARENT_WIDTH / 2 - WIDTH / 2
 							Y: 100
+							Width: 140
+							Height: 30
+							Text: label-campaign-title
+							Font: Bold
+						Button@MISSIONS_BUTTON:
+							X: PARENT_WIDTH / 2 - WIDTH / 2
+							Y: 140
 							Width: 140
 							Height: 30
 							Text: label-missions-title
 							Font: Bold
 						Button@LOAD_BUTTON:
 							X: PARENT_WIDTH / 2 - WIDTH / 2
-							Y: 140
+							Y: 180
 							Width: 140
 							Height: 30
 							Text: button-singleplayer-menu-load
 							Font: Bold
 						Button@ENCYCLOPEDIA_BUTTON:
 							X: PARENT_WIDTH / 2 - WIDTH / 2
-							Y: 180
+							Y: 220
 							Width: 140
 							Height: 30
 							Text: label-mentat-title

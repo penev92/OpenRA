@@ -1,3 +1,6 @@
+## mainmenu.yaml
+label-campaign-title = Campaign
+
 ## encyclopedia.yaml, mainmenu.yaml
 label-mentat-title = Mentat
 

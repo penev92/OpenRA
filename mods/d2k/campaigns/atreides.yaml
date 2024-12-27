@@ -1,0 +1,42 @@
+Campaign@Atreides:
+	Id: atreides
+	Name: campaign-atreides-name
+	Type: Branched # Linear / Branched
+	Missions:
+		Mission@1a:
+			Map: atreides-01a
+		Mission@1b:
+			Map: atreides-01b
+		Mission@2a:
+			Map: atreides-02a
+			Requires: atreides-01a.victory || atreides-01b.victory
+		Mission@2b:
+			Map: atreides-02b
+			Requires: atreides-01a.victory || atreides-01b.victory
+		Mission@3a:
+			Map: atreides-03a
+			Requires: atreides-02a.victory || atreides-02b.victory
+		Mission@3b:
+			Map: atreides-03b
+			Requires: atreides-02a.victory || atreides-02b.victory
+		Mission@4:
+			Map: atreides-04
+			Requires: atreides-03a.victory || atreides-03b.victory
+		Mission@4-bonus:
+			Map: atreides-04-bonus
+			Requires: (atreides-03a.victory && atreides-03a.bonus1) || (atreides-03b.victory && atreides-03b.bonus1)
+		Mission@5:
+			Map: atreides-05
+			Requires: atreides-04.victory
+		Mission@5-2:
+			Map: atreides-05-2
+			Requires: atreides-05.victory
+			SkipSelection: true
+		Mission@6:
+			Map: atreides-06
+			Requires: atreides-05-2.victory
+
+# CampaignType.Linear runs the next mission directly when the player clicks Continue after a mission
+# CampaignType.Branched opens a mission selection screen
+
+# Mission.SkipSelection is applicable for CampaignType.Branched and skips the mission selection screen to run the mission as soon as it is available.

@@ -1,0 +1,83 @@
+I. Goal:
+
+Have a system that can support campaign progression with elements from multiple classic games:
+    - Campaign start screen - like TD, D2k, RA2 - Pick a campaign, play intro videos.
+    - Linear progression - like RA2 and Generals - No mission choices. Once a mission is over we just move on to the next one.
+    - Branched progression - like TD, D2k, TS, SC2 - Post-mission theather map (or any other screen) to choose the next mission from.
+    - Lasting effects - like WC3 - Player actions in a mission can affect consequent missions (bonus objectives, items, etc.)
+
+
+II. Thoughts:
+
+1. Every mission needs a place to store arbitrary data
+    - arbitrary for flexibility
+    - better use JSON than MiniYAML to avoid headackes
+    - Lua API to save & read arbitrary data to mission file
+2. Campaign will need a place to store data:
+    - mission progression
+    - mission achievements/bonuses, score, etc.?
+    - arbitrary trans-mission data? (achevements, campaign bonuses)
+3. Different campaign playthroughs should be separate
+4. Need to have a mechanism for mission dependencies / unlocks. - #14238 (think SC2)
+    - change `missions.yaml` structure
+    - change mission browser?
+    - add Campaign browser menu (think RA2)
+    - add mission selection menu (think TD, D2k, TS or SC2)
+    - list of missions as a boolean expression - "gdi3a OR gdi3b OR gdi3c"
+    [bonus idea] - depend on other mission custom data? - "(gdi3a OR gdi3b OR gdi3c) AND (gdi2a.bonus OR gdi2b.bonus)"   (think SC2 secret mission unlock)
+    [bonus idea] - depend on campaign playthrough metadata? - "gdi5a AND campaign.playedMissions > 5"  (SC2 has a similar requirement, useful for parallel quest lines)
+    [bonus idea] - depend on other mission time! - "gdi3a.victory && gdi3a.time < 15 * 60"
+5. After a victory screen, we need to move on to the next mission(s):
+    - either display a campaign screen with a theather map or another method of mission selection
+    - or need to load the next mission (for simple scenarios like RA2, Generals) - #4492
+    - PostVictory: PlayNext / OpenCampaignScreen
+
+P.S.: Multiple campaign playthroughs for a single campaign is probably overkill and should be deletaged to the player to deal with.
+
+
+III. Conclusions:
+
+1. Have a ZIP file per campaign ( /campaigns/d2k/harconnen.zip ).
+2. Have a JSON file per PLAYED mission (for mission data) in that ZIP + a JSON file for campaign data.
+3. Have a Lua API that can read and write arbitrary data from/to the current mission's campaign's missions (+ campaign data).
+4. Have a robust system for mission dependencies - `map.yaml` can specify a VariableExpression that relies on campaing or mission data.
+5. Have missions define what to do after a victory screen - start the next available mission (assuming a single option; can throw for sanity if not) or open a mission selection screen a la theather map.
+6. Have an optional campaign selection screen.
+7. Have an optional mission selection screen between missions.
+8. Have an Campaign "Archive" screen where accomplishments like score, time and difficulty beaten are displayed, videos can be rewatched.
+9. Have a mission score screen.
+
+
+P.S.:  Keep  https://github.com/OpenRA/OpenRA/issues/17067  in mind for the UI side of things.
+
+
+IV: Bonus:
+
+1. Custom mini-campaigns
+    - might require a package of their own so that both maps and the `mission.yaml` file come together.
+2. Achievements
+3. Additional mission dependency options
+4. Integration with an external player account system
+    - for progression persistence
+    - for achievements
+
+
+V: Prerequisites:
+
+1. Refactor how VideoPlayer starts/stops videos and interacts with other audio (AssetBrowserLogic and MissionBrowserLogic have very similar hacks for that).
+
+
+
+
+Campaign progression - Step 0 - Refactor VideoPlayerWidget-audio interaction
+
+
+
+
+
+
+
+campaigns/atreides.yaml (heavily inspired by installer manifests)
+
+
+

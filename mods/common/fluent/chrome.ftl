@@ -342,6 +342,9 @@ button-mapchooser-panel-delete-map = Delete Map
 button-mapchooser-panel-delete-all-maps = Delete All Maps
 button-mapchooser-panel-ok = Ok
 
+## campaign-browser.yaml
+button-campaign-browser-panel-start = Start
+
 ## missionbrowser.yaml
 button-missionbrowser-panel-start-briefing-video = Watch Briefing
 button-missionbrowser-panel-stop-briefing-video = Stop Briefing

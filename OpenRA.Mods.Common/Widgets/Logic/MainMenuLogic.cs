@@ -38,7 +38,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 
 		protected enum MenuType { Main, Singleplayer, Extras, MapEditor, StartupPrompts, None }
 
-		protected enum MenuPanel { None, Missions, Skirmish, Multiplayer, MapEditor, Replays, GameSaves }
+		protected enum MenuPanel { None, Campaign, Missions, Skirmish, Multiplayer, MapEditor, Replays, GameSaves }
 
 		protected MenuType menuType = MenuType.Main;
 		readonly Widget rootMenu;
@@ -113,6 +113,9 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			// Singleplayer menu
 			var singleplayerMenu = widget.Get("SINGLEPLAYER_MENU");
 			singleplayerMenu.IsVisible = () => menuType == MenuType.Singleplayer;
+
+			var campaignButton = singleplayerMenu.Get<ButtonWidget>("CAMPAIGN_BUTTON");
+			campaignButton.OnClick = () => OpenCampaignBrowserPanel();
 
 			var missionsButton = singleplayerMenu.Get<ButtonWidget>("MISSIONS_BUTTON");
 			missionsButton.OnClick = () => OpenMissionBrowserPanel(modData.MapCache.PickLastModifiedMap(MapVisibility.MissionSelector));
@@ -462,6 +465,16 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 				"",
 				OpenSkirmishLobbyPanel,
 				() => { Game.CloseServer(); SwitchMenu(MenuType.Main); });
+		}
+
+		void OpenCampaignBrowserPanel()
+		{
+			SwitchMenu(MenuType.None);
+			Game.OpenWindow("CAMPAIGN_BROWSER_PANEL", new WidgetArgs
+			{
+				{ "onExit", () => { Game.Disconnect(); SwitchMenu(MenuType.Singleplayer); } },
+				{ "onStart", () => { RemoveShellmapUI(); lastGameState = MenuPanel.Campaign; } },
+			});
 		}
 
 		void OpenMissionBrowserPanel(string map)

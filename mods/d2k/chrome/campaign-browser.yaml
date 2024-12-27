@@ -1,0 +1,53 @@
+Background@CAMPAIGN_BROWSER_PANEL:
+	Logic: CampaignBrowserLogic
+	X: (WINDOW_WIDTH - WIDTH) / 2
+	Y: (WINDOW_HEIGHT - HEIGHT) / 2
+	Width: 682
+	Height: 591
+	Children:
+		Label@CAMPAIGN_BROWSER_TITLE:
+			Y: 20
+			Width: PARENT_WIDTH
+			Height: 25
+			Text: label-campaign-title
+			Align: Center
+			Font: Bold
+		Container@FACTION_SELECTION_PANEL:
+			X: 15
+			Y: 50
+			Width: 640
+			Height: 400
+			Children:
+				VideoPlayer@FACTION_SELECTION:
+					Width: PARENT_WIDTH
+					Height: PARENT_HEIGHT
+				Button@ATREIDES:
+					Y: PARENT_HEIGHT - 25
+					Width: PARENT_WIDTH / 3
+					Height: 25
+				Button@ORDOS:
+					X: PARENT_WIDTH / 3
+					Y: PARENT_HEIGHT - 25
+					Width: PARENT_WIDTH / 3
+					Height: 25
+				Button@HARKONNEN:
+					X: 2 * PARENT_WIDTH / 3
+					Y: PARENT_HEIGHT - 25
+					Width: PARENT_WIDTH / 3
+					Height: 25
+		Button@START_BUTTON:
+			X: PARENT_WIDTH - 140 - 130
+			Y: PARENT_HEIGHT - 45
+			Width: 120
+			Height: 25
+			Text: button-campaign-browser-panel-start
+			Font: Bold
+			Key: escape
+		Button@BACK_BUTTON:
+			X: PARENT_WIDTH - 140
+			Y: PARENT_HEIGHT - 45
+			Width: 120
+			Height: 25
+			Text: button-back
+			Font: Bold
+			Key: escape

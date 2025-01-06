@@ -9,6 +9,7 @@
  */
 #endregion
 
+using Eluant;
 using OpenRA.Scripting;
 
 namespace OpenRA.Mods.Common.Scripting
@@ -18,6 +19,32 @@ namespace OpenRA.Mods.Common.Scripting
 	{
 		public CampaignGlobal(ScriptContext context)
 			: base(context) { }
+
+		[Desc("asdf")]
+		[return: ScriptEmmyTypeOverride("T[]", "T")]
+		public LuaTable ReadCampaignData(string campaignId)
+		{
+			var t = Context.CreateTable();
+			return t;
+		}
+
+		[Desc("qwer")]
+		[return: ScriptEmmyTypeOverride("T[]", "T")]
+		public LuaTable ReadMissionData(string campaignId, string missionId)
+		{
+			var t = Context.CreateTable();
+			return t;
+		}
+
+		[Desc("zxcv")]
+		public void WriteCampaignData(string campaignId, [ScriptEmmyTypeOverride("T[]", "T")] LuaTable dataTable)
+		{
+		}
+
+		[Desc("hyrt")]
+		public void WriteMissionData(string campaignId, string missionId, [ScriptEmmyTypeOverride("T[]", "T")] LuaTable dataTable)
+		{
+		}
 
 		// Read campaign data
 

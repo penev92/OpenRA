@@ -95,7 +95,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 		{
 			StopVideo(videoPlayer);
 			var campaignManager = modData.Manifest.Get<CampaignManager>();
-			campaignManager.StartNewCampaign();
+			campaignManager.StartNewCampaign(modData.Manifest.Id, selectedCampaign);
 		}
 
 		void BackButtonClicked()

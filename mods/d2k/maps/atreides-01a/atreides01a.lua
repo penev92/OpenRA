@@ -95,6 +95,13 @@ Tick = function()
 end
 
 WorldLoaded = function()
+
+	local campaignId = "atreides";
+	local missionId = "atreides-01a";
+
+	local campaignData = Campaign.ReadCampaignData(campaignId);
+	local missionData = Campaign.ReadMissionData(campaignId, missionId);
+
 	Atreides = Player.GetPlayer("Atreides")
 	Harkonnen = Player.GetPlayer("Harkonnen")
 

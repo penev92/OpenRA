@@ -77,15 +77,15 @@ namespace OpenRA.Roslyn.SourceGenerators.Sync
 		{
 			// If not abstract, only care about your own members (and potentially call the base method later if needed).
 			if (!classSymbol.IsAbstract)
-				return classSymbol.GetMembers().Where(x => x.HasSyncMemberAttribute()).Select(x => x.Name);
+				return classSymbol.GetMembers().Where(static x => x.HasSyncMemberAttribute()).Select(static x => x.Name);
 
 			var symbol = classSymbol;
 			var syncElements = new List<string>();
 
 			while (symbol.IsAbstract && symbol.Name != "Object")
 			{
-				var members = symbol.GetMembers().Where(x => x.HasSyncMemberAttribute());
-				syncElements.AddRange(members.Select(x => x.Name));
+				var members = symbol.GetMembers().Where(static x => x.HasSyncMemberAttribute());
+				syncElements.AddRange(members.Select(static x => x.Name));
 				symbol = symbol.BaseType;
 			}
 
@@ -97,7 +97,7 @@ namespace OpenRA.Roslyn.SourceGenerators.Sync
 		{
 			var className = classSymbol.Name;
 			var isSealed = classSymbol.IsSealed;
-			var elements = syncMembers.Select(x => $"Sync.Hash({x})");
+			var elements = syncMembers.Select(static x => $"Sync.Hash({x})");
 			if (shouldCallBase)
 				elements = Enumerable.Append(elements, "base.GetSyncHash()");
 

@@ -15,13 +15,18 @@ using OpenRA.Traits;
 namespace OpenRA
 {
 	/// <summary>
-	///
+	/// Part of the game state synchronization mechanism.
+	/// Types tagged with this attribute (traits, weapons, effects) MUST be partial classes
+	/// and will get an implementation of ISync generated for them if they don't implement it explicitly.
+	/// Tag members that need to be synced with <see cref="SyncMemberAttribute"/>.
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Class)]
 	public sealed class GenerateSyncCodeAttribute : Attribute { }
 
 	/// <summary>
-	///
+	/// Part of the game state synchronization mechanism.
+	/// Members of a type that need to be synced with other game clients.
+	/// Works inside types tagged with <see cref="GenerateSyncCodeAttribute"/>.
 	/// </summary>
 	[AttributeUsage(AttributeTargets.Field | AttributeTargets.Property)]
 	public sealed class SyncMemberAttribute : Attribute { }

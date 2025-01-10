@@ -356,5 +356,26 @@ namespace OpenRA.Scripting
 		}
 
 		public LuaTable CreateTable() { return runtime.CreateTable(); }
+
+		public void OpenScreen(string screen, string arg)
+		{
+			if (FatalErrorOccurred || runtime.Globals["OpenScreen"] is not LuaFunction openScreen)
+				return;
+
+			try
+			{
+				using (var s = screen.ToLuaValue(this))
+				using (var a = arg.ToLuaValue(this))
+					openScreen.Call(s, a).Dispose();
+			}
+			catch (LuaException e)
+			{
+				FatalError(e);
+			}
+			finally
+			{
+				openScreen?.Dispose();
+			}
+		}
 	}
 }

@@ -62,5 +62,10 @@ namespace OpenRA.Mods.Common.Scripting
 		}
 
 		public bool FatalErrorOccurred => Context.FatalErrorOccurred;
+
+		public void OpenScreen(string screen, string arg)
+		{
+			Context.OpenScreen(screen, arg);
+		}
 	}
 }

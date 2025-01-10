@@ -202,3 +202,8 @@ WorldLoaded = function()
 		Produce(Corrino, CorrinoStarportTypes)
 	end)
 end
+
+-- This concerns the campaign progression.
+OpenScreen = function(screen, arg)
+	UserInterface.OpenScreen("CAMPAIGN_BROWSER_PANEL")
+end

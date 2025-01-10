@@ -61,5 +61,15 @@ namespace OpenRA.Mods.Common.Scripting.Global
 
 			return FluentProvider.GetMessage(key);
 		}
+
+		[Desc(".")]
+		public void OpenScreen(string widget)
+		{
+			Game.OpenWindow(widget, new WidgetArgs
+			{
+				{ "onExit", () => Game.Disconnect() },
+				{ "onStart", () => Context.OpenScreen("campaign", "!") }
+			});
+		}
 	}
 }

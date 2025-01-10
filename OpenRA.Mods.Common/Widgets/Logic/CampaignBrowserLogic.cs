@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Text;
 using OpenRA.FileSystem;
 using OpenRA.Mods.Common.Campaign;
@@ -49,6 +50,15 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 
 			widget.Get<ButtonWidget>("START_BUTTON").OnClick = () => StartButtonClicked();
 			widget.Get<ButtonWidget>("BACK_BUTTON").OnClick = () => BackButtonClicked();
+
+			//modData.Manifest.Missions
+			var stringPool = new HashSet<string>(); // Reuse common strings in YAML
+			var yaml = MiniYaml.Merge(modData.Manifest.Missions.Select(
+				m => MiniYaml.FromStream(modData.DefaultFileSystem.Open(m), m, stringPool: stringPool)));
+
+			var campaigns = yaml.ConvertAll(x => x.Key);
+
+
 
 			PanelLoaded();
 		}

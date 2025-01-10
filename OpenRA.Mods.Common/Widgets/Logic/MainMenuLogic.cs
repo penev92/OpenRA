@@ -16,6 +16,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using OpenRA.Mods.Common.FileSystem;
+using OpenRA.Mods.Common.Scripting;
 using OpenRA.Network;
 using OpenRA.Support;
 using OpenRA.Widgets;
@@ -118,7 +119,11 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			campaignButton.OnClick = () => OpenCampaignBrowserPanel();
 
 			var missionsButton = singleplayerMenu.Get<ButtonWidget>("MISSIONS_BUTTON");
-			missionsButton.OnClick = () => OpenMissionBrowserPanel(modData.MapCache.PickLastModifiedMap(MapVisibility.MissionSelector));
+			//missionsButton.OnClick = () => OpenMissionBrowserPanel(modData.MapCache.PickLastModifiedMap(MapVisibility.MissionSelector));
+			missionsButton.OnClick = () =>
+			{
+				world.WorldActor.Trait<LuaScript>().OpenScreen("campaign", "?");
+			};
 
 			var hasCampaign = modData.Manifest.Missions.Length > 0;
 			var hasMissions = modData.MapCache

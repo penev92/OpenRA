@@ -81,3 +81,64 @@ campaigns/atreides.yaml (heavily inspired by installer manifests)
 
 
 
+--------------------------------------------------------------------------
+
+
+pchote said no campaign manifest YAMLs, no CampaignManagers, no nothing ;(
+
+
+have Lua do everything; have "campaign progression" as a Lua script - a function that is ran before opening a mission selection screen that evaluates a bunch of mission prerequiesites and returns a list of available missions - https://discord.com/channels/@me/548627097099173895/1325867343951433798
+add any extra campaign-progression-related Lua to the shellmap
+- Lua method to open a (very specific) screen with arguments for what to show in it and how (what UI elements / widgets) - https://discord.com/channels/@me/548627097099173895/1325850413530091613
+- Lua method to run map X
+
+- [EXTRA BONUS FAR-FUTURE FEATURE] Allow a per-campaign specific shellmap to be ran after choosing a campaign (for example a shellmap with a big Allied base when selecting the Allied campaign or anything else that is thematic)
+
+- When a mission ends, use the mission's Lua script to open the missions selection screen (fullscreen with black background (like when loading a save) for better immersion; make sure that's configurable for maximum flexibility)
+- "Set the finished state in each mission lua then have a single “campaign-progress.lua” that all the missions include to show the ui" - https://discord.com/channels/@me/548627097099173895/1325864525546786886
+
+
+
+> where does that get us
+> mission selection screen is just a fullscreen panel over the current world?
+> its contents are provided as arguments by the Lua script that opened it, including the list of available missions, the background and the selection "world map" or whatever substitute?
+
+> Yeah
+> Some of that may want to be defined in yaml on a world trait perhaps
+> Some mods have a single animation with different frame ranges used for each thing you click
+> Others have a single static background but then position animated markers on top
+> We will need to be flexible to allow mods to do that, but IMO its fine to then not let maps customise at that level
+> Maybe just have that controlled by the widget yaml and logic
+> Then different mods can replace that as needed
+> that widget logic would then define exactly what the args table it accepts looks like
+> e.g. is it a list of x,y positions to draw a marker, or a list of frame ranges
+> allow the mod to define more than one type of lua-mission-selection ui structure, and have the UI logic handle the visual related stuff
+> lua then only needs to provide image/animation names and behaviours for each clickmap region
+
+> the current victory conditions logic isn't very conducive to it
+> we'll need to NOT stop Lua execution once the mission is won (I assume we do along with the entire world)
+
+------------
+
+> if no dummy map, how go from campaign selection screen (mod shellmap) to first mission selection screen (presumably controller by Lua)
+
+> the UI tells the shellmap to run a lua function, and that lua function in the shellmap opens the selection screen
+> the callback from that selection screen, in the shellmap lua, then loads the selected mission
+
+```
+- Start menu tells the shellmap to open the CampaignScreen with specific arguments - to show campaign logos / animations / videos so you can pick a campaign
+- Then that screen tells the shellmap which campaign was chosen and the shellmap reopens that screen with the corresponding arguments - list of available missions, campaign map, etc.
+- You pick a mission and the shellmap launches into it
+```
+
+
+------------------------------------------------------------------
+
+MainMenu has 2 buttons:
+ - Campaign - new, for campaign selection
+ - Missions - the old MissionBrowser, untouched, for (re)playing an arbitrary mission. To later be enhanced with mission playthrough information:
+    - when was this mission played
+    - beaten difficuly, time, score
+    - etc.
+
+The Campaign button

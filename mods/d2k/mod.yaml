@@ -126,6 +126,7 @@ ChromeLayout:
 	common|chrome/assetbrowser.yaml
 	d2k|chrome/missionbrowser.yaml
 	d2k|chrome/campaign-browser.yaml
+	d2k|chrome/campaign-mission-selection.yaml
 	common|chrome/confirmation-dialogs.yaml
 	common|chrome/editor.yaml
 	common|chrome/replaybrowser.yaml

@@ -211,9 +211,14 @@ OpenScreen = function(screen, arg)
 			Media.DisplayMessage("asdf" + selectedCampaignId)
 		end)
 	elseif screen == "missions" then
-		-- TODO: Get a list of available (unlocked) missions.
-		UserInterface.OpenScreen("MISSION_SELECTION_PANEL", function()
-			Media.DisplayMessage("qwer")
-		end)
 	end
+end
+
+StartCampaign = function (campaignId)
+	Media.DisplayMessage("SELECTED CAMPAIGN " .. campaignId)
+
+	-- TODO: Get a list of available (unlocked) missions.
+	UserInterface.OpenScreen("MISSION_SELECTION_PANEL", function()
+		Media.DisplayMessage("qwer")
+	end)
 end

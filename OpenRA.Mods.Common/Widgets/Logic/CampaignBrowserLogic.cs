@@ -111,8 +111,13 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			StopVideo(videoPlayer);
 			//var campaignManager = modData.Manifest.Get<CampaignManager>();
 			//campaignManager.StartNewCampaign(modData.Manifest.Id, selectedCampaign);
-			if (selectedCampaign != null && callback != null)
-				world.WorldActor.Trait<LuaScript>().InvokeCallback(callback, runtime, new string[1] { selectedCampaign });
+
+
+			//if (selectedCampaign != null && callback != null)
+				//world.WorldActor.Trait<LuaScript>().InvokeCallback(callback, runtime, new string[1] { selectedCampaign });
+
+			if (selectedCampaign != null)
+				world.WorldActor.Trait<LuaScript>().StartCampaign(selectedCampaign);
 		}
 
 		void BackButtonClicked()

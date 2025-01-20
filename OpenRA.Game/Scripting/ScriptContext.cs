@@ -378,19 +378,41 @@ namespace OpenRA.Scripting
 			}
 		}
 
-		public void InvokeCallback(object callback, object runtime, object[] parameters)
-		{
-			if (FatalErrorOccurred || callback is not LuaFunction func)
-				return;
+		//public void InvokeCallback(object callback, object runtime, object[] parameters)
+		//{
+		//	if (FatalErrorOccurred || callback is not LuaFunction func)
+		//		return;
 
-			var luaParams = Array.Empty<LuaValue>();
+		//	var luaParams = Array.Empty<LuaValue>();
+
+		//	try
+		//	{
+		//		luaParams = parameters.Select(x => x.ToLuaValue(this)).ToArray();
+		//		var luaFunction = func.CopyReference();
+		//		//using (luaFunction)
+		//		//	luaFunction.Call(luaParams).Dispose();
+		//	}
+		//	catch (LuaException e)
+		//	{
+		//		FatalError(e);
+		//	}
+		//	finally
+		//	{
+		//		func?.Dispose();
+		//		foreach (var param in luaParams)
+		//			param.Dispose();
+		//	}
+		//}
+
+		public void StartCampaign(string campaignId)
+		{
+			if (FatalErrorOccurred || runtime.Globals["StartCampaign"] is not LuaFunction startCampaign)
+				return;
 
 			try
 			{
-				luaParams = parameters.Select(x => x.ToLuaValue(this)).ToArray();
-				var luaFunction = func.CopyReference();
-				//using (luaFunction)
-				//	luaFunction.Call(luaParams).Dispose();
+				using (var s = campaignId.ToLuaValue(this))
+					startCampaign.Call(campaignId).Dispose();
 			}
 			catch (LuaException e)
 			{
@@ -398,9 +420,7 @@ namespace OpenRA.Scripting
 			}
 			finally
 			{
-				func?.Dispose();
-				foreach (var param in luaParams)
-					param.Dispose();
+				startCampaign?.Dispose();
 			}
 		}
 	}

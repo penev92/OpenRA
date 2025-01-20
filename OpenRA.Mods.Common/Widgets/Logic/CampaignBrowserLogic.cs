@@ -31,22 +31,20 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 		readonly World world;
 		readonly Action onStart;
 		readonly Action onExit;
-		readonly object callback;
-		readonly object runtime;
+		readonly string[] availableCampaigns;
 		readonly VideoPlayerWidget videoPlayer;
 		readonly BackgroundWidget fullscreenVideoPlayer;
 
 		string selectedCampaign;
 
 		[ObjectCreator.UseCtor]
-		public CampaignBrowserLogic(Widget widget, ModData modData, World world, Action onStart, Action onExit, object callback, object runtime)
+		public CampaignBrowserLogic(Widget widget, ModData modData, World world, Action onStart, Action onExit, string[] availableCampaigns)
 		{
 			this.modData = modData;
 			this.world = world;
 			this.onStart = onStart;
 			this.onExit = onExit;
-			this.callback = callback;
-			this.runtime = runtime;
+			this.availableCampaigns = availableCampaigns;
 
 			videoPlayer = widget.Get<VideoPlayerWidget>("FACTION_SELECTION");
 

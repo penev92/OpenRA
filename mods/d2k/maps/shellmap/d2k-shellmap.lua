@@ -203,22 +203,18 @@ WorldLoaded = function()
 	end)
 end
 
--- This concerns the campaign progression.
+--
+-- The following concerns the campaign progression.
+--
+
 OpenScreen = function(screen, arg)
-	if screen == "campaign" then
-		-- TODO: Get a list of available campaigns.
-		UserInterface.OpenScreen("CAMPAIGN_BROWSER_PANEL", function(selectedCampaignId)
-			Media.DisplayMessage("asdf" + selectedCampaignId)
-		end)
-	elseif screen == "missions" then
-	end
+	-- TODO: Get a list of available campaigns.
+	local availableCampaigns = { "atreides", "ordos", "harkonnen" }
+	UserInterface.OpenCampaignSelectionScreen("CAMPAIGN_BROWSER_PANEL", availableCampaigns)
 end
 
 StartCampaign = function (campaignId)
-	Media.DisplayMessage("SELECTED CAMPAIGN " .. campaignId)
-
 	-- TODO: Get a list of available (unlocked) missions.
-	UserInterface.OpenScreen("MISSION_SELECTION_PANEL", function()
-		Media.DisplayMessage("qwer")
-	end)
+	local availableMissions = { "atreides-01a", "atreides-01b" }
+	UserInterface.OpenMissionSelectionScreen("MISSION_SELECTION_PANEL", availableMissions)
 end

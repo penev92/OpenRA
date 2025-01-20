@@ -63,14 +63,24 @@ namespace OpenRA.Mods.Common.Scripting.Global
 		}
 
 		[Desc(".")]
-		public void OpenScreen(string widget, [ScriptEmmyTypeOverride("fun()")] LuaFunction callbackFunction)
+		public void OpenCampaignSelectionScreen(string widget, string[] availableCampaigns)
 		{
 			Game.OpenWindow(widget, new WidgetArgs
 			{
 				{ "onExit", () => Game.Disconnect() },
 				{ "onStart", () => { } },
-				{ "callback", callbackFunction },
-				{ "runtime", callbackFunction.Runtime }
+				{ nameof(availableCampaigns), availableCampaigns }
+			});
+		}
+
+		[Desc(".")]
+		public void OpenMissionSelectionScreen(string widget, string[] availableMissions)
+		{
+			Game.OpenWindow(widget, new WidgetArgs
+			{
+				{ "onExit", () => Game.Disconnect() },
+				{ "onStart", () => { } },
+				{ nameof(availableMissions), availableMissions }
 			});
 		}
 	}

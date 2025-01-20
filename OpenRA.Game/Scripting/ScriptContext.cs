@@ -377,5 +377,31 @@ namespace OpenRA.Scripting
 				openScreen?.Dispose();
 			}
 		}
+
+		public void InvokeCallback(object callback, object runtime, object[] parameters)
+		{
+			if (FatalErrorOccurred || callback is not LuaFunction func)
+				return;
+
+			var luaParams = Array.Empty<LuaValue>();
+
+			try
+			{
+				luaParams = parameters.Select(x => x.ToLuaValue(this)).ToArray();
+				var luaFunction = func.CopyReference();
+				//using (luaFunction)
+				//	luaFunction.Call(luaParams).Dispose();
+			}
+			catch (LuaException e)
+			{
+				FatalError(e);
+			}
+			finally
+			{
+				func?.Dispose();
+				foreach (var param in luaParams)
+					param.Dispose();
+			}
+		}
 	}
 }

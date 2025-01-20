@@ -17,6 +17,7 @@ using System.Linq;
 using System.Text;
 using OpenRA.FileSystem;
 using OpenRA.Mods.Common.Campaign;
+using OpenRA.Mods.Common.Scripting;
 using OpenRA.Mods.Common.Traits;
 using OpenRA.Network;
 using OpenRA.Video;
@@ -27,20 +28,25 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 	public class CampaignBrowserLogic : ChromeLogic
 	{
 		readonly ModData modData;
+		readonly World world;
 		readonly Action onStart;
 		readonly Action onExit;
+		readonly object callback;
+		readonly object runtime;
 		readonly VideoPlayerWidget videoPlayer;
 		readonly BackgroundWidget fullscreenVideoPlayer;
 
 		string selectedCampaign;
 
 		[ObjectCreator.UseCtor]
-		public CampaignBrowserLogic(Widget widget, ModData modData, World world, Action onStart, Action onExit)
+		public CampaignBrowserLogic(Widget widget, ModData modData, World world, Action onStart, Action onExit, object callback, object runtime)
 		{
 			this.modData = modData;
+			this.world = world;
 			this.onStart = onStart;
 			this.onExit = onExit;
-			Game.BeforeGameStart += OnGameStart;
+			this.callback = callback;
+			this.runtime = runtime;
 
 			videoPlayer = widget.Get<VideoPlayerWidget>("FACTION_SELECTION");
 
@@ -69,7 +75,6 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			if (disposing && !disposed)
 			{
 				disposed = true;
-				Game.BeforeGameStart -= OnGameStart;
 			}
 
 			base.Dispose(disposing);
@@ -104,8 +109,10 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 		void StartButtonClicked()
 		{
 			StopVideo(videoPlayer);
-			var campaignManager = modData.Manifest.Get<CampaignManager>();
-			campaignManager.StartNewCampaign(modData.Manifest.Id, selectedCampaign);
+			//var campaignManager = modData.Manifest.Get<CampaignManager>();
+			//campaignManager.StartNewCampaign(modData.Manifest.Id, selectedCampaign);
+			if (selectedCampaign != null && callback != null)
+				world.WorldActor.Trait<LuaScript>().InvokeCallback(callback, runtime, new string[1] { selectedCampaign });
 		}
 
 		void BackButtonClicked()
@@ -114,14 +121,6 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 
 			Ui.CloseWindow();
 			onExit();
-		}
-
-		void OnGameStart()
-		{
-			Ui.CloseWindow();
-
-			DiscordService.UpdateStatus(DiscordState.PlayingCampaign);
-			onStart();
 		}
 
 		#endregion

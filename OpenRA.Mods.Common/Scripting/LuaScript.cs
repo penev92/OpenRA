@@ -67,5 +67,10 @@ namespace OpenRA.Mods.Common.Scripting
 		{
 			Context.OpenScreen(screen, arg);
 		}
+
+		public void InvokeCallback(object callback, object runtime, object[] parameters)
+		{
+			Context.InvokeCallback(callback, runtime, parameters);
+		}
 	}
 }

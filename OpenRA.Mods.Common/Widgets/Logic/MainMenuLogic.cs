@@ -39,7 +39,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 
 		protected enum MenuType { Main, Singleplayer, Extras, MapEditor, StartupPrompts, None }
 
-		protected enum MenuPanel { None, Campaign, Missions, Skirmish, Multiplayer, MapEditor, Replays, GameSaves }
+		protected enum MenuPanel { None, Missions, Skirmish, Multiplayer, MapEditor, Replays, GameSaves }
 
 		protected MenuType menuType = MenuType.Main;
 		readonly Widget rootMenu;
@@ -116,14 +116,14 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			singleplayerMenu.IsVisible = () => menuType == MenuType.Singleplayer;
 
 			var campaignButton = singleplayerMenu.Get<ButtonWidget>("CAMPAIGN_BUTTON");
-			campaignButton.OnClick = () => OpenCampaignBrowserPanel();
+			campaignButton.OnClick = () => world.WorldActor.Trait<LuaScript>().OpenScreen("campaign", "?");
 
 			var missionsButton = singleplayerMenu.Get<ButtonWidget>("MISSIONS_BUTTON");
-			//missionsButton.OnClick = () => OpenMissionBrowserPanel(modData.MapCache.PickLastModifiedMap(MapVisibility.MissionSelector));
-			missionsButton.OnClick = () =>
-			{
-				world.WorldActor.Trait<LuaScript>().OpenScreen("campaign", "?");
-			};
+			missionsButton.OnClick = () => OpenMissionBrowserPanel(modData.MapCache.PickLastModifiedMap(MapVisibility.MissionSelector));
+			//missionsButton.OnClick = () =>
+			//{
+			//	world.WorldActor.Trait<LuaScript>().OpenScreen("campaign", "?");
+			//};
 
 			var hasCampaign = modData.Manifest.Missions.Length > 0;
 			var hasMissions = modData.MapCache
@@ -472,15 +472,15 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 				() => { Game.CloseServer(); SwitchMenu(MenuType.Main); });
 		}
 
-		void OpenCampaignBrowserPanel()
-		{
-			SwitchMenu(MenuType.None);
-			Game.OpenWindow("CAMPAIGN_BROWSER_PANEL", new WidgetArgs
-			{
-				{ "onExit", () => { Game.Disconnect(); SwitchMenu(MenuType.Singleplayer); } },
-				{ "onStart", () => { RemoveShellmapUI(); lastGameState = MenuPanel.Campaign; } },
-			});
-		}
+		//void OpenCampaignBrowserPanel()
+		//{
+		//	SwitchMenu(MenuType.None);
+		//	Game.OpenWindow("CAMPAIGN_BROWSER_PANEL", new WidgetArgs
+		//	{
+		//		{ "onExit", () => { Game.Disconnect(); SwitchMenu(MenuType.Singleplayer); } },
+		//		{ "onStart", () => { RemoveShellmapUI(); lastGameState = MenuPanel.Campaign; } },
+		//	});
+		//}
 
 		void OpenMissionBrowserPanel(string map)
 		{

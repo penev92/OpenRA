@@ -205,5 +205,15 @@ end
 
 -- This concerns the campaign progression.
 OpenScreen = function(screen, arg)
-	UserInterface.OpenScreen("CAMPAIGN_BROWSER_PANEL")
+	if screen == "campaign" then
+		-- TODO: Get a list of available campaigns.
+		UserInterface.OpenScreen("CAMPAIGN_BROWSER_PANEL", function(selectedCampaignId)
+			Media.DisplayMessage("asdf" + selectedCampaignId)
+		end)
+	elseif screen == "missions" then
+		-- TODO: Get a list of available (unlocked) missions.
+		UserInterface.OpenScreen("MISSION_SELECTION_PANEL", function()
+			Media.DisplayMessage("qwer")
+		end)
+	end
 end

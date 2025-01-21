@@ -215,6 +215,6 @@ end
 
 StartCampaign = function (campaignId)
 	-- TODO: Get a list of available (unlocked) missions.
-	local availableMissions = { "atreides-01a", "atreides-01b" }
+	local availableMissions = { campaignId .. "-01a", campaignId .. "-01b" }
 	UserInterface.OpenMissionSelectionScreen("MISSION_SELECTION_PANEL", availableMissions)
 end

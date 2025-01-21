@@ -27,85 +27,43 @@ using TagLib.Riff;
 
 namespace OpenRA.Mods.Common.Widgets.Logic
 {
-	class CampaignInfo
-	{
-		public string Id { get; set; }
-		public string Name { get; set; }
-		public string Description { get; set; }
-	}
-
-	public class CampaignBrowserLogic : ChromeLogic
+	public class CampaignMissionSelectionLogic : ChromeLogic
 	{
 		readonly ModData modData;
 		readonly World world;
 		readonly Action onStart;
 		readonly Action onExit;
-		readonly CampaignInfo[] availableCampaigns;
+		readonly string[] availableMissions;
 		readonly VideoPlayerWidget videoPlayer;
 		readonly BackgroundWidget fullscreenVideoPlayer;
-		readonly ScrollPanelWidget campaignList;
-		readonly ScrollItemWidget campaignTemplate;
+		readonly ScrollPanelWidget missionList;
+		readonly ScrollItemWidget missionTemplate;
 
-		string selectedCampaign;
+		string selectedMission;
 
 		[ObjectCreator.UseCtor]
-		public CampaignBrowserLogic(Widget widget, ModData modData, World world, Action onStart, Action onExit)
+		public CampaignMissionSelectionLogic(Widget widget, ModData modData, World world, Action onStart, Action onExit, string[] availableMissions)
 		{
 			this.modData = modData;
 			this.world = world;
 			this.onStart = onStart;
 			this.onExit = onExit;
 
-			// TODO: Load these from anywhere. Initially from mod.yaml or missions.yaml,
-			// later check the FileSystem for any campaign packages (official or user-made, packed or unpacked).
-			availableCampaigns = new CampaignInfo[]
-			{
-				new CampaignInfo
-				{
-					Id = "atreides",
-					Name = "House Atreides",
-					Description = "Play as the noble House Atreides"
-				},
-				new CampaignInfo
-				{
-					Id = "ordos",
-					Name = "House Ordos",
-					Description = "Play as the incidious House Ordos"
-				},
-				new CampaignInfo
-				{
-					Id = "harkonnen",
-					Name = "House Harkonnen",
-					Description = "Play as the evil House Harkonnen"
-				}
-			};
-
-			//videoPlayer = widget.Get<VideoPlayerWidget>("FACTION_SELECTION");
-
-			//widget.Get<ButtonWidget>("ATREIDES").OnClick = () => CampaignSelected("atreides");
-			//widget.Get<ButtonWidget>("ORDOS").OnClick = () => CampaignSelected("ordos");
-			//widget.Get<ButtonWidget>("HARKONNEN").OnClick = () => CampaignSelected("harkonnen");
-
 			var startButton = widget.Get<ButtonWidget>("START_BUTTON");
-			startButton.IsDisabled = () => string.IsNullOrEmpty(selectedCampaign);
+			startButton.IsDisabled = () => string.IsNullOrEmpty(selectedMission);
 			startButton.OnClick = () => StartButtonClicked();
 
 			widget.Get<ButtonWidget>("BACK_BUTTON").OnClick = () => BackButtonClicked();
 
-			//modData.Manifest.Missions
-			var stringPool = new HashSet<string>(); // Reuse common strings in YAML
-			var yaml = MiniYaml.Merge(modData.Manifest.Missions.Select(
-				m => MiniYaml.FromStream(modData.DefaultFileSystem.Open(m), m, stringPool: stringPool)));
-
-			var campaigns = yaml.ConvertAll(x => x.Key);
-
-
+			// Hide the video player for the time being...
+			widget.Get<ContainerWidget>("MISSION_INFO").IsVisible = () => false;
+			widget.Get<BackgroundWidget>("MISSION_BIN").IsVisible = () => false;
 
 			PanelLoaded();
 
-			campaignList = widget.Get<ScrollPanelWidget>("CAMPAIGN_LIST");
-			campaignTemplate = widget.Get<ScrollItemWidget>("CAMPAIGN_TEMPLATE");
-			PopulateCampaignList();
+			missionList = widget.Get<ScrollPanelWidget>("MISSION_LIST");
+			missionTemplate = widget.Get<ScrollItemWidget>("MISSION_TEMPLATE");
+			PopulateMissionList();
 		}
 
 		bool disposed;
@@ -126,37 +84,12 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			//PlayVideo(videoPlayer, "G_PLNT_E.VQA", onComplete: () => PlayVideo(videoPlayer, "G_PLN2_E.VQA"));
 		}
 
-		void CampaignSelected(string selected)
+		void MissionSelected(string selected)
 		{
-			switch (selected)
-			{
-				case "atreides":
-					selectedCampaign = "atreides";
-					PlayVideo(videoPlayer, "A_MNTG_E.VQA");
-					break;
-				case "ordos":
-					selectedCampaign = "ordos";
-					PlayVideo(videoPlayer, "O_MNTG_E.VQA");
-					break;
-				case "harkonnen":
-					selectedCampaign = "harkonnen";
-					PlayVideo(videoPlayer, "H_MNTG_E.VQA");
-					break;
-			}
 		}
 
 		void StartButtonClicked()
 		{
-			//StopVideo(videoPlayer);
-			//var campaignManager = modData.Manifest.Get<CampaignManager>();
-			//campaignManager.StartNewCampaign(modData.Manifest.Id, selectedCampaign);
-
-
-			//if (selectedCampaign != null && callback != null)
-				//world.WorldActor.Trait<LuaScript>().InvokeCallback(callback, runtime, new string[1] { selectedCampaign });
-
-			if (selectedCampaign != null)
-				world.WorldActor.Trait<LuaScript>().StartCampaign(selectedCampaign);
 		}
 
 		void BackButtonClicked()
@@ -234,21 +167,21 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 
 		#endregion
 
-		void PopulateCampaignList()
+		void PopulateMissionList()
 		{
-			campaignList.RemoveChildren();
+			missionList.RemoveChildren();
 
-			foreach (var campaign in availableCampaigns)
+			foreach (var mission in availableMissions)
 			{
-				var item = ScrollItemWidget.Setup(campaignTemplate,
-					() => selectedCampaign == campaign.Id,
-					() => selectedCampaign = campaign.Id);
+				var item = ScrollItemWidget.Setup(missionTemplate,
+					() => selectedMission == mission,
+					() => selectedMission = mission);
 
 				var label = item.Get<LabelWithTooltipWidget>("TITLE");
-				WidgetUtils.TruncateLabelToTooltip(label, campaign.Name);
-				label.GetTooltipText = () => campaign.Description;
+				WidgetUtils.TruncateLabelToTooltip(label, mission);
+				label.GetTooltipText = () => mission;
 
-				campaignList.AddChild(item);
+				missionList.AddChild(item);
 			}
 		}
 

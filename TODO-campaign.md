@@ -9,7 +9,7 @@ The shellmap `MainMenu` has 2 buttons:
 #
 ### 2.
 - The `Campaign` button, via `MainMenuLogic`, opens the `CampaignBrowser` screen.
-- The `CampaignBrowser` screen shows a list of available campaigns *(official or user-made, packed or not; this is to be expanded on later, initially it can be a list in `mod.yaml`)*.
+- The `CampaignBrowser` screen shows a list of available campaigns *(official or user-made, packed or not; this is to be expanded on later, initially it can be a list in `mod.yaml` or `missions.yaml`)*.
 - The `CampaignBrowser` calls the shellmap's Lua script with the ID of the selected campaign.
 - (IF APPLICABLE) The shellmap uses the Lua API to play any opening FMV(s).
 - (IF APPLICABLE) The shellmap uses the **new** Lua API method to open the `MissionSelection` screen, providing a list of available missions, images/videos to display, callbacks, clickmaps, etc.

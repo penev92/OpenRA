@@ -1,4 +1,5 @@
 Background@MISSION_SELECTION_PANEL:
+	Logic: CampaignMissionSelectionLogic
 	X: (WINDOW_WIDTH - WIDTH) / 2
 	Y: (WINDOW_HEIGHT - HEIGHT) / 2
 	Width: 682
@@ -29,7 +30,7 @@ Background@MISSION_SELECTION_PANEL:
 							Width: PARENT_WIDTH
 							Height: 13
 							Align: Center
-				ScrollItem@TEMPLATE:
+				ScrollItem@MISSION_TEMPLATE:
 					Width: PARENT_WIDTH - 27
 					Height: 25
 					X: 2

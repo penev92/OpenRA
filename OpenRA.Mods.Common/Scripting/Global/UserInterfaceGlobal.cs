@@ -63,13 +63,12 @@ namespace OpenRA.Mods.Common.Scripting.Global
 		}
 
 		[Desc(".")]
-		public void OpenCampaignSelectionScreen(string widget, string[] availableCampaigns)
+		public void OpenCampaignSelectionScreen(string widget)
 		{
 			Game.OpenWindow(widget, new WidgetArgs
 			{
 				{ "onExit", () => Game.Disconnect() },
-				{ "onStart", () => { } },
-				{ nameof(availableCampaigns), availableCampaigns }
+				{ "onStart", () => { } }
 			});
 		}
 

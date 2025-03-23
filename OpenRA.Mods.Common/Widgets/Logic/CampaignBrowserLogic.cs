@@ -229,7 +229,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 		void StopVideo(VideoPlayerWidget player)
 		{
 			UnMuteSounds();
-			player.Stop();
+			player?.Stop();
 		}
 
 		#endregion

@@ -208,9 +208,14 @@ end
 --
 
 OpenScreen = function(screen, arg)
-	-- TODO: Get a list of available campaigns.
-	local availableCampaigns = { "atreides", "ordos", "harkonnen" }
-	UserInterface.OpenCampaignSelectionScreen("CAMPAIGN_BROWSER_PANEL", availableCampaigns)
+	if screen == "campaign" then
+		Media.PlayMovieFullscreen("G_PLNT_E.VQA", function()
+			-- Media.PlayMovieFullscreen("G_PLN2_E.VQA", function()
+				UserInterface.OpenCampaignSelectionScreen("CAMPAIGN_BROWSER_PANEL")
+			-- end)
+		end)
+	elseif screen == "missions" then
+	end
 end
 
 StartCampaign = function (campaignId)

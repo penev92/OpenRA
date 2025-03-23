@@ -48,8 +48,9 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			this.world = world;
 			this.onStart = onStart;
 			this.onExit = onExit;
+			this.availableMissions = availableMissions;
 
-			var startButton = widget.Get<ButtonWidget>("START_BUTTON");
+			var startButton = widget.Get<ButtonWidget>("STARTGAME_BUTTON");
 			startButton.IsDisabled = () => string.IsNullOrEmpty(selectedMission);
 			startButton.OnClick = () => StartButtonClicked();
 
@@ -58,6 +59,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			// Hide the video player for the time being...
 			widget.Get<ContainerWidget>("MISSION_INFO").IsVisible = () => false;
 			widget.Get<BackgroundWidget>("MISSION_BIN").IsVisible = () => false;
+			widget.Get<VideoPlayerWidget>("MISSION_VIDEO").IsVisible = () => false;
 
 			PanelLoaded();
 
@@ -162,7 +164,7 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 		void StopVideo(VideoPlayerWidget player)
 		{
 			UnMuteSounds();
-			player.Stop();
+			player?.Stop();
 		}
 
 		#endregion

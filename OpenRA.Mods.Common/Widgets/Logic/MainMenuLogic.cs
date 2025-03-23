@@ -116,8 +116,8 @@ namespace OpenRA.Mods.Common.Widgets.Logic
 			singleplayerMenu.IsVisible = () => menuType == MenuType.Singleplayer;
 
 			var campaignButton = singleplayerMenu.Get<ButtonWidget>("CAMPAIGN_BUTTON");
-			campaignButton.OnClick = () => OpenCampaignBrowserPanel();
-			//campaignButton.OnClick = () => world.WorldActor.Trait<LuaScript>().OpenScreen("campaign", "?");
+			//campaignButton.OnClick = () => OpenCampaignBrowserPanel();
+			campaignButton.OnClick = () => world.WorldActor.Trait<LuaScript>().OpenScreen("campaign", "?");
 
 			var missionsButton = singleplayerMenu.Get<ButtonWidget>("MISSIONS_BUTTON");
 			missionsButton.OnClick = () => OpenMissionBrowserPanel(modData.MapCache.PickLastModifiedMap(MapVisibility.MissionSelector));

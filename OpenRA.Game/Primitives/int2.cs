@@ -9,14 +9,15 @@
  */
 #endregion
 
+using OpenRA.Primitives;
 using System;
 using System.Diagnostics.CodeAnalysis;
-using OpenRA.Primitives;
+using System.Globalization;
 
 namespace OpenRA
 {
 	[SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Mimic a built-in type alias.")]
-	public readonly struct int2 : IEquatable<int2>
+	public readonly struct int2 : IEquatable<int2>, ISpanParsable<int2>
 	{
 		public readonly int X, Y;
 		public int2(int x, int y) { X = x; Y = y; }
@@ -85,5 +86,42 @@ namespace OpenRA
 		}
 
 		public static int Dot(int2 a, int2 b) { return a.X * b.X + a.Y * b.Y; }
+
+		#region ISpanParsable<>
+
+		public static int2 Parse(ReadOnlySpan<char> s, IFormatProvider provider)
+			=> TryParse(s, provider, out var v)
+				? v
+				: throw new FormatException($"Invalid int2: '{s.ToString()}'");
+
+		public static bool TryParse(ReadOnlySpan<char> s, IFormatProvider provider, [MaybeNullWhen(false)] out int2 result)
+		{
+			result = default;
+
+			int comma = s.IndexOf(',');
+			if (comma <= 0) return false;
+
+			var xs = s[..comma].Trim();
+			var ys = s[(comma + 1)..].Trim();
+
+			// reject extra commas like "1,2,3"
+			if (ys.IndexOf(',') >= 0) return false;
+
+			const NumberStyles styles = NumberStyles.Integer;
+
+			if (!int.TryParse(xs, styles, provider, out var x)) return false;
+			if (!int.TryParse(ys, styles, provider, out var y)) return false;
+
+			result = new int2(x, y);
+			return true;
+		}
+
+		public static int2 Parse(string s, IFormatProvider provider)
+			=> Parse(s.AsSpan(), provider);
+
+		public static bool TryParse([NotNullWhen(true)] string s, IFormatProvider provider, [MaybeNullWhen(false)] out int2 result)
+			=> TryParse(s.AsSpan(), provider, out result);
+
+		#endregion
 	}
 }

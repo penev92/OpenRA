@@ -1,4 +1,30 @@
 ^BaseWorld:
+	DummyTestTrait:
+		IsLoaded: true
+		OverrideShroudIndex: 3
+		Sequence: bobby
+		ShroudBlend: Multiplicative
+		PointInSpace: 1.00,2.4,3.128
+		Index: 3,5,9, 18, 22
+		ShroudVariants: a1, b3, c4, d18
+		ManyPoints: 2,1, 0,3,4,18
+		TerrainTypes: water,earth,fire, air, fish, fire,
+		TerrainSpeeds:
+			Clear: 100
+			Rough: 89
+			Road: 111
+			Bridge: 111
+			Ore: 89
+			Gems: 89
+			Beach: 89
+		DamageModifiers:
+			1: 100,0,5
+			2: 89,4,8
+			3: 111,54,2
+			4: 111,-6,12
+			5: 89,90,09
+			6: 89,5,3
+			7: 89,12,32
 	Inherits: ^Palettes
 	ActorMap:
 	ScreenMap:

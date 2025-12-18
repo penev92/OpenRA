@@ -11,13 +11,14 @@
 
 using System;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Runtime.InteropServices;
 
 namespace OpenRA
 {
 	[SuppressMessage("Style", "IDE1006:Naming Styles", Justification = "Mimic a built-in type alias.")]
 	[StructLayout(LayoutKind.Sequential)]
-	public readonly struct float3 : IEquatable<float3>
+	public readonly struct float3 : IEquatable<float3>, ISpanParsable<float3>
 	{
 		public readonly float X, Y, Z;
 		public float2 XY => new(X, Y);
@@ -59,6 +60,51 @@ namespace OpenRA
 		}
 
 		public override string ToString() { return $"{X},{Y},{Z}"; }
+
+		#region ISpanParsable<>
+
+		public static float3 Parse(ReadOnlySpan<char> s, IFormatProvider provider)
+			=> TryParse(s, provider, out var v)
+				? v
+				: throw new FormatException($"Invalid float3: '{s.ToString()}'");
+
+		public static bool TryParse(ReadOnlySpan<char> s, IFormatProvider provider, [MaybeNullWhen(false)] out float3 result)
+		{
+			result = default;
+
+			var c1 = s.IndexOf(',');
+			if (c1 <= 0) return false;
+
+			var rest = s[(c1 + 1)..];
+			var c2rel = rest.IndexOf(',');
+			if (c2rel <= 0) return false;
+
+			var c2 = c1 + 1 + c2rel;
+
+			var xs = s[..c1].Trim();
+			var ys = s[(c1 + 1)..c2].Trim();
+			var zs = s[(c2 + 1)..].Trim();
+
+			// reject extra commas like "1,2,3,4"
+			if (zs.IndexOf(',') >= 0) return false;
+
+			const NumberStyles styles = NumberStyles.Float | NumberStyles.AllowThousands;
+
+			if (!float.TryParse(xs, styles, provider, out var x)) return false;
+			if (!float.TryParse(ys, styles, provider, out var y)) return false;
+			if (!float.TryParse(zs, styles, provider, out var z)) return false;
+
+			result = new float3(x, y, z);
+			return true;
+		}
+
+		public static float3 Parse(string s, IFormatProvider provider)
+			=> Parse(s.AsSpan(), provider);
+
+		public static bool TryParse([NotNullWhen(true)] string s, IFormatProvider provider, [MaybeNullWhen(false)] out float3 result)
+			=> TryParse(s.AsSpan(), provider, out result);
+
+		#endregion
 
 		public static readonly float3 Zero = new(0, 0, 0);
 		public static readonly float3 Ones = new(1, 1, 1);

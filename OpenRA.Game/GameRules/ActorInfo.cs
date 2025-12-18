@@ -81,7 +81,7 @@ namespace OpenRA
 			// HACK: The linter does not want to crash when a trait doesn't exist but only print an error instead
 			// ObjectCreator will only return null to signal us to abort here if the linter is running
 			var traitInstance = traitName.Split(TraitInstanceSeparator);
-			var info = creator.CreateObject<TraitInfo>(traitInstance[0] + "Info");
+			var info = creator.CreateObject<TraitInfo>(traitInstance[0] + "Info", new Dictionary<string, object> { { "miniYamlDictionary", my.ToDictionary() } });
 			if (info == null)
 				return null;
 

@@ -62,8 +62,8 @@
   <!-- Ensure everything is compiled with a specific version of Roslyn. -->
   <!-- But just for Mono so we don't risk making local development experience worse. -->
   <!-- Target the same version as OpenRA.Roslyn for consistency. -->
-  <ItemGroup Condition="'$(MSBuildRuntimeType)' == 'Mono'">
+  <!-- <ItemGroup Condition="'$(MSBuildRuntimeType)' == 'Mono'">
     <PackageReference Include="Microsoft.Net.Compilers.Toolset" Version="4.7.0" />
-  </ItemGroup>
+  </ItemGroup> -->
 
 </Project>

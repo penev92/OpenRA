@@ -22,6 +22,7 @@ namespace OpenRA.Traits
 	public partial class DebugPauseState
 	{
 		readonly World world;
+
 		[Sync]
 		public bool Paused => world.Paused;
 

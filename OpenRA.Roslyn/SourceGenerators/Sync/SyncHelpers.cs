@@ -16,6 +16,7 @@ namespace OpenRA.Roslyn.SourceGenerators.Sync
 {
 	static class SyncHelpers
 	{
+		public const string FullyQualifiedGenerateSyncCodeAttributeName = "OpenRA.GenerateSyncCodeAttribute";
 		public const string GenerateSyncCodeAttributeName = "GenerateSyncCodeAttribute";
 		public const string VerifySyncAttributeName = "VerifySyncAttribute";
 		public const string SyncInterfaceName = "OpenRA.ISync";

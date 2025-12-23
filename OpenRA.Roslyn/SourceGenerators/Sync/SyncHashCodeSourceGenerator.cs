@@ -10,8 +10,8 @@
 #endregion
 
 using System.Collections.Generic;
-using System.Collections.Immutable;
 using System.Linq;
+using System.Threading;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -24,53 +24,71 @@ namespace OpenRA.Roslyn.SourceGenerators.Sync
 	{
 		public void Initialize(IncrementalGeneratorInitializationContext context)
 		{
-			var classDeclarationsProvider = context.SyntaxProvider
-				.CreateSyntaxProvider(
-					predicate: static (syntaxNode, _) => syntaxNode.IsPartialClass(),
-					transform: static (generatorContext, _) => GetClassDeclarationSymbol(generatorContext))
-				.Where(static x => x != null)
-				.Collect();
+			// This will filter only (all) partial classes with GenerateSyncCodeAttribute that don't explicitly implement ISync
+			// then parse ALL OF THEM into a cunstom struct with all the data necessary to generate the sync code
+			// and cache those.
+			var syncableClassInfoProvider = context.SyntaxProvider
+				.ForAttributeWithMetadataName( // TODO: Check if this fires up for inherited attributes. (we decided we want them explicit, but still should check!)
+					SyncHelpers.FullyQualifiedGenerateSyncCodeAttributeName,
+					predicate: (_, _) => true, //SourceGeneratorHelpers.IsPartialClass,  What if we let it try to generate on non-partial classes with the attribute as a way of telling the user they're doing something wrong?
+					transform: GetSyncableClassInfo)
+				.Where(static x => x.IsValid)
+				.Select(static (x, _) => x.SyncableClassInfo);
 
-			var compilationAndClasses = context.CompilationProvider.Combine(classDeclarationsProvider);
+			context.RegisterSourceOutput(syncableClassInfoProvider, Execute);
 
-			context.RegisterSourceOutput(compilationAndClasses,
-				static (context, source) => ProcessClassDeclarations(source.Left, source.Right, context));
+			//// TODO: Don't combine with Compilation!
+			//var compilationAndClasses = context.CompilationProvider.Combine(syncableClassInfoProvider);
+
+			//context.RegisterSourceOutput(compilationAndClasses,
+			//	static (context, source) => ProcessClassDeclarations(source.Left, source.Right, context));
 		}
 
-		static ClassDeclarationSyntax GetClassDeclarationSymbol(GeneratorSyntaxContext context)
+		static (SyncableClassInfo SyncableClassInfo, bool IsValid) GetSyncableClassInfo(GeneratorAttributeSyntaxContext context, CancellationToken _)
 		{
-			if (context.SemanticModel.GetDeclaredSymbol(context.Node) is INamedTypeSymbol typeSymbol
-				&& typeSymbol.HasOrInheritsGenerateSyncCodeAttribute()
+			var classSyntax = context.TargetNode as ClassDeclarationSyntax;
+			var namespaceName = SourceGeneratorHelpers.GetNameSpace(context.TargetNode);
+			var classModifiers = classSyntax.Modifiers;
+			//var methodModifiers = ; make this a list of strings, then concat them.
+			//var shouldCallBase = typeSymbol.BaseType.HasOrInheritsGenerateSyncCodeAttribute();
+			return (default, false);
+		}
+
+		static void Execute(SourceProductionContext context, SyncableClassInfo classInfo)
+		{
+			var (filename, content) = GenerateClass(classInfo.NamespaceName, classDeclaration, typeSymbol, syncedClassMembers, shouldCallBase);
+			//if (content != null)
+			//	context.AddSource(filename, content);
+		}
+
+		// TODO: So this should return our own SyncableClassInfo, not *Syntax?!
+		static ClassDeclarationSyntax GetClassDeclarationSymbol(GeneratorAttributeSyntaxContext context)
+		{
+			if (context.TargetSymbol is INamedTypeSymbol typeSymbol
 				&& !typeSymbol.ManuallyImplementsISync())
-				return context.Node as ClassDeclarationSyntax;
+				return context.TargetNode as ClassDeclarationSyntax;
 
 			return null;
 		}
 
-		static void ProcessClassDeclarations(Compilation compilation, ImmutableArray<ClassDeclarationSyntax> classes, SourceProductionContext context)
+		static void ProcessClassDeclarations(Compilation compilation, ClassDeclarationSyntax classDeclaration, SourceProductionContext context)
 		{
-			if (classes.IsDefaultOrEmpty)
+			if (classDeclaration.Parent is not NamespaceDeclarationSyntax namespaceDeclaration)
 				return;
 
-			foreach (var classDeclaration in classes.Distinct())
-			{
-				if (classDeclaration.Parent is not NamespaceDeclarationSyntax namespaceDeclaration)
-					continue;
+			var semanticModel = compilation.GetSemanticModel(classDeclaration.SyntaxTree);
+			var typeSymbol = semanticModel.GetDeclaredSymbol(classDeclaration);
+			if (typeSymbol == null)
+				return;
 
-				var semanticModel = compilation.GetSemanticModel(classDeclaration.SyntaxTree);
-				var typeSymbol = semanticModel.GetDeclaredSymbol(classDeclaration);
-				if (typeSymbol == null)
-					continue;
+			var syncedClassMembers = GetSyncHashElements(typeSymbol);
+			if (!syncedClassMembers.Any())
+				return;
 
-				var syncedClassMembers = GetSyncHashElements(typeSymbol);
-				if (!syncedClassMembers.Any())
-					continue;
-
-				var shouldCallBase = typeSymbol.BaseType.HasOrInheritsGenerateSyncCodeAttribute();
-				var (filename, content) = GenerateClass(namespaceDeclaration.Name, classDeclaration, typeSymbol, syncedClassMembers, shouldCallBase);
-				if (content != null)
-					context.AddSource(filename, content);
-			}
+			var shouldCallBase = typeSymbol.BaseType.HasOrInheritsGenerateSyncCodeAttribute();
+			var (filename, content) = GenerateClass(namespaceDeclaration.Name, classDeclaration, typeSymbol, syncedClassMembers, shouldCallBase);
+			if (content != null)
+				context.AddSource(filename, content);
 		}
 
 		static IEnumerable<string> GetSyncHashElements(INamedTypeSymbol classSymbol)

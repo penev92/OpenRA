@@ -67,6 +67,7 @@ namespace OpenRA
 
 		public static int Hash(Player p) => p == null ? 0 : (int)(p.PlayerActor.ActorID << 16) * 0x567;
 
+		[Obsolete("Attempting to hash an unsupported type!", true)]
 		public static int Hash(object o) => throw new NotSupportedException($"Type {o.GetType().FullName} is not supported for Sync hashing!");
 
 		public static int Hash(Target t)

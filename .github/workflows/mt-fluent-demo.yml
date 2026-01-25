@@ -1,0 +1,44 @@
+name: MT Fluent demo (ai-inference)
+
+on:
+  workflow_dispatch:
+    inputs:
+      lang:
+        description: "Target language code (e.g. bg, de, fr)"
+        required: true
+        default: "bg"
+
+jobs:
+  translate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      models: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Translate with GitHub Models (strict JSON)
+        id: mt
+        uses: actions/ai-inference@v2
+        with:
+          token: ${{ github.token }}
+          prompt-file: ./.github/prompts/translate-fluent.prompt.yml
+          input: |
+            lang: ${{ inputs.lang }}
+            source_ftl: |-
+              notification-timeout-dropped-in =
+                  { $timeout ->
+                      [one] { $player } will be dropped in { $timeout } second.
+                     *[other] { $player } will be dropped in { $timeout } seconds.
+                  }
+              notification-vote-kick-started = Player { $kicker } has started a vote to kick player { $kickee }.
+              notification-vote-kick-in-progress = { $percentage }% of players have voted to kick player { $kickee }.
+
+      - name: Print translated Fluent text
+        run: |
+          echo "Raw response JSON:"
+          cat "${{ steps.mt.outputs.response-file }}"
+          echo
+          echo "Translated .ftl:"
+          jq -r '.translated_ftl' "${{ steps.mt.outputs.response-file }}"

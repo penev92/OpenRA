@@ -24,7 +24,7 @@ jobs:
         with:
           token: ${{ github.token }}
           prompt-file: ./.github/prompts/translate-fluent.prompt.yml
-          max-tokens: 20000
+          max-tokens: 16384
           input: |
             lang: ${{ inputs.lang }}
             source_ftl: |-

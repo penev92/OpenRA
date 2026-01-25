@@ -27,13 +27,102 @@ jobs:
           input: |
             lang: ${{ inputs.lang }}
             source_ftl: |-
-              notification-timeout-dropped-in =
-                  { $timeout ->
-                      [one] { $player } will be dropped in { $timeout } second.
-                     *[other] { $player } will be dropped in { $timeout } seconds.
-                  }
-              notification-vote-kick-started = Player { $kicker } has started a vote to kick player { $kickee }.
-              notification-vote-kick-in-progress = { $percentage }% of players have voted to kick player { $kickee }.
+                ## Buttons
+                button-cancel = Cancel
+                button-retry = Retry
+                button-back = Back
+                button-continue = Continue
+                button-quit = Quit
+
+                ## Server Orders
+                notification-custom-rules = This map contains custom rules. Game experience may change.
+                notification-map-bots-disabled = Bots have been disabled on this map.
+                notification-two-humans-required = This server requires at least two human players to start a match.
+                notification-unknown-server-command = Unknown server command: { $command }.
+                notification-admin-start-game = Only the host can start the game.
+                notification-no-start-until-required-slots-full = Unable to start the game until required slots are full.
+                notification-no-start-without-players = Game cannot start without players.
+                notification-insufficient-enabled-spawn-points = Unable to start the game until more spawn points are enabled.
+                notification-malformed-command = Malformed { $command } command.
+                notification-state-unchanged-ready = Cannot change state when marked as ready.
+                notification-invalid-faction-selected = Invalid faction selected: { $faction }.
+                notification-state-unchanged-game-started = State cannot be changed once the game has started ({ $command }).
+                notification-requires-host = Only the host can do that.
+                notification-invalid-bot-slot = Cannot add bots to a slot with another client.
+                notification-invalid-bot-type = Invalid bot type.
+                notification-admin-change-map = Only the host can change the map.
+                notification-player-disconnected = { $player } has disconnected.
+                notification-team-player-disconnected = { $player } (Team { $team }) has disconnected.
+                notification-observer-disconnected = { $player } (Spectator) has disconnected.
+                notification-unknown-map = Map was not found on server.
+                notification-searching-map = Searching for map on the Resource Center...
+                notification-admin-change-configuration = Only the host can change the configuration.
+                notification-changed-map = { $player } changed the map to { $map }.
+                notification-you-were-kicked = You have been kicked from the server.
+                notification-admin-kicked = { $admin } kicked { $player } from the server.
+                notification-kicked = { $player } was kicked from the server.
+                notification-temp-ban = { $admin } temporarily banned { $player } from the server.
+                notification-admin-transfer-admin = Only admins can transfer admin to another player.
+                notification-admin-move-spectators = Only the host can move players to spectators.
+                notification-empty-slot = No one in that slot.
+                notification-move-spectators = { $admin } moved { $player } to spectators.
+                notification-nick-changed = { $player } is now known as { $name }.
+                notification-player-dropped = A player has been dropped after timing out.
+                notification-connection-problems = { $player } is experiencing connection problems.
+                notification-timeout-dropped = { $player } has been dropped after timing out.
+                notification-timeout-dropped-in =
+                    { $timeout ->
+                        [one] { $player } will be dropped in { $timeout } second.
+                    *[other] { $player } will be dropped in { $timeout } seconds.
+                    }
+                notification-error-game-started = The game has already started.
+                notification-requires-password = Server requires a password.
+                notification-incorrect-password = Incorrect password.
+                notification-incompatible-mod = Server is running an incompatible mod.
+                notification-incompatible-version = Server is running an incompatible version.
+                notification-incompatible-protocol = Server is running an incompatible protocol.
+                notification-you-were-banned = You have been banned from the server.
+                notification-you-were-temp-banned = You have been temporarily banned from the server.
+                notification-game-full = The game is full.
+                notification-new-admin = { $player } is now the admin.
+                notification-invalid-configuration-command = Invalid configuration command.
+                notification-admin-option = Only the host can set that option.
+                notification-error-number-teams = Could not parse the number of teams: { $raw }.
+                notification-admin-kick = Only the host can kick players.
+
+                ## UnitOrders
+                notification-game-has-started = The game has started.
+                notification-game-saved = Game saved.
+                notification-game-paused = The game has been paused by { $player }.
+                notification-game-unpaused = The game has been un-paused by { $player }.
+
+                ## TimeLimitManager
+                dropdown-time-limit =
+                    .label = Time Limit
+                    .description = The player or team with the highest score at the end of this time wins
+
+                ## Tooltip
+                label-tooltip-prefix =
+                    .ally = Ally
+                    .enemy = Enemy
+
+                ## Server
+                notification-game-started = Game started.
+
+                ## PlayerMessageTracker
+                notification-chat-temp-disabled =
+                    { $remaining ->
+                        [one] Chat is disabled. Please try again in { $remaining } second.
+                    *[other] Chat is disabled. Please try again in { $remaining } seconds.
+                    }
+
+                ## VoteKickTracker
+                notification-unable-to-start-a-vote = Unable to start a vote.
+                notification-insufficient-votes-to-kick = Insufficient votes to kick player { $kickee }.
+                notification-kick-already-voted = You have already voted.
+                notification-vote-kick-started = Player { $kicker } has started a vote to kick player { $kickee }.
+                notification-vote-kick-in-progress = { $percentage }% of players have voted to kick player { $kickee }.
+                notification-vote-kick-ended = Vote to kick player { $kickee } has failed.
 
       - name: Print translated Fluent text
         run: |

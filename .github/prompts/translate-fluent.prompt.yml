@@ -25,6 +25,7 @@ messages:
       {{source_ftl}}
 
 model: openai/gpt-4o
+max-tokens: 20002
 responseFormat: json_schema
 jsonSchema: |-
   {

@@ -47,6 +47,7 @@ jobs:
         with:
           model: openai/gpt-4o-mini
           prompt-file: ./.github/prompts/translate-fluent-changes.prompt.yml
+          max-tokens: 16384
           file_input: |
             request_json: ./mt_request.json
 

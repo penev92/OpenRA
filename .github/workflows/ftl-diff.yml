@@ -1,8 +1,12 @@
 name: FTL entry diff
 
+#on:
+#  push:
+#  workflow_dispatch:
 on:
   push:
-  workflow_dispatch:
+    tags:
+    - 'release-*'
 
 jobs:
   ftl-diff:

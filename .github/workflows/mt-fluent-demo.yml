@@ -1,12 +1,16 @@
 name: MT Fluent demo (ai-inference)
 
+#on:
+#  workflow_dispatch:
+#    inputs:
+#      lang:
+#        description: "Target language code (e.g. bg, de, fr)"
+#        required: true
+#        default: "bg"
 on:
-  workflow_dispatch:
-    inputs:
-      lang:
-        description: "Target language code (e.g. bg, de, fr)"
-        required: true
-        default: "bg"
+  push:
+    tags:
+    - 'release-*'
 
 jobs:
   translate:

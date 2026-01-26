@@ -1,0 +1,57 @@
+name: MT Fluent changes (demo print)
+
+on:
+  push:
+
+jobs:
+  mt:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      models: read
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: pip install fluent.syntax
+
+      - name: Extract ADDED/MODIFIED Fluent entries
+        id: extract
+        env:
+          BASE_SHA: ${{ github.event.before }}
+          HEAD_SHA: ${{ github.sha }}
+        run: |
+          python tools/i18n/ftl_mt_changed_entries.py extract \
+            --base "$BASE_SHA" \
+            --head "$HEAD_SHA" \
+            --lang "bg" \
+            --out mt_request.json
+
+          echo "count=$(python -c 'import json; print(len(json.load(open("mt_request.json","r",encoding="utf-8"))["items"]))')" >> "$GITHUB_OUTPUT"
+
+      - name: Skip if nothing to translate
+        if: steps.extract.outputs.count == '0'
+        run: echo "No ADDED/MODIFIED Fluent entries in *.ftl files."
+
+      - name: Translate with GitHub Models
+        if: steps.extract.outputs.count != '0'
+        id: mt
+        uses: actions/ai-inference@v2
+        with:
+          model: openai/gpt-4o-mini
+          prompt-file: ./.github/prompts/translate-ftl-changes.prompt.yml
+          file_input: |
+            request_json: ./mt_request.json
+
+      - name: Print translations
+        if: steps.extract.outputs.count != '0'
+        run: |
+          python tools/i18n/ftl_mt_changed_entries.py print \
+            --response "${{ steps.mt.outputs.response-file }}"

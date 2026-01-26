@@ -1,14 +1,18 @@
 name: Continuous Integration
 
+#on:
+#  push:
+#    paths-ignore:
+#      - '*.md'
+#  pull_request:
+#    branches: [ bleed, 'prep-*' ]
+#    paths-ignore:
+#      - '*.md'
+#      - '*.py'
 on:
   push:
-    paths-ignore:
-      - '*.md'
-  pull_request:
-    branches: [ bleed, 'prep-*' ]
-    paths-ignore:
-      - '*.md'
-      - '*.py'
+    tags:
+    - 'release-*'
 
 permissions:
   contents: read  #  to fetch code (actions/checkout)

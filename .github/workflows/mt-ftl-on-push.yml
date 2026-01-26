@@ -46,7 +46,7 @@ jobs:
         uses: actions/ai-inference@v2
         with:
           model: openai/gpt-4o-mini
-          prompt-file: ./.github/prompts/translate-ftl-changes.prompt.yml
+          prompt-file: ./.github/prompts/translate-fluent-changes.prompt.yml
           file_input: |
             request_json: ./mt_request.json
 

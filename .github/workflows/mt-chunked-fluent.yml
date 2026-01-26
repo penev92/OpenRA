@@ -59,6 +59,7 @@ jobs:
           # pick a low-tier model if you want higher free daily request budget; tier is shown on the model page :contentReference[oaicite:3]{index=3}
           model: openai/gpt-4o-mini
           prompt-file: ./.github/prompts/translate-ftl-chunk.prompt.yml
+          max-tokens: 16384
           input: |
             lang: ${{ matrix.lang }}
           file_input: |

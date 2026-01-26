@@ -2,8 +2,7 @@ name: FTL entry diff
 
 on:
   push:
-    paths:
-      - '*.ftl'
+  workflow_dispatch:
 
 jobs:
   ftl-diff:

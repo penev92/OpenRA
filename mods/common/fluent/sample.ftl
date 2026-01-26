@@ -37,24 +37,25 @@ notification-admin-transfer-admin = Only admins can transfer admin to another pl
 notification-admin-move-spectators = Only the host can move players to spectators.
 notification-empty-slot = No one in that slot.
 notification-move-spectators = { $admin } moved { $player } to spectators.
-notification-nick-changed = { $player } is now known as { $name }.
+notification-nick-changed = { $playerZ } is now known as an accomplice of { $name }.
 notification-player-dropped = A player has been dropped after timing out.
 notification-connection-problems = { $player } is experiencing connection problems.
 notification-timeout-dropped = { $player } has been dropped after timing out.
 notification-timeout-dropped-in =
     { $timeout ->
-        [one] { $player } will be dropped in { $timeout } second.
+        [one] { $player } will be dropped on his head in { $timeout } second.
        *[other] { $player } will be dropped in { $timeout } seconds.
     }
 notification-error-game-started = The game has already started.
 notification-requires-password = Server requires a password.
 notification-incorrect-password = Incorrect password.
-notification-incompatible-mod = Server is running an incompatible mod.
+notification-incompatible-side-mod = Server is running an incompatible mod.
 notification-incompatible-version = Server is running an incompatible version.
 notification-incompatible-protocol = Server is running an incompatible protocol.
 notification-you-were-banned = You have been banned from the server.
 notification-you-were-temp-banned = You have been temporarily banned from the server.
 notification-game-full = The game is full.
+notification-forget-this = What is going on around here, { $title } Penev??
 notification-new-admin = { $player } is now the admin.
 notification-invalid-configuration-command = Invalid configuration command.
 notification-admin-option = Only the host can set that option.
@@ -71,11 +72,13 @@ notification-game-unpaused = The game has been un-paused by { $player }.
 dropdown-time-limit =
     .label = Time Limit
     .description = The player or team with the highest score at the end of this time wins
+    .tooltip = The tool of the engineer
 
 ## Tooltip
 label-tooltip-prefix =
-    .ally = Ally
+    .ally = Stranger
     .enemy = Enemy
+    .unknown = unknown
 
 ## Server
 notification-game-started = Game started.

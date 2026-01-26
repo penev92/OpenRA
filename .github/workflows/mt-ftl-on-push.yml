@@ -28,7 +28,7 @@ jobs:
           BASE_SHA: ${{ github.event.before }}
           HEAD_SHA: ${{ github.sha }}
         run: |
-          python tools/i18n/ftl_mt_changed_entries.py extract \
+          python ./packaging/ftl_mt_changed_entries.py extract \
             --base "$BASE_SHA" \
             --head "$HEAD_SHA" \
             --lang "bg" \
@@ -53,5 +53,5 @@ jobs:
       - name: Print translations
         if: steps.extract.outputs.count != '0'
         run: |
-          python tools/i18n/ftl_mt_changed_entries.py print \
+          python ./packaging/ftl_mt_changed_entries.py print \
             --response "${{ steps.mt.outputs.response-file }}"

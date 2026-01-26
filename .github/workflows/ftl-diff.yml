@@ -1,0 +1,130 @@
+name: FTL entry diff
+
+on:
+  push:
+    paths:
+      - '*.ftl'
+
+jobs:
+  ftl-diff:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # we need the "before" commit to exist locally
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install fluent.syntax
+        run: pip install fluent.syntax
+
+      - name: Print changed Fluent entries (added/modified/removed)
+        env:
+          BASE_SHA: ${{ github.event.before }}
+          HEAD_SHA: ${{ github.sha }}
+        run: |
+          python - <<'PY'
+          import os
+          import subprocess
+          import sys
+
+          from fluent.syntax.parser import FluentParser
+          from fluent.syntax import ast
+
+          BASE = os.environ.get("BASE_SHA", "")
+          HEAD = os.environ.get("HEAD_SHA", "")
+
+          def sh(cmd, check=True):
+            return subprocess.run(cmd, check=check, text=True, capture_output=True)
+
+          def git_show(ref, path):
+            # Return file text at ref:path, or "" if it doesn't exist there.
+            if not ref or set(ref) == {"0"}:
+              return ""
+            r = sh(["git", "show", f"{ref}:{path}"], check=False)
+            return r.stdout if r.returncode == 0 else ""
+
+          def changed_ftl_files(base, head):
+            if not base or set(base) == {"0"}:
+              # New branch / first push: treat as "all new", so just list current *.ftl
+              r = sh(["git", "ls-files", "*.ftl"], check=False)
+              return [p for p in r.stdout.splitlines() if p.strip()]
+            r = sh(["git", "diff", "--name-only", base, head, "--", "*.ftl"], check=False)
+            return [p for p in r.stdout.splitlines() if p.strip()]
+
+          def parse_messages_with_spans(ftl_text):
+            """
+            Returns dict: msg_id -> raw entry text slice (exact from original source).
+            Message span covers the whole message (including its attributes).
+            """
+            out = {}
+            if not ftl_text.strip():
+              return out
+            parser = FluentParser(with_spans=True)
+            res = parser.parse(ftl_text)
+            for node in res.body:
+              if isinstance(node, ast.Message) and node.id and node.id.name and getattr(node, "span", None):
+                mid = node.id.name
+                raw = ftl_text[node.span.start:node.span.end].rstrip()
+                out[mid] = raw
+            return out
+
+          files = changed_ftl_files(BASE, HEAD)
+          if not files:
+            print("No *.ftl changes in this push.")
+            sys.exit(0)
+
+          print("Changed *.ftl files:")
+          for f in files:
+            print(f"  - {f}")
+          print()
+
+          any_changes = False
+
+          for path in files:
+            base_text = git_show(BASE, path)
+            # HEAD version is from working tree if it exists; otherwise treat as deleted
+            try:
+              with open(path, "r", encoding="utf-8") as fh:
+                head_text = fh.read()
+              head_exists = True
+            except FileNotFoundError:
+              head_text = ""
+              head_exists = False
+
+            base_msgs = parse_messages_with_spans(base_text)
+            head_msgs = parse_messages_with_spans(head_text)
+
+            added = sorted(set(head_msgs) - set(base_msgs))
+            removed = sorted(set(base_msgs) - set(head_msgs))
+            modified = sorted(k for k in set(head_msgs) & set(base_msgs) if head_msgs[k] != base_msgs[k])
+
+            if not (added or removed or modified):
+              continue
+
+            any_changes = True
+            print(f"=== {path} ===")
+
+            for k in added:
+              print(f"[ADDED] {k}")
+              print(head_msgs[k])
+              print()
+
+            for k in modified:
+              print(f"[MODIFIED] {k}")
+              print("--- before ---")
+              print(base_msgs[k])
+              print("--- after ---")
+              print(head_msgs[k])
+              print()
+
+            for k in removed:
+              print(f"[REMOVED] {k}")
+              print(base_msgs[k])
+              print()
+
+          if not any_changes:
+            print("No message-level changes detected in parsed Fluent entries.")
+          PY

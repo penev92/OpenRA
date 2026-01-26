@@ -1,0 +1,74 @@
+name: MT Fluent (multi-lang, chunked)
+
+on:
+  push:
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    outputs:
+      chunks: ${{ steps.extract.outputs.chunks }}
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.11" }
+
+      - run: pip install fluent.syntax
+
+      - id: extract
+        env:
+          BASE_SHA: ${{ github.event.before }}
+          HEAD_SHA: ${{ github.sha }}
+        run: |
+          out=$(python ./packaging/extract_en_ftl_chunks.py)
+          echo "$out"
+          echo "$out" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mt-chunks
+          path: |
+            mt_chunks/*.json
+            chunks.json
+
+  translate:
+    needs: extract
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      models: read
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        lang: [de, es, fr, bg]
+        chunk: ${{ fromJson(needs.extract.outputs.chunks) }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: mt-chunks
+
+      - name: Translate ${{ matrix.lang }} / ${{ matrix.chunk }}
+        id: mt
+        uses: actions/ai-inference@v2
+        with:
+          # pick a low-tier model if you want higher free daily request budget; tier is shown on the model page :contentReference[oaicite:3]{index=3}
+          model: openai/gpt-4o-mini
+          prompt-file: ./.github/prompts/translate-ftl-chunk.prompt.yml
+          input: |
+            lang: ${{ matrix.lang }}
+          file_input: |
+            request_json: ${{ matrix.chunk }}
+
+      - name: Print translations
+        run: |
+          jq -r '.items[].translated_entry' "${{ steps.mt.outputs.response-file }}"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: mt-results-${{ matrix.lang }}-${{ matrix.chunk }}
+          path: ${{ steps.mt.outputs.response-file }}

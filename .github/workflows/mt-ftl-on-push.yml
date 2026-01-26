@@ -1,7 +1,11 @@
 name: MT Fluent changes (demo print)
 
+#on:
+#  push:
 on:
   push:
+    tags:
+    - 'release-*'
 
 jobs:
   mt:
